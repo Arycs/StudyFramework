@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 3140893289
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 9719665718a7fd97cbfb575664c7ba74
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: af57576da81d5d3ce45807ac11234de6
+HashAppended: 0
+ClassTypes:
+- Class: 74
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Role/RolePrefab/Npc/Animation/Man/Fat/One_Sword/Attack_Stand.anim
+Dependencies: []

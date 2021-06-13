@@ -1,0 +1,27 @@
+ManifestFileVersion: 0
+CRC: 0
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 9b8b0dd21381ad765b6d80c31bda5264
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 31d6cfe0d16ae931b73c59d7e0c089c0
+HashAppended: 0
+ClassTypes: []
+Assets:
+- Assets/Download/UI/UIPrefab/Loading/UI_Loading.prefab
+- Assets/Download/UI/UIPrefab/Loading/UI_CheckVersion.prefab
+- Assets/Download/UI/UIPrefab/FormChinese/UI_TaskDetail.prefab
+- Assets/Download/UI/UIPrefab/FormEnglish/UI_Task.prefab
+- Assets/Download/UI/UIPrefab/FormChinese/UI_Task.prefab
+- Assets/Download/UI/UIPrefab/Loading/UI_Loading1.prefab
+- Assets/Download/UI/UIPrefab/Joystick/Joystick.prefab
+- Assets/Download/UI/UIPrefab/Form/UI_TaskDetail.prefab
+Dependencies:
+- D:/GitHub_Repository/MMOStudy/Assets/../AssetBundles/1.0.6/Windows/download/ui/uifont.assetbundle
+- D:/GitHub_Repository/MMOStudy/Assets/../AssetBundles/1.0.6/Windows/download/ui/uires/uicommon.assetbundle
+- D:/GitHub_Repository/MMOStudy/Assets/../AssetBundles/1.0.6/Windows/download/ui/uires/uiframe.assetbundle
+- D:/GitHub_Repository/MMOStudy/Assets/../AssetBundles/1.0.6/Windows/download/ui/uires/uititlebar.assetbundle
+- D:/GitHub_Repository/MMOStudy/Assets/../AssetBundles/1.0.6/Windows/download/ui/uires/loading/loading.assetbundle
+- D:/GitHub_Repository/MMOStudy/Assets/../AssetBundles/1.0.6/Windows/download/ui/uires/loading/loading_bg.assetbundle

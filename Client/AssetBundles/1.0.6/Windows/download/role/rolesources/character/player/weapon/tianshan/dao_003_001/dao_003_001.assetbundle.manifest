@@ -1,0 +1,29 @@
+ManifestFileVersion: 0
+CRC: 1688509981
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 7635129a8fe6fdc70f232b108b6a4131
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 11dbca4d85bfecd2c6028d9ee4651107
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 111
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Role/RoleSources/Character/Player/Weapon/Tianshan/Dao_003_001/Dao_003_001.FBX
+Dependencies:
+- D:/GitHub_Repository/MMOStudy/Assets/../AssetBundles/1.0.6/Windows/download/role/rolesources/character/player/weapon/tianshan/dao_003_001/materials/dao_003_001.assetbundle

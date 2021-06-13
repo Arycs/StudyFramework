@@ -1,0 +1,21 @@
+ManifestFileVersion: 0
+CRC: 471702135
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 0af3f3d28b1a8fbc0f2c8df5af0716d8
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 21c99c86a43ad817b2cb7f65458ae090
+HashAppended: 0
+ClassTypes:
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Role/RoleSources/Character/Npc/Building/Npc_001_jiutan_001/Materials/Npc_001_jiutan_001.jpg
+- Assets/Download/Role/RoleSources/Character/Npc/Building/Npc_001_jiutan_001/Materials/Npc_001_jiutan_001.mat
+Dependencies: []

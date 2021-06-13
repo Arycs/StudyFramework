@@ -1,0 +1,21 @@
+ManifestFileVersion: 0
+CRC: 152211743
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: adc9db6874c1d009ef272f30a721bb19
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 21c99c86a43ad817b2cb7f65458ae090
+HashAppended: 0
+ClassTypes:
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Role/RoleSources/Character/Player/Opening/Back/Materials/run.png
+- Assets/Download/Role/RoleSources/Character/Player/Opening/Back/Materials/run.mat
+Dependencies: []

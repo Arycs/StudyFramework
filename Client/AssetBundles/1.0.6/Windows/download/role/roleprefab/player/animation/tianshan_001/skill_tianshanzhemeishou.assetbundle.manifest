@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 2503330185
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 6b627d52851962180a5b6897e5970994
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: af57576da81d5d3ce45807ac11234de6
+HashAppended: 0
+ClassTypes:
+- Class: 74
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Role/RolePrefab/Player/Animation/Tianshan_001/Skill_Tianshanzhemeishou.anim
+Dependencies: []

@@ -1,0 +1,22 @@
+ManifestFileVersion: 0
+CRC: 2293660085
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 77f183a947a96cbd7db3d077a7fe62b5
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: d1ab6d92acf97428401c3ec26a2739a2
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 111
+  Script: {instanceID: 0}
+- Class: 137
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Role/RolePrefab/Npc/Man/MatureMan/One_Sword/Npc_001_murongbo_001.prefab
+Dependencies: []

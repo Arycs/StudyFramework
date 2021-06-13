@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 2848975198
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 00a0179dfcc6e38eb6936a83cb7b0bf9
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 2ed26e3ad9f6be9c24f85f5f5b54339d
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Effect/EffectSources/texture/effect_dao004.png
+Dependencies: []

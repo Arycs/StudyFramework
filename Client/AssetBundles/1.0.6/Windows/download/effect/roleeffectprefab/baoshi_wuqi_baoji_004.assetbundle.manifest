@@ -1,0 +1,24 @@
+ManifestFileVersion: 0
+CRC: 1279237250
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: c13f766f6e35fea43934e35e6b41fc01
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 106f6b17221ef07f1d62b2d98cf7eac1
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 96
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Effect/RoleEffectPrefab/baoshi_wuqi_baoji_004.prefab
+Dependencies: []

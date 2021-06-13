@@ -1,0 +1,27 @@
+ManifestFileVersion: 0
+CRC: 2796598599
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 2b63ac7fdaad7ccda156626f32fcd27d
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 4d18eae3f9a88f762d61585a82510a39
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 111
+  Script: {instanceID: 0}
+- Class: 137
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Role/RoleSources/Character/Player/Tianshan_001/Sz_tianshan_001_jht/Sz_tianshan_001_jht.FBX
+Dependencies:
+- D:/GitHub_Repository/MMOStudy/Assets/../AssetBundles/1.0.6/Windows/download/role/rolesources/character/player/tianshan_001/sz_tianshan_001_jht/materials/sz_tianshan_001_jht.assetbundle

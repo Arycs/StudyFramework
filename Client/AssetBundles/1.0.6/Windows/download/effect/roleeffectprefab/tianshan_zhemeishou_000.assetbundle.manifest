@@ -1,0 +1,22 @@
+ManifestFileVersion: 0
+CRC: 3003181640
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: d177df62486e3a16d089fce211d6972a
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 1e180bc45c4d4a8617ce6edb4a143103
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Effect/RoleEffectPrefab/tianshan_zhemeishou_000.prefab
+Dependencies: []

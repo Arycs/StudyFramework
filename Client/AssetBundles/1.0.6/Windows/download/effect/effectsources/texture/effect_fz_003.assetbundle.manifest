@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 2438230130
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 06aff4a3c8ca4b1bd509e64eeb188a40
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 2ed26e3ad9f6be9c24f85f5f5b54339d
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Effect/EffectSources/texture/effect_fz_003.png
+Dependencies: []

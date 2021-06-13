@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 567886153
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 1e9e5676d24472621e1eed6b8579f79c
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: af57576da81d5d3ce45807ac11234de6
+HashAppended: 0
+ClassTypes:
+- Class: 74
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Role/RolePrefab/Player/Animation/Xiaoyao_001/Dash.anim
+Dependencies: []

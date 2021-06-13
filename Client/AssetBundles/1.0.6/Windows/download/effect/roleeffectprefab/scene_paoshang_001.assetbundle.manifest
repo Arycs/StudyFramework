@@ -1,0 +1,28 @@
+ManifestFileVersion: 0
+CRC: 3905998326
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: b90b5fc1602b3b6d9063b27a5ed2567f
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: d921e75c5261fd82005d75d6f4ab9f50
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 955736b48e2797446927ea514119e232, type: 3}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Effect/RoleEffectPrefab/scene_paoshang_001.prefab
+Dependencies: []

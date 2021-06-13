@@ -1,0 +1,22 @@
+ManifestFileVersion: 0
+CRC: 486387009
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 6781e7bcc69d35cd3869583f27a1836c
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 1e180bc45c4d4a8617ce6edb4a143103
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Effect/RoleEffectPrefab/tianshan_attack03_001.prefab
+Dependencies: []

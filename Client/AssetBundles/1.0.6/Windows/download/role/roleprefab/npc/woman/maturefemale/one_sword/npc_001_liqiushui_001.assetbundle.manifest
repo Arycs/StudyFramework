@@ -1,0 +1,22 @@
+ManifestFileVersion: 0
+CRC: 1308681861
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: a2bc69c7845ed1af3af9013aa3a50057
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: d1ab6d92acf97428401c3ec26a2739a2
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 111
+  Script: {instanceID: 0}
+- Class: 137
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Role/RolePrefab/Npc/Woman/MatureFemale/One_Sword/Npc_001_liqiushui_001.prefab
+Dependencies: []

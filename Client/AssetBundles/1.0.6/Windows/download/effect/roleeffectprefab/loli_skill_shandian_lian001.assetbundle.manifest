@@ -1,0 +1,26 @@
+ManifestFileVersion: 0
+CRC: 1128101445
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 145701a5bfe9f7c1e9ca8ee4dc38fc50
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 64922ed8d8f5da07970e888d25428a0d
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 44ba4c7a3b18aa343aa85d476231f4bd, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: eadb3d658abea3e4dad309972c9a0ded, type: 3}
+Assets:
+- Assets/Download/Effect/RoleEffectPrefab/loli_skill_shandian_lian001.prefab
+Dependencies: []

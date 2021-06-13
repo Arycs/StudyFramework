@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 378746957
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: b41c137998fa6a87b5b4ab9542894534
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 9b71393b2ee9cb5c4f2e835e78d3d8d4
+HashAppended: 0
+ClassTypes:
+- Class: 21
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Role/RoleSources/Character/Npc/Man/Midget/Magic/Npc_001_laoheshang_001/Materials/Npc_001_laoheshang_001_boss.mat
+Dependencies: []

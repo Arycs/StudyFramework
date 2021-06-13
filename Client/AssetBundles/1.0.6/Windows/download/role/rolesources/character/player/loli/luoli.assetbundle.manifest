@@ -1,0 +1,31 @@
+ManifestFileVersion: 0
+CRC: 1349931196
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 62f142ab0638cb3dc0ad24fe9f1cd735
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 0b4e6f81e806abe768b1f1fc92a5ade4
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 74
+  Script: {instanceID: 0}
+- Class: 111
+  Script: {instanceID: 0}
+- Class: 137
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Role/RoleSources/Character/Player/Loli/luoli.FBX
+Dependencies:
+- D:/GitHub_Repository/MMOStudy/Assets/../AssetBundles/1.0.6/Windows/download/role/rolesources/character/player/loli/materials/face_001_xiaoyaonv_001.assetbundle
+- D:/GitHub_Repository/MMOStudy/Assets/../AssetBundles/1.0.6/Windows/download/role/rolesources/character/player/loli/materials/sz_001_xiaoyaonvhat_001_hht.assetbundle
+- D:/GitHub_Repository/MMOStudy/Assets/../AssetBundles/1.0.6/Windows/download/role/rolesources/character/player/loli/materials/sz_001_xiaoyaonvcloth_001_hht.assetbundle

@@ -1,0 +1,27 @@
+ManifestFileVersion: 0
+CRC: 853922811
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: a192883cd530294ec5a7ef97152de06b
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 4d18eae3f9a88f762d61585a82510a39
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 111
+  Script: {instanceID: 0}
+- Class: 137
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Role/RoleSources/Character/Npc/Man/MatureMan/Magic/Npc_001_xiaoyaozi_001/Npc_001_xiaoyaozi_001.FBX
+Dependencies:
+- D:/GitHub_Repository/MMOStudy/Assets/../AssetBundles/1.0.6/Windows/download/role/rolesources/character/npc/man/matureman/magic/npc_001_xiaoyaozi_001/materials/npc_001_xiaoyaozi_001.assetbundle

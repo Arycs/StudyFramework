@@ -1,0 +1,22 @@
+ManifestFileVersion: 0
+CRC: 218049323
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 976e83c606e209f1be71e4c64eba4ff5
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: d1ab6d92acf97428401c3ec26a2739a2
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 111
+  Script: {instanceID: 0}
+- Class: 137
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Role/RolePrefab/Npc/Building/fb_zhandou_shibei.prefab
+Dependencies: []

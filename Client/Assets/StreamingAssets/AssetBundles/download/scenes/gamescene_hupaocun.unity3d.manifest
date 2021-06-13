@@ -1,0 +1,52 @@
+ManifestFileVersion: 0
+CRC: 3160393897
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: c449f27df8c8c57e627179a512b79ae3
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 9c2ac747f97ca128a8bcf0ae7a5826a5
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 20
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 64
+  Script: {instanceID: 0}
+- Class: 74
+  Script: {instanceID: 0}
+- Class: 81
+  Script: {instanceID: 0}
+- Class: 104
+  Script: {instanceID: 0}
+- Class: 108
+  Script: {instanceID: 0}
+- Class: 111
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 364d30e4f9a36484185b85f23c8c8e00, type: 3}
+- Class: 137
+  Script: {instanceID: 0}
+- Class: 157
+  Script: {instanceID: 0}
+- Class: 196
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Scenes/GameScene_HuPaoCun.unity
+Dependencies: []

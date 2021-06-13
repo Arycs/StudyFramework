@@ -1,0 +1,18 @@
+ManifestFileVersion: 0
+CRC: 3141094544
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: a9fbc5b74c1eca51887db1f32d9bbb4d
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 27295f96fcdc2b917bd061e8817c7e02
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Effect/RoleEffectPrefab/buff_npc_shiqu_001.prefab
+Dependencies: []

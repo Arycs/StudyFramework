@@ -1,0 +1,27 @@
+ManifestFileVersion: 0
+CRC: 4285771919
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 4f5d6b70a598d6d55ca368d0916ef496
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 4d18eae3f9a88f762d61585a82510a39
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 111
+  Script: {instanceID: 0}
+- Class: 137
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Role/RoleSources/Character/Npc/Man/MatureMan/One_LongWeapon/Npc_002_laifu_001/Npc_002_laifu_001.FBX
+Dependencies:
+- D:/GitHub_Repository/MMOStudy/Assets/../AssetBundles/1.0.6/Windows/download/role/rolesources/character/npc/man/matureman/one_longweapon/npc_002_laifu_001/materials/npc_002_laifu_001.assetbundle

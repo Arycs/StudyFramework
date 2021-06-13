@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 2347324145
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 9683819ff0c2e6d8b256ec061729785d
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: af57576da81d5d3ce45807ac11234de6
+HashAppended: 0
+ClassTypes:
+- Class: 74
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Role/RolePrefab/Player/Animation/Tianshan_001/Ride_Run.anim
+Dependencies: []

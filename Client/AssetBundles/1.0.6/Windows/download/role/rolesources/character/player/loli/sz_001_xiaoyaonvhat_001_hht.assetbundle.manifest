@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 3556634641
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 9e055686176952f6efea8bfb0fb44ac7
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 2ed26e3ad9f6be9c24f85f5f5b54339d
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Role/RoleSources/Character/Player/Loli/Sz_001_xiaoyaonvhat_001_hht.tga
+Dependencies: []

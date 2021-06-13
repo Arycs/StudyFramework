@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 467284896
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 83057e0b0dd31615076dc8cd10f7fe6e
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: af57576da81d5d3ce45807ac11234de6
+HashAppended: 0
+ClassTypes:
+- Class: 74
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Role/RolePrefab/Npc/Animation/Man/Strong/One_Sword/Attack.anim
+Dependencies: []

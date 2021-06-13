@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 3747363472
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 9e9e4b439b8e80d445b691fc14468c03
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: af57576da81d5d3ce45807ac11234de6
+HashAppended: 0
+ClassTypes:
+- Class: 74
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Role/RolePrefab/Player/Animation/Xiaoyao_001/Skill_Beimingshengong_Loop.anim
+Dependencies: []

@@ -1,0 +1,21 @@
+ManifestFileVersion: 0
+CRC: 1335904581
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 67561edb233c354040027992dc95f19f
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 21c99c86a43ad817b2cb7f65458ae090
+HashAppended: 0
+ClassTypes:
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Role/RoleSources/Character/Npc/Man/Strong/No_Weapon/Npc_001_youshishuangxiong_001/Materials/Npc_001_youshishuangxiong_002.mat
+- Assets/Download/Role/RoleSources/Character/Npc/Man/Strong/No_Weapon/Npc_001_youshishuangxiong_001/Materials/Npc_001_youshishuangxiong_002.tga
+Dependencies: []

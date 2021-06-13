@@ -1,0 +1,18 @@
+ManifestFileVersion: 0
+CRC: 3107464301
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: d5f225aa66aa06d551a4a863536c1d1c
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 10a6a558690295dadb3dd990eda0821a
+HashAppended: 0
+ClassTypes:
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Effect/EffectSources/texture/mateials/effect_dao004.mat
+Dependencies: []

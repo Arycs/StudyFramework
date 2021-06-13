@@ -1,0 +1,22 @@
+ManifestFileVersion: 0
+CRC: 2847920467
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 03dc908d387b29ab8aff0c397371e1b2
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: e754ee3d22c0819df7732deb7524fca1
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Role/RolePrefab/Weapon/Tianshan_001/Dao_001_001/Dao_001_001_L.prefab
+Dependencies: []

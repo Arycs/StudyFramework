@@ -1,0 +1,24 @@
+ManifestFileVersion: 0
+CRC: 1971290534
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 24f27d3da894e701715fcfecef59cb1c
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 22e8dcd22e826dc3a176b7f98dee677c
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Role/RoleSources/Character/Player/Opening/Player/Render prefab.prefab
+Dependencies: []

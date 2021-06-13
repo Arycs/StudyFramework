@@ -1,0 +1,21 @@
+ManifestFileVersion: 0
+CRC: 1411758812
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: fb0931ee32f876a58628aec96075c1e3
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 21c99c86a43ad817b2cb7f65458ae090
+HashAppended: 0
+ClassTypes:
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Role/RoleSources/Character/Npc/Building/fb_zhandou_shibei/Materials/fb_zhandou_shibei.mat
+- Assets/Download/Role/RoleSources/Character/Npc/Building/fb_zhandou_shibei/Materials/fb_zhandou_shibei.jpg
+Dependencies: []

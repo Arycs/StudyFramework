@@ -1,0 +1,18 @@
+ManifestFileVersion: 0
+CRC: 617141979
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 046a702dfd6505bf2b0fb7e5761bb89a
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 10a6a558690295dadb3dd990eda0821a
+HashAppended: 0
+ClassTypes:
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Effect/EffectSources/texture/effect_590_01.mat
+Dependencies: []

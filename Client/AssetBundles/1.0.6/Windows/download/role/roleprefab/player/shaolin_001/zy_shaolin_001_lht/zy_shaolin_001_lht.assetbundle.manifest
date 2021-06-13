@@ -1,0 +1,22 @@
+ManifestFileVersion: 0
+CRC: 3847849028
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 54bdced684d0ad5da0534f9bc7065d35
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: d1ab6d92acf97428401c3ec26a2739a2
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 111
+  Script: {instanceID: 0}
+- Class: 137
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Role/RolePrefab/Player/Shaolin_001/Zy_shaolin_001_lht/Zy_shaolin_001_lht.prefab
+Dependencies: []

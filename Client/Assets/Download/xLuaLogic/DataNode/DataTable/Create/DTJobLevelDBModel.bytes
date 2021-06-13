@@ -1,0 +1,130 @@
+-- Create By 悠游课堂 http://www.u3dol.com 悠游课堂 www.u3dol.com
+DTJobLevelDBModel = { }
+
+local this = DTJobLevelDBModel;
+
+local dtjoblevelTable = { }; --定义表格
+local dtjoblevelTableDic = { }; --定义表格字典
+
+local dataTableName = "DTJobLevel";
+local currColumns = 12;
+local isAlreadyLoadTableInCSharp = false;
+local lastUseTime = 0;
+local loadType = 0; --读取方式0=从lua文件读取 1=从c#已有数据加载
+
+function DTJobLevelDBModel.LoadList()
+    GameInit.AddTotalLoadTableCount();
+    if (loadType == 0) then
+        local arr = DTJobLevelEntity.GetArr();
+        for i = 1, arr.Len do
+            local item = arr.ByIdx[i]; --拿到索引数据
+            local dtjoblevelEntity = DTJobLevelEntity.NewFromArrItem(item);
+            dtjoblevelTable[#dtjoblevelTable + 1] = dtjoblevelEntity;
+            dtjoblevelTableDic[dtjoblevelEntity.Id] = dtjoblevelEntity;
+        end
+        GameInit.LoadOneTableComplete();
+    else
+        --检查这个表在c#中是否已经加载
+        if (GameEntry.DataTable:CheckAlreadyLoadTable(dataTableName, currColumns)) then
+            isAlreadyLoadTableInCSharp = true;
+            GameInit.LoadOneTableComplete();
+        else
+            print("table load fail"..dataTableName);
+            GameInit.LoadOneTableComplete();
+        end
+    end
+end
+
+function DTJobLevelDBModel.GetList()
+    --如果和c#不一致 说明自己会加载
+    if (isAlreadyLoadTableInCSharp == false) then
+        return dtjoblevelTable;
+    end
+
+    lastUseTime = Time.time;
+    --循环c#的表
+    local lstCSharp = GameEntry.DataTable.DTJobLevelList:GetList();
+    local len = lstCSharp.Count - 1;
+    local dtjoblevelEntityCSharp = nil;
+    local dtjoblevelEntity = nil;
+
+    for i = 0, len, 1 do
+        dtjoblevelEntityCSharp = lstCSharp[i];
+        dtjoblevelEntity = this.GetEntityFromCSharp(dtjoblevelEntityCSharp.Id, dtjoblevelEntityCSharp);
+        this.AddToTable(dtjoblevelEntity);
+    end
+    lstCSharp = nil;
+    len = nil;
+    dtjoblevelEntityCSharp = nil;
+    dtjoblevelEntity = nil;
+
+    return dtjoblevelTable;
+end
+
+function DTJobLevelDBModel.GetEntity(id)
+    local ret = this.GetEntityInner(id);
+    lastUseTime = Time.time;
+
+    --如果在lua中存在 或者和c#不一致 直接返回
+    if (ret ~= nil or isAlreadyLoadTableInCSharp == false) then
+        return ret;
+    end
+
+    --去c#中查询
+    ret = this.GetEntityFromCSharp(id);
+    if (ret ~= nil) then
+        this.AddToTable(ret);
+    end
+    return ret;
+end
+
+function DTJobLevelDBModel.GetEntityInner(id)
+    return dtjoblevelTableDic[id];
+end
+
+function DTJobLevelDBModel.AddToTable(entity)
+    if (this.GetEntityInner(entity.Id) == nil) then
+        dtjoblevelTable[#dtjoblevelTable + 1] = entity;
+        dtjoblevelTableDic[entity.Id] = entity;
+    end
+end
+
+function DTJobLevelDBModel.GetEntityFromCSharp(id, cSharpEntity)
+    local dtjoblevelEntityCSharp = (cSharpEntity ~= nil and cSharpEntity or GameEntry.DataTable.DTJobLevelList:GetEntityValue(id));
+    if (dtjoblevelEntityCSharp == nil) then
+        return nil;
+    end
+
+    local dtjoblevelEntity = nil;
+    if(cSharpEntity ~= nil) then
+        --说明是通过循环列表时候获取单个对象
+        dtjoblevelEntity = this.GetEntityInner(id);
+        if(dtjoblevelEntity ~= nil) then
+            return dtjoblevelEntity;
+        end
+    end
+
+    dtjoblevelEntity = DTJobLevelEntity.New(
+        dtjoblevelEntityCSharp.Id,
+        dtjoblevelEntityCSharp.Level,
+        dtjoblevelEntityCSharp.NeedExp,
+        dtjoblevelEntityCSharp.Energy,
+        dtjoblevelEntityCSharp.HP,
+        dtjoblevelEntityCSharp.MP,
+        dtjoblevelEntityCSharp.Attack,
+        dtjoblevelEntityCSharp.Defense,
+        dtjoblevelEntityCSharp.Hit,
+        dtjoblevelEntityCSharp.Dodge,
+        dtjoblevelEntityCSharp.Cri,
+        dtjoblevelEntityCSharp.Res
+        );
+    dtjoblevelEntityCSharp = nil;
+    return dtjoblevelEntity;
+end
+
+function DTJobLevelDBModel.CheckGC()
+    if (isAlreadyLoadTableInCSharp and Time.time > lastUseTime + GameEntry.Lua.LuaDataTableLife and #dtjoblevelTable > 0) then
+        dtjoblevelTable = { };
+        dtjoblevelTableDic = { };
+    end
+end

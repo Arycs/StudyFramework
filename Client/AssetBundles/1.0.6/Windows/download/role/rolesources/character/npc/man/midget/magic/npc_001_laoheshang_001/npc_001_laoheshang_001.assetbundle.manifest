@@ -1,0 +1,27 @@
+ManifestFileVersion: 0
+CRC: 4208953387
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 4e3a61e40b7a9bc158b21628f5e8e976
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 4d18eae3f9a88f762d61585a82510a39
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 111
+  Script: {instanceID: 0}
+- Class: 137
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Role/RoleSources/Character/Npc/Man/Midget/Magic/Npc_001_laoheshang_001/Npc_001_laoheshang_001.FBX
+Dependencies:
+- D:/GitHub_Repository/MMOStudy/Assets/../AssetBundles/1.0.6/Windows/download/role/rolesources/character/npc/man/midget/magic/npc_001_laoheshang_001/materials/npc_001_laoheshang_001.assetbundle

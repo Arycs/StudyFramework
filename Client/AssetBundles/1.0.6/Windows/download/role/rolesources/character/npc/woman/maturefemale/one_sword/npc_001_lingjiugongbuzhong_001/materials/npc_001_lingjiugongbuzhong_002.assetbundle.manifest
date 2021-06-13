@@ -1,0 +1,21 @@
+ManifestFileVersion: 0
+CRC: 1580221897
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: b9ebf20bea6bea48746d3b0d5582bc7f
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 21c99c86a43ad817b2cb7f65458ae090
+HashAppended: 0
+ClassTypes:
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Role/RoleSources/Character/Npc/Woman/MatureFemale/One_Sword/Npc_001_lingjiugongbuzhong_001/Materials/Npc_001_lingjiugongbuzhong_002.mat
+- Assets/Download/Role/RoleSources/Character/Npc/Woman/MatureFemale/One_Sword/Npc_001_lingjiugongbuzhong_001/Materials/Npc_001_lingjiugongbuzhong_002.tga
+Dependencies: []

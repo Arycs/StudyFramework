@@ -1,0 +1,61 @@
+-- Create By 悠游课堂 http://www.u3dol.com 悠游课堂 www.u3dol.com
+DTJobEntity = { Id = 0, Desc = "", Name = "", RoleId = 0, HeadPic = "", JobPic = "", JobDesc = "", Attack = 0, Defense = 0, Hit = 0, Dodge = 0, Cri = 0, Res = 0 }
+
+DTJobEntity.__index = DTJobEntity;
+
+function DTJobEntity.New(Id, Desc, Name, RoleId, HeadPic, JobPic, JobDesc, Attack, Defense, Hit, Dodge, Cri, Res)
+    local self = { };
+    setmetatable(self, DTJobEntity);
+
+    self.Id = Id;
+    self.Desc = Desc;
+    self.Name = Name;
+    self.RoleId = RoleId;
+    self.HeadPic = HeadPic;
+    self.JobPic = JobPic;
+    self.JobDesc = JobDesc;
+    self.Attack = Attack;
+    self.Defense = Defense;
+    self.Hit = Hit;
+    self.Dodge = Dodge;
+    self.Cri = Cri;
+    self.Res = Res;
+
+    return self;
+end
+
+function DTJobEntity.NewFromArrItem(item)
+    local self = { };
+    setmetatable(self, DTJobEntity);
+
+    self.Id = item[1];
+    self.Desc = item[2];
+    self.Name = item[3];
+    self.RoleId = item[4];
+    self.HeadPic = item[5];
+    self.JobPic = item[6];
+    self.JobDesc = item[7];
+    self.Attack = item[8];
+    self.Defense = item[9];
+    self.Hit = item[10];
+    self.Dodge = item[11];
+    self.Cri = item[12];
+    self.Res = item[13];
+
+    return self;
+end
+
+local arr =
+{
+    ByIdx = {
+        {1, "天山", "TianShan", 100002, "headpic_role_cike", "", "暴击 刺客", 100, 150, 100, 100, 100, 150},
+        {2, "战士", "ZhanShi", 0, "headpic_role_zhanshi", "", "攻击力高", 100, 100, 100, 100, 200, 100},
+        {3, "法师", "FaShi", 0, "headpic_role_fashi", "", "闪避 身法", 100, 150, 100, 100, 100, 200},
+        {4, "巨锤", "JuChui", 0, "headpic_role_juchui", "", "远程攻击", 120, 80, 100, 100, 80, 100}
+    },
+    Len = 4
+}
+
+function DTJobEntity.GetArr()
+    return arr;
+end

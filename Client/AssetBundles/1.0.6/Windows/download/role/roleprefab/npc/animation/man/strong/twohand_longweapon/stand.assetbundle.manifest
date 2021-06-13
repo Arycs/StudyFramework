@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 1965698307
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: b1e269538dcf360b6704799f9eb3f8e7
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: af57576da81d5d3ce45807ac11234de6
+HashAppended: 0
+ClassTypes:
+- Class: 74
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Role/RolePrefab/Npc/Animation/Man/Strong/Twohand_LongWeapon/Stand.anim
+Dependencies: []

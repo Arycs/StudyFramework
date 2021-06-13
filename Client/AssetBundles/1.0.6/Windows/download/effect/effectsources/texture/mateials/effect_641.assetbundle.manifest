@@ -1,0 +1,18 @@
+ManifestFileVersion: 0
+CRC: 1609986077
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 84f04b11c464889e2109b1e8c8de0814
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 10a6a558690295dadb3dd990eda0821a
+HashAppended: 0
+ClassTypes:
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Effect/EffectSources/texture/mateials/effect_641.mat
+Dependencies: []

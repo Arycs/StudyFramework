@@ -1,0 +1,22 @@
+ManifestFileVersion: 0
+CRC: 2928797642
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: d5158aec0d431680f60d376e403a3c93
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: d1ab6d92acf97428401c3ec26a2739a2
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 111
+  Script: {instanceID: 0}
+- Class: 137
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Role/RolePrefab/Npc/Animal/Mouse/Npc_001_shandiandiao_001.prefab
+Dependencies: []

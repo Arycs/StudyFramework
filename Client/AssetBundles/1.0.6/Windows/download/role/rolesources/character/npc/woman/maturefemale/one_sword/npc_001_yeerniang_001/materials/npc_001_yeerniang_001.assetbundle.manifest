@@ -1,0 +1,21 @@
+ManifestFileVersion: 0
+CRC: 3751388821
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 2a5ab0d7dde294ad761b03f7f964339d
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 21c99c86a43ad817b2cb7f65458ae090
+HashAppended: 0
+ClassTypes:
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Role/RoleSources/Character/Npc/Woman/MatureFemale/One_Sword/Npc_001_yeerniang_001/Materials/Npc_001_yeerniang_001.mat
+- Assets/Download/Role/RoleSources/Character/Npc/Woman/MatureFemale/One_Sword/Npc_001_yeerniang_001/Materials/Npc_001_yeerniang_001.tga
+Dependencies: []

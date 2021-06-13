@@ -1,0 +1,24 @@
+ManifestFileVersion: 0
+CRC: 2972870030
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 673c824b317628a58b814a602db7f043
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 1a9dbbaa8c5e8327806d87e2828ba5d7
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 111
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Effect/RoleEffectPrefab/loli_attack_fu001.prefab
+Dependencies: []

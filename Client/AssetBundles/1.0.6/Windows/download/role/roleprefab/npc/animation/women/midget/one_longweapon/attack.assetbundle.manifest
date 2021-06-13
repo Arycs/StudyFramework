@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 2481933490
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 01b3cb0f9af455818132216206ebafec
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: af57576da81d5d3ce45807ac11234de6
+HashAppended: 0
+ClassTypes:
+- Class: 74
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Role/RolePrefab/Npc/Animation/Women/Midget/One_LongWeapon/Attack.anim
+Dependencies: []

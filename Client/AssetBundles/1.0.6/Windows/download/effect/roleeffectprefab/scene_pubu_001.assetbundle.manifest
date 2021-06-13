@@ -1,0 +1,24 @@
+ManifestFileVersion: 0
+CRC: 381215574
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 91a8ff110bb398277bee91867e6cbdb4
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 5423cae7bc6d7c6ddba5f20590b10ea2
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: dad03ea456ca8af42bdfebac890c329c, type: 3}
+Assets:
+- Assets/Download/Effect/RoleEffectPrefab/scene_pubu_001.prefab
+Dependencies: []

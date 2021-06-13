@@ -1,0 +1,25 @@
+ManifestFileVersion: 0
+CRC: 3155088226
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 6acb95a28b1a0c3836e105795c43feb0
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 2f0483605029852f566440cf707bc680
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 137
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Role/RoleSources/Character/Player/Tianshan_001/Zy_tianshan_001_yxt/Zy_tianshan_001_yxt.FBX
+Dependencies:
+- D:/GitHub_Repository/MMOStudy/Assets/../AssetBundles/1.0.6/Windows/download/role/rolesources/character/player/tianshan_001/zy_tianshan_001_yxt/materials/zy_tianshan_001_yxt.assetbundle

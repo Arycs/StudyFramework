@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 1187071155
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: a74e08c25d7664683e724d61744da88c
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 2ed26e3ad9f6be9c24f85f5f5b54339d
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Effect/EffectSources/texture/effect_baoyulihua.png
+Dependencies: []

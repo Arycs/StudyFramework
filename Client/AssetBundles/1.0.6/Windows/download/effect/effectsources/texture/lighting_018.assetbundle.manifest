@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 3577318462
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: bb747e1a75ecfe0db7caa7d365e6ab95
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 2ed26e3ad9f6be9c24f85f5f5b54339d
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Effect/EffectSources/texture/lighting_018.tga
+Dependencies: []

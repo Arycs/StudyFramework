@@ -1,0 +1,24 @@
+ManifestFileVersion: 0
+CRC: 1129419664
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 122da8d1f59e90d05b003c33f1866883
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: d45ed4358409bd8586b26fb0b95c04d4
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 181329b7fe02d134f8a7fd9e09f9bfe2, type: 3}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Effect/RoleEffectPrefab/boss_youju_dunxuan_002.prefab
+Dependencies: []

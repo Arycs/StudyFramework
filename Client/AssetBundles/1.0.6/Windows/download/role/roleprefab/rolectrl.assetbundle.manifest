@@ -1,0 +1,24 @@
+ManifestFileVersion: 0
+CRC: 2987104187
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 9fc2a8cfc8acd5a8551a73847bfeab5e
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 9d719db93d03c14aae1af317ca06ce22
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 95
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: a5bc016ef2624b045b4f88192d145109, type: 3}
+- Class: 143
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Role/RolePrefab/RoleCtrl.prefab
+Dependencies: []

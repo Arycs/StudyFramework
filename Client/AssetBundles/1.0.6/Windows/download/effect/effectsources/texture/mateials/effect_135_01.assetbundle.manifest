@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 328067848
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: b6e06db5209058b5f1f47ec1e4816f26
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 9b71393b2ee9cb5c4f2e835e78d3d8d4
+HashAppended: 0
+ClassTypes:
+- Class: 21
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Effect/EffectSources/texture/mateials/effect_135_01.mat
+Dependencies: []

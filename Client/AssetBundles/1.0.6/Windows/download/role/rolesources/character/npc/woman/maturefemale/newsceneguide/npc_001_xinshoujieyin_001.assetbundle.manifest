@@ -1,0 +1,33 @@
+ManifestFileVersion: 0
+CRC: 2060196865
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 960cfb881ce2c5563efeaf81e49cb352
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: d671d0897254313efad9c1e0b7469de8
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 74
+  Script: {instanceID: 0}
+- Class: 111
+  Script: {instanceID: 0}
+- Class: 137
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Role/RoleSources/Character/Npc/Woman/MatureFemale/NewSceneGuide/Npc_001_xinshoujieyin_001.FBX
+- Assets/Download/Role/RoleSources/Character/Npc/Woman/MatureFemale/NewSceneGuide/Npc_001_xinshoujieyin_001.mat
+- Assets/Download/Role/RoleSources/Character/Npc/Woman/MatureFemale/NewSceneGuide/Npc_001_xinshoujieyin_001.tga
+Dependencies:
+- D:/GitHub_Repository/MMOStudy/Assets/../AssetBundles/1.0.6/Windows/download/role/rolesources/character/npc/woman/maturefemale/newsceneguide/materials/npc_001_xinshoujieyin_001.assetbundle

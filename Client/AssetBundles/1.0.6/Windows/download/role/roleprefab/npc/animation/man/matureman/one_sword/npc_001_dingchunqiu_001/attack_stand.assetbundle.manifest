@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 3429853711
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 242ac9f7c0e5cbe7bfa879dd30f031ce
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: af57576da81d5d3ce45807ac11234de6
+HashAppended: 0
+ClassTypes:
+- Class: 74
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Role/RolePrefab/Npc/Animation/Man/MatureMan/One_Sword/Npc_001_dingchunqiu_001/Attack_Stand.anim
+Dependencies: []

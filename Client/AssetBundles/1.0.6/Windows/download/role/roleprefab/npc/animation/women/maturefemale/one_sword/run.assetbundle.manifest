@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 1568218006
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 963f337f84d83739e905a039d951d9be
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: af57576da81d5d3ce45807ac11234de6
+HashAppended: 0
+ClassTypes:
+- Class: 74
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Role/RolePrefab/Npc/Animation/Women/MatureFemale/One_Sword/Run.anim
+Dependencies: []

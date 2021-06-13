@@ -1,0 +1,19 @@
+ManifestFileVersion: 0
+CRC: 741072152
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: d8088e8dbbe2b438ab9241616b7e898e
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 9a61a9214c25f9937f62a002bd045b93
+HashAppended: 0
+ClassTypes:
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Role/RoleSources/Character/Player/Loli_zhujiao/Materials/Sz_001_xiaoyaonvhat_001_hht.mat
+- Assets/Download/Role/RoleSources/Character/Player/Loli_zhujiao/Materials/Sz_001_xiaoyaonvhat_001_hht.tga
+Dependencies: []

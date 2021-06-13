@@ -1,0 +1,22 @@
+ManifestFileVersion: 0
+CRC: 625836529
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 0a34359dfd62e5f6d4e07b381dc92e92
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 1e180bc45c4d4a8617ce6edb4a143103
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Effect/RoleEffectPrefab/heiyiren_skill04_001.prefab
+Dependencies: []

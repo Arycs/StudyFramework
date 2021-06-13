@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 1595893120
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: ae99ea257a5e64acf5838f4a4256b21a
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: af57576da81d5d3ce45807ac11234de6
+HashAppended: 0
+ClassTypes:
+- Class: 74
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Role/RolePrefab/Npc/Animation/Women/MatureFemale/Magic/Knockback_01.anim
+Dependencies: []

@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 481205434
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 478cb25f9fc6699d52a165720cdb318f
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: af57576da81d5d3ce45807ac11234de6
+HashAppended: 0
+ClassTypes:
+- Class: 74
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Role/RolePrefab/Player/Animation/Dali_001/Skill_Liuxingganyue.anim
+Dependencies: []

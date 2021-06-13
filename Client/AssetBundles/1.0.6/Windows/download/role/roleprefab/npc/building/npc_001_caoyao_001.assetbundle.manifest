@@ -1,0 +1,24 @@
+ManifestFileVersion: 0
+CRC: 634957900
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: a35888590833af55e22d90814564d964
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 1a9dbbaa8c5e8327806d87e2828ba5d7
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 111
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Role/RolePrefab/Npc/Building/Npc_001_caoyao_001.prefab
+Dependencies: []

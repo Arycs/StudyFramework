@@ -1,0 +1,21 @@
+ManifestFileVersion: 0
+CRC: 1980803895
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 07075ce278558ed1e136ef29eb7b4f16
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 21c99c86a43ad817b2cb7f65458ae090
+HashAppended: 0
+ClassTypes:
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Role/RoleSources/Character/Npc/Man/Fat/One_Sword/Npc_001_nanhaieshen_001/Materials/Npc_001_nanhaieshen_001.tga
+- Assets/Download/Role/RoleSources/Character/Npc/Man/Fat/One_Sword/Npc_001_nanhaieshen_001/Materials/Npc_001_nanhaieshen_001.mat
+Dependencies: []

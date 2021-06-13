@@ -1,0 +1,13 @@
+﻿
+
+<linker>
+
+	<assembly fullname="Assembly-CSharp">
+	    <type fullname="UIMultiScroller" preserve="all"/>
+		<type fullname="GameObjectUtil" preserve="all"/>
+		<type fullname="GameUtil" preserve="all"/>
+		<type fullname="YouYou.LuaForm" preserve="all"/>
+		
+	</assembly>
+
+</linker>

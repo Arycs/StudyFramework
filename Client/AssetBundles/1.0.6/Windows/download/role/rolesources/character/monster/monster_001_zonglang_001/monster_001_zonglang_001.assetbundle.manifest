@@ -1,0 +1,27 @@
+ManifestFileVersion: 0
+CRC: 3166871342
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 6789cda216233c57eb6d34970c2bdc4f
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 4d18eae3f9a88f762d61585a82510a39
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 111
+  Script: {instanceID: 0}
+- Class: 137
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Role/RoleSources/Character/Monster/Monster_001_zonglang_001/Monster_001_zonglang_001.FBX
+Dependencies:
+- D:/GitHub_Repository/MMOStudy/Assets/../AssetBundles/1.0.6/Windows/download/role/rolesources/character/monster/monster_001_zonglang_001/materials/monster_001_zonglang_001.assetbundle

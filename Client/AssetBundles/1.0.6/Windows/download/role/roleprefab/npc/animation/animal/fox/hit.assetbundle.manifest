@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 3625113174
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 2c5288a4e203ec05975825e97860b9f0
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: af57576da81d5d3ce45807ac11234de6
+HashAppended: 0
+ClassTypes:
+- Class: 74
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Role/RolePrefab/Npc/Animation/Animal/Fox/Hit.anim
+Dependencies: []

@@ -1,0 +1,21 @@
+ManifestFileVersion: 0
+CRC: 3545689337
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 5b4b860e1fdfed987d2a59a9b3c72010
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 21c99c86a43ad817b2cb7f65458ae090
+HashAppended: 0
+ClassTypes:
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Role/RoleSources/Character/Npc/Man/MatureMan/Magic/Npc_001_xiaoyaozi_001/Materials/Npc_001_xiaoyaozi_001.mat
+- Assets/Download/Role/RoleSources/Character/Npc/Man/MatureMan/Magic/Npc_001_xiaoyaozi_001/Materials/Npc_001_xiaoyaozi_001.tga
+Dependencies: []

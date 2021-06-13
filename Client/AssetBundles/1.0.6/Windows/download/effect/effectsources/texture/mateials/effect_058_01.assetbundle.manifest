@@ -1,0 +1,18 @@
+ManifestFileVersion: 0
+CRC: 2811814995
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 4c4949b7b898c3f876a0bace81530a0c
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 10a6a558690295dadb3dd990eda0821a
+HashAppended: 0
+ClassTypes:
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Effect/EffectSources/texture/mateials/effect_058_01.mat
+Dependencies: []

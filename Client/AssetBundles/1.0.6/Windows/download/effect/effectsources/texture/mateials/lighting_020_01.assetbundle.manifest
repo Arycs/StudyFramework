@@ -1,0 +1,18 @@
+ManifestFileVersion: 0
+CRC: 3516458738
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 46fa8f6782a796d5eff89a88992a9470
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 10a6a558690295dadb3dd990eda0821a
+HashAppended: 0
+ClassTypes:
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Effect/EffectSources/texture/mateials/lighting_020_01.mat
+Dependencies: []

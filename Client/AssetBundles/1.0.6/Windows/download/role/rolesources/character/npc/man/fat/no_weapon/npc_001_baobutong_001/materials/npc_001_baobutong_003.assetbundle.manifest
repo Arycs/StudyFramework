@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 2147207737
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: f979634ee393a8acbb59c27173ed84b1
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 9b71393b2ee9cb5c4f2e835e78d3d8d4
+HashAppended: 0
+ClassTypes:
+- Class: 21
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Role/RoleSources/Character/Npc/Man/Fat/No_Weapon/Npc_001_baobutong_001/Materials/Npc_001_baobutong_003.mat
+Dependencies: []

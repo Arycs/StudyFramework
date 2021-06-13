@@ -1,0 +1,22 @@
+ManifestFileVersion: 0
+CRC: 3809327980
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 6108921b0bd670d2e619f77cde7706a4
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 1e180bc45c4d4a8617ce6edb4a143103
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Effect/RoleEffectPrefab/skill_tianshan_chuchang_001.prefab
+Dependencies: []

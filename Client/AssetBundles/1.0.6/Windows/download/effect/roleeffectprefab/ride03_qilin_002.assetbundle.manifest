@@ -1,0 +1,28 @@
+ManifestFileVersion: 0
+CRC: 3522827103
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: e982db6989d6822c87dabec65e7c3250
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 6190798dd7fe08a5151fea2229814362
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Effect/RoleEffectPrefab/ride03_qilin_002.prefab
+Dependencies: []

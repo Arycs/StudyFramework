@@ -1,0 +1,15 @@
+SysPrefabId = {
+
+    --通用角色控制器
+    RoleCtrl = 1,
+
+    --天山角色
+    RolePrefab_TianShan = 100001,
+
+    --逍遥角色
+    RolePrefab_XiaoYao = 100002,
+
+    --逍遥角色
+    RolePrefab_Role_NvYao = 100003,
+
+}

@@ -1,0 +1,22 @@
+ManifestFileVersion: 0
+CRC: 1659939834
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: e9d87e2200045f5b8c55d83c931d2c60
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: d1ab6d92acf97428401c3ec26a2739a2
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 111
+  Script: {instanceID: 0}
+- Class: 137
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Role/RolePrefab/Npc/Man/Fat/No_Weapon/Npc_001_zhangwanli_001.prefab
+Dependencies: []

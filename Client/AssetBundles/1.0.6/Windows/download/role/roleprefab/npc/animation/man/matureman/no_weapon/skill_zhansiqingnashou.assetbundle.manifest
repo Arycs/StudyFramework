@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 4179550269
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: bf813cd48099e75becc3d4819bf7f3d1
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: af57576da81d5d3ce45807ac11234de6
+HashAppended: 0
+ClassTypes:
+- Class: 74
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Role/RolePrefab/Npc/Animation/Man/MatureMan/No_Weapon/Skill_Zhansiqingnashou.anim
+Dependencies: []

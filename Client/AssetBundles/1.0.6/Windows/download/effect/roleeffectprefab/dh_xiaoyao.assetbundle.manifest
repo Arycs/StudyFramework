@@ -1,0 +1,24 @@
+ManifestFileVersion: 0
+CRC: 1977232042
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 9ec2d86e5e4eae5885131f7b53a92a50
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: d45ed4358409bd8586b26fb0b95c04d4
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 841b7718783fc4a41bee9448116642e0, type: 3}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Effect/RoleEffectPrefab/dh_xiaoyao.prefab
+Dependencies: []

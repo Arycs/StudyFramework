@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 3117089501
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: ed1cb54750f7742660d1ec3f57f79d6a
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 2ed26e3ad9f6be9c24f85f5f5b54339d
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Role/RoleSources/Character/TestRole/guaiwu_jinzhannvbing_01.png
+Dependencies: []

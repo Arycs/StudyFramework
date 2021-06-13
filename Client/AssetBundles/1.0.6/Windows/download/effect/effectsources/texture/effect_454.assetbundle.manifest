@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 3501834611
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 60b2f630f4ca0c9de84186749b7d0626
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 2ed26e3ad9f6be9c24f85f5f5b54339d
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Effect/EffectSources/texture/effect_454.png
+Dependencies: []

@@ -1,0 +1,21 @@
+ManifestFileVersion: 0
+CRC: 3241826033
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 146e2daeba298fa635328438c7a09856
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 21c99c86a43ad817b2cb7f65458ae090
+HashAppended: 0
+ClassTypes:
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Role/RoleSources/Character/Npc/Man/MatureMan/No_Weapon/Npc_001_mingwangsuicong_001/Materials/Npc_001_mingwangsuicong_001.mat
+- Assets/Download/Role/RoleSources/Character/Npc/Man/MatureMan/No_Weapon/Npc_001_mingwangsuicong_001/Materials/Npc_001_mingwangsuicong_001.tga
+Dependencies: []

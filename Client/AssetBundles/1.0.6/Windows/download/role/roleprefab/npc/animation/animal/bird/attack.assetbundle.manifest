@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 2852687817
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 955b91692b9933335493d3ff3c0fb8d3
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: af57576da81d5d3ce45807ac11234de6
+HashAppended: 0
+ClassTypes:
+- Class: 74
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Role/RolePrefab/Npc/Animation/Animal/Bird/Attack.anim
+Dependencies: []

@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 2150485423
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 6b6025a50b86588adf4f9f4c3bd33394
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 2ed26e3ad9f6be9c24f85f5f5b54339d
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Effect/EffectSources/texture/effect_water15.tga
+Dependencies: []

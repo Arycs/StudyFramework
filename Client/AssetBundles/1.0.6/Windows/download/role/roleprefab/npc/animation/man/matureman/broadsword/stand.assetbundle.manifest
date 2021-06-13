@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 233227741
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 8a591db172f5c6a669726c303c50d890
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: af57576da81d5d3ce45807ac11234de6
+HashAppended: 0
+ClassTypes:
+- Class: 74
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Role/RolePrefab/Npc/Animation/Man/MatureMan/Broadsword/Stand.anim
+Dependencies: []

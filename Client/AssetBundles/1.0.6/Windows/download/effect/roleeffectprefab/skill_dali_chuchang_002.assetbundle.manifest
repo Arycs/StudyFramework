@@ -1,0 +1,22 @@
+ManifestFileVersion: 0
+CRC: 3351960521
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: a09510eb63928fec813a7ab8d5909538
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 1e180bc45c4d4a8617ce6edb4a143103
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Effect/RoleEffectPrefab/skill_dali_chuchang_002.prefab
+Dependencies: []

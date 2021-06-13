@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 67216451
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 11ad4532bb6f8291a7790637390e84dc
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: af57576da81d5d3ce45807ac11234de6
+HashAppended: 0
+ClassTypes:
+- Class: 74
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Role/RolePrefab/Player/Animation/Shaolin_001/Jump_02_Loop.anim
+Dependencies: []

@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 3657002558
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: cbeb3513db837b2bbe273523fe590fcd
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: af57576da81d5d3ce45807ac11234de6
+HashAppended: 0
+ClassTypes:
+- Class: 74
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Role/RolePrefab/Player/Animation/Xiaoyao_001/Skill_Hanshuangnuxue_Loop.anim
+Dependencies: []

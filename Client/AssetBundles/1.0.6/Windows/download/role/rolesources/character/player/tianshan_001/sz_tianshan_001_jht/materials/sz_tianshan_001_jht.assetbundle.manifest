@@ -1,0 +1,21 @@
+ManifestFileVersion: 0
+CRC: 790584345
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: a14d1b760f718aa537953e063edd85ee
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 21c99c86a43ad817b2cb7f65458ae090
+HashAppended: 0
+ClassTypes:
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Role/RoleSources/Character/Player/Tianshan_001/Sz_tianshan_001_jht/Materials/Sz_tianshan_001_jht.tga
+- Assets/Download/Role/RoleSources/Character/Player/Tianshan_001/Sz_tianshan_001_jht/Materials/Sz_tianshan_001_jht.mat
+Dependencies: []

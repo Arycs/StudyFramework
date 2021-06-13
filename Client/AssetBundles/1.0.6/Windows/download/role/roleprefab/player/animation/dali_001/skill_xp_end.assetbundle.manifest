@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 646802210
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 86d29800a12f6c87514f585772e2507a
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: af57576da81d5d3ce45807ac11234de6
+HashAppended: 0
+ClassTypes:
+- Class: 74
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Role/RolePrefab/Player/Animation/Dali_001/Skill_Xp_End.anim
+Dependencies: []

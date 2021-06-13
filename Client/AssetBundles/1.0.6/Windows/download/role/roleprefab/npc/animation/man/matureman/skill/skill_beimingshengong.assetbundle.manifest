@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 976369199
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 145844b0fd12d2a677127919eb98c006
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: af57576da81d5d3ce45807ac11234de6
+HashAppended: 0
+ClassTypes:
+- Class: 74
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Role/RolePrefab/Npc/Animation/Man/MatureMan/Skill/Skill_Beimingshengong.anim
+Dependencies: []

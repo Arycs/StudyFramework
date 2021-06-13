@@ -1,0 +1,19 @@
+ManifestFileVersion: 0
+CRC: 1200682025
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 7bf061afeb8506a7b4ee8dabc395bead
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 9a61a9214c25f9937f62a002bd045b93
+HashAppended: 0
+ClassTypes:
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Role/RoleSources/Character/Npc/Man/MatureMan/One_Sword/Npc_001_murongfu_001/Materials/Npc_001_murongfu_001.mat
+- Assets/Download/Role/RoleSources/Character/Npc/Man/MatureMan/One_Sword/Npc_001_murongfu_001/Materials/Npc_001_murongfu_001.tga
+Dependencies: []

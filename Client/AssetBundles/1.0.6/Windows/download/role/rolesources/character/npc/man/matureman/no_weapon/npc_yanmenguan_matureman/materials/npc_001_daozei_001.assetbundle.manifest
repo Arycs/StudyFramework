@@ -1,0 +1,19 @@
+ManifestFileVersion: 0
+CRC: 3688223737
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: f89d8604345ae1a22b9956b1121a160e
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 9a61a9214c25f9937f62a002bd045b93
+HashAppended: 0
+ClassTypes:
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Role/RoleSources/Character/Npc/Man/MatureMan/No_Weapon/Npc_Yanmenguan_matureman/Materials/Npc_001_daozei_001.tga
+- Assets/Download/Role/RoleSources/Character/Npc/Man/MatureMan/No_Weapon/Npc_Yanmenguan_matureman/Materials/Npc_001_daozei_001.mat
+Dependencies: []

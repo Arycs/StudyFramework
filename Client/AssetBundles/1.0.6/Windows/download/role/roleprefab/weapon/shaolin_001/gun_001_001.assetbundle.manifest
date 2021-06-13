@@ -1,0 +1,24 @@
+ManifestFileVersion: 0
+CRC: 1497583019
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: d6517406da84287820f35e1c451ee981
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: d8ff8afbcf6a22005bb7da619c887ded
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 95
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Role/RolePrefab/Weapon/Shaolin_001/Gun_001_001.prefab
+Dependencies: []

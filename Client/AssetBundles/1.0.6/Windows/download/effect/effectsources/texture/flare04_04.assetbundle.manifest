@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 96394562
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 4dd1015eb0fa54a4f429e824919ef085
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 2ed26e3ad9f6be9c24f85f5f5b54339d
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Effect/EffectSources/texture/flare04_04.png
+Dependencies: []

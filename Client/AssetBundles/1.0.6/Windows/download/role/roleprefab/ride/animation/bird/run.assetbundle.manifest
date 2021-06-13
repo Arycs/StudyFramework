@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 1305695506
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 07919fb809c65435b7fbc3525c6ba5f6
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: af57576da81d5d3ce45807ac11234de6
+HashAppended: 0
+ClassTypes:
+- Class: 74
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Role/RolePrefab/Ride/Animation/Bird/Run.anim
+Dependencies: []

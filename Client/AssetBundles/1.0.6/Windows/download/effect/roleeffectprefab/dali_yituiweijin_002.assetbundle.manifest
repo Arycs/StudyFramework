@@ -1,0 +1,22 @@
+ManifestFileVersion: 0
+CRC: 2056922450
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 2ac05899ccf7a17a031fed9d46ac49c7
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 1e180bc45c4d4a8617ce6edb4a143103
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Effect/RoleEffectPrefab/dali_yituiweijin_002.prefab
+Dependencies: []

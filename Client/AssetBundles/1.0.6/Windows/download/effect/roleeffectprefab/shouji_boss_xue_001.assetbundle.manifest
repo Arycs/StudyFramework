@@ -1,0 +1,20 @@
+ManifestFileVersion: 0
+CRC: 421113487
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 0e171180a3da90c2ad6b12cc04c90171
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: a543ea25167c0f2458855fa0fa4327b6
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: eb436447a25fa8e489c1ad7b581e3357, type: 3}
+Assets:
+- Assets/Download/Effect/RoleEffectPrefab/shouji_boss_xue_001.prefab
+Dependencies: []

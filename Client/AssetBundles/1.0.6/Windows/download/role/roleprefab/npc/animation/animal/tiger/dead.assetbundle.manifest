@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 1406564494
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 9f7a4ab9e2de5149c6cc4ecf571bdda4
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: af57576da81d5d3ce45807ac11234de6
+HashAppended: 0
+ClassTypes:
+- Class: 74
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Role/RolePrefab/Npc/Animation/Animal/Tiger/Dead.anim
+Dependencies: []

@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 3645720503
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: bd5ef143c6320d91653d5c67192c9495
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: af57576da81d5d3ce45807ac11234de6
+HashAppended: 0
+ClassTypes:
+- Class: 74
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Role/RolePrefab/Npc/Animation/Man/MatureMan/Broadsword/Run.anim
+Dependencies: []

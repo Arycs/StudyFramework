@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 3717389353
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 7f8a3933152282682c8bae7b6e244a13
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 2ed26e3ad9f6be9c24f85f5f5b54339d
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Effect/EffectSources/texture/effect_xulie003.tga
+Dependencies: []

@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 2273197710
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 8ec9f48baed8730230f1326118d3fff4
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 2ed26e3ad9f6be9c24f85f5f5b54339d
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Effect/EffectSources/texture/effect_621.png
+Dependencies: []

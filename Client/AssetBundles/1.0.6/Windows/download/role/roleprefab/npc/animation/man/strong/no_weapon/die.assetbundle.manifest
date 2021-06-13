@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 1347478479
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 4b449fe64e0c5eb5470d5394751aeb73
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: af57576da81d5d3ce45807ac11234de6
+HashAppended: 0
+ClassTypes:
+- Class: 74
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Role/RolePrefab/Npc/Animation/Man/Strong/No_Weapon/Die.anim
+Dependencies: []

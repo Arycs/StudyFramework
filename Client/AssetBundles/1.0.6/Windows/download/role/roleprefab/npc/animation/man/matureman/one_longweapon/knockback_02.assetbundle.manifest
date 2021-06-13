@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 3701274960
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: f4fcc28cbea3cb04e29f608ef189d01c
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: af57576da81d5d3ce45807ac11234de6
+HashAppended: 0
+ClassTypes:
+- Class: 74
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Role/RolePrefab/Npc/Animation/Man/MatureMan/One_LongWeapon/Knockback_02.anim
+Dependencies: []

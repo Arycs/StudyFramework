@@ -1,0 +1,22 @@
+ManifestFileVersion: 0
+CRC: 2719308894
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 31fd7b4e48254c50301fdf48c2b0d842
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 1e180bc45c4d4a8617ce6edb4a143103
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Effect/RoleEffectPrefab/baoshi_wuqi_faxi_006.prefab
+Dependencies: []

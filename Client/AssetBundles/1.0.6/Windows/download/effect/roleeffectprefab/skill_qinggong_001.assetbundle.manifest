@@ -1,0 +1,22 @@
+ManifestFileVersion: 0
+CRC: 1099276808
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: c88a0341ea3c33fc73f2f858d8e92134
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 62b3c4c14a1b8fa8ae5f3d30e1a3370a
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 96
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 56629253e21c7b248b31392f326044a6, type: 3}
+Assets:
+- Assets/Download/Effect/RoleEffectPrefab/skill_qinggong_001.prefab
+Dependencies: []

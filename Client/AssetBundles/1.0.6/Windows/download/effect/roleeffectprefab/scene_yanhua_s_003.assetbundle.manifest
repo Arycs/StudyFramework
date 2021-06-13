@@ -1,0 +1,28 @@
+ManifestFileVersion: 0
+CRC: 2856000940
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 88034b801ba98ceaa4553144b3456438
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 6190798dd7fe08a5151fea2229814362
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Effect/RoleEffectPrefab/scene_yanhua_s_003.prefab
+Dependencies: []

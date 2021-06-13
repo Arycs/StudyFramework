@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 1325104817
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 5c92c839ee3cc015f01df0a30831bbe7
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: af57576da81d5d3ce45807ac11234de6
+HashAppended: 0
+ClassTypes:
+- Class: 74
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Role/RolePrefab/Npc/Animation/Man/Special/Snowman/Knockback_01.anim
+Dependencies: []

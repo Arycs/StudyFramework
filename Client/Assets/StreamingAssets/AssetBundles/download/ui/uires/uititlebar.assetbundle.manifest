@@ -1,0 +1,29 @@
+ManifestFileVersion: 0
+CRC: 1856256131
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 936bfd804e67fca6908c71daf9412bc8
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 9e6ad29cbd2df8fbe1a15315db0e51ab
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/UI/UIRes/UITitleBar/Title_Bar_2.png
+- Assets/Download/UI/UIRes/UITitleBar/Title_Bar_4.png
+- Assets/Download/UI/UIRes/UITitleBar/Title_Bar_5.png
+- Assets/Download/UI/UIRes/UITitleBar/Title_Bar_11.png
+- Assets/Download/UI/UIRes/UITitleBar/Title_Bar_12.png
+- Assets/Download/UI/UIRes/UITitleBar/Title_Bar_3.png
+- Assets/Download/UI/UIRes/UITitleBar/Title_Bar_10.png
+- Assets/Download/UI/UIRes/UITitleBar/Title_Bar_9.png
+- Assets/Download/UI/UIRes/UITitleBar/Title_Bar_6.png
+- Assets/Download/UI/UIRes/UITitleBar/Title_Bar_7.png
+- Assets/Download/UI/UIRes/UITitleBar/Title_Bar_8.png
+- Assets/Download/UI/UIRes/UITitleBar/Title_Bar_1.png
+Dependencies: []

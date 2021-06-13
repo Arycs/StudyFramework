@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 2693276497
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: ad3cfa50d88b8ec4dcdd078a2c55ba58
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: af57576da81d5d3ce45807ac11234de6
+HashAppended: 0
+ClassTypes:
+- Class: 74
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Role/RolePrefab/Npc/Animation/Man/MatureMan/No_Weapon/Knockback_01.anim
+Dependencies: []

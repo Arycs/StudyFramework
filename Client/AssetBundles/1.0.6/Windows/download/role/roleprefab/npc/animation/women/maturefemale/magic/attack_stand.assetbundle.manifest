@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 3568420344
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: c3d7d784d9524bebf189dbe7d3c1b759
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: af57576da81d5d3ce45807ac11234de6
+HashAppended: 0
+ClassTypes:
+- Class: 74
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Role/RolePrefab/Npc/Animation/Women/MatureFemale/Magic/Attack_Stand.anim
+Dependencies: []

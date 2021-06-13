@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 4204599556
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: bac7a36d6bf0bcff76d80cfe087f763d
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: af57576da81d5d3ce45807ac11234de6
+HashAppended: 0
+ClassTypes:
+- Class: 74
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Role/RolePrefab/Ride/Animation/Panda/Run.anim
+Dependencies: []

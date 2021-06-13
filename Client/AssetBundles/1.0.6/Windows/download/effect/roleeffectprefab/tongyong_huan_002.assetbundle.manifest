@@ -1,0 +1,22 @@
+ManifestFileVersion: 0
+CRC: 3526791775
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 64f6d0813fbb734fb2050bd7ff55ad1a
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: e754ee3d22c0819df7732deb7524fca1
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Effect/RoleEffectPrefab/tongyong_huan_002.prefab
+Dependencies: []

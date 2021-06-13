@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 222757840
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: c8d8033b8c14257d340a64e8c48e317e
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: af57576da81d5d3ce45807ac11234de6
+HashAppended: 0
+ClassTypes:
+- Class: 74
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Role/RolePrefab/Npc/Animation/Man/Strong/One_Sword/Run.anim
+Dependencies: []

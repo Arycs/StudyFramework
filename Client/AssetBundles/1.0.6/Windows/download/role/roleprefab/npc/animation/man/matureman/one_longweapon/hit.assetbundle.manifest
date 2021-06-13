@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 2147803827
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: d70a5571a1be06d46f173d09b1abdcdd
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: af57576da81d5d3ce45807ac11234de6
+HashAppended: 0
+ClassTypes:
+- Class: 74
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Role/RolePrefab/Npc/Animation/Man/MatureMan/One_LongWeapon/Hit.anim
+Dependencies: []

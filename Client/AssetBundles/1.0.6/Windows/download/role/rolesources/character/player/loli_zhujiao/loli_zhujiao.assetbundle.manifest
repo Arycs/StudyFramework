@@ -1,0 +1,32 @@
+ManifestFileVersion: 0
+CRC: 2267497688
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 2052c0ce2443a1c2fabca6a539a72dce
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 0b4e6f81e806abe768b1f1fc92a5ade4
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 74
+  Script: {instanceID: 0}
+- Class: 111
+  Script: {instanceID: 0}
+- Class: 137
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Role/RoleSources/Character/Player/Loli_zhujiao/Loli_zhujiao.FBX
+Dependencies:
+- D:/GitHub_Repository/MMOStudy/Assets/../AssetBundles/1.0.6/Windows/download/role/rolesources/character/player/loli_zhujiao/materials/sz_001_xiaoyaonvhat_001_hht.assetbundle
+- D:/GitHub_Repository/MMOStudy/Assets/../AssetBundles/1.0.6/Windows/download/role/rolesources/character/player/loli_zhujiao/materials/sz_xiaoyaonv_001_hht.assetbundle
+- D:/GitHub_Repository/MMOStudy/Assets/../AssetBundles/1.0.6/Windows/download/role/rolesources/character/player/loli_zhujiao/materials/material
+  #26.assetbundle

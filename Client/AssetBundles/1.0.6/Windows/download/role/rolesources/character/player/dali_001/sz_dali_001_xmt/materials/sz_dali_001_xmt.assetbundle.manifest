@@ -1,0 +1,21 @@
+ManifestFileVersion: 0
+CRC: 865966747
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 6e1602b9a31b848f9212ae6dbd3b1dfe
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 21c99c86a43ad817b2cb7f65458ae090
+HashAppended: 0
+ClassTypes:
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+Assets:
+- Assets/Download/Role/RoleSources/Character/Player/Dali_001/Sz_dali_001_xmt/Materials/Sz_dali_001_xmt.mat
+- Assets/Download/Role/RoleSources/Character/Player/Dali_001/Sz_dali_001_xmt/Materials/Sz_dali_001_xmt.tga
+Dependencies: []
