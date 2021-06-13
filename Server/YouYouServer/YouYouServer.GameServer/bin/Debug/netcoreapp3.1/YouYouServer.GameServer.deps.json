@@ -1,0 +1,60 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.1",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "YouYouServer.GameServer/1.0.0": {
+        "dependencies": {
+          "YouYouServer.Model": "1.0.0"
+        },
+        "runtime": {
+          "YouYouServer.GameServer.dll": {}
+        }
+      },
+      "YouYouServer.Core/1.0.0": {
+        "runtime": {
+          "YouYouServer.Core.dll": {}
+        }
+      },
+      "YouYouServer.CSRedis/1.0.0": {
+        "runtime": {
+          "YouYouServer.CSRedis.dll": {}
+        }
+      },
+      "YouYouServer.Model/1.0.0": {
+        "dependencies": {
+          "YouYouServer.CSRedis": "1.0.0",
+          "YouYouServer.Core": "1.0.0"
+        },
+        "runtime": {
+          "YouYouServer.Model.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "YouYouServer.GameServer/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "YouYouServer.Core/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "YouYouServer.CSRedis/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "YouYouServer.Model/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

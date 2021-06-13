@@ -1,0 +1,13 @@
+D:\GitHub_Repository\Server\YouYouServer\YouYouServer.Model\bin\Release\netcoreapp3.1\Configs\ServerConfig.xml
+D:\GitHub_Repository\Server\YouYouServer\YouYouServer.Model\bin\Release\netcoreapp3.1\YouYouServer.Model.deps.json
+D:\GitHub_Repository\Server\YouYouServer\YouYouServer.Model\bin\Release\netcoreapp3.1\YouYouServer.Model.dll
+D:\GitHub_Repository\Server\YouYouServer\YouYouServer.Model\bin\Release\netcoreapp3.1\YouYouServer.Model.pdb
+D:\GitHub_Repository\Server\YouYouServer\YouYouServer.Model\bin\Release\netcoreapp3.1\YouYouServer.Core.dll
+D:\GitHub_Repository\Server\YouYouServer\YouYouServer.Model\bin\Release\netcoreapp3.1\YouYouServer.Core.pdb
+D:\GitHub_Repository\Server\YouYouServer\YouYouServer.Model\obj\Release\netcoreapp3.1\YouYouServer.Model.csprojAssemblyReference.cache
+D:\GitHub_Repository\Server\YouYouServer\YouYouServer.Model\obj\Release\netcoreapp3.1\YouYouServer.Model.AssemblyInfoInputs.cache
+D:\GitHub_Repository\Server\YouYouServer\YouYouServer.Model\obj\Release\netcoreapp3.1\YouYouServer.Model.AssemblyInfo.cs
+D:\GitHub_Repository\Server\YouYouServer\YouYouServer.Model\obj\Release\netcoreapp3.1\YouYouServer.Model.csproj.CoreCompileInputs.cache
+D:\GitHub_Repository\Server\YouYouServer\YouYouServer.Model\obj\Release\netcoreapp3.1\YouYouServer.Model.csproj.CopyComplete
+D:\GitHub_Repository\Server\YouYouServer\YouYouServer.Model\obj\Release\netcoreapp3.1\YouYouServer.Model.dll
+D:\GitHub_Repository\Server\YouYouServer\YouYouServer.Model\obj\Release\netcoreapp3.1\YouYouServer.Model.pdb

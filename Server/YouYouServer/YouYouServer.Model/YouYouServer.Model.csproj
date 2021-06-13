@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\YouYouServer.Core\YouYouServer.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="DataTable\Create\" />
+    <Folder Include="Proto\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Configs\ChannelConfig.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Configs\ServerConfig.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

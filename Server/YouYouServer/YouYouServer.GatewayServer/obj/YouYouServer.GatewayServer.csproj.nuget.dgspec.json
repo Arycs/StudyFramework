@@ -1,0 +1,196 @@
+{
+  "format": 1,
+  "restore": {
+    "D:\\GitHub_Repository\\Server\\YouYouServer\\YouYouServer.GatewayServer\\YouYouServer.GatewayServer.csproj": {}
+  },
+  "projects": {
+    "D:\\GitHub_Repository\\Server\\YouYouServer\\YouYouServer.Core\\YouYouServer.Core.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\GitHub_Repository\\Server\\YouYouServer\\YouYouServer.Core\\YouYouServer.Core.csproj",
+        "projectName": "YouYouServer.Core",
+        "projectPath": "D:\\GitHub_Repository\\Server\\YouYouServer\\YouYouServer.Core\\YouYouServer.Core.csproj",
+        "packagesPath": "C:\\Users\\78685\\.nuget\\packages\\",
+        "outputPath": "D:\\GitHub_Repository\\Server\\YouYouServer\\YouYouServer.Core\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\78685\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "dependencies": {
+            "CSRedisCore": {
+              "target": "Package",
+              "version": "[3.1.6, )"
+            },
+            "MongoDB.Bson": {
+              "target": "Package",
+              "version": "[2.9.2, )"
+            },
+            "MongoDB.Driver": {
+              "target": "Package",
+              "version": "[2.9.2, )"
+            },
+            "MongoDB.Driver.Core": {
+              "target": "Package",
+              "version": "[2.9.2, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\GitHub_Repository\\Server\\YouYouServer\\YouYouServer.GatewayServer\\YouYouServer.GatewayServer.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\GitHub_Repository\\Server\\YouYouServer\\YouYouServer.GatewayServer\\YouYouServer.GatewayServer.csproj",
+        "projectName": "YouYouServer.GatewayServer",
+        "projectPath": "D:\\GitHub_Repository\\Server\\YouYouServer\\YouYouServer.GatewayServer\\YouYouServer.GatewayServer.csproj",
+        "packagesPath": "C:\\Users\\78685\\.nuget\\packages\\",
+        "outputPath": "D:\\GitHub_Repository\\Server\\YouYouServer\\YouYouServer.GatewayServer\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\78685\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
+            "projectReferences": {
+              "D:\\GitHub_Repository\\Server\\YouYouServer\\YouYouServer.Model\\YouYouServer.Model.csproj": {
+                "projectPath": "D:\\GitHub_Repository\\Server\\YouYouServer\\YouYouServer.Model\\YouYouServer.Model.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\GitHub_Repository\\Server\\YouYouServer\\YouYouServer.Model\\YouYouServer.Model.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\GitHub_Repository\\Server\\YouYouServer\\YouYouServer.Model\\YouYouServer.Model.csproj",
+        "projectName": "YouYouServer.Model",
+        "projectPath": "D:\\GitHub_Repository\\Server\\YouYouServer\\YouYouServer.Model\\YouYouServer.Model.csproj",
+        "packagesPath": "C:\\Users\\78685\\.nuget\\packages\\",
+        "outputPath": "D:\\GitHub_Repository\\Server\\YouYouServer\\YouYouServer.Model\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\78685\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
+            "projectReferences": {
+              "D:\\GitHub_Repository\\Server\\YouYouServer\\YouYouServer.Core\\YouYouServer.Core.csproj": {
+                "projectPath": "D:\\GitHub_Repository\\Server\\YouYouServer\\YouYouServer.Core\\YouYouServer.Core.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
