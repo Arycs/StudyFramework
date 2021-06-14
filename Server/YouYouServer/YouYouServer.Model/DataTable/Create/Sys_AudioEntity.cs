@@ -8,24 +8,29 @@ using YouYouServer.Core.DataTableBase;
 namespace YouYouServer.Model.DataTable
 {
     /// <summary>
-    /// Sys_SceneDetail实体
+    /// Sys_Audio实体
     /// </summary>
-    public partial class Sys_SceneDetailEntity : DataTableEntityBase
+    public partial class Sys_AudioEntity : DataTableEntityBase
     {
         /// <summary>
-        /// 场景编号
+        /// 描述
         /// </summary>
-        public int SceneId;
+        public string Desc;
 
         /// <summary>
-        /// 场景路径
+        /// 路径
         /// </summary>
-        public string ScenePath;
+        public string AssetPath;
 
         /// <summary>
-        /// 场景等级(0=必须1=重要2=不重要)
+        /// 是否3D声音
         /// </summary>
-        public int SceneGrade;
+        public int Is3D;
+
+        /// <summary>
+        /// 音量(0-1)
+        /// </summary>
+        public float volume;
 
     }
 }
