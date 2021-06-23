@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Root>
+  <Menu MenuId="637133063517613280" MenuName="服务器内部通讯" HasChild="true">
+    <Proto ProtoID="637133063581311466" ProtoCode="10001" ProtoEnName="GS2WS_RegGameServer" ProtoCnName="游戏服务器注册到中心服务器" ProtoDesc="" ProtoCategory="GameServer2WorldServer" IsCSharp="true" IsLua="false">
+      <Attr AttID="637133066418690910" AttType="int" AttEnName="ServerId" AttCnName="服务器编号" AttIsLoop="false" AttToLoop="" AttToBool="" AttToBoolResult="false" AttToCus="" AttIsExistsProto="false" />
+    </Proto>
+    <Proto ProtoID="637135735686439715" ProtoCode="10002" ProtoEnName="GWS2WS_RegGatewayServer" ProtoCnName="网关服务器注册到中心服务器" ProtoDesc="" ProtoCategory="GatewayServer2WorldServer" IsCSharp="true" IsLua="false">
+      <Attr AttID="637135736437378939" AttType="int" AttEnName="ServerId" AttCnName="服务器编号" AttIsLoop="false" AttToLoop="" AttToBool="" AttToBoolResult="false" AttToCus="" AttIsExistsProto="false" />
+    </Proto>
+    <Proto ProtoID="637136407897408078" ProtoCode="10003" ProtoEnName="WS2GWS_ToRegGameServer" ProtoCnName="中心服务器通知网关服务器注册到游戏服" ProtoDesc="" ProtoCategory="WorldServer2GatewayServer" IsCSharp="true" IsLua="false" />
+    <Proto ProtoID="637136409407142248" ProtoCode="10004" ProtoEnName="GWS2WS_RegGameServerSuccess" ProtoCnName="网关服务器通知中心服务器注册到游戏服完毕" ProtoDesc="" ProtoCategory="GatewayServer2WorldServer" IsCSharp="true" IsLua="false" />
+    <Proto ProtoID="637136428033831333" ProtoCode="10005" ProtoEnName="GWS2GS_RegGatewayServer" ProtoCnName="网关服务器注册到游戏服务器" ProtoDesc="" ProtoCategory="GatewayServer2GameServer" IsCSharp="true" IsLua="false">
+      <Attr AttID="637136428804823099" AttType="int" AttEnName="ServerId" AttCnName="服务器编号" AttIsLoop="false" AttToLoop="" AttToBool="" AttToBoolResult="false" AttToCus="" AttIsExistsProto="false" />
+    </Proto>
+  </Menu>
+  <Menu MenuId="637136829363022857" MenuName="玩家注册登录" HasChild="true">
+    <Proto ProtoID="637136829518107283" ProtoCode="11001" ProtoEnName="C2GWS_RegClient" ProtoCnName="玩家向网关服务器注册客户端" ProtoDesc="" ProtoCategory="Client2GatewayServer" IsCSharp="true" IsLua="false">
+      <Attr AttID="637136832025791827" AttType="long" AttEnName="AccountId" AttCnName="玩家账号" AttIsLoop="false" AttToLoop="" AttToBool="" AttToBoolResult="false" AttToCus="" AttIsExistsProto="false" />
+    </Proto>
+    <Proto ProtoID="637136830760757996" ProtoCode="11002" ProtoEnName="GWS2C_ReturnRegClient" ProtoCnName="网关服务器返回注册客户端结果" ProtoDesc="" ProtoCategory="GatewayServer2Client" IsCSharp="true" IsLua="false">
+      <Attr AttID="637136831842903612" AttType="bool" AttEnName="Result" AttCnName="结果" AttIsLoop="false" AttToLoop="" AttToBool="" AttToBoolResult="false" AttToCus="" AttIsExistsProto="false" />
+    </Proto>
+    <Proto ProtoID="637137315199047105" ProtoCode="11003" ProtoEnName="C2WS_CreateRole" ProtoCnName="玩家向服务器发送创建角色消息" ProtoDesc="" ProtoCategory="Client2WorldServer" IsCSharp="true" IsLua="false">
+      <Attr AttID="637137316654217053" AttType="byte" AttEnName="JobId" AttCnName="职业编号" AttIsLoop="false" AttToLoop="" AttToBool="" AttToBoolResult="false" AttToCus="" AttIsExistsProto="false" />
+      <Attr AttID="637137316654217054" AttType="byte" AttEnName="Sex" AttCnName="性别" AttIsLoop="false" AttToLoop="" AttToBool="" AttToBoolResult="false" AttToCus="" AttIsExistsProto="false" />
+      <Attr AttID="637137316654217055" AttType="string" AttEnName="NickName" AttCnName="昵称" AttIsLoop="false" AttToLoop="" AttToBool="" AttToBoolResult="false" AttToCus="" AttIsExistsProto="false" />
+    </Proto>
+    <Proto ProtoID="637137316903113542" ProtoCode="11004" ProtoEnName="WS2C_ReturnCreateRole" ProtoCnName="服务器返回创建角色消息" ProtoDesc="" ProtoCategory="WorldServer2Client" IsCSharp="true" IsLua="false">
+      <Attr AttID="637137318081703270" AttType="bool" AttEnName="Result" AttCnName="结果" AttIsLoop="false" AttToLoop="" AttToBool="" AttToBoolResult="true" AttToCus="" AttIsExistsProto="false" />
+      <Attr AttID="637138292743020197" AttType="long" AttEnName="RoleId" AttCnName="角色编号" AttIsLoop="false" AttToLoop="" AttToBool="Result" AttToBoolResult="true" AttToCus="" AttIsExistsProto="false" />
+    </Proto>
+  </Menu>
+  <Menu MenuId="637532256127372277" MenuName="测试模块" HasChild="true">
+    <Proto ProtoID="637532256912972857" ProtoCode="12001" ProtoEnName="C2S_Test" ProtoCnName="测试协议" ProtoDesc="" ProtoCategory="Client2WorldServer" IsCSharp="true" IsLua="false">
+      <Attr AttID="637532258234201958" AttType="int" AttEnName="TestName" AttCnName="测试的名字" AttIsLoop="false" AttToLoop="" AttToBool="" AttToBoolResult="false" AttToCus="" AttIsExistsProto="false" />
+    </Proto>
+  </Menu>
+</Root>

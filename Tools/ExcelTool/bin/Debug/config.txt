@@ -1,0 +1,6 @@
+﻿E:\YouYouTools\本地数据表
+E:\MyGitProgram\StudyFramework\Client\Assets\Download\DataTable
+E:\MyGitProgram\StudyFramework\Client\Assets\YouYouScript\Data\DataTable\Create
+E:\MyGitProgram\StudyFramework\Client\Assets\Download\xLuaLogic\DataNode\DataTable\Create
+E:\MyGitProgram\StudyFramework\Server\Release\DataTable\
+E:\MyGitProgram\StudyFramework\Server\YouYouServer\YouYouServer.Model\DataTable\Create\

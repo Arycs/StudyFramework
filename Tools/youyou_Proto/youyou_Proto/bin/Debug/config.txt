@@ -1,0 +1,4 @@
+D:\GitHub_Repository\MMOStudy\Assets\YouYouScript\Data\Proto
+D:\GitHub_Repository\MMOStudy\Assets\YouYouScript\Data\ProtoHandler
+
+

@@ -1,0 +1,6 @@
+﻿F:\YouYouTools\本地数据表
+F:\UnityProject\youyouMMO\trunk\NewMMO\Assets\Download\DataTable\
+F:\UnityProject\youyouMMO\trunk\NewMMO\Assets\YouYouScript\Data\DataTable\Create\
+F:\UnityProject\youyouMMO\trunk\NewMMO\Assets\Download\xLuaLogic\DataNode\DataTable\Create\
+F:\UnityProject\youyouMMO\trunk\Server\Release\DataTable\
+F:\UnityProject\youyouMMO\trunk\Server\YouYouServer\YouYouServer.Model\DataTable\Create\
