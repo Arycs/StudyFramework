@@ -10,14 +10,14 @@ using System;
 using YouYou;
 
 /// <summary>
-/// Sys_SceneDetail数据管理
+/// Sys_Audio数据管理
 /// </summary>
-public partial class Sys_SceneDetailDBModel : DataTableDBModelBase<Sys_SceneDetailDBModel, Sys_SceneDetailEntity>
+public partial class Sys_AudioDBModel : DataTableDBModelBase<Sys_AudioDBModel, Sys_AudioEntity>
 {
     /// <summary>
     /// 文件名称
     /// </summary>
-    public override string DataTableName { get { return "Sys_SceneDetail"; } }
+    public override string DataTableName { get { return "Sys_Audio"; } }
 
     /// <summary>
     /// 加载列表
@@ -29,11 +29,12 @@ public partial class Sys_SceneDetailDBModel : DataTableDBModelBase<Sys_SceneDeta
 
         for (int i = 0; i < rows; i++)
         {
-            Sys_SceneDetailEntity entity = new Sys_SceneDetailEntity();
+            Sys_AudioEntity entity = new Sys_AudioEntity();
             entity.Id = ms.ReadInt();
-            entity.SceneId = ms.ReadInt();
-            entity.ScenePath = ms.ReadUTF8String();
-            entity.SceneGrade = ms.ReadInt();
+            entity.Desc = ms.ReadUTF8String();
+            entity.AssetPath = ms.ReadUTF8String();
+            entity.Is3D = ms.ReadInt();
+            entity.volume = ms.ReadFloat();
 
             m_List.Add(entity);
             m_Dic[entity.Id] = entity;

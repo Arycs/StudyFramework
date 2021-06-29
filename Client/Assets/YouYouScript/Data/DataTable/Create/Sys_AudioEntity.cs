@@ -8,9 +8,9 @@ using System.Collections;
 using YouYou;
 
 /// <summary>
-/// Sys_StorySound实体
+/// Sys_Audio实体
 /// </summary>
-public partial class Sys_StorySoundEntity : DataTableEntityBase
+public partial class Sys_AudioEntity : DataTableEntityBase
 {
     /// <summary>
     /// 描述
@@ -20,11 +20,16 @@ public partial class Sys_StorySoundEntity : DataTableEntityBase
     /// <summary>
     /// 路径
     /// </summary>
-    public string AssetPath_CN;
+    public string AssetPath;
 
     /// <summary>
-    /// 路径
+    /// 是否3D声音
     /// </summary>
-    public string AssetPath_EN;
+    public int Is3D;
+
+    /// <summary>
+    /// 音量(0-1)
+    /// </summary>
+    public float volume;
 
 }
