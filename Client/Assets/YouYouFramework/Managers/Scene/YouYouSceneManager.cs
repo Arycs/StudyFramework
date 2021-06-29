@@ -88,6 +88,8 @@ namespace YouYou
                 GameEntry.LogError("正在重复加载场景{0}", sceneId);
                 return;
             }
+            //停止BGM
+            GameEntry.Audio.StopBGM();
 
             m_CurrLoadingParam = GameEntry.Pool.DequeueClassObject<BaseParams>();
             m_OnComplete = onComplete;
@@ -219,6 +221,8 @@ namespace YouYou
                 else if (m_CurrProgress >= m_NeedLoadOrUnLoadSceneDetailCount)
                 {
                     Debug.LogError("场景加载完毕");
+                    //播放BGM
+                    GameEntry.Audio.PlayBGM(m_CurrSceneEntity.BGMId);
                     m_NeedLoadOrUnLoadSceneDetailCount = 0;
                     m_CurrLoadOrUnLoadSceneDetailCount = 0;
                     m_CurrSceneIsLoading = false;

@@ -94,6 +94,11 @@ namespace YouYou
         /// </summary>
         public static LuaComponent Lua { get; private set; }
 
+        /// <summary>
+        /// Audio组件
+        /// </summary>
+        public static AudioComponent Audio { get; private set; }
+
         #endregion
 
         #region 基础组件管理
@@ -212,6 +217,7 @@ namespace YouYou
             Download = GetBaseComponent<DownloadComponent>();
             UI = GetBaseComponent<UIComponent>();
             Lua = GetBaseComponent<LuaComponent>();
+            Audio = GetBaseComponent<AudioComponent>();
         }
 
         void Start()

@@ -111,9 +111,20 @@ namespace YouYou
         private void OnLoadLuaDataTableComplete(object userData)
         {
             GameEntry.Log(LogCategory.Normal,"加载所有lua表格完毕");
-            LoadShader();
+            LoadAudio();
         }
 
+        /// <summary>
+        /// 加载声音
+        /// </summary>
+        private void LoadAudio()
+        {
+            GameEntry.Audio.LoadBanks(() => { LoadShader(); });
+        }
+
+        /// <summary>
+        /// 加载Shader
+        /// </summary>
         private void LoadShader()
         {
 #if DISABLE_ASSETBUNDLE

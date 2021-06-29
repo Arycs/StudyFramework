@@ -69,6 +69,11 @@ namespace YouYou
         public Sys_SceneDetailDBModel Sys_SceneDetailDBModel { get; private set; }
 
         /// <summary>
+        /// 音效表
+        /// </summary>
+        public Sys_AudioDBModel Sys_AudioDBModel { get; private set; }
+
+        /// <summary>
         /// 初始化DBModel
         /// </summary>
         private void InitDBModel()
@@ -83,6 +88,7 @@ namespace YouYou
             Sys_UIFormDBModel = new Sys_UIFormDBModel();
             Sys_SceneDBModel = new Sys_SceneDBModel();
             Sys_SceneDetailDBModel = new Sys_SceneDetailDBModel();
+            Sys_AudioDBModel = new Sys_AudioDBModel();
         }
 
        
