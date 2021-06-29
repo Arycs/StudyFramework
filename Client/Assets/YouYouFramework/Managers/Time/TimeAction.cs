@@ -145,15 +145,18 @@ namespace YouYou
             
             if (Time.time > m_CurrRunTime + m_DelayTime + m_PauseTime)
             {
-                //当程序执行到这里的时候,表示已经第一次过了延迟时间
-                IsRuning = true;
-                m_CurrRunTime = Time.time;
-                m_PauseTime = 0;
-
-                if (m_OnStart != null)
+                if (!IsRuning)
                 {
-                    m_OnStart();
+                    //当程序执行到这里的时候,表示已经第一次过了延迟时间
+                    m_CurrRunTime = Time.time;
+                    m_PauseTime = 0;
+
+                    if (m_OnStart != null)
+                    {
+                        m_OnStart();
+                    }
                 }
+                IsRuning = true;
             }
 
             if (!IsRuning)
