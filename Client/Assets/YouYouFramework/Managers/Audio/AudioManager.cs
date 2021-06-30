@@ -22,7 +22,8 @@ namespace YouYou
         /// 加载Bank
         /// </summary>
         /// <param name="onComplete"></param>
-        public void LoadBanks(BaseAction onComplete) {
+        public void LoadBanks(BaseAction onComplete)
+        {
 #if DISABLE_ASSETBUNDLE
            string[] arr = Directory.GetFiles(Application.dataPath + "./Download/Audio/", "*.bytes");
             int len = arr.Length;
@@ -39,7 +40,21 @@ namespace YouYou
                 onComplete();
             }
 #else
-                    
+            GameEntry.Resource.ResourceLoaderManager.LoadAssetBundle(ConstDefine.AudioAssetBundlePath, onComplete:
+                (AssetBundle bundle) =>
+                {
+                    TextAsset[] arr = bundle.LoadAllAssets<TextAsset>();
+                    int len = arr.Length;
+                    for (int i = 0; i < len; i++)
+                    {
+                        RuntimeManager.LoadBank(arr[i]);
+                    }
+
+                    if (onComplete != null)
+                    {
+                        onComplete();
+                    }
+                });
 #endif
         }
 
@@ -64,7 +79,7 @@ namespace YouYou
         /// 当前BGM的Instance
         /// </summary>
         private EventInstance BGMEvent;
-        
+
         /// <summary>
         /// 当前BGM的定时器 用来控制音量
         /// </summary>
@@ -90,9 +105,8 @@ namespace YouYou
         public void BGMSwitch(string switchName, float value)
         {
             BGMEvent.setParameterByName(switchName, value);
-
         }
-        
+
         /// <summary>
         /// 设置BGM音量
         /// </summary>
@@ -119,7 +133,7 @@ namespace YouYou
             }
         }
 
-        
+
         /// <summary>
         /// 检查BGM实例把之前的释放掉
         /// </summary>
@@ -137,7 +151,7 @@ namespace YouYou
             SetBGMVolume(m_CurrBGMVolume);
 
             BGMEvent.start();
-            
+
             //把音量逐渐变成Max
             m_CurrBGMTimeAction = GameEntry.Time.CreateTimeAction();
             m_CurrBGMTimeAction.Init(0, 0.05f, 100, null, (int loop) =>
@@ -149,7 +163,7 @@ namespace YouYou
                 {
                     m_CurrBGMTimeAction.Stop();
                 }
-            },null).Run();
+            }, null).Run();
         }
 
         /// <summary>
@@ -160,7 +174,7 @@ namespace YouYou
             if (BGMEvent.isValid())
             {
                 m_CurrBGMTimeAction = GameEntry.Time.CreateTimeAction();
-                m_CurrBGMTimeAction.Init(0,0.05f,100,null, (int loop) =>
+                m_CurrBGMTimeAction.Init(0, 0.05f, 100, null, (int loop) =>
                     {
                         m_CurrBGMVolume -= 0.1f;
                         m_CurrBGMVolume = Mathf.Max(m_CurrBGMVolume, 0);
@@ -171,7 +185,7 @@ namespace YouYou
                             BGMEvent.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
                         }
                     },
-                    () => { BGMEvent.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);}).Run();
+                    () => { BGMEvent.stop(FMOD.Studio.STOP_MODE.IMMEDIATE); }).Run();
             }
         }
 
@@ -217,8 +231,8 @@ namespace YouYou
         /// <summary>
         /// 音效字典
         /// </summary>
-        private Dictionary<int,EventInstance> m_CurrAudioEventsDic = new Dictionary<int, EventInstance>();
-        
+        private Dictionary<int, EventInstance> m_CurrAudioEventsDic = new Dictionary<int, EventInstance>();
+
         /// <summary>
         /// 需要释放的音效编号
         /// </summary>
@@ -269,7 +283,7 @@ namespace YouYou
         public bool PauseAudio(int serialId, bool paused = true)
         {
             EventInstance eventInstance;
-            if (m_CurrAudioEventsDic.TryGetValue(serialId,out eventInstance))
+            if (m_CurrAudioEventsDic.TryGetValue(serialId, out eventInstance))
             {
                 if (eventInstance.isValid())
                 {
@@ -289,7 +303,7 @@ namespace YouYou
         public bool StopAudio(int serialId, FMOD.Studio.STOP_MODE mode = FMOD.Studio.STOP_MODE.IMMEDIATE)
         {
             EventInstance eventInstance;
-            if (m_CurrAudioEventsDic.TryGetValue(serialId,out eventInstance))
+            if (m_CurrAudioEventsDic.TryGetValue(serialId, out eventInstance))
             {
                 if (eventInstance.isValid())
                 {
@@ -314,7 +328,8 @@ namespace YouYou
                 EventInstance eventInstance = lst.Current.Value;
                 if (!eventInstance.isValid())
                 {
-                    continue;;
+                    continue;
+                    ;
                 }
 
                 PLAYBACK_STATE state;
@@ -326,7 +341,7 @@ namespace YouYou
                     eventInstance.release();
                 }
             }
-            
+
             //
             LinkedListNode<int> currNode = m_NeedRemoveList.First;
             while (currNode != null)
