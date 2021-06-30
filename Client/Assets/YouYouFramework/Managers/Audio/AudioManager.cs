@@ -12,6 +12,12 @@ namespace YouYou
     /// </summary>
     public class AudioManager : ManagerBase
     {
+        public AudioManager(int releaseInterval)
+        {
+            m_NextReleaseTime = Time.time;
+            m_ReleaseInterval = releaseInterval;
+        }
+
         /// <summary>
         /// 加载Bank
         /// </summary>
@@ -175,6 +181,162 @@ namespace YouYou
         public void StartBGM()
         {
             BGMEvent.start();
+        }
+
+        #endregion
+
+        /// <summary>
+        /// OnUpdate
+        /// </summary>
+        public void OnUpdate()
+        {
+            if (Time.time > m_NextReleaseTime + m_ReleaseInterval)
+            {
+                m_NextReleaseTime = Time.time;
+                Release();
+            }
+        }
+
+        #region 音效
+
+        /// <summary>
+        /// 释放间隔
+        /// </summary>
+        private int m_ReleaseInterval = 120;
+
+        /// <summary>
+        /// 下次释放时间
+        /// </summary>
+        private float m_NextReleaseTime = 0f;
+
+        /// <summary>
+        /// 序号
+        /// </summary>
+        private int m_Serial = 0;
+
+        /// <summary>
+        /// 音效字典
+        /// </summary>
+        private Dictionary<int,EventInstance> m_CurrAudioEventsDic = new Dictionary<int, EventInstance>();
+        
+        /// <summary>
+        /// 需要释放的音效编号
+        /// </summary>
+        private LinkedList<int> m_NeedRemoveList = new LinkedList<int>();
+
+        /// <summary>
+        /// 播放音效
+        /// </summary>
+        /// <param name="eventPath">路径</param>
+        /// <param name="volume">音量</param>
+        /// <param name="parameterName">参数名称</param>
+        /// <param name="value">参数值</param>
+        /// <param name="is3D">是否3D</param>
+        /// <param name="pos3D">3D位置</param>
+        /// <returns></returns>
+        public int PlayAudio(string eventPath, float volume = 1, string parameterName = null, float value = 0,
+            bool is3D = false, Vector3 pos3D = default(Vector3))
+        {
+            if (string.IsNullOrEmpty(eventPath))
+            {
+                return -1;
+            }
+
+            EventInstance eventInstance = RuntimeManager.CreateInstance(eventPath);
+            eventInstance.setVolume(volume);
+            if (!string.IsNullOrEmpty(parameterName))
+            {
+                eventInstance.setParameterByName(parameterName, value);
+            }
+
+            if (is3D)
+            {
+                eventInstance.set3DAttributes(pos3D.To3DAttributes());
+            }
+
+            eventInstance.start();
+            int serialId = m_Serial++;
+            m_CurrAudioEventsDic[serialId] = eventInstance;
+            return serialId;
+        }
+
+        /// <summary>
+        /// 暂停某个音效
+        /// </summary>
+        /// <param name="serialId">音效实例编号</param>
+        /// <param name="paused">是否暂停</param>
+        /// <returns></returns>
+        public bool PauseAudio(int serialId, bool paused = true)
+        {
+            EventInstance eventInstance;
+            if (m_CurrAudioEventsDic.TryGetValue(serialId,out eventInstance))
+            {
+                if (eventInstance.isValid())
+                {
+                    return eventInstance.setPaused(paused) == FMOD.RESULT.OK;
+                }
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// 停止某个音效
+        /// </summary>
+        /// <param name="serialId">音效实例编号</param>
+        /// <param name="mode"></param>
+        /// <returns></returns>
+        public bool StopAudio(int serialId, FMOD.Studio.STOP_MODE mode = FMOD.Studio.STOP_MODE.IMMEDIATE)
+        {
+            EventInstance eventInstance;
+            if (m_CurrAudioEventsDic.TryGetValue(serialId,out eventInstance))
+            {
+                if (eventInstance.isValid())
+                {
+                    var result = eventInstance.stop(mode);
+                    eventInstance.release();
+                    m_CurrAudioEventsDic.Remove(serialId);
+                    return result == FMOD.RESULT.OK;
+                }
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// 释放
+        /// </summary>
+        private void Release()
+        {
+            var lst = m_CurrAudioEventsDic.GetEnumerator();
+            while (lst.MoveNext())
+            {
+                EventInstance eventInstance = lst.Current.Value;
+                if (!eventInstance.isValid())
+                {
+                    continue;;
+                }
+
+                PLAYBACK_STATE state;
+                eventInstance.getPlaybackState(out state);
+                if (state == PLAYBACK_STATE.STOPPED)
+                {
+                    m_NeedRemoveList.AddLast(lst.Current.Key);
+                    eventInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+                    eventInstance.release();
+                }
+            }
+            
+            //
+            LinkedListNode<int> currNode = m_NeedRemoveList.First;
+            while (currNode != null)
+            {
+                LinkedListNode<int> next = currNode.Next;
+                int serialId = currNode.Value;
+                m_CurrAudioEventsDic.Remove(serialId);
+                m_NeedRemoveList.Remove(currNode);
+                currNode = next;
+            }
         }
 
         #endregion

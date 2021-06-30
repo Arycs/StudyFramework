@@ -4,8 +4,12 @@ using UnityEngine;
 
 namespace YouYou
 {
-    public class AudioComponent : YouYouBaseComponent
+    public class AudioComponent : YouYouBaseComponent,IUpdateComponent
     {
+        [Header("释放间隔")]
+        [SerializeField]
+        private int m_ReleaseInterval = 120;
+        
         /// <summary>
         /// 声音管理器
         /// </summary>
@@ -14,7 +18,8 @@ namespace YouYou
         protected override void OnAwake()
         {
             base.OnAwake();
-            m_AudioManager = new AudioManager();
+            m_AudioManager = new AudioManager(m_ReleaseInterval);
+            GameEntry.RegisterUpdateComponent(this);
         }
 
         #region BGM
@@ -101,8 +106,68 @@ namespace YouYou
 
         #endregion
 
+        #region 音效
+
+        /// <summary>
+        /// 播放音效
+        /// </summary>
+        /// <param name="audioId">音效ID</param>
+        /// <param name="parameterName">参数名称</param>
+        /// <param name="value">参数值</param>
+        /// <param name="pos3D">3D音效位置</param>
+        /// <returns>音效实例编号</returns>
+        public int PlayAudio(int audioId, string parameterName = null, float value = 0,
+            Vector3 pos3D = default(Vector3))
+        {
+            Sys_AudioEntity entity = GameEntry.DataTable.DataTableManager.Sys_AudioDBModel.Get(audioId);
+            if (entity != null)
+            {
+                return PlayAudio(entity.AssetPath, entity.volume, parameterName, value, entity.Is3D == 1, pos3D);
+            }
+            else
+            {
+                GameEntry.LogError("Audio不存在ID={0}",audioId);
+                return -1;
+            }
+        }
+
+        public int PlayAudio(string eventPath, float volume = 1, string parameterName = null, float value = 0,
+            bool is3D = false, Vector3 pos3D = default(Vector3))
+        {
+            return m_AudioManager.PlayAudio(eventPath, value, parameterName, value, is3D, pos3D);
+        }
+
+        /// <summary>
+        /// 暂停某个音效
+        /// </summary>
+        /// <param name="serialId">音效实例编号</param>
+        /// <param name="paused">是否暂停</param>
+        /// <returns></returns>
+        public bool PauseAudio(int serialId, bool paused = true)
+        {
+            return m_AudioManager.PauseAudio(serialId, paused);
+        }
+
+        /// <summary>
+        /// 停止某个音效
+        /// </summary>
+        /// <param name="serialId">音效实例编号</param>
+        /// <param name="mode"></param>
+        /// <returns></returns>
+        public bool StopAudio(int serialId, FMOD.Studio.STOP_MODE mode = FMOD.Studio.STOP_MODE.IMMEDIATE)
+        {
+            return m_AudioManager.StopAudio(serialId, mode);
+        }
+        #endregion
+        
         public override void Shutdown()
         {
+            GameEntry.RemoveUpdateComponent(this);
+        }
+
+        public void OnUpdate()
+        {
+            m_AudioManager.OnUpdate();
         }
     }
 }

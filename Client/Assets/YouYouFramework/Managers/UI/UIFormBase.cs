@@ -70,6 +70,7 @@ namespace YouYou
         /// <param name="isFromInit">是否从Init调用</param>
         internal void Open(object userData, bool isFromInit = false)
         {
+            GameEntry.Audio.PlayAudio(ConstDefine.Audio_ButtonClick);
             if (!isFromInit)
             {
                 UserData = userData;
@@ -94,6 +95,7 @@ namespace YouYou
         /// </summary>
         public void ToClose()
         {
+            GameEntry.Audio.PlayAudio(ConstDefine.Audio_UIClose);
             if (!DisableUILayer)
             {
                 //进行层级管理 减少层级

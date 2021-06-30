@@ -30,5 +30,15 @@ namespace YouYou
         /// 自定义Shader资源包路径
         /// </summary>
         public const string CusShaderAssetBundlePath = "download/cusshaders.assetbundle";
+
+        /// <summary>
+        /// 点击按钮声音
+        /// </summary>
+        public const int Audio_ButtonClick = 201;
+
+        /// <summary>
+        /// UI关闭声音
+        /// </summary>
+        public const int Audio_UIClose = 202;
     }
 }
