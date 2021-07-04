@@ -20,7 +20,7 @@ namespace YouYou
             buffer = ZlibHelper.DeCompressBytes(buffer);
             Dictionary<string,AssetBundleInfoEntity> dic = new Dictionary<string, AssetBundleInfoEntity>();
             
-            MMO_MemoryStream ms = new MMO_MemoryStream();
+            MMO_MemoryStream ms = new MMO_MemoryStream(buffer);
             int len = ms.ReadInt();
             for (int i = 0; i < len; i++)
             {
@@ -70,6 +70,7 @@ namespace YouYou
         {
             StreamingAssetsManager = new StreamingAssetsManager();
             LocalAssetsManager = new LocalAssetsManager();
+            m_StreamingAssetsVersionDic = new Dictionary<string, AssetBundleInfoEntity>();
             
             m_NeedDownloadList = new LinkedList<string>();
         }
@@ -152,7 +153,7 @@ namespace YouYou
         /// </summary>
         private void InitCDNAssetBundleInfo()
         {
-            string url = string.Format("{0}VersionFiles.bytes",
+            string url = string.Format("{0}VersionFile.bytes",
                 GameEntry.Data.SysDataManager.CurrChannelConfig.RealSourceUrl);
             GameEntry.Log(LogCategory.Resource, url);
             GameEntry.Http.SendData(url, OnInitCDNAssetBundleInfo, isGetData:true);

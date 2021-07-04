@@ -23,6 +23,7 @@ namespace YouYou
         {
             m_DownloadRoutineList = new LinkedList<DownloadRoutine>();
             m_NeedDownloadList = new LinkedList<string>();
+            m_DownloadMulitCurrSizeDic = new Dictionary<string, ulong>();
         }
 
         /// <summary>

@@ -259,7 +259,7 @@ namespace YouYou
                 PoolManager.ReleaseAssetPool();
                 GameEntry.Log(LogCategory.Normal, "释放Asset池");
 #endif
-                LuaManager.luaEnv.FullGc();
+                //LuaManager.luaEnv.FullGc();
                 Resources.UnloadUnusedAssets();
             }
         }
