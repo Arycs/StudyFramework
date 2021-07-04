@@ -172,7 +172,11 @@ nginx反向代理设置
 
 
 
+# 部署CDN 
 
+在IIS 中添加网站，物理路径选择当前项目的AsetBundle路径即可，端口为服务器中ChannelConfig.xml 中配置的SourceUrl 
+
+在MIME 类型中添加 一个.*的扩展名， MIME类型为 application/octet-stream
 
 
 
