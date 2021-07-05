@@ -85,7 +85,7 @@ namespace YouYou
             m_OnUpdate = onUpdate;
             m_OnComplete = onComplete;
 
-            m_DownloadLocalFilePath = string.Format("{0}/{1}.temp", GameEntry.Resource.LocalFilePath, m_CurrFileUrl);
+            m_DownloadLocalFilePath = string.Format("{0}/{1}", GameEntry.Resource.LocalFilePath, m_CurrFileUrl);
             
             //判断如果本地已经有目标文件 先删除
             if (File.Exists(m_DownloadLocalFilePath))
@@ -282,7 +282,7 @@ namespace YouYou
             m_CurrWaitFlushSize += count;
             if (m_CurrWaitFlushSize >= GameEntry.Download.FlushSize || downloadComplete)
             {
-                Debug.Log("写入磁盘");
+                //Debug.Log("写入磁盘");
                 m_CurrWaitFlushSize = 0;
                 m_FileStream.Flush();
             }

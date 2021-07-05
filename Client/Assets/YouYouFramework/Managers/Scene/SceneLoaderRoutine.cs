@@ -136,7 +136,6 @@ namespace YouYou
                 }
                 else
                 {
-                    m_CurrAsync = null;
                     if (OnProgressUpdate != null)
                     {
                         OnProgressUpdate(m_SceneDetailId, m_CurrAsync.progress);

@@ -119,8 +119,8 @@ namespace YouYou
                 entity.AssetFullName = ms.ReadUTF8String();
                 entity.AssetBundleName = ms.ReadUTF8String();
 
-                Debug.LogError("entity.Category=" + entity.Category);
-                Debug.LogError("entity.AssetFullName=" + entity.AssetFullName);
+//                Debug.LogError("entity.Category=" + entity.Category);
+//                Debug.LogError("entity.AssetFullName=" + entity.AssetFullName);
 
                 depLen = ms.ReadInt();
                 if (depLen > 0)
