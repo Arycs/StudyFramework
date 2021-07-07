@@ -105,8 +105,7 @@ namespace YouYou
         {
             GameEntry.Log(LogCategory.Normal,"加载所有表格完毕");
             //执行Lua初始化
-            //GameEntry.Lua.Init();
-             LoadAudio();
+            GameEntry.Lua.Init();
         }
 
         private void OnLoadLuaDataTableComplete(object userData)

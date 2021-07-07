@@ -29,11 +29,6 @@ namespace YouYou
             GameEntry.Http.SendData(url,OnWebAccountInit,true,true,dic);
         }
 
-        private void TempCheckVersion()
-        {
-            GameEntry.Procedure.ChangeState(ProcedureState.CheckVersion);
-        }
-
         /// <summary>
         /// HTTP请求回来的数据,服务器没写好,先注释.
         /// </summary>
@@ -67,10 +62,6 @@ namespace YouYou
         {
             base.OnUpdate();
             //Debug.Log("OnUpdate ProcedureLaunch");
-            if (Input.GetKeyDown(KeyCode.A))
-            {
-                TempCheckVersion();
-            }
         }
 
         public override void OnLeave()

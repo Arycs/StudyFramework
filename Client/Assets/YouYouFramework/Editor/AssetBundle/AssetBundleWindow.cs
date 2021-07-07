@@ -19,14 +19,20 @@ using YouYou;
 public class AssetBundleWindow : EditorWindow
 {
     private AssetBundleDAL dal;
+    /// <summary>
+    /// 读取Xml配置获取的需要打包的信息列表
+    /// </summary>
     private List<AssetBundleEntity> m_List;
+    /// <summary>
+    /// 判断界面上是否被选中的字典
+    /// </summary>
     private Dictionary<string, bool> m_Dic;
 
-    private string[] arrTag = {"All", "Scene", "Scene", "Audio", "Effect", "Audio", "UI", "Lua", "None"};
+    private string[] arrTag = { "All", "Scene", "Scene", "Audio", "Effect", "Audio", "UI", "Lua", "None" };
     private int tagIndex = 0; //标记的索引
     private int selectTagIndex = -1; //选择的标记的索引
 
-    private string[] arrBuildTarget = {"Windows", "Android", "iOS"};
+    private string[] arrBuildTarget = { "Windows", "Android", "iOS" };
 
     private int selectBuildTargetIndex = -1; //选择的打包平台索引
 #if UNITY_STANDALONE_WIN
@@ -70,7 +76,8 @@ public class AssetBundleWindow : EditorWindow
     /// </summary>
     void OnGUI()
     {
-        if (m_List == null) return;
+        if (m_List == null)
+            return;
 
         #region 按钮行
 
@@ -188,7 +195,6 @@ public class AssetBundleWindow : EditorWindow
 
             if (entity.IsEncrypt)
             {
-                string[] folderArr = new string[entity.PathList.Count];
                 for (int j = 0; j < entity.PathList.Count; j++)
                 {
                     string path = Application.dataPath + "/../AssetBundles/" + dal.GetVersion() + "/" +
@@ -198,11 +204,11 @@ public class AssetBundleWindow : EditorWindow
                     {
                         //不是遍历文件夹打包,说明这个路径就是一个包
                         path = path + ".assetbundle";
-                        AssetBundleEncryptFile(path,isDelete);
+                        AssetBundleEncryptFile(path, isDelete);
                     }
                     else
                     {
-                        AssetBundleEncryptFolder(path,isDelete);
+                        AssetBundleEncryptFolder(path, isDelete);
                     }
                 }
             }
@@ -219,7 +225,7 @@ public class AssetBundleWindow : EditorWindow
     /// 加密文件夹下面所有文件
     /// </summary>
     /// <param name="folderPath"></param>
-    private void AssetBundleEncryptFolder(string folderPath,bool isDelete = false)
+    private void AssetBundleEncryptFolder(string folderPath, bool isDelete = false)
     {
         DirectoryInfo directory = new DirectoryInfo(folderPath);
         //拿到文件夹下所有文件
@@ -227,7 +233,7 @@ public class AssetBundleWindow : EditorWindow
 
         foreach (FileInfo file in arrFiles)
         {
-            AssetBundleEncryptFile(file.FullName,isDelete);
+            AssetBundleEncryptFile(file.FullName, isDelete);
         }
     }
 
@@ -235,7 +241,7 @@ public class AssetBundleWindow : EditorWindow
     /// 加密文件
     /// </summary>
     /// <param name="filePath"></param>
-    private void AssetBundleEncryptFile(string filePath,bool isDelete = false)
+    private void AssetBundleEncryptFile(string filePath, bool isDelete = false)
     {
         if (isDelete)
         {
@@ -251,7 +257,7 @@ public class AssetBundleWindow : EditorWindow
 
             return;
         }
-        
+
         FileInfo fileInfo = new FileInfo(filePath);
 
         if (!fileInfo.Extension.Equals(".assetbundle", StringComparison.CurrentCultureIgnoreCase) &&
@@ -437,7 +443,7 @@ public class AssetBundleWindow : EditorWindow
     {
         string path = Application.dataPath + "/Download";
 
-        SaveFolderSettings(new string[] {path}, true);
+        SaveFolderSettings(new string[] { path }, true);
     }
 
     /// <summary>
@@ -468,7 +474,7 @@ public class AssetBundleWindow : EditorWindow
             AssetBundleEntity entity = lst[i]; //取到一个节点
             if (entity.IsFolder)
             {
-                //如果这个节点配置的是一个文件夹，那么需要遍历文件夹
+                //如果这个节点配置的是一个文件夹，那么需要遍历文件夹，将其下所有的物体都添加上AB包标志
                 //需要把路变成绝对路径
                 string[] folderArr = new string[entity.PathList.Count];
                 for (int j = 0; j < entity.PathList.Count; j++)
@@ -510,19 +516,9 @@ public class AssetBundleWindow : EditorWindow
                 string newPath = folderPath.Substring(index);
                 Debug.Log("newfolderPath=" + newPath);
 
-                //文件名
-                string fileName = newPath.Replace("Assets/", "");
-
-                //后缀
-                string variant = "assetbundle";
-
                 AssetImporter import = AssetImporter.GetAtPath(newPath);
-                import.SetAssetBundleNameAndVariant(fileName, variant);
-
-                if (isSetNull)
-                {
-                    import.SetAssetBundleNameAndVariant(null, null);
-                }
+               
+                import.SetAssetBundleNameAndVariant(null, null);
 
                 import.SaveAndReimport();
             }
@@ -569,14 +565,18 @@ public class AssetBundleWindow : EditorWindow
                     : "assetbundle";
 
                 AssetImporter import = AssetImporter.GetAtPath(newPath);
-                import.SetAssetBundleNameAndVariant(fileName, variant);
 
                 if (isSetNull)
                 {
                     import.SetAssetBundleNameAndVariant(null, null);
                 }
+                else
+                {
+                    import.SetAssetBundleNameAndVariant(fileName, variant);
+                }
 
                 import.SaveAndReimport();
+
             }
 
             #endregion
@@ -599,11 +599,14 @@ public class AssetBundleWindow : EditorWindow
             string variant = "assetbundle";
 
             AssetImporter import = AssetImporter.GetAtPath(newPath);
-            import.SetAssetBundleNameAndVariant(fileName, variant);
 
             if (isSetNull)
             {
                 import.SetAssetBundleNameAndVariant(null, null);
+            }
+            else
+            {
+                import.SetAssetBundleNameAndVariant(fileName, variant);
             }
 
             import.SaveAndReimport();
@@ -615,6 +618,7 @@ public class AssetBundleWindow : EditorWindow
     /// </summary>
     private void OnAssetBundleCallBack()
     {
+        //1. 将已有的文件夹以及内容删除，创建新的文件夹
         AssetBundleEncrypt(true);
         string toPath = Application.dataPath + "/../AssetBundles/" + dal.GetVersion() + "/" +
                         arrBuildTarget[buildTargetIndex];
@@ -643,7 +647,7 @@ public class AssetBundleWindow : EditorWindow
     /// </summary>
     private void OnClearAssetBundleCallBack()
     {
-        string path = Application.dataPath + "/../AssetBundles/" + arrBuildTarget[buildTargetIndex];
+        string path = Application.dataPath + "/../AssetBundles/" + dal.GetVersion() + "/" + arrBuildTarget[buildTargetIndex];
         if (Directory.Exists(path))
         {
             Directory.Delete(path, true);
@@ -705,7 +709,8 @@ public class AssetBundleWindow : EditorWindow
                                              arrBuildTarget[buildTargetIndex].Length + 1);
 
             string md5 = EncryptUtil.GetFileMD5(fullName); //文件的MD5
-            if (md5 == null) continue;
+            if (md5 == null)
+                continue;
 
             string size = file.Length.ToString(); //文件大小
 
@@ -733,7 +738,8 @@ public class AssetBundleWindow : EditorWindow
                     }
                 }
 
-                if (isBreak) break;
+                if (isBreak)
+                    break;
             }
 
             //本地数据表 和 lua脚本 是初始数据
@@ -796,7 +802,6 @@ public class AssetBundleWindow : EditorWindow
         {
             AssetBundleEntity entity = m_List[i]; //取到一个节点
 
-            string[] folderArr = new string[entity.PathList.Count];
             for (int j = 0; j < entity.PathList.Count; j++)
             {
                 string path = Application.dataPath + "/" + entity.PathList[j];
@@ -866,7 +871,7 @@ public class AssetBundleWindow : EditorWindow
         for (int i = 0; i < len; i++)
         {
             AssetEntity entity = assetList[i];
-            ms.WriteByte((byte) entity.Category);
+            ms.WriteByte((byte)entity.Category);
             ms.WriteUTF8String(entity.AssetFullName);
             ms.WriteUTF8String(entity.AssetBundleName);
 
@@ -878,7 +883,7 @@ public class AssetBundleWindow : EditorWindow
                 for (int j = 0; j < depLen; j++)
                 {
                     AssetDependsEntity assetDepends = entity.DependsAssetList[j];
-                    ms.WriteByte((byte) assetDepends.Category);
+                    ms.WriteByte((byte)assetDepends.Category);
                     ms.WriteUTF8String(assetDepends.AssetFullName);
                 }
             }
@@ -957,7 +962,7 @@ public class AssetBundleWindow : EditorWindow
                 string filePath = file.FullName; //全名 包含路径扩展名
 
                 //Debug.LogError("filePath=" + filePath);
-                int index = filePath.IndexOf("Assets\\", StringComparison.CurrentCultureIgnoreCase);
+                int index = filePath.IndexOf("Assets/", StringComparison.CurrentCultureIgnoreCase);
 
                 //路径
                 string newPath = filePath.Substring(index);

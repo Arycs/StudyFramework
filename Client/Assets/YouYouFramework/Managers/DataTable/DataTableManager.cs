@@ -150,8 +150,7 @@ namespace YouYou
                     onComplete(buffer);
                 }
             });
-            
-#endif
+#else
             GameEntry.Resource.ResourceLoaderManager.LoadAsset(GameEntry.Resource.GetLastPathName(tableName),
                 m_DataTableBundle, onComplete:
                 (UnityEngine.Object obj) =>
@@ -162,7 +161,7 @@ namespace YouYou
                         onComplete(asset.bytes);
                     }
                 });
-
+#endif
         }
 
 

@@ -25,7 +25,7 @@ namespace YouYou
             
 #if DISABLE_ASSETBUNDLE && UNITY_EDITOR
             //2.设置xLua的脚本路径
-            luaEnv.DoString(string.Format("package.path = '{0}/?.bytes'", Application.dataPath + "/Download/xLuaLogic/"));
+            luaEnv.DoString(string.Format("package.path = '{0}/?.bytes'", Application.dataPath + "/Download/xLuaLogic"));
             DoString("require 'Main'");
 #else
             //1. 添加自定义Loader

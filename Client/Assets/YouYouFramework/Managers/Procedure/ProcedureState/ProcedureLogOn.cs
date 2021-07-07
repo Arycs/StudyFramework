@@ -14,7 +14,7 @@ namespace YouYou
             base.OnEnter();
             GameEntry.Log(LogCategory.Procedure,"OnEnter ProcedureLogOn");
             
-            GameEntry.Scene.LoadScene(1,onComplete: () =>
+            GameEntry.Scene.LoadScene(1,true,onComplete: () =>
             {
                 GameEntry.Event.CommonEvent.Dispatch(SysEventId.CloseCheckVersionUI);
             });
