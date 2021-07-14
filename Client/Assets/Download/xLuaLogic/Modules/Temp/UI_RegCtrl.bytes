@@ -1,0 +1,19 @@
+UI_RegCtrl = {};
+
+local this = UI_RegCtrl;
+
+function UI_RegCtrl.OnInit(userData)
+
+end
+
+function UI_RegCtrl.OnOpen(userData)
+
+end
+
+function UI_RegCtrl.OnClose()
+
+end
+
+function UI_RegCtrl.OnBeforDestroy()
+
+end
