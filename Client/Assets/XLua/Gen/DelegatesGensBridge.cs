@@ -37,7 +37,29 @@ namespace XLua
 #endif
 		}
         
-		public void __Gen_Delegate_Imp1(int p0, UnityEngine.GameObject p1)
+		public void __Gen_Delegate_Imp1(YouYou.HttpCallBackArgs p0)
+		{
+#if THREAD_SAFE || HOTFIX_ENABLE
+            lock (luaEnv.luaEnvLock)
+            {
+#endif
+                RealStatePtr L = luaEnv.rawL;
+                int errFunc = LuaAPI.pcall_prepare(L, errorFuncRef, luaReference);
+                ObjectTranslator translator = luaEnv.translator;
+                translator.Push(L, p0);
+                
+                PCall(L, 1, 0, errFunc);
+                
+                
+                
+                LuaAPI.lua_settop(L, errFunc - 1);
+                
+#if THREAD_SAFE || HOTFIX_ENABLE
+            }
+#endif
+		}
+        
+		public void __Gen_Delegate_Imp2(int p0, UnityEngine.GameObject p1)
 		{
 #if THREAD_SAFE || HOTFIX_ENABLE
             lock (luaEnv.luaEnvLock)
@@ -60,7 +82,7 @@ namespace XLua
 #endif
 		}
         
-		public void __Gen_Delegate_Imp2(int p0)
+		public void __Gen_Delegate_Imp3(int p0)
 		{
 #if THREAD_SAFE || HOTFIX_ENABLE
             lock (luaEnv.luaEnvLock)
@@ -82,7 +104,7 @@ namespace XLua
 #endif
 		}
         
-		public void __Gen_Delegate_Imp3(object p0)
+		public void __Gen_Delegate_Imp4(object p0)
 		{
 #if THREAD_SAFE || HOTFIX_ENABLE
             lock (luaEnv.luaEnvLock)
@@ -104,7 +126,7 @@ namespace XLua
 #endif
 		}
         
-		public void __Gen_Delegate_Imp4(byte[] p0)
+		public void __Gen_Delegate_Imp5(byte[] p0)
 		{
 #if THREAD_SAFE || HOTFIX_ENABLE
             lock (luaEnv.luaEnvLock)
@@ -126,7 +148,7 @@ namespace XLua
 #endif
 		}
         
-		public void __Gen_Delegate_Imp5(UnityEngine.Transform p0, object p1)
+		public void __Gen_Delegate_Imp6(UnityEngine.Transform p0, object p1)
 		{
 #if THREAD_SAFE || HOTFIX_ENABLE
             lock (luaEnv.luaEnvLock)
@@ -178,44 +200,49 @@ namespace XLua
 			    return new YouYou.LuaForm.OnBeforDestroyHandler(__Gen_Delegate_Imp0);
 			}
 		
+		    if (type == typeof(YouYou.HttpSendDataCallBack))
+			{
+			    return new YouYou.HttpSendDataCallBack(__Gen_Delegate_Imp1);
+			}
+		
 		    if (type == typeof(PageView.OnItemCreateHandler))
 			{
-			    return new PageView.OnItemCreateHandler(__Gen_Delegate_Imp1);
+			    return new PageView.OnItemCreateHandler(__Gen_Delegate_Imp2);
 			}
 		
 		    if (type == typeof(UIMultiScroller.OnItemCreateHandler))
 			{
-			    return new UIMultiScroller.OnItemCreateHandler(__Gen_Delegate_Imp1);
+			    return new UIMultiScroller.OnItemCreateHandler(__Gen_Delegate_Imp2);
 			}
 		
 		    if (type == typeof(UISelectRoleDragView.OnDragingHandler))
 			{
-			    return new UISelectRoleDragView.OnDragingHandler(__Gen_Delegate_Imp2);
+			    return new UISelectRoleDragView.OnDragingHandler(__Gen_Delegate_Imp3);
 			}
 		
 		    if (type == typeof(UISelectRoleDragView.OnDragCompleteHandler))
 			{
-			    return new UISelectRoleDragView.OnDragCompleteHandler(__Gen_Delegate_Imp2);
+			    return new UISelectRoleDragView.OnDragCompleteHandler(__Gen_Delegate_Imp3);
 			}
 		
 		    if (type == typeof(YouYou.CommonEvent.OnActionHandler))
 			{
-			    return new YouYou.CommonEvent.OnActionHandler(__Gen_Delegate_Imp3);
+			    return new YouYou.CommonEvent.OnActionHandler(__Gen_Delegate_Imp4);
 			}
 		
 		    if (type == typeof(YouYou.LuaForm.OnOpenHandler))
 			{
-			    return new YouYou.LuaForm.OnOpenHandler(__Gen_Delegate_Imp3);
+			    return new YouYou.LuaForm.OnOpenHandler(__Gen_Delegate_Imp4);
 			}
 		
 		    if (type == typeof(YouYou.SocketEvent.OnActionHandler))
 			{
-			    return new YouYou.SocketEvent.OnActionHandler(__Gen_Delegate_Imp4);
+			    return new YouYou.SocketEvent.OnActionHandler(__Gen_Delegate_Imp5);
 			}
 		
 		    if (type == typeof(YouYou.LuaForm.OnInitHandler))
 			{
-			    return new YouYou.LuaForm.OnInitHandler(__Gen_Delegate_Imp5);
+			    return new YouYou.LuaForm.OnInitHandler(__Gen_Delegate_Imp6);
 			}
 		
 		    return null;

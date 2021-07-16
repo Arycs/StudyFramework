@@ -34,6 +34,27 @@ namespace XLua.CSObjectWrap
             translator.DelayWrapLoader(typeof(YouYou.LuaForm), YouYouLuaFormWrap.__Register);
         
         
+            translator.DelayWrapLoader(typeof(YouYou.GameEntry), YouYouGameEntryWrap.__Register);
+        
+        
+            translator.DelayWrapLoader(typeof(YouYou.LuaComponent), YouYouLuaComponentWrap.__Register);
+        
+        
+            translator.DelayWrapLoader(typeof(YouYou.EventComponent), YouYouEventComponentWrap.__Register);
+        
+        
+            translator.DelayWrapLoader(typeof(YouYou.SocketEvent), YouYouSocketEventWrap.__Register);
+        
+        
+            translator.DelayWrapLoader(typeof(YouYou.CommonEvent), YouYouCommonEventWrap.__Register);
+        
+        
+            translator.DelayWrapLoader(typeof(YouYou.BaseParams), YouYouBaseParamsWrap.__Register);
+        
+        
+            translator.DelayWrapLoader(typeof(YouYou.HttpCallBackArgs), YouYouHttpCallBackArgsWrap.__Register);
+        
+        
         
         }
         
