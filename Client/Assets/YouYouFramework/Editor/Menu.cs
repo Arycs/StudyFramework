@@ -202,6 +202,12 @@ public class Menu
         sbrView.AppendFormat("\n");
         sbrView.AppendFormat("function {0}View.OnBeforDestroy()\n", viewName);
         sbrView.AppendFormat("    {0}Ctrl.OnBeforDestroy();\n", viewName);
+        sbrView.AppendFormat("    this.LuaForm = nil;\n", viewName);
+        for (int i = 0; i < len; i++)
+        {
+            LuaCom com = luaComs[i];
+            sbrView.AppendFormat("    this.{0} = nil;\n", com.Name);
+        }
         sbrView.AppendFormat("end");
 
 

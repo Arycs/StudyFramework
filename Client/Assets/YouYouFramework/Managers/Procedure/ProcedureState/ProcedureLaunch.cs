@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,9 +13,9 @@ namespace YouYou
         {
             base.OnEnter();
             Debug.Log("OnEnter ProcedureLaunch");
-            
+
             //访问账号服务器
-            string url = GameEntry.Http.RealWebAccountUrl + "init";
+            string url = GameEntry.Http.RealWebAccountUrl + "/init";
 
             //从对象池中获取字典,用来存储数据,防止是之前的数据,对字典进行Clear
             Dictionary<string, object> dic = GameEntry.Pool.DequeueClassObject<Dictionary<string, object>>();
@@ -23,10 +23,10 @@ namespace YouYou
 
             GameEntry.Data.SysDataManager.CurrChannelConfig.ChannelId = 0;
             GameEntry.Data.SysDataManager.CurrChannelConfig.InnerVersion = 1001;
-            
+
             dic["ChannelId"] = GameEntry.Data.SysDataManager.CurrChannelConfig.ChannelId;
             dic["InnerVersion"] = GameEntry.Data.SysDataManager.CurrChannelConfig.InnerVersion;
-            GameEntry.Http.SendData(url,OnWebAccountInit,true,true,dic);
+            GameEntry.Http.SendData(url, OnWebAccountInit, true, false, dic);
         }
 
         /// <summary>
@@ -50,9 +50,9 @@ namespace YouYou
                 GameEntry.Data.SysDataManager.CurrChannelConfig.RechargeUrl = config["RechargeUrl"].ToString();
                 GameEntry.Data.SysDataManager.CurrChannelConfig.TDAppId = config["TDAppId"].ToString();
                 //GameEntry.Data.SysDataManager.CurrChannelConfig.IsOpenTD = int.Parse(config["IsOpenTD"].ToString()) == 1;
-             
+
                 Debug.Log("RealSourceUrl" + GameEntry.Data.SysDataManager.CurrChannelConfig.RealSourceUrl);
-                
+
                 //连接上服务器, 切换检查版本更新流程
                 GameEntry.Procedure.ChangeState(ProcedureState.CheckVersion);
             }

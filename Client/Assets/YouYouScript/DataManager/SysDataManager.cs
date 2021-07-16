@@ -11,7 +11,19 @@ public class SysDataManager
     /// <summary>
     /// 当前服务器时间
     /// </summary>
-    public long CurrServerTime;
+    public long CurrServerTime {
+        get
+        {
+            if (CurrChannelConfig == null)
+            {
+                return (long)Time.unscaledTime;
+            }
+            else
+            {
+                return CurrChannelConfig.ServerTime + (long)Time.unscaledTime;
+            }
+        }
+    }
 
     /// <summary>
     /// 当前的渠道设置

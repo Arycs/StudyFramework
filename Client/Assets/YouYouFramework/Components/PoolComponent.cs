@@ -34,6 +34,7 @@ namespace YouYou
             GameEntry.RegisterUpdateComponent(this);
 
             m_ReleaseClassObjectNextRunTime = Time.time;
+            m_InstanceResourceDic = new Dictionary<int, ResourceEntity>();
             InitGameObjectPool();
         }
 

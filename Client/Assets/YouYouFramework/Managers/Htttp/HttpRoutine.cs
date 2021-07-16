@@ -178,6 +178,7 @@ namespace YouYou
                     m_CallBack(m_CallBackArgs);
                 }
             }
+            m_CallBackArgs.Data = null;
             data.Dispose();
             data = null;
             

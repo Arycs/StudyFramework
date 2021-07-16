@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using XLua;
 using YouYou;
 
 namespace YouYou
@@ -119,6 +120,27 @@ namespace YouYou
             byte[] buffer = new byte[len];
             ms.Read(buffer, 0, len);
             return buffer;
+        }
+
+        /// <summary>
+        /// Lua  发送Http 请求
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="callBack"></param>
+        /// <param name="luaTable"></param>
+        public void SendHttpData(string url,HttpSendDataCallBack callBack, LuaTable luaTable)
+        {
+            Dictionary<string, object> dic = GameEntry.Pool.DequeueClassObject<Dictionary<string, object>>();
+            dic.Clear();
+
+            IEnumerator enumerator = luaTable.GetKeys().GetEnumerator();
+            while (enumerator.MoveNext())
+            {
+                string key = enumerator.Current.ToString();
+                dic[key] = luaTable.GetInPath<string>(key);
+            }
+
+            GameEntry.Http.SendData(url, callBack, true, false, dic);
         }
 
         public override void Shutdown()
