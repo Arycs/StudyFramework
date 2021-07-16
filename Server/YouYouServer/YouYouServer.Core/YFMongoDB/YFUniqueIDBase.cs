@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace YouYouServer.Core.YFMongoDB
 {
     /// <summary>
-    /// 唯一ID管理器
+    /// 唯一ID管理器基类
     /// </summary>
     public abstract class YFUniqueIDBase
     {

@@ -27,7 +27,7 @@ namespace YouYouServer.Model.Managers
                 channelEntity.RechargeUrl = item.Attribute("RechargeUrl").Value;
                 int.TryParse(item.Attribute("PayServerNo").Value, out channelEntity.PayServerNo);
                 channelEntity.TDAppId = item.Attribute("TDAppId").Value;
-                bool.TryParse(item.Attribute("IsOpenTD").Value, out channelEntity.IsOpenTD);
+                int.TryParse(item.Attribute("IsOpenTD").Value, out channelEntity.IsOpenTD);
 
                 m_ChannelDic[channelEntity.ChannelId + "_" + channelEntity.InnerVersion] = channelEntity;
             }

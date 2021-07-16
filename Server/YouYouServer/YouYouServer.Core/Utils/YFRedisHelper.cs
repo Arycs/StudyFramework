@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace YouYouServer.Core.Utils
 {
-    public class YFRedisHelper:RedisHelper
+    public class YFRedisHelper : RedisHelper
     {
         #region 悠游哈希CacheShell
         /// <summary>
@@ -21,7 +21,7 @@ namespace YouYouServer.Core.Utils
             T t = HGet<T>(key, field);
             if (t == null)
             {
-               t =  getData(field);
+                t = getData(field);
                 HSet(key, field, t);
             }
             return t;

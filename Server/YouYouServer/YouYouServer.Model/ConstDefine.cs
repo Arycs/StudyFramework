@@ -1,4 +1,7 @@
-﻿public enum CollectionType
+﻿/// <summary>
+/// 
+/// </summary>
+public enum CollectionType
 {
     /// <summary>
     /// 角色

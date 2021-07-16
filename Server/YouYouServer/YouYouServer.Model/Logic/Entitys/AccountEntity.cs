@@ -11,6 +11,21 @@ namespace YouYouServer.Model.Logic.Entitys
     public class AccountEntity : YFMongoEntityBase
     {
         /// <summary>
+        /// 渠道号
+        /// </summary>
+        public short ChannelId;
+
+        /// <summary>
+        /// 设备唯一编号
+        /// </summary>
+        public string DeviceIdentifier;
+
+        /// <summary>
+        /// 设备型号
+        /// </summary>
+        public string DeviceModel;
+
+        /// <summary>
         /// 用户名
         /// </summary>
         public string UserName;
@@ -19,5 +34,14 @@ namespace YouYouServer.Model.Logic.Entitys
         /// 密码
         /// </summary>
         public string Password;
+        public int LastLogOnServerId
+        {
+            get; set;
+        }
+        public string LastLogOnServerName
+        {
+            get; set;
+        }
+
     }
 }

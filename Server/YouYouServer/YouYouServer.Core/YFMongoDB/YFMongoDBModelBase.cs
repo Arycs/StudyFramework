@@ -171,6 +171,32 @@ namespace YouYouServer.Core.YFMongoDB
                 return null;
             }
         }
+
+        /// <summary>
+        /// 异步根据条件查询实体
+        /// </summary>
+        /// <param name="filter"></param>
+        /// <returns></returns>
+        public async Task<T> GetEntityAsync(FilterDefinition<T> filter)
+        {
+            try
+            {
+                var collection = GetCollection();
+                return await collection.Find(filter).FirstOrDefaultAsync();
+            }
+            catch (Exception ex)
+            {
+                if (CanLogError)
+                {
+                    LoggerMgr.Log(LoggerLevel.LogError, 0, true, ex.Message);
+                }
+                else
+                {
+                    throw ex;
+                }
+                return null;
+            }
+        }
         #endregion
 
         #region GetCount 查询数量
@@ -635,6 +661,56 @@ namespace YouYouServer.Core.YFMongoDB
                     entity.Status = DataStaus.Delete;
                     Update(entity);
                 }
+            }
+            catch (Exception ex)
+            {
+                if (CanLogError)
+                {
+                    LoggerMgr.Log(LoggerLevel.LogError, 0, true, ex.Message);
+                }
+                else
+                {
+                    throw ex;
+                }
+            }
+        }
+        #endregion
+
+        #region DeleteAll 删除所有文档
+        /// <summary>
+        /// 删除所有文档
+        /// </summary>
+        public void DeleteAll()
+        {
+            try
+            {
+                IMongoDatabase database = Client.GetDatabase(DatabaseName);
+                database.DropCollection(CollectionName);
+                database.CreateCollection(CollectionName);
+            }
+            catch (Exception ex)
+            {
+                if (CanLogError)
+                {
+                    LoggerMgr.Log(LoggerLevel.LogError, 0, true, ex.Message);
+                }
+                else
+                {
+                    throw ex;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 异步删除所有文档
+        /// </summary>
+        public async Task DeleteAllAsync()
+        {
+            try
+            {
+                IMongoDatabase database = Client.GetDatabase(DatabaseName);
+                await database.DropCollectionAsync(CollectionName);
+                await database.CreateCollectionAsync(CollectionName);
             }
             catch (Exception ex)
             {
