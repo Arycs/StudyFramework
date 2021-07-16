@@ -6,7 +6,7 @@ Vector2 = CS.UnityEngine.Vector2;
 GameEntry = CS.YouYou.GameEntry;
 Time = CS.UnityEngine.Time;
 StringUtil = CS.StringUtil;
-GlobalPB = require 'pb'
+--GlobalPB = require 'pb'
 
 --协议分类
 ProtoCategory =

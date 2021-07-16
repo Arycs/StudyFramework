@@ -29,4 +29,9 @@ end
 
 function UI_RegView.OnBeforDestroy()
     UI_RegCtrl.OnBeforDestroy();
+    this.LuaForm = nil;
+    this.btnReg = nil;
+    this.btnLogin = nil;
+    this.inputUserName = nil;
+    this.inputPassword = nil;
 end

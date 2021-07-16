@@ -1,0 +1,33 @@
+UI_RegCtrl = {};
+
+local this = UI_RegCtrl;
+
+function UI_RegCtrl.OnInit(userData)
+    print("UI_RegCtrl On Init")
+    UI_RegView.btnReg.onClick:AddListener(function()
+        local dic = {};
+        dic["ChannelId"] = GameEntry.Data.SysDataManager.CurrChannelConfig.ChannelId;
+        dic["Type"] = 0;
+        dic["UserName"] = UI_RegView.inputUserName.text;
+        dic["Password"] = UI_RegView.inputPassword.text;
+
+        local url = GameEntry.Http.RealWebAccountUrl .. "/account";
+        GameEntry.Lua:SendHttpData(url,this.OnRegCallBack,dic);
+    end);
+end
+
+function UI_RegCtrl.OnRegCallBack(args)
+
+end
+
+function UI_RegCtrl.OnOpen(userData)
+
+end
+
+function UI_RegCtrl.OnClose()
+
+end
+
+function UI_RegCtrl.OnBeforDestroy()
+
+end

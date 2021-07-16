@@ -3,37 +3,35 @@ require 'Common/Class'
 require 'Common/SysEventId'
 require 'Common/UIFormId'
 require 'Common/SysCode'
-local LuaCSharpArr = require 'Common/LuaCSharpArr'
-
-if jit then
-    print("using luajit")
-    jit.off()
-    jit.flush()
-else
-    print("using lua")
-end
+--local LuaCSharpArr = require 'Common/LuaCSharpArr'
 
 GameInit = {}
-local this = GameInit
-
---打印日志
-local DebugLog = false;
---打印通讯协议日志
-local DebugLogProto = false;
+local this = GameInit;
 
 function GameInit.Init()
+    ---加载配置表
     this.LoadDataTables()
-    this.InitDataManager()
+    this.InitCtrlAndView()
     this.InitProto()
-
-    GameEntry.Event.CommonEvent:AddEventListener(SysEventId.LuaFullGc, this.OnLuaFullGc);
 end
 
 function GameInit.LoadDataTables()
-    --章表
-    require('DataNode/DataTable/Create/DTChapterEntity')
-    require('DataNode/DataTable/Create/DTChapterDBModel')
-    DTChapterDBModel.LoadList()
+    --章表 示例
+    --require('DataNode/DataTable/Create/DTChapterEntity')
+    --require('DataNode/DataTable/Create/DTChapterDBModel')
+    --DTChapterDBModel.LoadList()
+end
+
+function GameInit.InitCtrlAndView()
+    require('Modules/Loading/UI_LoadingCtrl')
+    require('Modules/Loading/UI_LoadingView')
+
+    require('Modules/RegLogon/UI_RegCtrl')
+    require('Modules/RegLogon/UI_RegView')
+end
+
+function GameInit.InitProto()
+
 end
 
 function GameInit.OnLuaFullGc(userData)
@@ -54,48 +52,9 @@ function GameInit.LoadOneTableComplete()
     end
 end
 
-function GameInit.CreateLuaCSharpArr(len)
-    return LuaCSharpArr.New(len)
-end
-
-function GameInit.InitDataManager()
-    require('DataNode/DataManager/UserDataManager')
-    require('DataNode/DataManager/ShareData/ShareUserData')
-    UserDataManager.Init();
-end
-
 --初始化通讯协议
 function GameInit.InitProto()
-    require('Common/json')
-    require('DataNode/Proto/ProtoDef')
-    require('DataNode/Proto/SocketProtoListenerForLua')
 
-    if(GameEntry.Lua.DebugLog) then
-        DebugLog = true;
-    end
-    if(GameEntry.Lua.DebugLogProto) then
-        DebugLogProto = true;
-    end
-
-    SocketProtoListenerForLua.AddProtoListener();
-
-    --加载PB文件
-    GameEntry.Lua:GetPBBuffer("Proto_C2GWS",function (buffer)
-        GlobalPB.load(buffer);
-    end);
-    GameEntry.Lua:GetPBBuffer("Proto_C2WS",function (buffer)
-        GlobalPB.load(buffer);
-    end);
-    GameEntry.Lua:GetPBBuffer("Proto_GWS2C",function (buffer)
-        GlobalPB.load(buffer);
-    end);
-    GameEntry.Lua:GetPBBuffer("Proto_WS2C",function (buffer)
-        GlobalPB.load(buffer);
-    end);
-end
-
-function GameInit.GetDebugLogProto()
-    return DebugLogProto;
 end
 
 --发送消息到c#

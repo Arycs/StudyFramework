@@ -1,0 +1,19 @@
+UI_LoadingCtrl = {};
+
+local this = UI_LoadingCtrl;
+
+function UI_LoadingCtrl.OnInit(userData)
+
+end
+
+function UI_LoadingCtrl.OnOpen(userData)
+
+end
+
+function UI_LoadingCtrl.OnClose()
+
+end
+
+function UI_LoadingCtrl.OnBeforDestroy()
+
+end
