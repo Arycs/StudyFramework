@@ -96,6 +96,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -166,6 +167,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 1, b: 0.9892154, a: 1}
   m_RaycastTarget: 0
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -243,6 +245,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0.62209845, b: 1, a: 1}
   m_RaycastTarget: 0
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -322,6 +325,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -443,6 +447,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -516,6 +521,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 1, b: 0.9892154, a: 1}
   m_RaycastTarget: 0
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -544,7 +550,7 @@ GameObject:
   - component: {fileID: 224895590960629200}
   - component: {fileID: 223887179264670012}
   - component: {fileID: 114064796442120344}
-  - component: {fileID: 114183149587877132}
+  - component: {fileID: 4012154391030041554}
   m_Layer: 5
   m_Name: UI_CheckVersion
   m_TagString: Untagged
@@ -614,7 +620,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 311
---- !u!114 &114183149587877132
+--- !u!114 &4012154391030041554
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -623,10 +629,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1988337133857764}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ebfc715b84ff68e47ab6c2588da95a66, type: 3}
+  m_Script: {fileID: 11500000, guid: 66b761ac30a66b248b7ae9131eeedbe0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  txtTip: {fileID: 114377027449689054}
-  txtSize: {fileID: 114775997617702992}
-  txtResourceVersion: {fileID: 114903840000054890}
-  scrollbar: {fileID: 114015048614398324}
+  m_LuaComs: []

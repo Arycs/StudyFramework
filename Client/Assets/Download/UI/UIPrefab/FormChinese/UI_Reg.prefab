@@ -400,10 +400,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 2
     m_MaxSize: 40
     m_Alignment: 0
     m_AlignByGeometry: 0
@@ -981,7 +981,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Arycs
+  m_Text: "\u8BF7\u8F93\u5165\u5BC6\u7801"
 --- !u!1 &6052328932989326796
 GameObject:
   m_ObjectHideFlags: 0
@@ -1075,7 +1075,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6777793077878204204
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1242,10 +1242,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 20
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 2
     m_MaxSize: 40
     m_Alignment: 0
     m_AlignByGeometry: 0
@@ -1331,7 +1331,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Arycs
+  m_Text: "\u8BF7\u8F93\u5165\u8D26\u53F7"
 --- !u!1 &7904039853121781050
 GameObject:
   m_ObjectHideFlags: 0
@@ -1451,8 +1451,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8258987389836241377}
   m_TextComponent: {fileID: 6344293935085914665}
   m_Placeholder: {fileID: 7906076542446261747}
-  m_ContentType: 0
-  m_InputType: 0
+  m_ContentType: 7
+  m_InputType: 2
   m_AsteriskChar: 42
   m_KeyboardType: 0
   m_LineType: 0
