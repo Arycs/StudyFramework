@@ -21,7 +21,7 @@ namespace XLua.CSObjectWrap
         {
 			ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
 			System.Type type = typeof(YouYou.LuaComponent);
-			Utils.BeginObjectRegister(type, L, translator, 0, 9, 2, 1);
+			Utils.BeginObjectRegister(type, L, translator, 0, 12, 2, 1);
 			
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "Init", _m_Init);
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "LoadDataTable", _m_LoadDataTable);
@@ -31,6 +31,9 @@ namespace XLua.CSObjectWrap
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "EnqueueMemoryStream", _m_EnqueueMemoryStream);
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "GetByteArray", _m_GetByteArray);
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "SendHttpData", _m_SendHttpData);
+			Utils.RegisterFunc(L, Utils.METHOD_IDX, "GetRetValue", _m_GetRetValue);
+			Utils.RegisterFunc(L, Utils.METHOD_IDX, "GetJsonData", _m_GetJsonData);
+			Utils.RegisterFunc(L, Utils.METHOD_IDX, "GetJsonDataValue", _m_GetJsonDataValue);
 			Utils.RegisterFunc(L, Utils.METHOD_IDX, "Shutdown", _m_Shutdown);
 			
 			
@@ -305,6 +308,94 @@ namespace XLua.CSObjectWrap
                     
                     
                     return 0;
+                }
+                
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_GetRetValue(RealStatePtr L)
+        {
+		    try {
+            
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+                YouYou.LuaComponent gen_to_be_invoked = (YouYou.LuaComponent)translator.FastGetCSObj(L, 1);
+            
+            
+                
+                {
+                    string _json = LuaAPI.lua_tostring(L, 2);
+                    
+                        YouYou.RetValue gen_ret = gen_to_be_invoked.GetRetValue( _json );
+                        translator.Push(L, gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_GetJsonData(RealStatePtr L)
+        {
+		    try {
+            
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+                YouYou.LuaComponent gen_to_be_invoked = (YouYou.LuaComponent)translator.FastGetCSObj(L, 1);
+            
+            
+                
+                {
+                    string _json = LuaAPI.lua_tostring(L, 2);
+                    
+                        LitJson.JsonData gen_ret = gen_to_be_invoked.GetJsonData( _json );
+                        translator.Push(L, gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_GetJsonDataValue(RealStatePtr L)
+        {
+		    try {
+            
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+                YouYou.LuaComponent gen_to_be_invoked = (YouYou.LuaComponent)translator.FastGetCSObj(L, 1);
+            
+            
+                
+                {
+                    LitJson.JsonData _jsonData = (LitJson.JsonData)translator.GetObject(L, 2, typeof(LitJson.JsonData));
+                    string _key = LuaAPI.lua_tostring(L, 3);
+                    
+                        string gen_ret = gen_to_be_invoked.GetJsonDataValue( _jsonData, _key );
+                        LuaAPI.lua_pushstring(L, gen_ret);
+                    
+                    
+                    
+                    return 1;
                 }
                 
             } catch(System.Exception gen_e) {
