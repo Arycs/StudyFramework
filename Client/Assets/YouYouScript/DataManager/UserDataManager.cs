@@ -8,6 +8,11 @@ using UnityEngine;
 /// </summary>
 public class UserDataManager : IDisposable
 {
+    /// <summary>
+    /// 玩家账号
+    /// </summary>
+    public long AccountId;
+
    public UserDataManager()
    {
       

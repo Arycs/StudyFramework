@@ -3,45 +3,69 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-/// <summary>
-/// 系统数据管理器
-/// </summary>
-public class SysDataManager
+namespace YouYou
 {
+
     /// <summary>
-    /// 当前服务器时间
+    /// 系统数据管理器
     /// </summary>
-    public long CurrServerTime {
-        get
+    public class SysDataManager
+    {
+        /// <summary>
+        /// 当前服务器时间
+        /// </summary>
+        public long CurrServerTime
         {
-            if (CurrChannelConfig == null)
+            get
             {
-                return (long)Time.unscaledTime;
-            }
-            else
-            {
-                return CurrChannelConfig.ServerTime + (long)Time.unscaledTime;
+                if (CurrChannelConfig == null)
+                {
+                    return (long)Time.unscaledTime;
+                }
+                else
+                {
+                    return CurrChannelConfig.ServerTime + (long)Time.unscaledTime;
+                }
             }
         }
-    }
 
-    /// <summary>
-    /// 当前的渠道设置
-    /// </summary>
-    public ChannelConfigEntity CurrChannelConfig { get; private set; }
+        /// <summary>
+        /// 当前的渠道设置
+        /// </summary>
+        public ChannelConfigEntity CurrChannelConfig
+        {
+            get; private set;
+        }
 
-    public SysDataManager()
-    {
-        CurrChannelConfig = new ChannelConfigEntity();
-    }
+        public SysDataManager()
+        {
+            CurrChannelConfig = new ChannelConfigEntity();
+        }
 
-    public void Clear()
-    {
-      
-    }
 
-    public void Dispose()
-    {
-      
+        public void Clear()
+        {
+
+        }
+
+        public void Dispose()
+        {
+
+        }
+        /// <summary>
+        /// 根据系统码获取提示内容
+        /// </summary>
+        /// <returns></returns>
+        public string GetSysCodeContent(int sysCode)
+        {
+            Sys_CodeEntity sys_CodeEntity = GameEntry.DataTable.DataTableManager.Sys_CodeDBModel.Get(sysCode);
+            if (sys_CodeEntity != null)
+            {
+                return GameEntry.Localization.GetString(sys_CodeEntity.Key);
+            }
+            return string.Empty;
+           
+        }
+
     }
 }
