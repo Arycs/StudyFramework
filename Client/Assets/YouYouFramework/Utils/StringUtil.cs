@@ -11,6 +11,23 @@ using System.Collections;
 /// </summary>
 public static class StringUtil 
 {
+    #region IsNullOrEmpty 判断对象是否为Null,DBNull,Empty或空白字符串
+    /// <summary>
+    /// 判断对象是否为Null,DBNull,Empty或空白字符串
+    /// </summary>
+    /// <param name="value"></param>
+    /// <returns></returns>
+    public static bool IsNullOrEmpty(string value)
+    {
+        bool retVal = false;
+        if (value == null || string.IsNullOrEmpty(value.ToString()))
+        {
+            retVal = true;
+        }
+        return retVal;
+    }
+    #endregion
+
     /// <summary>
     /// 把string类型转换成int
     /// </summary>

@@ -12,6 +12,7 @@ using System.IO;
 using System.Collections.Generic;
 using System.Text;
 using YouYou;
+using UnityEngine.UI;
 
 public class Menu
 {
@@ -41,7 +42,7 @@ public class Menu
             Directory.Delete(toPath, true);
         }
         Directory.CreateDirectory(toPath);
-        
+
         IOUtil.CopyDirectory(Application.persistentDataPath, toPath);
 
         //重新生成版本文件
@@ -49,10 +50,10 @@ public class Menu
         byte[] buffer = IOUtil.GetFileBuffer(Application.persistentDataPath + "/VersionFile.bytes");
         string version = "";
         Dictionary<string, AssetBundleInfoEntity> dic = ResourceManager.GetAssetBundleVersionList(buffer, ref version);
-        Dictionary<string ,AssetBundleInfoEntity> newDic = new Dictionary<string, AssetBundleInfoEntity>();
-        
+        Dictionary<string, AssetBundleInfoEntity> newDic = new Dictionary<string, AssetBundleInfoEntity>();
+
         DirectoryInfo directory = new DirectoryInfo(toPath);
-        
+
         //拿到文件夹下所有文件
         FileInfo[] arrFiles = directory.GetFiles("*", SearchOption.AllDirectories);
 
@@ -62,15 +63,15 @@ public class Menu
             string fullName = file.FullName.Replace("\\", "/"); //全名 包含路径扩展名
             string name = fullName.Replace(toPath, "").Replace(".assetbundle", "").Replace(".unity3d", "");
 
-            if (name.Equals("AssetInfo.json",StringComparison.CurrentCultureIgnoreCase) ||
-                name.Equals("Windows",StringComparison.CurrentCultureIgnoreCase) ||
-                name.Equals("Windows.manifest",StringComparison.CurrentCultureIgnoreCase))
+            if (name.Equals("AssetInfo.json", StringComparison.CurrentCultureIgnoreCase) ||
+                name.Equals("Windows", StringComparison.CurrentCultureIgnoreCase) ||
+                name.Equals("Windows.manifest", StringComparison.CurrentCultureIgnoreCase))
             {
                 File.Delete(file.FullName);
                 continue;
             }
-            
-            
+
+
             AssetBundleInfoEntity entity = null;
             dic.TryGetValue(name, out entity);
             if (entity != null)
@@ -87,8 +88,8 @@ public class Menu
                 entity.IsFirstData, entity.IsEncrypt);
             sbContent.AppendLine(strLine);
         }
-        IOUtil.CreateTextFile(toPath + "VersionFile.txt",sbContent.ToString());
-        
+        IOUtil.CreateTextFile(toPath + "VersionFile.txt", sbContent.ToString());
+
         //===============
         MMO_MemoryStream ms = new MMO_MemoryStream();
         string str = sbContent.ToString().Trim();
@@ -97,7 +98,7 @@ public class Menu
         ms.WriteInt(len);
         for (int i = 0; i < len; i++)
         {
-            if (i==0)
+            if (i == 0)
             {
                 ms.WriteUTF8String(arr[i]);
             }
@@ -115,10 +116,10 @@ public class Menu
         string filePath = toPath + "/VersionFile.bytes"; //版本文件路径
         buffer = ms.ToArray();
         buffer = ZlibHelper.CompressBytes(buffer);
-        FileStream fs = new FileStream(filePath,FileMode.Create);
-        fs.Write(buffer,0,buffer.Length);
+        FileStream fs = new FileStream(filePath, FileMode.Create);
+        fs.Write(buffer, 0, buffer.Length);
         fs.Close();
-        
+
         AssetDatabase.Refresh();
         Debug.Log("初始资源拷贝到StreamingAssets完毕");
     }
@@ -141,7 +142,7 @@ public class Menu
     {
         Directory.Delete(Application.persistentDataPath, true);
     }
-    
+
     #region CreateLuaScript 生成Lua脚本
     [MenuItem("悠游工具/生成Lua脚本")]
     public static void CreateLuaView()
@@ -164,7 +165,7 @@ public class Menu
 
         LuaCom[] luaComs = luaForm.LuaComs;
         int len = luaComs.Length;
-        
+
         StringBuilder sbrView = new StringBuilder();
         StringBuilder sbrCtrl = new StringBuilder();
         sbrView.AppendFormat("");
@@ -211,7 +212,7 @@ public class Menu
         sbrView.AppendFormat("end");
 
 
-        sbrCtrl.AppendFormat("{0}Ctrl = {{}};\n",viewName);
+        sbrCtrl.AppendFormat("{0}Ctrl = {{}};\n", viewName);
         sbrCtrl.AppendFormat("\n");
         sbrCtrl.AppendFormat("local this = {0}Ctrl;\n", viewName);
         sbrCtrl.AppendFormat("\n");
@@ -230,8 +231,8 @@ public class Menu
         sbrCtrl.AppendFormat("function {0}Ctrl.OnBeforDestroy()\n", viewName);
         sbrCtrl.AppendFormat("\n");
         sbrCtrl.AppendFormat("end\n");
-        
-        
+
+
         string pathView = Application.dataPath + "/Download/xLuaLogic/Modules/Temp/" + viewName + "View.bytes";
         string pathCtrl = Application.dataPath + "/Download/xLuaLogic/Modules/Temp/" + viewName + "Ctrl.bytes";
 
@@ -253,5 +254,93 @@ public class Menu
     }
     #endregion
 
-    
+    [MenuItem("GameObject/UI/YouYouText", false, 1000)]
+    private static void MakeYouYouText(MenuCommand menuCommand)
+    {
+        if (menuCommand.context == null)
+        {
+            AttachToCanvas(MakeYouYouPrefab("YouYouText", menuCommand));
+        }
+        else
+        {
+            MakeYouYouPrefab("YouYouText", menuCommand);
+        }
+    }
+
+    [MenuItem("CONTEXT/Text/ChangeToYouYouText")]
+    private static void ChangeToYouYouText(MenuCommand menuCommand)
+    {
+        Text currText = menuCommand.context as Text;
+        GameObject obj = currText.gameObject;
+
+        string text = currText.text;
+        Color color = currText.color;
+        Font font = currText.font;
+        int fontSize = currText.fontSize;
+        FontStyle fontStyle = currText.fontStyle;
+        TextAnchor textAnchor = currText.alignment;
+        bool richText = currText.supportRichText;
+        bool raycastTarget = currText.raycastTarget;
+
+        UnityEngine.Object.DestroyImmediate(currText);
+        YouYouText youYouText = obj.AddComponent<YouYouText>();
+
+        youYouText.text = text;
+        youYouText.color = color;
+        youYouText.font = font;
+        youYouText.fontSize = fontSize;
+        youYouText.fontStyle = fontStyle;
+        youYouText.alignment = textAnchor;
+        youYouText.supportRichText = richText;
+        youYouText.raycastTarget = raycastTarget;
+    }
+
+    [MenuItem("GameObject/UI/YouYouImage", false, 1000)]
+    private static void MakeYouYouImage(MenuCommand menuCommand)
+    {
+        if (menuCommand.context == null)
+        {
+            AttachToCanvas(MakeYouYouPrefab("YouYouImage", menuCommand));
+        }
+        else
+        {
+            MakeYouYouPrefab("YouYouImage", menuCommand);
+        }
+    }
+
+    /// <summary>
+    /// 创建YouYou预设
+    /// </summary>
+    /// <param name="prefabName"></param>
+    /// <param name="menuCommand"></param>
+    /// <returns></returns>
+    private static GameObject MakeYouYouPrefab(string prefabName, MenuCommand menuCommand)
+    {
+        GameObject gameObject = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/YouYouFramework/Editor/YouYouPrefabs/" + prefabName + ".prefab");
+        GameObject newObj = UnityEngine.Object.Instantiate(gameObject);
+
+        newObj.name = gameObject.name;
+        GameObjectUtility.SetParentAndAlign(newObj, menuCommand.context as GameObject);
+        Selection.activeObject = newObj;
+        return newObj;
+    }
+
+    /// <summary>
+    /// 附加到画布
+    /// </summary>
+    /// <param name="gameObject"></param>
+    private static void AttachToCanvas(GameObject gameObject)
+    {
+        Canvas canvas = UnityEngine.Object.FindObjectOfType<Canvas>();
+        if (canvas == null)
+        {
+            GameObject obj = new GameObject();
+            canvas = obj.AddComponent<Canvas>();
+            canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+
+            canvas.gameObject.AddComponent<CanvasScaler>();
+            canvas.gameObject.AddComponent<GraphicRaycaster>();
+        }
+        gameObject.transform.SetParent(canvas.transform);
+    }
 }
