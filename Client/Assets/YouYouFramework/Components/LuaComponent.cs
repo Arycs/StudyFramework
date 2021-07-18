@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using LitJson;
 using UnityEngine;
 using XLua;
 using YouYou;
@@ -48,19 +49,19 @@ namespace YouYou
         /// </summary>
         /// <param name="tableName"></param>
         /// <returns></returns>
-        public void LoadDataTable(string tableName,BaseAction<MMO_MemoryStream> onComplete)
+        public void LoadDataTable(string tableName, BaseAction<MMO_MemoryStream> onComplete)
         {
-           GameEntry.DataTable.DataTableManager.GetDataTableBuffer(tableName, (byte[] buffer) =>
-           {
-               LoadDataTableMS.SetLength(0);
-               LoadDataTableMS.Write(buffer, 0, buffer.Length);
-               LoadDataTableMS.Position = 0;
+            GameEntry.DataTable.DataTableManager.GetDataTableBuffer(tableName, (byte[] buffer) =>
+            {
+                LoadDataTableMS.SetLength(0);
+                LoadDataTableMS.Write(buffer, 0, buffer.Length);
+                LoadDataTableMS.Position = 0;
 
-               if (onComplete != null)
-               {
-                   onComplete(LoadDataTableMS);
-               }
-           });
+                if (onComplete != null)
+                {
+                    onComplete(LoadDataTableMS);
+                }
+            });
         }
 
         /// <summary>
@@ -95,7 +96,7 @@ namespace YouYou
         {
             MMO_MemoryStream ms = GameEntry.Pool.DequeueClassObject<MMO_MemoryStream>();
             ms.SetLength(0);
-            ms.Write(buffer,0,buffer.Length);
+            ms.Write(buffer, 0, buffer.Length);
             ms.Position = 0;
             return ms;
         }
@@ -128,7 +129,7 @@ namespace YouYou
         /// <param name="url"></param>
         /// <param name="callBack"></param>
         /// <param name="luaTable"></param>
-        public void SendHttpData(string url,HttpSendDataCallBack callBack, LuaTable luaTable)
+        public void SendHttpData(string url, HttpSendDataCallBack callBack, LuaTable luaTable)
         {
             Dictionary<string, object> dic = GameEntry.Pool.DequeueClassObject<Dictionary<string, object>>();
             dic.Clear();
@@ -141,6 +142,37 @@ namespace YouYou
             }
 
             GameEntry.Http.SendData(url, callBack, true, false, dic);
+        }
+
+        /// <summary>
+        /// 获取RetValue
+        /// </summary>
+        /// <param name="json"></param>
+        /// <returns></returns>
+        public RetValue GetRetValue(string json)
+        {
+            return JsonMapper.ToObject<RetValue>(json);
+        }
+
+        /// <summary>
+        /// 获取JsonData
+        /// </summary>
+        /// <param name="json"></param>
+        /// <returns></returns>
+        public JsonData GetJsonData(string json)
+        {
+            return JsonMapper.ToObject(json);
+        }
+
+        /// <summary>
+        /// 获取JsonData中的key值
+        /// </summary>
+        /// <param name="jsonData"></param>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public string GetJsonDataValue(JsonData jsonData, string key)
+        {
+            return jsonData[key].ToString();
         }
 
         public override void Shutdown()

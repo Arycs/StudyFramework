@@ -28,6 +28,9 @@ function GameInit.InitCtrlAndView()
 
     require('Modules/RegLogon/UI_RegCtrl')
     require('Modules/RegLogon/UI_RegView')
+
+    require('Modules/RegLogon/UI_LoginCtrl')
+    require('Modules/RegLogon/UI_LoginView')
 end
 
 function GameInit.InitProto()

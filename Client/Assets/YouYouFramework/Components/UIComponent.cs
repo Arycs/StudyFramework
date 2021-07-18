@@ -149,8 +149,8 @@ namespace YouYou
         /// <param name="userData">用户数据</param>
         public void OpenUIForm(int uiFormId, object userData = null,BaseAction<UIFormBase> onOpen = null)
         {
-            m_UIPool.CheckByOpenUI();
             m_UIManager.OpenUIForm(uiFormId,userData,onOpen);
+            m_UIPool.CheckByOpenUI();
         }
 
         /// <summary>
@@ -198,6 +198,40 @@ namespace YouYou
         internal void Enqueue(UIFormBase form)
         {
             m_UIPool.Enqueue(form);
+        }
+
+        /// <summary>
+        /// 打开提示对话框
+        /// </summary>
+        /// <param name="sysCode"></param>
+        /// <param name=""></param>
+        /// <param name="onConfirm"></param>
+        /// <param name="onCancel"></param>
+        public void OpenDialogFormBySysCode(int sysCode, DialogFormType dialogFormType = DialogFormType.Normal, BaseAction onConfirm = null, BaseAction onCancel = null)
+        {
+            OpenDialForm(dialogFormType, GameEntry.Data.SysDataManager.GetSysCodeContent(sysCode), null, onConfirm, onCancel);
+        }
+
+        /// <summary>
+        /// 打开提示框
+        /// </summary>
+        /// <param name="dialogFormType">提示框类型</param>
+        /// <param name="content">内容</param>
+        /// <param name="title">标题</param>
+        /// <param name="onConfirm">确认回调</param>
+        /// <param name="onCancel">取消回调</param>
+        public void OpenDialForm(DialogFormType dialogFormType, string content, string title = null, BaseAction onConfirm = null, BaseAction onCancel = null)
+        {
+            BaseParams baseParams = GameEntry.Pool.DequeueClassObject<BaseParams>();
+            baseParams.Reset();
+
+            baseParams.IntParam1 = (int)dialogFormType;
+            baseParams.StringParam1 = content;
+            baseParams.StringParam2 = title;
+            baseParams.ActionParam1 = onConfirm;
+            baseParams.ActionParam2 = onCancel;
+
+            OpenUIForm(2, baseParams);
         }
 
         public override void Shutdown()

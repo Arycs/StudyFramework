@@ -35,26 +35,26 @@ namespace YouYou
         /// <param name="args"></param>
         private void OnWebAccountInit(HttpCallBackArgs args)
         {
-            Debug.Log("HasError = " + args.HasError);
-            Debug.Log("Value = " + args.Value);
-
             if (!args.HasError)
             {
-                LitJson.JsonData data = LitJson.JsonMapper.ToObject(args.Value);
-                LitJson.JsonData config = LitJson.JsonMapper.ToObject(data["Value"].ToString());
+                RetValue retValue = LitJson.JsonMapper.ToObject<RetValue>(args.Value);
+                if (!retValue.HasError)
+                {
+                    LitJson.JsonData data = LitJson.JsonMapper.ToObject(args.Value);
+                    LitJson.JsonData config = LitJson.JsonMapper.ToObject(data["Value"].ToString());
+                    GameEntry.Data.SysDataManager.CurrChannelConfig.ServerTime =
+                        long.Parse(config["ServerTime"].ToString());
+                    GameEntry.Data.SysDataManager.CurrChannelConfig.SourceVersion = config["SourceVersion"].ToString();
+                    GameEntry.Data.SysDataManager.CurrChannelConfig.SourceUrl = config["SourceUrl"].ToString();
+                    GameEntry.Data.SysDataManager.CurrChannelConfig.RechargeUrl = config["RechargeUrl"].ToString();
+                    GameEntry.Data.SysDataManager.CurrChannelConfig.TDAppId = config["TDAppId"].ToString();
+                    bool.TryParse(config["IsOpenTD"].ToString(),
+                        out GameEntry.Data.SysDataManager.CurrChannelConfig.IsOpenTD);
 
-                GameEntry.Data.SysDataManager.CurrChannelConfig.ServerTime =
-                    long.Parse(config["ServerTime"].ToString());
-                GameEntry.Data.SysDataManager.CurrChannelConfig.SourceVersion = config["SourceVersion"].ToString();
-                GameEntry.Data.SysDataManager.CurrChannelConfig.SourceUrl = config["SourceUrl"].ToString();
-                GameEntry.Data.SysDataManager.CurrChannelConfig.RechargeUrl = config["RechargeUrl"].ToString();
-                GameEntry.Data.SysDataManager.CurrChannelConfig.TDAppId = config["TDAppId"].ToString();
-                //GameEntry.Data.SysDataManager.CurrChannelConfig.IsOpenTD = int.Parse(config["IsOpenTD"].ToString()) == 1;
-
-                Debug.Log("RealSourceUrl" + GameEntry.Data.SysDataManager.CurrChannelConfig.RealSourceUrl);
-
-                //连接上服务器, 切换检查版本更新流程
-                GameEntry.Procedure.ChangeState(ProcedureState.CheckVersion);
+                    Debug.Log("RealSourceUrl" + GameEntry.Data.SysDataManager.CurrChannelConfig.RealSourceUrl);
+                    //连接上服务器, 切换检查版本更新流程
+                    GameEntry.Procedure.ChangeState(ProcedureState.CheckVersion);
+                }
             }
         }
 

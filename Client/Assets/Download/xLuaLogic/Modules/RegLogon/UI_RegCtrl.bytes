@@ -12,12 +12,35 @@ function UI_RegCtrl.OnInit(userData)
         dic["Password"] = UI_RegView.inputPassword.text;
 
         local url = GameEntry.Http.RealWebAccountUrl .. "/account";
-        GameEntry.Lua:SendHttpData(url,this.OnRegCallBack,dic);
+        GameEntry.Lua:SendHttpData(url, this.OnRegCallBack, dic);
+
+        dic = nil;
+        url = nil;
+    end);
+
+    UI_RegView.btnLogin.onClick:AddListener(function()
+        ---关闭自己
+        UI_RegView.LuaForm:Close();
+        GameEntry.UI:OpenUIForm(UIFormId.UI_Login);
     end);
 end
 
 function UI_RegCtrl.OnRegCallBack(args)
+    if args.HasError == false then
+        local retValue = GameEntry.Lua:GetRetValue(args.Value);
+        if retValue.HasError == false then
+            ---注册成功
+            local jsonData = GameEntry.Lua:GetJsonData(retValue.Value);
+            print("YFId= "..GameEntry.Lua:GetJsonDataValue(jsonData,"YFId"));
+            jsonData = nil;
+        else
+            ---注册失败
+            print("ErrorCode："..tostring(retValue.ErrorCode));
+        end
+    else
+        ---注册失败
 
+    end
 end
 
 function UI_RegCtrl.OnOpen(userData)

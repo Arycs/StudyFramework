@@ -12,17 +12,22 @@ public class UIFormId
     /// <summary>
     /// 登录背景 界面
     /// </summary>
-    public const int UI_LogonBG = 2;
+    public const int UI_LogonBG = 101;
 
     /// <summary>
     /// 注册 界面
     /// </summary>
-    public const int UI_Reg = 3;
+    public const int UI_Reg = 102;
+
+    /// <summary>
+    /// 登录 界面
+    /// </summary>
+    public const int UI_Login = 103;
 
     /// <summary>
     /// 任务列表
     /// </summary>
-    public const int UI_Task = 101;
+    public const int UI_Task = 104;
 
 
 

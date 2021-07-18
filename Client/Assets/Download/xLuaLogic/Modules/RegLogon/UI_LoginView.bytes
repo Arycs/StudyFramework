@@ -1,0 +1,37 @@
+UI_LoginView = {};
+local this = UI_LoginView;
+
+local btnLoginIndex = 0;
+local inputUserNameIndex = 1;
+local inputPasswordIndex = 2;
+local btnRegIndex = 3;
+
+function UI_LoginView.OnInit(transform,userData)
+    this.InitView(transform);
+    UI_LoginCtrl.OnInit(userData);
+end
+
+function UI_LoginView.InitView(transform)
+    this.LuaForm = transform:GetComponent(typeof(CS.YouYou.LuaForm));
+    this.btnLogin = this.LuaForm:GetLuaComs(btnLoginIndex);
+    this.inputUserName = this.LuaForm:GetLuaComs(inputUserNameIndex);
+    this.inputPassword = this.LuaForm:GetLuaComs(inputPasswordIndex);
+    this.btnReg = this.LuaForm:GetLuaComs(btnRegIndex);
+end
+
+function UI_LoginView.OnOpen(userData)
+    UI_LoginCtrl.OnOpen(userData);
+end
+
+function UI_LoginView.OnClose()
+    UI_LoginCtrl.OnClose();
+end
+
+function UI_LoginView.OnBeforDestroy()
+    UI_LoginCtrl.OnBeforDestroy();
+    this.LuaForm = nil;
+    this.btnLogin = nil;
+    this.inputUserName = nil;
+    this.inputPassword = nil;
+    this.btnReg = nil;
+end
