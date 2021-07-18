@@ -38,7 +38,7 @@ namespace YouYouServer.WebAccount.Controllers
             if (YFDateTimeUtil.GetTimestamp() - t > 30)
             {
                 ret.HasError = true;
-                ret.ErrorCode = 1001;
+                ret.ErrorCode = 10001;
                 return JsonConvert.SerializeObject(ret);
             }
 
@@ -47,32 +47,72 @@ namespace YouYouServer.WebAccount.Controllers
             if (!signServer.Equals(sign,StringComparison.CurrentCultureIgnoreCase))
             {
                 ret.HasError = true;
-                ret.ErrorCode = 1002;
+                ret.ErrorCode = 10002;
                 return JsonConvert.SerializeObject(ret);
             }
 
             int type = dic["Type"].ToInt();
             string userName = dic["UserName"].ToString();
             string pwd = dic["Password"].ToString();
+            short channelId = dic["ChannelId"].ToShort();
 
             if (type == 0)
             {
-                short channelId = dic["ChannelId"].ToShort();
-
-                AccountEntity accountEntity = await Register(userName, pwd, channelId, deviceIdentifier, deviceModel);
+                //注册
+                AccountEntity accountEntity = await RegisterAsync(userName, pwd, channelId, deviceIdentifier, deviceModel);
                 if (accountEntity == null)
                 {
                     ret.HasError = true;
-                    ret.ErrorCode = 1003;
+                    ret.ErrorCode = 10003;
                     return JsonConvert.SerializeObject(ret);
                 }
 
+                ret.Value = JsonConvert.SerializeObject(accountEntity);
+            }
+            else if(type == 1)
+            {
+                //登录
+                AccountEntity accountEntity = await LoginAsync(userName, pwd, channelId, deviceIdentifier, deviceModel);
+                if (accountEntity == null)
+                {
+                    ret.HasError = true;
+                    ret.ErrorCode = 10004;
+                    return JsonConvert.SerializeObject(ret);
+                }
                 ret.Value = JsonConvert.SerializeObject(accountEntity);
             }
 
             return JsonConvert.SerializeObject(ret);
         }
 
+        #region LoginAsync 异步登录
+        /// <summary>
+        /// 异步登录
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="pwd"></param>
+        /// <param name="channelId"></param>
+        /// <param name="deviceIdentifier"></param>
+        /// <param name="deviceModel"></param>
+        /// <returns></returns>
+        private async Task<AccountEntity> LoginAsync(string userName, string pwd, short channelId, string deviceIdentifier, string deviceModel)
+        {
+            AccountEntity accountEntity = await YFRedisHelper.YFCacheShellAsync("Login_User", string.Format("{0}^{1}", userName, pwd), GetAccountAsync);
+            // 如果账号存在 并且换了设备 更新设备信息
+            if (accountEntity != null && (accountEntity.ChannelId != channelId || !accountEntity.DeviceIdentifier.EndsWith(deviceIdentifier,StringComparison.CurrentCultureIgnoreCase)|| !accountEntity.DeviceModel.EndsWith(deviceModel,StringComparison.CurrentCultureIgnoreCase)))
+            {
+                accountEntity.ChannelId = channelId;
+                accountEntity.DeviceIdentifier = deviceIdentifier;
+                accountEntity.DeviceModel = deviceModel;
+
+                await DBModelMgr.AccountDBModel.UpdateAsync(accountEntity);
+            }
+
+            return accountEntity;
+        }
+        #endregion
+
+        #region RegisterAsync 异步注册
         /// <summary>
         /// 异步注册方法
         /// </summary>
@@ -82,7 +122,7 @@ namespace YouYouServer.WebAccount.Controllers
         /// <param name="deviceIdentifier"></param>
         /// <param name="deviceModel"></param>
         /// <returns></returns>
-        private async Task<AccountEntity> Register(string userName, string pwd, short channelId, string deviceIdentifier, string deviceModel)
+        private async Task<AccountEntity> RegisterAsync(string userName, string pwd, short channelId, string deviceIdentifier, string deviceModel)
         {
             //1.把UserName 写入UserName 集合
             long result = await YFRedisHelper.SAddAsync("Register_UserName", userName);
@@ -117,6 +157,23 @@ namespace YouYouServer.WebAccount.Controllers
 
             await DBModelMgr.AccountDBModel.AddAsync(accountEntity);
             return accountEntity;
+        }
+        #endregion
+
+        /// <summary>
+        /// 异步查询账户实体
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        private async Task<AccountEntity> GetAccountAsync(string key)
+        {
+            string[] arr = key.Split("^");
+            if (arr.Length == 2)
+            {
+                return await DBModelMgr.AccountDBModel.GetEntityAsync(Builders<AccountEntity>.Filter.And(Builders<AccountEntity>.Filter.Eq(a => a.UserName, arr[0]),
+                    Builders<AccountEntity>.Filter.Eq(a => a.Password, arr[1])));
+            }
+            return null;
         }
 
 
