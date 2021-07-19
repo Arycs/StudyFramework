@@ -11,4 +11,13 @@
     <PackageReference Include="MongoDB.Driver.Core" Version="2.9.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="Google.Protobuf">
+      <HintPath>..\..\..\Tools\ServerNeedDll\Google.Protobuf.dll</HintPath>
+    </Reference>
+    <Reference Include="zlib.net">
+      <HintPath>..\..\..\Tools\ServerNeedDll\zlib.net.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
