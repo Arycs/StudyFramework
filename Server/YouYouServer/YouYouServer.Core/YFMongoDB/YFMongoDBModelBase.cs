@@ -658,7 +658,7 @@ namespace YouYouServer.Core.YFMongoDB
                 T entity = GetEntity(YFId);
                 if (entity != null)
                 {
-                    entity.Status = DataStaus.Delete;
+                    entity.Status = DataStatus.Delete;
                     Update(entity);
                 }
             }

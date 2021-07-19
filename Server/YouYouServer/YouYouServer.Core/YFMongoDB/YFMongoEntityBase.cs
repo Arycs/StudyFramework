@@ -27,7 +27,7 @@ namespace YouYouServer.Core.YFMongoDB
         /// <summary>
         /// 状态
         /// </summary>
-        public DataStaus Status;
+        public DataStatus Status;
 
         /// <summary>
         /// 创建时间
