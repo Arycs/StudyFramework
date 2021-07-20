@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Root>
   <AreaServerId>1</AreaServerId>
-  <CurrServerType>0</CurrServerType>
+  <CurrServerType>1</CurrServerType>
   <CurrServerId>1</CurrServerId>
   <MongoConnectionString>mongodb://127.0.0.1</MongoConnectionString>
   <RedisConnectionString>127.0.0.1:6379</RedisConnectionString>

@@ -9,5 +9,6 @@ namespace YouYouServer.Model.ServerManager.Client
     /// </summary>
     class GatewayServerClient
     {
+
     }
 }

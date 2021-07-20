@@ -2,15 +2,26 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Xml.Linq;
+using YouYouServer.Common;
 
 namespace YouYouServer.Model
 {
     public sealed class ServerConfig
     {
         /// <summary>
-        /// 服务器编号
+        /// 区服编号（这个编号指的是整个区的编号）
         /// </summary>
-        public static int ServerId = 1;
+        public static int AreaServerId;
+
+        /// <summary>
+        /// 当前服务器类型
+        /// </summary>
+        public static ConstDefine.ServerType CurrServerType;
+
+        /// <summary>
+        /// 当前服务器编号 
+        /// </summary>
+        public static int CurrServerId = 0;
 
         /// <summary>
         /// Mongo 连接字符串
@@ -28,6 +39,11 @@ namespace YouYouServer.Model
         public static string DataTablePath;
 
         /// <summary>
+        /// 服务器列表
+        /// </summary>
+        public static List<Server> ServerList;
+
+        /// <summary>
         /// 初始化
         /// </summary>
         public static void Init()
@@ -36,11 +52,26 @@ namespace YouYouServer.Model
 
             XDocument doc = XDocument.Load(path);
 
-            int.TryParse(doc.Root.Element("ServerId").Value, out ServerId);
+            AreaServerId = doc.Root.Element("AreaServerId").Value.ToInt();
+            CurrServerType = (ConstDefine.ServerType)doc.Root.Element("CurrServerType").Value.ToInt();
+            CurrServerId = doc.Root.Element("CurrServerId").Value.ToInt();
+
             MongoConnectionString = doc.Root.Element("MongoConnectionString").Value;
             RedisConnectionString = doc.Root.Element("RedisConnectionString").Value;
             DataTablePath = doc.Root.Element("DataTablePath").Value;
 
+            ServerList = new List<Server>();
+            IEnumerable<XElement> lst = doc.Root.Elements("Servers").Elements("Item");
+            foreach (XElement item in lst)
+            {
+                ServerList.Add(new Server()
+                {
+                    CurrServerType = (ConstDefine.ServerType)item.Attribute("ServerType").Value.ToInt(),
+                    ServerId = item.Attribute("ServerId").Value.ToInt(),
+                    Ip = item.Attribute("Ip").Value,
+                    Port = item.Attribute("Port").Value.ToInt()
+                });
+            }
 
             Console.WriteLine("ServerConfig Init Complete");
         }
@@ -61,7 +92,7 @@ namespace YouYouServer.Model
             {
                 if (string.IsNullOrEmpty(m_GameServerDBName))
                 {
-                    m_GameServerDBName = string.Format("GameServer_{0}", ServerId);
+                    m_GameServerDBName = string.Format("GameServer_{0}", AreaServerId);
                 }
                 return m_GameServerDBName;
             }
@@ -79,10 +110,93 @@ namespace YouYouServer.Model
             {
                 if (string.IsNullOrEmpty(m_RoleHashKey))
                 {
-                    m_RoleHashKey = string.Format("{0}_RoleHash", ServerId);
+                    m_RoleHashKey = string.Format("{0}_RoleHash", AreaServerId);
                 }
                 return m_RoleHashKey;
             }
+        }
+        #endregion
+
+        #region Server 单台服务器
+        /// <summary>
+        /// 单台服务器
+        /// </summary>
+        public class Server
+        {
+            /// <summary>
+            /// 服务器类型
+            /// </summary>
+            public ConstDefine.ServerType CurrServerType;
+
+            /// <summary>
+            /// 服务器编号
+            /// </summary>
+            public int ServerId;
+
+            /// <summary>
+            /// 服务器Ip
+            /// </summary>
+            public string Ip;
+
+            /// <summary>
+            /// 服务器端口号
+            /// </summary>
+            public int Port;
+        }
+        #endregion
+
+        #region GetServer 根据服务器类型和编号获取服务器
+        /// <summary>
+        /// 根据服务器类型和编号获取服务器
+        /// </summary>
+        /// <param name="serverType"></param>
+        /// <param name="serverId"></param>
+        /// <returns></returns>
+        public static Server GetServer(ConstDefine.ServerType serverType, int serverId)
+        {
+            int len = ServerList.Count;
+            for (int i = 0; i < len; i++)
+            {
+                Server server = ServerList[i];
+                if (server.CurrServerType == serverType && server.ServerId == serverId)
+                {
+                    return server;
+                }
+            }
+            return null;
+        }
+
+        private static List<Server> m_RetServers = new List<Server>();
+
+        /// <summary>
+        /// 根据服务器类型获取服务器列表
+        /// </summary>
+        /// <param name="serverType"></param>
+        /// <returns></returns>
+        public static List<Server> GetServerByType(ConstDefine.ServerType serverType)
+        {
+            m_RetServers.Clear();
+            int len = ServerList.Count;
+            for (int i = 0; i < len; i++)
+            {
+                Server server = ServerList[i];
+                if (server.CurrServerType == serverType)
+                {
+                    m_RetServers.Add(server);
+                }
+            }
+            return m_RetServers;
+        }
+        #endregion
+
+        #region GetCurrServer获取当前服务器
+        /// <summary>
+        /// 获取当前服务器
+        /// </summary>
+        /// <returns></returns>
+        public static Server GetCurrServer()
+        {
+            return GetServer(CurrServerType, CurrServerId);
         }
         #endregion
     }
