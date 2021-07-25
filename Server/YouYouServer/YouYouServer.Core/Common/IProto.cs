@@ -4,18 +4,15 @@
 //备    注：
 //===================================================
 
+using YouYouServer.Core;
+
 namespace YouYou
 {
     /// <summary>
     /// 协议接口
     /// </summary>
-    public interface IProto : Google.Protobuf.IMessage
+    public interface IProto
     {
-        /// <summary>
-        /// 协议编号
-        /// </summary>
-        ushort ProtoId { get; }
-
         /// <summary>
         /// 协议编码
         /// </summary>

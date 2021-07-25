@@ -243,14 +243,14 @@ namespace YouYouServer.Core.Common
                     {
                         //客户端断开连接
                         OnDisConnect?.Invoke();
-                        LoggerMgr.Log(Core.LoggerLevel.LogError, 0, "客户端{0}断开连接", m_Socket.RemoteEndPoint.ToString());
+                        LoggerMgr.Log(LoggerLevel.LogError, 0, "客户端{0}断开连接", m_Socket.RemoteEndPoint.ToString());
                     }
                 }
                 else
                 {
                     //客户端断开连接
                     OnDisConnect?.Invoke();
-                    LoggerMgr.Log(Core.LoggerLevel.LogError, 0, "客户端{0}断开连接", m_Socket.RemoteEndPoint.ToString());
+                    LoggerMgr.Log(LoggerLevel.LogError, 0, "客户端{0}断开连接", m_Socket.RemoteEndPoint.ToString());
                 }
 
             }
@@ -258,7 +258,7 @@ namespace YouYouServer.Core.Common
             {
                 //客户端断开连接
                 OnDisConnect?.Invoke();
-                LoggerMgr.Log(Core.LoggerLevel.LogError, 0, "客户端{0}断开连接 原因{1}", m_Socket.RemoteEndPoint.ToString(), ex.Message);
+                LoggerMgr.Log(LoggerLevel.LogError, 0, "客户端{0}断开连接 原因{1}", m_Socket.RemoteEndPoint.ToString(), ex.Message);
             }
         }
         #endregion
@@ -293,33 +293,35 @@ namespace YouYouServer.Core.Common
         /// <returns></returns>
         private byte[] MakeData(IProto proto)
         {
-            byte[] retBuffer = null;
+            // 2021-7-22 注释掉，目前无用
+            return null;
+            //byte[] retBuffer = null;
 
-            byte[] data = proto.ToByteArray();
-            //1.如果数据包的长度 大于了m_CompressLen 则进行压缩
-            bool isCompress = data.Length > m_CompressLen ? true : false;
-            if (isCompress)
-            {
-                data = ZlibHelper.CompressBytes(data);
-            }
+            //byte[] data = proto.ToByteArray();
+            ////1.如果数据包的长度 大于了m_CompressLen 则进行压缩
+            //bool isCompress = data.Length > m_CompressLen ? true : false;
+            //if (isCompress)
+            //{
+            //    data = ZlibHelper.CompressBytes(data);
+            //}
 
-            //2.异或
-            data = SecurityUtil.Xor(data);
+            ////2.异或
+            //data = SecurityUtil.Xor(data);
 
-            MMO_MemoryStream ms = this.m_SocketSendMS;
-            ms.SetLength(0);
+            //MMO_MemoryStream ms = this.m_SocketSendMS;
+            //ms.SetLength(0);
 
-            ms.WriteUShort((ushort)(data.Length + 4)); //4=isCompress 1 + ProtoId 2 + Category 1
+            //ms.WriteUShort((ushort)(data.Length + 4)); //4=isCompress 1 + ProtoId 2 + Category 1
 
-            ms.WriteBool(isCompress);
+            //ms.WriteBool(isCompress);
 
-            ms.WriteUShort(proto.ProtoId);
-            ms.WriteByte((byte)proto.Category);
+            //ms.WriteUShort(proto.ProtoId);
+            //ms.WriteByte((byte)proto.Category);
 
-            ms.Write(data, 0, data.Length);
+            //ms.Write(data, 0, data.Length);
 
-            retBuffer = ms.ToArray();
-            return retBuffer;
+            //retBuffer = ms.ToArray();
+            //return retBuffer;
         }
 
         /// <summary>
@@ -415,6 +417,11 @@ namespace YouYouServer.Core.Common
                 //检查队列
                 OnCheckSendQueueCallBack();
             }
+        }
+
+        public void SendMsg(byte[] protobuffer)
+        {
+
         }
 
         public void SendMsg(CarryProto carryProto)
@@ -515,7 +522,7 @@ namespace YouYouServer.Core.Common
             }
             catch (Exception ex)
             {
-                LoggerMgr.Log(Core.LoggerLevel.LogError, 0, "连接失败={0}", ex.Message);
+                LoggerMgr.Log(LoggerLevel.LogError, 0, "连接失败={0}", ex.Message);
             }
         }
 
@@ -528,13 +535,13 @@ namespace YouYouServer.Core.Common
             if (m_Socket.Connected)
             {
                 OnConnectSuccess?.Invoke();
-                LoggerMgr.Log(Core.LoggerLevel.Log, 0, "socket连接成功");
+                LoggerMgr.Log(LoggerLevel.Log, 0, "socket连接成功");
                 ReceiveMsg();
             }
             else
             {
                 OnConnectFail?.Invoke();
-                LoggerMgr.Log(Core.LoggerLevel.LogError, 0, "socket连接失败");
+                LoggerMgr.Log(LoggerLevel.LogError, 0, "socket连接失败");
             }
             m_Socket.EndConnect(ar);
         }

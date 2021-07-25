@@ -1,4 +1,8 @@
 ﻿using System;
+using YouYouServer.Core.Logger;
+using YouYouServer.Model;
+using YouYouServer.Model.Managers;
+using YouYouServer.Model.ServerManager;
 
 namespace YouYouServer.GameServer
 {
@@ -6,7 +10,15 @@ namespace YouYouServer.GameServer
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.WriteLine("Hello GameServer!");
+
+            ServerConfig.Init();
+            DataTableManager.Init();
+            LoggerMgr.Init();
+            YFRedisClient.InitRedisClient();
+
+            GameServerManager.Init();
+            Console.ReadLine();
         }
     }
 }

@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
-using System.Text;
 using System.Threading;
+using YouYouServer.Common;
 using YouYouServer.Core.Logger;
-using YouYouServer.Model.ServerManager.Client;
 
 namespace YouYouServer.Model.ServerManager
 {
@@ -30,6 +28,16 @@ namespace YouYouServer.Model.ServerManager
         public static ServerConfig.Server CurrServer;
 
         /// <summary>
+        /// 游戏服配置列表
+        /// </summary>
+        private static List<ServerConfig.Server> LstGameServer = null;
+
+        /// <summary>
+        /// 网关服配置列表
+        /// </summary>
+        private static List<ServerConfig.Server> LstGatewayServer = null;
+
+        /// <summary>
         /// Socket监听
         /// </summary>
         private static Socket m_ListenSocket;
@@ -40,6 +48,9 @@ namespace YouYouServer.Model.ServerManager
             m_GatewayServerClientDic = new Dictionary<int, GatewayServerClient>();
 
             CurrServer = ServerConfig.GetCurrServer();
+            LstGameServer = ServerConfig.GetServerByType(ConstDefine.ServerType.GameServer);
+            LstGatewayServer = ServerConfig.GetServerByType(ConstDefine.ServerType.GatewayServer);
+
             LoggerMgr.Log(Core.LoggerLevel.Log, LogType.SysLog, "CurrServer={0}", CurrServer.ServerId);
 
             StarListen();
@@ -78,7 +89,49 @@ namespace YouYouServer.Model.ServerManager
                 IPEndPoint point = (IPEndPoint)socket.RemoteEndPoint;
 
                 LoggerMgr.Log(Core.LoggerLevel.Log, LogType.SysLog, "客户端IP={0} Port={1} 已经连接", point.Address.ToString(), point.Port.ToString());
-                  
+
+                //实例化一个Socket Client
+                new ServerClient(socket);
+            }
+        }
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="gameServerClient"></param>
+        public static void RegisterGameServerClient(GameServerClient gameServerClient){
+            LoggerMgr.Log(Core.LoggerLevel.Log, LogType.SysLog, "RegGameServer Success ServerId={1}", gameServerClient.ServerId);
+            m_GameServerClientDic.Add(gameServerClient.ServerId, gameServerClient);
+        }
+
+        /// <summary>
+        /// 注册网关服务器客户端
+        /// </summary>
+        /// <param name="gatewayServerClient"></param>
+        public static void RegisterGatewayServerClient(GatewayServerClient gatewayServerClient)
+        {
+            LoggerMgr.Log(Core.LoggerLevel.Log, LogType.SysLog, "RegGatewayServer Success ServerId={1}", gatewayServerClient);
+            m_GatewayServerClientDic.Add(gatewayServerClient.ServerId, gatewayServerClient);
+
+            CheckAllServerClientRegisterComplete();
+        }
+
+        /// <summary>
+        /// 检查所有服务器客户端注册完毕
+        /// </summary>
+        private static void CheckAllServerClientRegisterComplete()
+        {
+            if (LstGameServer == null || LstGatewayServer == null)
+            {
+                LoggerMgr.Log(Core.LoggerLevel.LogError, LogType.SysLog, "CheckAllServerClientRegisterComplete Fail No ServerConfig");
+                return;
+            }
+            if (LstGameServer.Count == m_GameServerClientDic.Count && LstGatewayServer.Count == m_GatewayServerClientDic.Count)
+            {
+                //所有服务器都注册完毕
+                LoggerMgr.Log(Core.LoggerLevel.Log, LogType.SysLog, "AllServerClientRegisterComplete");
+                //中心服务器通知所有网关服务器 可以注册到游戏服 
+
             }
         }
     }

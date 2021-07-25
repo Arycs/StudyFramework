@@ -5,13 +5,9 @@ using System.Text;
 namespace YouYouServer.Model.ServerManager
 {
     /// <summary>
-    /// 玩家客户端
+    /// 游戏服务器连接器
     /// </summary>
-    class PlayerClient : IDisposable
+    class GameServerConnect
     {
-        public void Dispose()
-        {
-            throw new NotImplementedException();
-        }
     }
 }
