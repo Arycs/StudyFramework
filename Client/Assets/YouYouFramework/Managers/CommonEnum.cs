@@ -13,62 +13,54 @@ using UnityEngine;
 public enum ProtoCategory
 {
     /// <summary>
-    /// 客户端->网关服务器
-    /// </summary>
-    Client2GatewayServer = 0,
-    /// <summary>
-    /// 网关服务器->客户端
-    /// </summary>
-    GatewayServer2Client = 1,
-    /// <summary>
     /// 客户端->中心服务器
     /// </summary>
-    Client2WorldServer = 2,
+    Client2WorldServer = 0,
 
     /// <summary>
     /// 中心服务器->客户端
     /// </summary>
-    WorldServer2Client = 3,
+    WorldServer2Client = 1,
 
     /// <summary>
     /// 客户端->游戏服务器
     /// </summary>
-    Client2GameServer = 4,
+    Client2GameServer = 2,
 
     /// <summary>
     /// 游戏服务器->客户端
     /// </summary>
-    GameServer2Client = 5,
+    GameServer2Client = 3,
 
     /// <summary>
     /// 游戏服务器>中心服务器
     /// </summary>
-    GameServer2WorldServer = 6,
+    GameServer2WorldServer = 4,
 
     /// <summary>
     /// 中心服务器->游戏服务器
     /// </summary>
-    WorldServer2GameServer = 7,
+    WorldServer2GameServer = 5,
 
     /// <summary>
     /// 网关服务器>中心服务器
     /// </summary>
-    GatewayServer2WorldServer = 8,
+    GatewayServer2WorldServer = 6,
 
     /// <summary>
     /// 中心服务器->网关服务器
     /// </summary>
-    WorldServer2GatewayServer = 9,
+    WorldServer2GatewayServer = 7,
 
     /// <summary>
     /// 网关服务器>游戏服务器
     /// </summary>
-    GatewayServer2GameServer = 10,
+    GatewayServer2GameServer = 8,
 
     /// <summary>
     /// 游戏服务器->网关服务器
     /// </summary>
-    GameServer2GatewayServer = 11
+    GameServer2GatewayServer = 9,
 }
 
 /// <summary>

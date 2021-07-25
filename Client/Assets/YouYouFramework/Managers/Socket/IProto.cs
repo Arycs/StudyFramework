@@ -14,10 +14,29 @@ namespace YouYou
     /// </summary>
     public interface IProto
     {
-        //协议编号
+        /// <summary>
+        /// 协议编号
+        /// </summary>
         ushort ProtoCode { get; }
+
+        /// <summary>
+        /// 协议编码
+        /// </summary>
         string ProtoEnName { get; }
-        byte[] ToArray();
+
+        /// <summary>
+        /// 协议分类
+        /// </summary>
+        ProtoCategory Category
+        {
+            get;
+        }
+
+        /// <summary>
+        /// 转化成字节
+        /// </summary>
+        /// <returns></returns>
+        byte[] ToArray(bool isChild = false);
         
     }
 }

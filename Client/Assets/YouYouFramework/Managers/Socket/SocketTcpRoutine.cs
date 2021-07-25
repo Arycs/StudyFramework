@@ -41,7 +41,7 @@ namespace YouYou
         /// 接收用的MS
         /// </summary>
         private MMO_MemoryStream m_SocketReceiveMS = new MMO_MemoryStream();
-        
+
         //接收消息的队列
         private Queue<byte[]> m_ReceiveQueue = new Queue<byte[]>();
 
@@ -106,18 +106,18 @@ namespace YouYou
 
                             MMO_MemoryStream ms1 = m_ReceiveMS;
                             ms1.SetLength(0);
-                            ms1.Write(buffer,0,buffer.Length);
+                            ms1.Write(buffer, 0, buffer.Length);
                             ms1.Position = 0;
 
                             isCompress = ms1.ReadBool();
                             crc = ms1.ReadUShort();
                             ms1.Read(bufferNew, 0, bufferNew.Length);
-//                            using (MMO_MemoryStream ms = new MMO_MemoryStream(buffer))
-//                            {
-//                                isCompress = ms.ReadBool();
-//                                crc = ms.ReadUShort();
-//                                ms.Read(bufferNew, 0, bufferNew.Length);
-//                            }
+                            //                            using (MMO_MemoryStream ms = new MMO_MemoryStream(buffer))
+                            //                            {
+                            //                                isCompress = ms.ReadBool();
+                            //                                crc = ms.ReadUShort();
+                            //                                ms.Read(bufferNew, 0, bufferNew.Length);
+                            //                            }
 
                             //先crc
                             int newCrc = Crc16.CalculateCrc16(bufferNew);
@@ -133,25 +133,28 @@ namespace YouYou
                                 }
 
                                 ushort protoCode = 0;
-                                byte[] protoContent = new byte[bufferNew.Length - 2];
-                                
+                                ProtoCategory protoCategory;
+                                byte[] protoContent = new byte[bufferNew.Length - 3]; //这里-3是减去protoCode长度 + protoCategory长度 
+
                                 MMO_MemoryStream ms2 = m_ReceiveMS;
                                 ms2.SetLength(0);
-                                ms2.Write(bufferNew,0,bufferNew.Length);
+                                ms2.Write(bufferNew, 0, bufferNew.Length);
                                 ms2.Position = 0;
                                 //协议编号
                                 protoCode = ms2.ReadUShort();
+                                protoCategory = (ProtoCategory)ms2.ReadByte();
                                 ms2.Read(protoContent, 0, protoContent.Length);
+
                                 GameEntry.Event.SocketEvent.Dispatch(protoCode, protoContent);
-                                
-//                                using (MMO_MemoryStream ms = new MMO_MemoryStream(bufferNew))
-//                                {
-//                                    //协议编号
-//                                    protoCode = ms.ReadUShort();
-//                                    ms.Read(protoContent, 0, protoContent.Length);
-//
-//                                    GameEntry.Event.SocketEvent.Dispatch(protoCode, protoContent);
-//                                }
+
+                                //using (MMO_MemoryStream ms = new MMO_MemoryStream(bufferNew))
+                                //{
+                                //    //协议编号
+                                //    protoCode = ms.ReadUShort();
+                                //    ms.Read(protoContent, 0, protoContent.Length);
+                                //
+                                //    GameEntry.Event.SocketEvent.Dispatch(protoCode, protoContent);
+                                //}
                             }
                             else
                             {
@@ -172,7 +175,7 @@ namespace YouYou
             }
 
             #endregion
-            
+
             CheckSendQueue();
         }
 
@@ -186,7 +189,8 @@ namespace YouYou
         public void Connect(string ip, int port)
         {
             //如果socket已经存在 并且处于连接中状态 则直接返回
-            if (m_Client != null && m_Client.Connected) return;
+            if (m_Client != null && m_Client.Connected)
+                return;
 
             string newServerIp = ip;
             AddressFamily addressFamily = AddressFamily.InterNetwork;
@@ -268,7 +272,7 @@ namespace YouYou
                     if (m_IsHasUnDealBytes)
                     {
                         m_IsHasUnDealBytes = false;
-                        ms.Write(m_UnDealBytes,0,m_UnDealBytes.Length);
+                        ms.Write(m_UnDealBytes, 0, m_UnDealBytes.Length);
                         smallCount++;
                     }
                     //在检查队列中的包
@@ -284,7 +288,7 @@ namespace YouYou
                         if (buffer.Length + ms.Length <= GameEntry.Socket.MaxSendByteCount)
                         {
                             smallCount++;
-                            ms.Write(buffer,0,buffer.Length);
+                            ms.Write(buffer, 0, buffer.Length);
                         }
                         else
                         {
@@ -330,8 +334,8 @@ namespace YouYou
 
             MMO_MemoryStream ms = m_SocketSendMS;
             ms.SetLength(0);
-            
-            ms.WriteUShort((ushort) (data.Length + 3));
+
+            ms.WriteUShort((ushort)(data.Length + 3));
             ms.WriteBool(isCompress);
             ms.WriteUShort(crc);
             ms.Write(data, 0, data.Length);
@@ -465,7 +469,7 @@ namespace YouYou
                                 //==============处理剩余字节数组===================
 
                                 //剩余字节长度
-                                int remainLen = (int) m_ReceiveMS.Length - currFullMsgLen;
+                                int remainLen = (int)m_ReceiveMS.Length - currFullMsgLen;
                                 if (remainLen > 0)
                                 {
                                     //把指针放在第一个包的尾部
