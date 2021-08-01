@@ -1,26 +1,30 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+//===================================================
+//作    者：边涯  http://www.u3dol.com
+//创建时间：
+//备    注：
+//===================================================
 using YouYou;
 
 /// <summary>
-/// Socket协议监听(工具生成的)
+/// Socket协议监听（工具生成）
 /// </summary>
-public class SocketProtoListener
+public sealed class SocketProtoListener
 {
     /// <summary>
     /// 添加协议监听
     /// </summary>
     public static void AddProtoListener()
     {
-        //GameEntry.Event.SocketEvent.AddEventListener(ProtoCodeDef.System_ServerTimeReturn,System_ServerTimeReturnHandler.OnSystem_ServerTimeReturn);
+        GameEntry.Event.SocketEvent.AddEventListener(ProtoCodeDef.GWS2C_ReturnRegClient, GWS2C_ReturnRegClientHandler.OnGWS2C_ReturnRegClient);
+        GameEntry.Event.SocketEvent.AddEventListener(ProtoCodeDef.WS2C_ReturnCreateRole, WS2C_ReturnCreateRoleHandler.OnWS2C_ReturnCreateRole);
     }
-    
+
     /// <summary>
     /// 移除协议监听
     /// </summary>
     public static void RemoveProtoListener()
     {
-        //GameEntry.Event.SocketEvent.RemoveEventListener(ProtoCodeDef.System_ServerTimeReturn,System_ServerTimeReturnHandler.OnSystem_ServerTimeReturn);
+        GameEntry.Event.SocketEvent.RemoveEventListener(ProtoCodeDef.GWS2C_ReturnRegClient, GWS2C_ReturnRegClientHandler.OnGWS2C_ReturnRegClient);
+        GameEntry.Event.SocketEvent.RemoveEventListener(ProtoCodeDef.WS2C_ReturnCreateRole, WS2C_ReturnCreateRoleHandler.OnWS2C_ReturnCreateRole);
     }
 }
