@@ -912,7 +912,9 @@ namespace ReadExcel
             sbr.AppendFormat("//创建时间：{0}\r\n", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
             sbr.AppendFormat("//备    注：\r\n");
             sbr.AppendFormat("//===================================================\r\n");
+            sbr.AppendFormat("using YouYou;\r\n");
             sbr.AppendFormat("using YouYouServer.Core;\r\n");
+            sbr.AppendFormat("using YouYouServer.Core.Common;\r\n");
             sbr.Append("\r\n");
             sbr.AppendFormat("/// <summary>\r\n");
             sbr.AppendFormat("/// {0}\r\n", proto.ProtoCnName);
