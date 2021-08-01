@@ -1,6 +1,6 @@
 //===================================================
 //作    者：边涯  http://www.u3dol.com
-//创建时间：2021-07-25 14:54:30
+//创建时间：2021-08-01 18:07:42
 //备    注：
 //===================================================
 using YouYou;
@@ -8,13 +8,13 @@ using YouYouServer.Core;
 using YouYouServer.Core.Common;
 
 /// <summary>
-/// 游戏服务器注册到中心服务器
+/// 中心服务器通知网关服务器注册到游戏服
 /// </summary>
-public struct GameServer2CenterServer_RegGameServerProto : IProto
+public struct WS2GWS_ToRegGameServerProto : IProto
 {
-    public ushort ProtoCode => 10001;
-    public string ProtoEnName => "GameServer2CenterServer_RegGameServer";
-    public ProtoCategory Category => ProtoCategory.GameServer2WorldServer;
+    public ushort ProtoCode => 10003;
+    public string ProtoEnName => "WS2GWS_ToRegGameServer";
+    public ProtoCategory Category => ProtoCategory.WorldServer2GatewayServer;
 
     public int ServerId; //服务器编号
 
@@ -32,9 +32,9 @@ public struct GameServer2CenterServer_RegGameServerProto : IProto
         return ms.ToArray();
     }
 
-    public static GameServer2CenterServer_RegGameServerProto GetProto(MMO_MemoryStream ms, byte[] buffer)
+    public static WS2GWS_ToRegGameServerProto GetProto(MMO_MemoryStream ms, byte[] buffer)
     {
-        GameServer2CenterServer_RegGameServerProto proto = new GameServer2CenterServer_RegGameServerProto();
+        WS2GWS_ToRegGameServerProto proto = new WS2GWS_ToRegGameServerProto();
         ms.SetLength(0);
         ms.Write(buffer, 0, buffer.Length);
         ms.Position = 0;

@@ -7,6 +7,7 @@ using YouYouServer.Model.DBModels;
 using YouYouServer.Model.Entitys;
 using YouYouServer.Model.Logic.DBModels;
 using YouYouServer.Model.Logic.Entitys;
+using static YouYouServer.Common.ConstDefine;
 
 namespace YouYouServer.Model.Test
 {

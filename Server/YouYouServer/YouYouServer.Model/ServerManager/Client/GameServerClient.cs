@@ -7,48 +7,34 @@ namespace YouYouServer.Model.ServerManager
     /// <summary>
     /// 游戏服务器客户端
     /// </summary>
-    public class GameServerClient : IDisposable
+    public class GameServerClient : ServerClientBase
     {
-        /// <summary>
-        /// 当前服务器客户端
-        /// </summary>
-        private ServerClient m_CurrServerClient;
-
-        /// <summary>
-        /// 服务器编号
-        /// </summary>
-        public int ServerId
+        public GameServerClient(ServerClient serverClient) : base(serverClient)
         {
-            get; private set;
-        }
-
-        public GameServerClient(ServerClient serverClient)
-        {
-            m_CurrServerClient = serverClient;
-            ServerId = m_CurrServerClient.ServerId;
-
+            //断开连接时
+            CurrServerClient.OnDisConnect = () =>
+            {
+                Dispose();
+                WorldServerManager.RemoveGameServerClient(this);
+            };
             AddEventListener();
         }
 
         /// <summary>
         /// 监听游戏服务器发来的消息
         /// </summary>
-        private void AddEventListener()
+        public override void AddEventListener()
         {
-
+            base.AddEventListener();
         }
 
         /// <summary>
         /// 移除监听
         /// </summary>
-        private void RemoveEventListener()
+        public override void RemoveEventListener()
         {
-
+            base.RemoveEventListener();
         }
 
-        public void Dispose()
-        {
-
-        }
     }
 }

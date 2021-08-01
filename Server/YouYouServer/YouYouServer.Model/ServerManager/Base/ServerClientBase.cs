@@ -4,15 +4,15 @@ using System.Text;
 
 namespace YouYouServer.Model.ServerManager
 {
-    /// <summary>
-    /// 网关服务器客户端
-    /// </summary>
-    public class GatewayServerClient : IDisposable
+    public abstract class ServerClientBase : IDisposable
     {
         /// <summary>
         /// 当前服务器客户端
         /// </summary>
-        private ServerClient m_CurrServerClient;
+        public ServerClient CurrServerClient
+        {
+            get; private set;
+        }
 
         /// <summary>
         /// 服务器编号
@@ -22,18 +22,16 @@ namespace YouYouServer.Model.ServerManager
             get; private set;
         }
 
-        public GatewayServerClient(ServerClient serverClient)
+        public ServerClientBase(ServerClient serverClient)
         {
-            m_CurrServerClient = serverClient;
-            ServerId = m_CurrServerClient.ServerId;
-
-            AddEventListener();
+            CurrServerClient = serverClient;
+            ServerId = CurrServerClient.ServerId;
         }
 
         /// <summary>
-        /// 监听游戏服务器发来的消息
+        /// 监听
         /// </summary>
-        private void AddEventListener()
+        public virtual void AddEventListener()
         {
 
         }
@@ -41,14 +39,15 @@ namespace YouYouServer.Model.ServerManager
         /// <summary>
         /// 移除监听
         /// </summary>
-        private void RemoveEventListener()
+        public virtual void RemoveEventListener()
         {
 
         }
 
         public void Dispose()
         {
-            
+            RemoveEventListener();
+            CurrServerClient.Dispose();
         }
     }
 }

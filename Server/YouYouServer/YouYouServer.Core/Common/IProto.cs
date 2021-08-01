@@ -5,6 +5,7 @@
 //===================================================
 
 using YouYouServer.Core;
+using YouYouServer.Core.Common;
 
 namespace YouYou
 {
@@ -14,13 +15,15 @@ namespace YouYou
     public interface IProto
     {
         /// <summary>
-        /// 协议编码
+        /// 协议编号
         /// </summary>
-        string ProtoEnName { get; }
+        ushort ProtoCode { get; }
 
         /// <summary>
         /// 协议分类
         /// </summary>
         ProtoCategory Category { get; }
+
+        byte[] ToArray(MMO_MemoryStream ms, bool isChild = false);
     }
 }

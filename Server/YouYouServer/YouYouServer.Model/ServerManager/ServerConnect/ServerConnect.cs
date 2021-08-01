@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using YouYouServer.Core;
 using YouYouServer.Core.Common;
 using YouYouServer.Core.Logger;
 
@@ -9,7 +10,7 @@ namespace YouYouServer.Model.ServerManager
     /// <summary>
     /// 中心服务器连接器
     /// </summary>
-    public class WorldServerConnect
+    public class ServerConnect
     {
         /// <summary>
         /// Socket 事件监听派发器
@@ -50,7 +51,12 @@ namespace YouYouServer.Model.ServerManager
         /// </summary>
         private ServerConfig.Server m_CurrConfig;
 
-        public WorldServerConnect(ServerConfig.Server serverConfig)
+        /// <summary>
+        /// 处理中转协议
+        /// </summary>
+        public BaseAction<ushort, ProtoCategory, byte[]> OnCarryProto;
+
+        public ServerConnect(ServerConfig.Server serverConfig)
         {
             m_CurrConfig = serverConfig;
 
@@ -77,6 +83,11 @@ namespace YouYouServer.Model.ServerManager
             {
                 LoggerMgr.Log(Core.LoggerLevel.LogError, LogType.SysLog, "Connect WorldServer Fail");
                 onConnectFail?.Invoke();
+            };
+
+            //处理服务器返回的中转协议
+            ClientSocket.OnCarryProto = (ushort protoCode, ProtoCategory protoCategory, byte[] buffer) => {
+                OnCarryProto?.Invoke(protoCode, protoCategory, buffer);
             };
             ClientSocket.Connect(m_CurrConfig.Ip, m_CurrConfig.Port);
         }

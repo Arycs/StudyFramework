@@ -55,11 +55,11 @@
             /// <summary>
             /// 未设置
             /// </summary>
-            None = -1,
+            None = 0,
             /// <summary>
             /// 注册到游戏服完毕
             /// </summary>
-            RegGameServerSuccess = 0
+            RegGameServerSuccess = 1
         }
 
         public const string AccountControllerHandler = "AccountControllerHandler";

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using YouYouServer.Common;
+using YouYouServer.Core;
 using YouYouServer.Core.Logger;
 
 namespace YouYouServer.Model.ServerManager
@@ -9,68 +10,95 @@ namespace YouYouServer.Model.ServerManager
     /// <summary>
     /// 网关服务器链接中心服务器代理
     /// </summary>
-    public class GatewayConnectWorldAgent : IDisposable
+    public class GatewayConnectWorldAgent : ConnectAgentBase
     {
-        /// <summary>
-        /// 中心服务器配置
-        /// </summary>
-        public ServerConfig.Server WorldServerConfig;
-
-        /// <summary>
-        /// 当前中心服务器连接器
-        /// </summary>
-        public WorldServerConnect CurrWorldServerConnect;
-
         public GatewayConnectWorldAgent()
-        {
-            AddEventListener();
-        }
-
-        public void Dispose()
-        {
-            RemoveEventListener();
-        }
-
-        /// <summary>
-        /// 监听中心服务器发来的消息
-        /// </summary>
-        private void AddEventListener()
-        {
-
-        }
-
-        /// <summary>
-        /// 移除监听
-        /// </summary>
-        private void RemoveEventListener()
-        {
-
-        }
-
-        #region   RegisterToWorldServer 注册到中心服务器  
-        public void RegisterToWorldServer()
         {
             List<ServerConfig.Server> servers = ServerConfig.GetServerByType(ConstDefine.ServerType.WorldServer);
             if (servers != null && servers.Count == 1)
             {
-                WorldServerConfig = servers[0];
-
-                //连接到中心服务器
-                CurrWorldServerConnect = new WorldServerConnect(WorldServerConfig);
-                CurrWorldServerConnect.Connect(onConnectSuccess: () =>
-                {
-                    //告诉中心服务器 我是谁
-                    GatewayServer2CenterServer_RegGatewayServerProto proto = new GatewayServer2CenterServer_RegGatewayServerProto();
-                    proto.ServerId = GatewayServerManager.CurrServer.ServerId;
-                    CurrWorldServerConnect.ClientSocket.SendMsg(proto.ToArray(CurrWorldServerConnect.SendProtoMS));
-                });
+                TargetServerConfig = servers[0];
+                TargetServerConnect = new ServerConnect(TargetServerConfig);
+                AddEventListener();
             }
             else
             {
                 LoggerMgr.Log(Core.LoggerLevel.LogError, LogType.SysLog, "No WorldServer");
             }
         }
+        /// <summary>
+        /// 监听中心服务器发来的消息
+        /// </summary>
+        public override void AddEventListener()
+        {
+            base.AddEventListener();
+            TargetServerConnect.EventDispatcher.AddEventListener(ProtoCodeDef.WS2GWS_ToRegGameServer, OnWS2GWS_ToRegGameServer);
+        }
+
+        /// <summary>
+        /// 移除监听
+        /// </summary>
+        public override void RemoveEventListener()
+        {
+            base.RemoveEventListener();
+            TargetServerConnect.EventDispatcher.RemoveEventListener(ProtoCodeDef.WS2GWS_ToRegGameServer, OnWS2GWS_ToRegGameServer);
+        }
+
+        /// <summary>
+        /// 收到中转协议并处理
+        /// </summary>
+        /// <param name="protoCode">协议编号</param>
+        /// <param name="protoCategory">协议分类</param>
+        /// <param name="buffer">协议内容</param>
+        private void OnCarryProto(ushort protoCode, ProtoCategory protoCategory, byte[] buffer)
+        { 
+            //网关服务器端接收到的中转消息 都是经过中转的（中心服务器或游戏服务器 发过来的）
+            //所以这里直接解析中转协议
+            CarryProto proto = CarryProto.GetProto(TargetServerConnect.GetProtoMS, buffer);
+            if (proto.CarryProtoCategory == ProtoCategory.WorldServer2Client)
+            {
+                long accountId = proto.AccountId;
+
+                //1. 找到在网关服务器上的玩家客户端
+                PlayerForGatewayClient playerForGatewayClient = GatewayServerManager.GetPlayerClient(accountId);
+                if (playerForGatewayClient != null)
+                {
+                    //2. 给玩家发送消息
+                    playerForGatewayClient.ClientSocket.SendMsg(proto.Buffer);
+                }
+            }
+        }
+
+        #region   RegisterToWorldServer 注册到中心服务器  
+        public void RegisterToWorldServer()
+        {
+            TargetServerConnect.Connect(onConnectSuccess: (Action)(() =>
+            {
+                //告诉中心服务器 我是谁
+                GWS2WS_RegGatewayServerProto proto = new GWS2WS_RegGatewayServerProto();
+                proto.ServerId = GatewayServerManager.CurrServer.ServerId;
+                TargetServerConnect.ClientSocket.SendMsg(proto.ToArray((Core.Common.MMO_MemoryStream)TargetServerConnect.SendProtoMS));
+            }));
+        }
         #endregion
+
+        /// <summary>
+        /// 收到中心服务器发的注册到游戏服务器消息
+        /// </summary>
+        /// <param name="buffer"></param>
+        public void OnWS2GWS_ToRegGameServer(byte[] buffer)
+        {
+            GatewayServerManager.ToRegGameServer();
+        }
+
+        /// <summary>
+        /// 通知中心服务器注册游戏服完毕
+        /// </summary>
+        public void ToRegGameServerSuccess()
+        {
+            GWS2WS_RegGameServerSuccessProto proto = new GWS2WS_RegGameServerSuccessProto();
+            TargetServerConnect.ClientSocket.SendMsg(proto.ToArray(TargetServerConnect.SendProtoMS));
+        }
     }
 
 }

@@ -117,6 +117,25 @@ namespace YouYouServer.Model
         }
         #endregion
 
+        #region RoleNickNameKey 角色昵称Key
+        private static string m_RoleNickNameKey = null;
+
+        /// <summary>
+        /// 角色昵称Key
+        /// </summary>
+        public static string RoleNickNameKey
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(m_RoleNickNameKey))
+                {
+                    m_RoleNickNameKey = string.Format("{0}_NickName", AreaServerId);
+                }
+                return m_RoleNickNameKey;
+            }
+        }
+        #endregion
+
         #region Server 单台服务器
         /// <summary>
         /// 单台服务器
@@ -166,8 +185,6 @@ namespace YouYouServer.Model
             return null;
         }
 
-        private static List<Server> m_RetServers = new List<Server>();
-
         /// <summary>
         /// 根据服务器类型获取服务器列表
         /// </summary>
@@ -175,17 +192,17 @@ namespace YouYouServer.Model
         /// <returns></returns>
         public static List<Server> GetServerByType(ConstDefine.ServerType serverType)
         {
-            m_RetServers.Clear();
+            List<Server> lst = new List<Server>();
             int len = ServerList.Count;
             for (int i = 0; i < len; i++)
-            {
+            { 
                 Server server = ServerList[i];
                 if (server.CurrServerType == serverType)
                 {
-                    m_RetServers.Add(server);
+                    lst.Add(server);
                 }
             }
-            return m_RetServers;
+            return lst;
         }
         #endregion
 

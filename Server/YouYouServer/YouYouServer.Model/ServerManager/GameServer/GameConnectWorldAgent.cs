@@ -9,42 +9,39 @@ namespace YouYouServer.Model.ServerManager
     /// <summary>
     /// 游戏服务器连接到中心服务器代理
     /// </summary>
-    public class GameConnectWorldAgent : IDisposable
+    public class GameConnectWorldAgent : ConnectAgentBase
     {
-        /// <summary>
-        /// 中心服务器配置
-        /// </summary>
-        public ServerConfig.Server WorldServerConfig;
-
-        /// <summary>
-        /// 当前中心服务器连接器
-        /// </summary>
-        public WorldServerConnect CurrWorldServerConnect;
-
         public GameConnectWorldAgent()
         {
-            AddEventListener();
-        }
+            List<ServerConfig.Server> servers = ServerConfig.GetServerByType(ConstDefine.ServerType.WorldServer);
+            if (servers != null && servers.Count == 1)
+            {
+                TargetServerConfig = servers[0];
 
-        public void Dispose()
-        {
-            RemoveEventListener();
+                //连接到中心服务器
+                TargetServerConnect = new ServerConnect(TargetServerConfig);
+                AddEventListener();
+            }
+            else
+            {
+                LoggerMgr.Log(Core.LoggerLevel.LogError, LogType.SysLog, "No WorldServer");
+            }
         }
 
         /// <summary>
         /// 监听中心服务器发来的消息
         /// </summary>
-        private void AddEventListener()
+        public override void AddEventListener()
         {
-
+            base.AddEventListener();
         }
 
         /// <summary>
         /// 移除监听
         /// </summary>
-        private void RemoveEventListener()
+        public override void RemoveEventListener()
         {
-
+            base.RemoveEventListener();
         }
 
         #region RegisterToWorldServer 注册到中心服务器
@@ -53,25 +50,13 @@ namespace YouYouServer.Model.ServerManager
         /// </summary>
         public void RegisterToWorldServer()
         {
-            List<ServerConfig.Server> servers = ServerConfig.GetServerByType(ConstDefine.ServerType.WorldServer);
-            if (servers != null && servers.Count == 1)
+            TargetServerConnect.Connect(onConnectSuccess: (Action)(() =>
             {
-                WorldServerConfig = servers[0];
-
-                //连接到中心服务器
-                CurrWorldServerConnect = new WorldServerConnect(WorldServerConfig);
-                CurrWorldServerConnect.Connect(onConnectSuccess: () =>
-                {
-                    //告诉中心服务器 我是谁
-                    GameServer2CenterServer_RegGameServerProto proto = new GameServer2CenterServer_RegGameServerProto();
-                    proto.ServerId = GameServerManager.CurrServer.ServerId;
-                    CurrWorldServerConnect.ClientSocket.SendMsg(proto.ToArray(CurrWorldServerConnect.SendProtoMS));
-                });
-            }
-            else
-            {
-                LoggerMgr.Log(Core.LoggerLevel.LogError, LogType.SysLog, "No WorldServer");
-            }
+                //告诉中心服务器 我是谁
+                GS2WS_RegGameServerProto proto = new GS2WS_RegGameServerProto();
+                proto.ServerId = GameServerManager.CurrServer.ServerId;
+                TargetServerConnect.ClientSocket.SendMsg(proto.ToArray((Core.Common.MMO_MemoryStream)TargetServerConnect.SendProtoMS));
+            }));
         }
         #endregion
     }

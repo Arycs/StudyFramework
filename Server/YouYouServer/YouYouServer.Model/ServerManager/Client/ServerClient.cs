@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Text;
 using YouYouServer.Common;
+using YouYouServer.Core;
 using YouYouServer.Core.Common;
 using YouYouServer.Core.Logger;
 
@@ -32,7 +33,10 @@ namespace YouYouServer.Model.ServerManager
         /// <summary>
         /// Socket连接器
         /// </summary>
-        private ClientSocket m_ClientSocket;
+        public ClientSocket ClientSocket
+        {
+            get; private set;
+        }
 
         /// <summary>
         /// 发送协议时的MS缓存
@@ -50,13 +54,28 @@ namespace YouYouServer.Model.ServerManager
             get; private set;
         }
 
+        /// <summary>
+        /// 断开连接
+        /// </summary>
+        public Action OnDisConnect;
+
+        /// <summary>
+        /// 处理中转协议
+        /// </summary>
+        public BaseAction<ushort, ProtoCategory, byte[]> OnCarryProto;
+
         public ServerClient(Socket socket)
         {
             EventDispatcher = new EventDispatcher();
             SendProtoMS = new MMO_MemoryStream();
             GetProtoMS = new MMO_MemoryStream();
 
-            m_ClientSocket = new ClientSocket(socket, EventDispatcher);
+            ClientSocket = new ClientSocket(socket, EventDispatcher);
+            ClientSocket.OnDisConnect = () => { OnDisConnect?.Invoke(); };
+            ClientSocket.OnCarryProto = (ushort protoCode, ProtoCategory protoCategory, byte[] buffer) =>
+            {
+                OnCarryProto?.Invoke(protoCode, protoCategory, buffer);
+            };
             AddEventListener();
         }
 
@@ -65,22 +84,26 @@ namespace YouYouServer.Model.ServerManager
         /// </summary>
         private void AddEventListener()
         {
-            EventDispatcher.AddEventListener(ProtoCodeDef.GameServer2CenterServer_RegGameServer, OnGameServer2CenterServer_RegGameServer);
-            EventDispatcher.AddEventListener(ProtoCodeDef.GatewayServer2CenterServer_RegGatewayServer, OnGatewayServer2CenterServer_RegGatewayServer);
+            EventDispatcher.AddEventListener(ProtoCodeDef.GS2WS_RegGameServer, OnGS2WS_RegGameServer);
+            EventDispatcher.AddEventListener(ProtoCodeDef.GWS2WS_RegGatewayServer, OnGWS2WS_RegGatewayServer);
+            EventDispatcher.AddEventListener(ProtoCodeDef.GWS2GS_RegGatewayServer, OnGWS2GS_RegGatewayServer);
         }
+
 
         private void RemoveEventListener()
         {
-            EventDispatcher.RemoveEventListener(ProtoCodeDef.GameServer2CenterServer_RegGameServer, OnGameServer2CenterServer_RegGameServer);
+            EventDispatcher.RemoveEventListener(ProtoCodeDef.GS2WS_RegGameServer, OnGS2WS_RegGameServer);
+            EventDispatcher.RemoveEventListener(ProtoCodeDef.GWS2WS_RegGatewayServer, OnGWS2WS_RegGatewayServer);
+            EventDispatcher.RemoveEventListener(ProtoCodeDef.GWS2GS_RegGatewayServer, OnGWS2GS_RegGatewayServer);
         }
 
         /// <summary>
         /// 游戏服务器注册到中心服务器
         /// </summary>
         /// <param name="buffer"></param>
-        private void OnGameServer2CenterServer_RegGameServer(byte[] buffer)
+        private void OnGS2WS_RegGameServer(byte[] buffer)
         {
-            GameServer2CenterServer_RegGameServerProto proto = GameServer2CenterServer_RegGameServerProto.GetProto(GetProtoMS, buffer);
+            GS2WS_RegGameServerProto proto = GS2WS_RegGameServerProto.GetProto(GetProtoMS, buffer);
             ServerConfig.Server server = ServerConfig.GetServer(ConstDefine.ServerType.GameServer, proto.ServerId);
             if (server != null)
             {
@@ -99,21 +122,44 @@ namespace YouYouServer.Model.ServerManager
         /// 网关服务器注册到中心服务器
         /// </summary>
         /// <param name="buffer"></param>
-        private void OnGatewayServer2CenterServer_RegGatewayServer(byte[] buffer)
+        private void OnGWS2WS_RegGatewayServer(byte[] buffer)
         {
-            GatewayServer2CenterServer_RegGatewayServerProto proto = GatewayServer2CenterServer_RegGatewayServerProto.GetProto(GetProtoMS, buffer);
+            GWS2WS_RegGatewayServerProto proto = GWS2WS_RegGatewayServerProto.GetProto(GetProtoMS, buffer);
             ServerConfig.Server server = ServerConfig.GetServer(ConstDefine.ServerType.GatewayServer, proto.ServerId);
             if (server != null)
             {
                 ServerId = proto.ServerId;
 
-                WorldServerManager.RegisterGatewayServerClient(new GatewayServerClient(this));
+                WorldServerManager.RegisterGatewayServerClient(new GatewayServerForWorldClient(this));
             }
             else
             {
                 LoggerMgr.Log(Core.LoggerLevel.LogError, LogType.SysLog, "RegGatewayServer Fail ServerId = {0}", proto.ServerId);
             }
         }
+
+        #region OnGatewayServer2GameServer_RegGatewayServer 网关服务器注册到游戏服务器
+        /// <summary>
+        /// 网关服务器注册到游戏服务器
+        /// </summary>
+        /// <param name="buffer"></param>
+        private void OnGWS2GS_RegGatewayServer(byte[] buffer)
+        {
+            GWS2GS_RegGatewayServerProto proto = GWS2GS_RegGatewayServerProto.GetProto(GetProtoMS, buffer);
+            ServerConfig.Server server = ServerConfig.GetServer(ConstDefine.ServerType.GatewayServer, proto.ServerId);
+            if (server != null)
+            {
+                ServerId = proto.ServerId;
+
+                GameServerManager.RegisterGatewayServerClient(new GatewayServerForGameClient(this));
+            }
+            else
+            {
+                LoggerMgr.Log(Core.LoggerLevel.LogError, LogType.SysLog, "RegGameServer Fail ServerId={0}", proto.ServerId);
+
+            }
+        }
+        #endregion
 
         public void Dispose()
         {

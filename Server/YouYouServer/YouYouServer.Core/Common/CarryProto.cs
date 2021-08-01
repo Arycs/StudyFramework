@@ -24,7 +24,7 @@ namespace YouYouServer.Core
         /// <summary>
         /// 承运的协议号
         /// </summary>
-        public ushort CarryProtoId;
+        public ushort CarryProtoCode;
 
         /// <summary>
         /// 承运协议分类（也就是承运别的协议的分类）
@@ -44,33 +44,33 @@ namespace YouYouServer.Core
         public CarryProto(long accountId, ushort carryProtoCode, ProtoCategory carryProtoCategory, byte[] buffer)
         {
             AccountId = accountId;
-            CarryProtoId = carryProtoCode;
+            CarryProtoCode = carryProtoCode;
             CarryProtoCategory = carryProtoCategory;
             Buffer = buffer;
         }
 
-        public byte[] ToArray()
+        public byte[] ToArray(MMO_MemoryStream ms)
         {
-            MMO_MemoryStream ms = new MMO_MemoryStream();
             ms.SetLength(0);
+            ms.WriteUShort(0);
+            ms.WriteByte((byte)Category);
             ms.WriteLong(AccountId);
-            ms.WriteUShort(CarryProtoId);
+            ms.WriteUShort(CarryProtoCode);
             ms.WriteByte((byte)CarryProtoCategory);
             ms.WriteInt(Buffer.Length);
             ms.Write(Buffer);
             return ms.ToArray();
         }
 
-        public static CarryProto GetProto(byte[] buffer)
+        public static CarryProto GetProto(MMO_MemoryStream ms, byte[] buffer)
         {
-            MMO_MemoryStream ms = new MMO_MemoryStream();
             CarryProto proto = new CarryProto();
             ms.SetLength(0);
             ms.Write(buffer, 0, buffer.Length);
             ms.Position = 0;
 
             proto.AccountId = ms.ReadLong();
-            proto.CarryProtoId = ms.ReadUShort();
+            proto.CarryProtoCode = ms.ReadUShort();
             proto.CarryProtoCategory = (ProtoCategory)ms.ReadByte();
 
             int len = ms.ReadInt();

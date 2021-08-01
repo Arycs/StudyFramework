@@ -20,7 +20,12 @@ namespace YouYouServer.Model.ServerManager
         /// <summary>
         /// 网关服务器客户端
         /// </summary>
-        private static Dictionary<int, GatewayServerClient> m_GatewayServerClientDic;
+        private static Dictionary<int, GatewayServerForWorldClient> m_GatewayServerClientDic;
+
+        /// <summary>
+        /// 中心服务器上的玩家字典
+        /// </summary>
+        private static Dictionary<long, PlayerForWorldClient> m_PlayerForWorldClientDic;
 
         /// <summary>
         /// 当前服务器
@@ -45,7 +50,8 @@ namespace YouYouServer.Model.ServerManager
         public static void Init()
         {
             m_GameServerClientDic = new Dictionary<int, GameServerClient>();
-            m_GatewayServerClientDic = new Dictionary<int, GatewayServerClient>();
+            m_GatewayServerClientDic = new Dictionary<int, GatewayServerForWorldClient>();
+            m_PlayerForWorldClientDic = new Dictionary<long, PlayerForWorldClient>();
 
             CurrServer = ServerConfig.GetCurrServer();
             LstGameServer = ServerConfig.GetServerByType(ConstDefine.ServerType.GameServer);
@@ -94,28 +100,48 @@ namespace YouYouServer.Model.ServerManager
                 new ServerClient(socket);
             }
         }
-        
+
         /// <summary>
-        /// 
+        /// 注册游戏服务器客户端
         /// </summary>
         /// <param name="gameServerClient"></param>
-        public static void RegisterGameServerClient(GameServerClient gameServerClient){
+        public static void RegisterGameServerClient(GameServerClient gameServerClient) {
             LoggerMgr.Log(Core.LoggerLevel.Log, LogType.SysLog, "RegGameServer Success ServerId={1}", gameServerClient.ServerId);
             m_GameServerClientDic.Add(gameServerClient.ServerId, gameServerClient);
         }
+        
+        /// <summary>
+        /// 移除游戏服务器客户端
+        /// </summary>
+        /// <param name="gameServerClient"></param>
+        public static void RemoveGameServerClient(GameServerClient gameServerClient)
+        {
+            LoggerMgr.Log(Core.LoggerLevel.Log, LogType.SysLog, "RemoveGameServerClient Success ServerId = {0}", gameServerClient.ServerId);
+            m_GameServerClientDic.Remove(gameServerClient.ServerId);
+        }
+
 
         /// <summary>
         /// 注册网关服务器客户端
         /// </summary>
         /// <param name="gatewayServerClient"></param>
-        public static void RegisterGatewayServerClient(GatewayServerClient gatewayServerClient)
+        public static void RegisterGatewayServerClient(GatewayServerForWorldClient gatewayServerForWorldClient)
         {
-            LoggerMgr.Log(Core.LoggerLevel.Log, LogType.SysLog, "RegGatewayServer Success ServerId={1}", gatewayServerClient);
-            m_GatewayServerClientDic.Add(gatewayServerClient.ServerId, gatewayServerClient);
+            LoggerMgr.Log(Core.LoggerLevel.Log, LogType.SysLog, "RegGatewayServer Success ServerId={1}", gatewayServerForWorldClient.ServerId);
+            m_GatewayServerClientDic.Add(gatewayServerForWorldClient.ServerId, gatewayServerForWorldClient);
 
             CheckAllServerClientRegisterComplete();
         }
 
+        #region RemoveGatewayServerClient 移除网关服务器客户端
+        public static void RemoveGatewayServerClient(GatewayServerForWorldClient gatewayServerForWorldClient)
+        {
+            LoggerMgr.Log(Core.LoggerLevel.Log, LogType.SysLog, "RemoveGatewayServerClient Success ServerId = {0}", gatewayServerForWorldClient.ServerId);
+            m_GatewayServerClientDic.Remove(gatewayServerForWorldClient.ServerId);
+        }
+        #endregion
+
+        #region CheckAllServerClientRegisterComplete 检查所有服务器客户端注册完毕
         /// <summary>
         /// 检查所有服务器客户端注册完毕
         /// </summary>
@@ -131,8 +157,78 @@ namespace YouYouServer.Model.ServerManager
                 //所有服务器都注册完毕
                 LoggerMgr.Log(Core.LoggerLevel.Log, LogType.SysLog, "AllServerClientRegisterComplete");
                 //中心服务器通知所有网关服务器 可以注册到游戏服 
-
+                var enumerator = m_GatewayServerClientDic.GetEnumerator();
+                while (enumerator.MoveNext())
+                {
+                    GatewayServerForWorldClient gatewayServerClient = enumerator.Current.Value;
+                    gatewayServerClient.SendToRegGameServer();
+                }
             }
         }
+        #endregion
+
+        #region CheckAllGatewayServerRegisterGameServerComplete 检查所有网关服务器注册到游戏服务器完毕
+        /// <summary>
+        /// 检查所有网关服务器注册到游戏服务器完毕
+        /// </summary>
+        public static void CheckAllGatewayServerRegisterGameServerComplete()
+        {
+            bool regGameServerComplete = true;
+            var enumerator = m_GatewayServerClientDic.GetEnumerator();
+            while (enumerator.MoveNext())
+            {
+                GatewayServerForWorldClient gatewayServerClient = enumerator.Current.Value;
+                if (gatewayServerClient.CurrServerStatus != ConstDefine.GatewayServerStatus.RegGameServerSuccess)
+                {
+                    regGameServerComplete = false;
+                    break;
+                }
+            }
+            ///如果所有网关服务器注册到游戏服务器完毕
+            if (regGameServerComplete)
+            {
+                LoggerMgr.Log(Core.LoggerLevel.Log, LogType.SysLog, "AllGatewayServerRegisterGameServerComplete");
+                //Todo 通知web服务器
+            }
+        }
+        #endregion
+
+        #region RegisterPlayerForWorldClient 注册中心服务器上的玩家客户端
+        /// <summary>
+        /// 注册中心服务器上的玩家客户端
+        /// </summary>
+        /// <param name="playerForWorldClient"></param>
+        public static void RegisterPlayerForWorldClient(PlayerForWorldClient playerForWorldClient)
+        {
+            LoggerMgr.Log(Core.LoggerLevel.Log, LogType.SysLog, "RegisterPlayerForwaorldClient Success ServerId={1}", playerForWorldClient.AccountId);
+            m_PlayerForWorldClientDic.Add(playerForWorldClient.AccountId, playerForWorldClient);
+
+        }
+        #endregion
+
+        #region GetPlayerClient 获取注册中心服务器上的玩家客户端
+        /// <summary>
+        /// 获取注册中心服务器上的玩家客户端
+        /// </summary>
+        /// <param name="accountId"></param>
+        /// <returns></returns>
+        public static PlayerForWorldClient GetPlayerClient(long accountId)
+        {
+            PlayerForWorldClient playerForWorldClient = null;
+            m_PlayerForWorldClientDic.TryGetValue(accountId, out playerForWorldClient);
+            return playerForWorldClient;
+        }
+        #endregion
+
+        #region RemoveGameServerClient 移除中心服务器上的玩家客户端
+        public static void RemovePlayerForWorldClient(PlayerForWorldClient playerForWorldClient)
+        {
+            LoggerMgr.Log(Core.LoggerLevel.Log, LogType.SysLog, "RemovePlayerForwaorldClient Success ServerId={1}", playerForWorldClient.AccountId);
+            m_PlayerForWorldClientDic.Remove(playerForWorldClient.AccountId);
+
+        }
+        #endregion
+
+        
     }
 }

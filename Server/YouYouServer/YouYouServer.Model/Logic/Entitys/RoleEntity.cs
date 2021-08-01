@@ -20,6 +20,21 @@ namespace YouYouServer.Model.Entitys
         }
 
         /// <summary>
+        /// 账号ID
+        /// </summary>
+        public long AccountId;
+
+        /// <summary>
+        /// 职业编号
+        /// </summary>
+        public int JobId;
+
+        /// <summary>
+        /// 性别
+        /// </summary>
+        public int Sex;
+
+        /// <summary>
         /// 昵称
         /// </summary>
         public string NickName;
