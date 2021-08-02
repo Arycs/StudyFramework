@@ -115,7 +115,7 @@ namespace YouYou
                         //Debug.LogError("持续下载 beginPos = " + m_BeginPos);
                         m_BeginPos = (uint) m_FileStream.Length;
                         Download(
-                            string.Format("{0} {1}", GameEntry.Data.SysData.CurrChannelConfig.RealSourceUrl,
+                            string.Format("{0} {1}", GameEntry.Data.SysDataManager.CurrChannelConfig.RealSourceUrl,
                                 m_CurrFileUrl), m_BeginPos);
                     }
                 }
@@ -147,7 +147,7 @@ namespace YouYou
             
             PlayerPrefs.SetString(m_CurrFileUrl,m_CurrAssetBundleInfo.MD5);
             Debug.LogError("从头下载" + m_CurrFileUrl);
-            Download(string.Format("{0}{1}", GameEntry.Data.SysData.CurrChannelConfig.RealSourceUrl,
+            Download(string.Format("{0}{1}", GameEntry.Data.SysDataManager.CurrChannelConfig.RealSourceUrl,
                 m_CurrFileUrl));
         }
 

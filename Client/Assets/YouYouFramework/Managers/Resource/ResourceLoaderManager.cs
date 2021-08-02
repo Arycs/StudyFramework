@@ -61,7 +61,7 @@ namespace YouYou
                         {
                             //如果只读区也没有,从CDN读取
                             string url = string.Format("{0}{1}",
-                                GameEntry.Data.SysData.CurrChannelConfig.RealSourceUrl,
+                                GameEntry.Data.SysDataManager.CurrChannelConfig.RealSourceUrl,
                                 ConstDefine.AssetInfoName);
                             GameEntry.Http.SendData(url, OnLoadAssetInfoFromCDN, isGetData: true);
                         }
@@ -183,7 +183,7 @@ namespace YouYou
             Action<AssetBundle> onComplete = null)
         {
             //1. 判断资源是否存在于AssetBundlePool
-            ResourceEntity assetBundleEntity = GameEntry.Pool.PoolManager.AssetBundlePool.Spawn(assetbundlePath);
+            ResourceEntity assetBundleEntity = GameEntry.Pool.AssetBundlePool.Spawn(assetbundlePath);
             if (assetBundleEntity != null)
             {
                 //说明资源在资源包池中存在
@@ -235,7 +235,7 @@ namespace YouYou
                 assetBundleEntity.ResourceName = assetbundlePath;
                 assetBundleEntity.IsAssetBundle = true;
                 assetBundleEntity.Target = assetbundle;
-                GameEntry.Pool.PoolManager.AssetBundlePool.Register(assetBundleEntity);
+                GameEntry.Pool.AssetBundlePool.Register(assetBundleEntity);
 
                 for (LinkedListNode<Action<AssetBundle>> curr = lst.First; curr != null; curr = curr.Next)
                 {
@@ -373,6 +373,11 @@ namespace YouYou
         {
             m_AssetInfoDic.Clear();
             m_AssetBundleLoaderList.Clear();
+        }
+
+        public override void Init()
+        {
+            
         }
     }
 }

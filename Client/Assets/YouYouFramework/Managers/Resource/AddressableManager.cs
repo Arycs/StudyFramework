@@ -1,13 +1,14 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 namespace YouYou
 {
     /// <summary>
-    /// 资源加载组件
+    /// 可寻址资源管理器
     /// </summary>
-    public class ResourceComponent : YouYouBaseComponent,IUpdateComponent
+    public class AddressableManager : ManagerBase, IDisposable
     {
         /// <summary>
         /// 本地文件路径
@@ -24,11 +25,8 @@ namespace YouYou
         /// </summary>
         public ResourceLoaderManager ResourceLoaderManager { get; private set; }
 
-        protected override void OnAwake()
+        public  AddressableManager()
         {
-            base.OnAwake();
-            GameEntry.RegisterUpdateComponent(this);
-
             ResourceManager = new ResourceManager();
             ResourceLoaderManager = new ResourceLoaderManager();
 #if DISABLE_ASSETBUNDLE
@@ -73,12 +71,10 @@ namespace YouYou
             return path.Substring(path.LastIndexOf('/') + 1);
         }
 
-        public override void Shutdown()
+        public void Dispose()
         {
             ResourceManager.Dispose();
             ResourceLoaderManager.Dispose();
-            
-            GameEntry.RemoveUpdateComponent(this);
         }
 
         public void OnUpdate()
@@ -94,6 +90,11 @@ namespace YouYou
         public string GetSceneAssetBundlePath(string sceneName)
         {
             return string.Format("download/scenes/{0}.unity3d", sceneName.ToLower());
+        }
+
+        public override void Init()
+        {
+            
         }
     }
 }

@@ -74,7 +74,7 @@ namespace YouYou
         private void LoadMainAsset()
         {
             //1. 从分类资源池(AssetPool)中查找
-            ResourceEntity assetEntity = GameEntry.Pool.PoolManager.AssetPool[m_CurrAssetEntity.Category]
+            ResourceEntity assetEntity = GameEntry.Pool.AssetPool[m_CurrAssetEntity.Category]
                 .Spawn(m_CurrAssetEntity.AssetFullName);
             if (assetEntity != null)
             {
@@ -98,7 +98,7 @@ namespace YouYou
                             UnityEngine.Object obj) =>
                         {
                             //4. 再次检查 很重要 不检查引用计数会出错
-                            m_CurrResourceEntity = GameEntry.Pool.PoolManager.AssetPool[m_CurrAssetEntity.Category]
+                            m_CurrResourceEntity = GameEntry.Pool.AssetPool[m_CurrAssetEntity.Category]
                                 .Spawn(m_CurrAssetEntity.AssetFullName);
                             if (m_CurrResourceEntity != null)
                             {
@@ -116,7 +116,7 @@ namespace YouYou
                             assetEntity.Target = obj;
 
                             GameEntry.LogError("注册" + m_CurrResourceEntity.ResourceName);
-                            GameEntry.Pool.PoolManager.AssetPool[m_CurrAssetEntity.Category].Register(assetEntity);
+                            GameEntry.Pool.AssetPool[m_CurrAssetEntity.Category].Register(assetEntity);
 
                             //加入到这个资源的依赖资源链表里
                             var CurrDependsResource = m_DependsResourceList.First;

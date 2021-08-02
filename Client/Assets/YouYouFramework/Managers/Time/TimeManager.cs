@@ -16,7 +16,10 @@ namespace YouYou
         {
             m_TimeActionList = new LinkedList<TimeAction>();            
         }
+        public override void Init()
+        {
 
+        }
         /// <summary>
         /// 注册定时器
         /// </summary>
@@ -71,6 +74,8 @@ namespace YouYou
                 onComplete();
             }
         }
+
+        
         #endregion
     }
 }

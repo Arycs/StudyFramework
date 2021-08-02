@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,8 +8,12 @@ namespace YouYou
     /// <summary>
     /// 下载管理器
     /// </summary>
-    public class DownloadManager : ManagerBase
+    public class DownloadManager : ManagerBase, IDisposable
     {
+        [Header("写入磁盘的缓存大小(字节)")] public int FlushSize = 1024 * 1024;
+
+        [Header("下载器的数量")] public int DownloadRoutineCount = 5;
+
         /// <summary>
         /// 下载器链表
         /// </summary>
@@ -24,6 +29,14 @@ namespace YouYou
             m_DownloadRoutineList = new LinkedList<DownloadRoutine>();
             m_NeedDownloadList = new LinkedList<string>();
             m_DownloadMulitCurrSizeDic = new Dictionary<string, ulong>();
+        }
+
+        /// <summary>
+        /// 初始化
+        /// </summary>
+        public override void Init()
+        {
+
         }
 
         /// <summary>
@@ -232,6 +245,11 @@ namespace YouYou
                 curr.Value.OnUpdate();
                 curr = curr.Next;
             }
+        }
+
+        public void Dispose()
+        {
+            
         }
     }
 }

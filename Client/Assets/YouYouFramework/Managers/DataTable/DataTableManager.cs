@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace YouYou
 {
-    public class DataTableManager : ManagerBase
+    public class DataTableManager : ManagerBase, IDisposable
     {
         public DataTableManager()
         {
@@ -175,6 +175,16 @@ namespace YouYou
             Sys_SoundDBModel.Clear();
             Sys_StorySoundDBModel.Clear();
             Sys_UIFormDBModel.Clear();
+        }
+
+        public void Dispose()
+        {
+
+        }
+
+        public override void Init()
+        {
+
         }
     }
 }

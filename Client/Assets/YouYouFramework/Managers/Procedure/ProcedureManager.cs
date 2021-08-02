@@ -62,7 +62,7 @@ namespace YouYou
         /// <summary>
         /// 初始化
         /// </summary>
-        public void Init()
+        public override void Init()
         {
             FsmState<ProcedureManager>[] states = new FsmState<ProcedureManager>[9];
             states[0] = new ProcedureLaunch();

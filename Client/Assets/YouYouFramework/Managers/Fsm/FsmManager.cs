@@ -25,6 +25,11 @@ namespace YouYou
             m_FsmDic = new Dictionary<int, FsmBase>();
         }
 
+        public Fsm<T> Create<T>(T owner, FsmState<T>[] states) where T : class
+        {
+            return Create<T>(m_TempFsmId++, owner, states);
+        }
+
 
         /// <summary>
         /// 创建状态机
@@ -34,10 +39,10 @@ namespace YouYou
         /// <param name="states">状态</param>
         /// <typeparam name="T">拥有者类型</typeparam>
         /// <returns></returns>
-        public Fsm<T> Create<T>(T owner, FsmState<T>[] states) where T : class
+        public Fsm<T> Create<T>(int fsmId,T owner, FsmState<T>[] states) where T : class
         {
-            Fsm<T> fsm = new Fsm<T>(++m_TempFsmId, owner, states);
-            m_FsmDic[m_TempFsmId] = fsm;
+            Fsm<T> fsm = new Fsm<T>(fsmId, owner, states);
+            m_FsmDic[fsmId] = fsm;
             Debug.Log("创建状态机完成,拥有者为 : " + owner);
             return fsm;
         }
@@ -60,6 +65,11 @@ namespace YouYou
                 enumerator.Current.Value.ShutDown();
             }
             m_FsmDic.Clear();
+        }
+
+        public override void Init()
+        {
+            
         }
     }
 }

@@ -4,8 +4,6 @@ using UnityEngine;
 
 namespace YouYou
 {
-
-
     public class TestSocket : MonoBehaviour
     {
         // Start is called before the first frame update
@@ -19,13 +17,14 @@ namespace YouYou
         {
             if (Input.GetKeyUp(KeyCode.A))
             {
-                GameEntry.Socket.ConnectToMainSocket("127.0.0.1",8001);
+                Debug.Log("开始链接");
+                GameEntry.Socket.ConnectToMainSocket("127.0.0.1",1304);
             }
             if (Input.GetKeyUp(KeyCode.B))
             {
-                //发送消息 , 格式如下, 声明协议,发送协议的字节流过去
-                //XXXProto proto = new XXXProto();
-                //GameEntry.Socket.SendMsg(proto.ToArray());
+                C2GWS_RegClientProto proto = new C2GWS_RegClientProto();
+                proto.AccountId = 1;
+                GameEntry.Socket.SendMsg(proto);
             }
         }
     }

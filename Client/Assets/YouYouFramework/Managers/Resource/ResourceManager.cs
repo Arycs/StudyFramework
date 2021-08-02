@@ -154,7 +154,7 @@ namespace YouYou
         private void InitCDNAssetBundleInfo()
         {
             string url = string.Format("{0}VersionFile.bytes",
-                GameEntry.Data.SysData.CurrChannelConfig.RealSourceUrl);
+                GameEntry.Data.SysDataManager.CurrChannelConfig.RealSourceUrl);
             GameEntry.Log(LogCategory.Resource, url);
             GameEntry.Http.SendData(url, OnInitCDNAssetBundleInfo, isGetData:true);
         }
@@ -518,6 +518,11 @@ namespace YouYou
         public void Dispose()
         {
             m_StreamingAssetsVersionDic.Clear();
+        }
+
+        public override void Init()
+        {
+            throw new NotImplementedException();
         }
     }
 }

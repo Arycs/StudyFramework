@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
@@ -8,7 +9,7 @@ namespace YouYou
     /// <summary>
     /// 场景管理器
     /// </summary>
-    public class YouYouSceneManager : ManagerBase
+    public class YouYouSceneManager : ManagerBase, IDisposable
     {
         /// <summary>
         /// 场景加载器链表
@@ -69,6 +70,14 @@ namespace YouYou
         {
             m_SceneLoaderList = new LinkedList<SceneLoaderRoutine>();
             m_TargetProgressDic = new Dictionary<int, float>();
+        }
+
+        /// <summary>
+        /// 初始化
+        /// </summary>
+        public override void Init()
+        {
+
         }
 
         /// <summary>
@@ -252,6 +261,12 @@ namespace YouYou
             }
 
             return progress;
+        }
+        
+
+        public void Dispose()
+        {
+
         }
     }
 }

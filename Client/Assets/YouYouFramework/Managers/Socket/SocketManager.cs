@@ -40,8 +40,6 @@ namespace YouYou
         /// </summary>
         private bool m_IsConnectToMainSocket = false;
 
-        private SocketManager m_SocketManager;
-
         /// <summary>
         /// 发送用的MS
         /// </summary>
@@ -60,7 +58,6 @@ namespace YouYou
             private set;
         }
 
-
         /// <summary>
         /// SocketTcp访问器的链表
         /// </summary>
@@ -68,6 +65,25 @@ namespace YouYou
         public SocketManager()
         {
             m_SocketTcpRoutineList = new LinkedList<SocketTcpRoutine>();
+            SocketSendMS = new MMO_MemoryStream();
+            SocketReceiveMS = new MMO_MemoryStream();
+            m_MainSocket = CreateSocketTcpRoutine();
+            m_MainSocket.OnConnectOK = () =>
+            {
+                //已经建立了链接
+                m_IsConnectToMainSocket = true;
+            };
+            SocketProtoListener.AddProtoListener();
+        }
+
+        /// <summary>
+        /// 创建SocketTcp访问器
+        /// </summary>
+        /// <returns></returns>
+        public SocketTcpRoutine CreateSocketTcpRoutine()
+        {
+            //从池中获取(什么时候回池),断开没必要回池,因为可能还会需要
+            return GameEntry.Pool.DequeueClassObject<SocketTcpRoutine>();
         }
 
         /// <summary>
@@ -94,14 +110,28 @@ namespace YouYou
             {
                 curr.Value.OnUpdate();
             }
-        }
+            if (m_IsConnectToMainSocket)
+            {
+                if (Time.realtimeSinceStartup > m_PrevHeartbeatTime + HeartbeatInterval)
+                {
+                    //发送心跳包
+                    m_PrevHeartbeatTime = Time.realtimeSinceStartup;
+                    //以下是链接服务器使用,目前没链接服务器先注释掉
+                    //System_HeartbeatProto proto = new System_HeartbeatProto();
+                    //proto.LocalTime = Time.realtimeSinceStartup * 1000;
+                    //CheckServerTime = Time.realtimeSinceStartup; // 和服务器对表的时刻
+                    //SendMsg(proto);
 
-        public void Dispose()
-        {
-            m_SocketTcpRoutineList.Clear();
-        }
+                    //接收心跳包, 这里改放到消息的Handler中
+                    //float localTime = proto.LocalTime;
+                    //long serverTime = proto.ServerTime;
 
-        //===================================业务逻辑====================================
+                    //GameEntry.Socket.PingValue = (int) ((Time.realtimeSinceStartup * 1000 - localTime) * 0.5f); //Ping值
+                    //GameEntry.Socket.GameServerTime = serverTime - GameEntry.Socket.PingValue; // 客户端计算出来的服务器时间
+                }
+            }
+        }
+        //============业务逻辑=====================
         /// <summary>
         /// 主Socket
         /// </summary>
@@ -136,6 +166,23 @@ namespace YouYou
             m_MainSocket.SendMsg(proto.ToArray());
         }
 
+        public void Dispose()
+        {
+            m_SocketTcpRoutineList.Clear();
 
+            m_IsConnectToMainSocket = false;
+            GameEntry.Pool.EnqueueClassObject(m_MainSocket);
+            SocketProtoListener.RemoveProtoListener();
+
+            SocketSendMS.Dispose();
+            SocketSendMS.Close();
+            SocketReceiveMS.Dispose();
+            SocketReceiveMS.Close();
+        }
+
+        public override void Init()
+        {
+
+        }
     }
 }

@@ -24,6 +24,13 @@ namespace YouYou
             CommonEvent = new CommonEvent();
         }
 
+        /// <summary>
+        /// 初始化
+        /// </summary>
+        public override void Init()
+        {
+
+        }
 
         public void Dispose()
         {

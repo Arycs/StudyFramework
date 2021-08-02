@@ -150,5 +150,10 @@ namespace YouYou
             formBase.ToClose();
             m_OpenUIFormList.Remove(formBase);
         }
+
+        public override void Init()
+        {
+           
+        }
     }
 }

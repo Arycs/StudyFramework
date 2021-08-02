@@ -1,10 +1,44 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 namespace YouYou
 {
-    public class HttpManager : ManagerBase
+    public class HttpManager : ManagerBase, IDisposable
     {
+        [SerializeField]
+        [Header("正式账号服务器Url")]
+        private string m_WebAccountUrl;
+
+        [SerializeField]
+        [Header("测试账号服务器Url")]
+        private string m_TestAccountUrl;
+
+        [SerializeField]
+        [Header("是否测试环境")]
+        private bool m_IsTest;
+
+        /// <summary>
+        /// 真实账号服务器Url
+        /// </summary>
+        public string RealWebAccountUrl
+        {
+            get
+            {
+                return m_IsTest ? m_TestAccountUrl : m_WebAccountUrl;
+            }
+        }
+
+        public void Dispose()
+        {
+
+        }
+
+        public override void Init()
+        {
+            
+        }
+
         /// <summary>
         /// 发送Http数据
         /// </summary>

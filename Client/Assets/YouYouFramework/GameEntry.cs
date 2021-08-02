@@ -2,11 +2,52 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace YouYou
 {
     public class GameEntry : MonoBehaviour
     {
+        [Header("游戏物体对象池父物体")]
+        public Transform PoolParent;
+
+        /// <summary>
+        /// 游戏物体对象池的分组
+        /// </summary>
+        [SerializeField]
+        public GameObjectPoolEntity[] GameObjectPoolGroups;
+
+        /// <summary>
+        /// 锁定的资源包（不会释放）
+        /// </summary>
+        [Header("锁定的资源包")]
+        public string[] LockedAssetBundle;
+
+        [Header("标准分辨率的宽度")]
+        [SerializeField]
+        public int m_StandardWidth = 1280;
+
+        [Header("标准分辨率的高度")]
+        [SerializeField]
+        public int m_StandardHeight = 720;
+
+        [Header("UI摄像机")]
+        [SerializeField]
+        public Camera UICamera;
+
+        [Header("根画布")]
+        [SerializeField]
+        public Canvas m_UIootCanvas;
+
+        [Header("根画布的缩放")]
+        [SerializeField]
+        public CanvasScaler UIRootCanvasScaler;
+
+        [Header("UI分组")]
+        [SerializeField]
+        public UIGroup[] UIGroups;
+
+
         public static GameEntry Instance;
 
         #region 组件属性
@@ -14,92 +55,146 @@ namespace YouYou
         /// <summary>
         /// 事件组件
         /// </summary>
-        public static EventManager Event { get; private set; }
+        public static EventManager Event
+        {
+            get; private set;
+        }
 
         /// <summary>
         /// 时间组件
         /// </summary>
-        public static TimeManager Time { get; private set; }
+        public static TimeManager Time
+        {
+            get; private set;
+        }
 
         /// <summary>
         /// 状态机组件
         /// </summary>
-        public static FsmManager Fsm { get; private set; }
+        public static FsmManager Fsm
+        {
+            get; private set;
+        }
 
         /// <summary>
         /// 流程组件
         /// </summary>
-        public static ProcedureManager Procedure { get; private set; }
+        public static ProcedureManager Procedure
+        {
+            get; private set;
+        }
 
         /// <summary>
         /// 数据表组件
         /// </summary>
-        public static DataTableManager DataTable { get; private set; }
+        public static DataTableManager DataTable
+        {
+            get; private set;
+        }
 
         /// <summary>
         /// Socket组件
         /// </summary>
-        public static SocketManager Socket { get; private set; }
+        public static SocketManager Socket
+        {
+            get; private set;
+        }
 
         /// <summary>
         /// Http组件
         /// </summary>
-        public static HttpComponent Http { get; private set; }
+        public static HttpManager Http
+        {
+            get; private set;
+        }
 
         /// <summary>
         /// 数据组件
         /// </summary>
-        public static DataManager Data { get; private set; }
+        public static DataManager Data
+        {
+            get; private set;
+        }
 
         /// <summary>
         /// 本地化组件
         /// </summary>
-        public static LocalizationManager Localization { get; private set; }
+        public static LocalizationManager Localization
+        {
+            get; private set;
+        }
 
         /// <summary>
         /// 对象池组件
         /// </summary>
-        public static PoolComponent Pool { get; private set; }
+        public static PoolManager Pool
+        {
+            get; private set;
+        }
 
         /// <summary>
         /// 场景组件
         /// </summary>
-        public static YouYouSceneManager Scene { get; private set; }
+        public static YouYouSceneManager Scene
+        {
+            get; private set;
+        }
 
         /// <summary>
         /// 设置组件
         /// </summary>
-        public static SettingManager Setting { get; private set; }
+        public static SettingManager Setting
+        {
+            get; private set;
+        }
 
         /// <summary>
         /// 对象组件
         /// </summary>
-        public static GameObjManager GameObj { get; private set; }
+        public static GameObjManager GameObj
+        {
+            get; private set;
+        }
 
-        /// <summary>YouYouSceneManager
-        /// 资源加载组件
+        /// <summary>
+        /// 可寻址资源管理器
         /// </summary>
-        public static ResourceComponent Resource { get; private set; }
+        public static AddressableManager Resource
+        {
+            get; private set;
+        }
 
         /// <summary>
         /// 下载组件
         /// </summary>
-        public static DownloadComponent Download { get; private set; }
+        public static DownloadManager Download
+        {
+            get; private set;
+        }
 
         /// <summary>
         /// UI组件
         /// </summary>
-        public static UIComponent UI { get; private set; }
+        public static YouYouUIManager UI
+        {
+            get; private set;
+        }
 
         /// <summary>
         /// Lua组件
         /// </summary>
-        public static LuaComponent Lua { get; private set; }
+        public static LuaManager Lua
+        {
+            get; private set;
+        }
 
         /// <summary>
         /// Audio组件
         /// </summary>
-        public static AudioManager Audio { get; private set; }
+        public static AudioManager Audio
+        {
+            get; private set;
+        }
 
         #endregion
 
@@ -142,7 +237,7 @@ namespace YouYou
 
         public static T GetBaseComponent<T>() where T : YouYouBaseComponent
         {
-            return (T) GetBaseComponent(typeof(T));
+            return (T)GetBaseComponent(typeof(T));
         }
 
         internal static YouYouBaseComponent GetBaseComponent(Type type)
@@ -205,32 +300,51 @@ namespace YouYou
             Instance = this;
         }
 
-        private static void InitBaseComponents()
+        #region InitManagers 初始化管理器
+        /// <summary>
+        /// 初始化管理器
+        /// </summary>
+        private static void InitManagers()
         {
             Event = new EventManager();
             Time = new TimeManager();
             Fsm = new FsmManager();
             Procedure = new ProcedureManager();
             DataTable = new DataTableManager();
+            Pool = new PoolManager();
             Socket = new SocketManager();
-
-            Http = GetBaseComponent<HttpComponent>();
+            Http = new HttpManager();
             Data = new DataManager();
             Localization = new LocalizationManager();
-            Pool = GetBaseComponent<PoolComponent>();
             Scene = new YouYouSceneManager();
-            Setting = new SettingManager();
-            GameObj = new GameObjManager();
-            Resource = GetBaseComponent<ResourceComponent>();
-            Download = GetBaseComponent<DownloadComponent>();
-            UI = GetBaseComponent<UIComponent>();
-            Lua = GetBaseComponent<LuaComponent>();
+            Resource = new AddressableManager();
+            Download = new DownloadManager();
+            UI = new YouYouUIManager();
+            Lua = new LuaManager();
             Audio = new AudioManager();
+
+            Event.Init();
+            Time.Init();
+            Fsm.Init();
+            Procedure.Init();
+            DataTable.Init();
+            Socket.Init();
+            Http.Init();
+            Data.Init();
+            Localization.Init();
+            Pool.Init();
+            Scene.Init();
+            Resource.Init();
+            Download.Init();
+            //UI.Init();
+            Lua.Init();
+            Audio.Init();
         }
+        #endregion
 
         void Start()
         {
-            InitBaseComponents();
+            InitManagers();
         }
 
         void Update()
@@ -247,11 +361,28 @@ namespace YouYou
         /// </summary>
         private void OnDestroy()
         {
-            //关闭所有的基础组件
-            for (LinkedListNode<YouYouBaseComponent> curr = m_BaseComponent.First; curr != null; curr = curr.Next)
-            {
-                curr.Value.Shutdown();
-            }
+            ////关闭所有的基础组件
+            //for (LinkedListNode<YouYouBaseComponent> curr = m_BaseComponent.First; curr != null; curr = curr.Next)
+            //{
+            //    curr.Value.Shutdown();
+            //}
+
+            Event.Dispose();
+            Time.Dispose();
+            Fsm.Dispose();
+            Procedure.Dispose();
+            DataTable.Dispose();
+            Socket.Dispose();
+            Http.Dispose();
+            Data.Dispose();
+            Localization.Dispose();
+            Pool.Dispose();
+            Scene.Dispose();
+            Resource.Dispose();
+            Download.Dispose();
+            UI.Init();
+            Lua.Dispose();
+            Audio.Dispose();
         }
 
         /// <summary>
@@ -266,22 +397,22 @@ namespace YouYou
                 default:
                 case LogCategory.Normal:
 #if DEBUG_LOG_NORMAL
-                    Debug.Log(args.Length == 0? message : string.Format(message,args));
+                    Debug.Log(args.Length == 0 ? message : string.Format(message, args));
 #endif
                     break;
                 case LogCategory.Procedure:
 #if DEBUG_LOG_PROCEDURE
-                     Debug.Log(string.Format("<color=#ffffff>{0}</color>",args.Length == 0? message : string.Format(message,args)));
+                    Debug.Log(string.Format("<color=#ffffff>{0}</color>", args.Length == 0 ? message : string.Format(message, args)));
 #endif
                     break;
                 case LogCategory.Resource:
 #if DEBUG_LOG_PROCEDURE
-                    Debug.Log(string.Format("<color=#ACE44A>{0}</color>",args.Length == 0? message : string.Format(message,args)));
+                    Debug.Log(string.Format("<color=#ACE44A>{0}</color>", args.Length == 0 ? message : string.Format(message, args)));
 #endif
                     break;
                 case LogCategory.Proto:
 #if DEBUG_LOG_PROTO
-                    Debug.Log(args.Length == 0? message : string.Format(message,args));
+                    Debug.Log(args.Length == 0 ? message : string.Format(message, args));
 #endif
                     break;
             }
@@ -295,7 +426,7 @@ namespace YouYou
         public static void LogError(string message, params object[] args)
         {
 #if DEBUG_LOG_ERROR
-            Debug.LogError(args.Length == 0 ? message :string.Format(message,args));
+            Debug.LogError(args.Length == 0 ? message : string.Format(message, args));
 #endif
         }
     }

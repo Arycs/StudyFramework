@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,31 +9,9 @@ namespace YouYou
     /// <summary>
     /// UI组件
     /// </summary>
-    public class UIComponent : YouYouBaseComponent,IUpdateComponent
+    public class YouYouUIManager : ManagerBase, IDisposable
     {
-        [Header("标准分辨率的宽度")]
-        [SerializeField]
-        private int m_StandardWidth = 1280;
-        [Header("标准分辨率的高度")]
-        [SerializeField]
-        private int m_StandardHeight = 720;
         
-        [Header("UI摄像机")]
-        [SerializeField]
-        public Camera UICamera;
-
-        [Header("根画布")]
-        [SerializeField]
-        private Canvas m_UIootCanvas;
-
-        [Header("根画布的缩放")]
-        [SerializeField]
-        private CanvasScaler UIRootCanvasScaler;
-        
-        [Header("UI分组")]
-        [SerializeField]
-        private UIGroup[] UIGroups;
-
         
         private Dictionary<byte, UIGroup> m_UIGroupDic;
         
@@ -70,27 +49,34 @@ namespace YouYou
         /// </summary>
         private float m_NextRunTime = 0f;
         
-        protected override void OnAwake()
+        public YouYouUIManager()
         {
-            base.OnAwake();
-            m_UIGroupDic = new Dictionary<byte, UIGroup>();
-            GameEntry.RegisterUpdateComponent(this);
-
-            m_StandardScreen =  m_StandardWidth / (float) m_StandardHeight;
-            m_CurrScreen = Screen.width / (float) Screen.height;
-            NormalFormCanvasScaler();
-
-            int len = UIGroups.Length;
-            for (int i = 0; i < len; i++)
-            {
-                UIGroup group = UIGroups[i];
-                m_UIGroupDic[group.Id] = group;
-            }
             m_UIManager = new UIManager();
             m_UILayer = new UILayer();
-            m_UILayer.Init(UIGroups);
+            m_UILayer.Init(GameEntry.Instance.UIGroups);
             
             m_UIPool = new UIPool();
+        }
+
+        /// <summary>
+        /// 初始化
+        /// </summary>
+        public override void Init()
+        {
+            m_UIGroupDic = new Dictionary<byte, UIGroup>();
+
+            m_StandardScreen = GameEntry.Instance.m_StandardWidth / (float)GameEntry.Instance.m_StandardHeight;
+            m_CurrScreen = Screen.width / (float)Screen.height;
+            NormalFormCanvasScaler();
+
+            int len = GameEntry.Instance.UIGroups.Length;
+            for (int i = 0; i < len; i++)
+            {
+                UIGroup group = GameEntry.Instance.UIGroups[i];
+                m_UIGroupDic[group.Id] = group;
+            }
+
+            m_UILayer.Init(GameEntry.Instance.UIGroups);
         }
         #region UI适配
         /// <summary>
@@ -102,12 +88,12 @@ namespace YouYou
             if (m_CurrScreen > m_StandardScreen)
             {
                 //分辨率大于标准分辨率 则设置为0
-                UIRootCanvasScaler.matchWidthOrHeight = 0;
+                GameEntry.Instance.UIRootCanvasScaler.matchWidthOrHeight = 0;
             }
             else
             {
                 //分辨率小于标准分辨率, 则用标准减去当前分辨率
-                UIRootCanvasScaler.matchWidthOrHeight = m_CurrScreen - m_StandardScreen;
+                GameEntry.Instance.UIRootCanvasScaler.matchWidthOrHeight = m_CurrScreen - m_StandardScreen;
             }
         }
 
@@ -116,7 +102,7 @@ namespace YouYou
         /// </summary>
         public void FullFormCanvasScaler()
         {
-            UIRootCanvasScaler.matchWidthOrHeight = 1;
+            GameEntry.Instance.UIRootCanvasScaler.matchWidthOrHeight = 1;
         }
 
         /// <summary>
@@ -124,7 +110,7 @@ namespace YouYou
         /// </summary>
         public void NormalFormCanvasScaler()
         {
-            UIRootCanvasScaler.matchWidthOrHeight = m_CurrScreen >= m_StandardScreen ? 1 : 0;
+            GameEntry.Instance.UIRootCanvasScaler.matchWidthOrHeight = m_CurrScreen >= m_StandardScreen ? 1 : 0;
         }
         #endregion
 
@@ -209,7 +195,7 @@ namespace YouYou
         /// <param name="onCancel"></param>
         public void OpenDialogFormBySysCode(int sysCode, DialogFormType dialogFormType = DialogFormType.Normal, BaseAction onConfirm = null, BaseAction onCancel = null)
         {
-            OpenDialForm(dialogFormType, GameEntry.Data.SysData.GetSysCodeContent(sysCode), null, onConfirm, onCancel);
+            OpenDialForm(dialogFormType, GameEntry.Data.SysDataManager.GetSysCodeContent(sysCode), null, onConfirm, onCancel);
         }
 
         /// <summary>
@@ -234,7 +220,7 @@ namespace YouYou
             OpenUIForm(2, baseParams);
         }
 
-        public override void Shutdown()
+        public void Dispose()
         {
             //Debug.Log("UI组件关闭");
         }

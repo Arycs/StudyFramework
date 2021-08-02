@@ -261,7 +261,7 @@ namespace YouYou
 
             lock (m_SendQueue)
             {
-                if (m_SendQueue.Count > 0)
+                if (m_SendQueue.Count > 0 || m_IsHasUnDealBytes)
                 {
                     //处理小包的数量
                     int smallCount = 0;
@@ -278,7 +278,7 @@ namespace YouYou
                     //在检查队列中的包
                     while (true)
                     {
-                        if (m_SendQueue.Count > 0 || m_IsHasUnDealBytes)
+                        if (m_SendQueue.Count == 0 )
                         {
                             break;
                         }
@@ -356,12 +356,12 @@ namespace YouYou
         public void SendMsg(byte[] buffer)
         {
             //得到封装后的数据包
-            byte[] sendBuffer = MakeData(buffer);
+            //byte[] sendBuffer = MakeData(buffer);
 
             lock (m_SendQueue)
             {
                 //把数据包加入队列
-                m_SendQueue.Enqueue(sendBuffer);
+                m_SendQueue.Enqueue(buffer);
 
             }
         }

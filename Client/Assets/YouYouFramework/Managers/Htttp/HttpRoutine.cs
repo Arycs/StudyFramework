@@ -77,7 +77,7 @@ namespace YouYou
                     //设备型号
                     dic["deviceModel"] = DeviceUtil.DeviceModel;
 
-                    long t = GameEntry.Data.SysData.CurrServerTime;
+                    long t = GameEntry.Data.SysDataManager.CurrServerTime;
                     //签名
                     dic["sign"] = EncryptUtil.Md5(string.Format("{0}:{1}", t, DeviceUtil.DeviceIdentifier));
 
@@ -110,7 +110,7 @@ namespace YouYou
         private void GetUrl(string url)
         {
             UnityWebRequest data = UnityWebRequest.Get(url);
-            GameEntry.Http.StartCoroutine(Request(data));
+            GameEntry.Instance.StartCoroutine(Request(data));
         }
 
         #endregion
@@ -129,7 +129,7 @@ namespace YouYou
 
             UnityWebRequest data = UnityWebRequest.Post(url, form);
 
-            GameEntry.Http.StartCoroutine(Request(data));
+            GameEntry.Instance.StartCoroutine(Request(data));
         }
 
         #endregion

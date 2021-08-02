@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 namespace YouYou
@@ -15,10 +16,11 @@ namespace YouYou
         English = 1
     }
 
-    public class LocalizationManager : ManagerBase
+    public class LocalizationManager : ManagerBase, IDisposable
     {
         [SerializeField]
         private YouYouLanguage m_CurrLanguage;
+
         /// <summary>
         /// 当前语言(要和本地化表的语言字段一致)
         /// </summary>
@@ -31,6 +33,23 @@ namespace YouYou
         }
 
         private LocalizationManager m_LocalizationManager;
+
+        public LocalizationManager()
+        {
+            switch (Application.systemLanguage)
+            {
+                default:
+                case SystemLanguage.Chinese:
+                case SystemLanguage.ChineseSimplified:
+                case SystemLanguage.ChineseTraditional:
+                    m_CurrLanguage = YouYouLanguage.Chinese;
+                    break;
+                case SystemLanguage.English:
+                    m_CurrLanguage = YouYouLanguage.English;
+                    break;
+            }
+        }
+
 
         /// <summary>
         /// 获取本地化文本内容
@@ -47,6 +66,16 @@ namespace YouYou
             }
 
             return value;
+        }
+
+        public override void Init()
+        {
+            
+        }
+
+        public void Dispose()
+        {
+            
         }
     }
 }

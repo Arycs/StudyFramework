@@ -6,7 +6,7 @@ using UnityEditor;
 
 namespace YouYou
 {
-    [CustomEditor(typeof(PoolComponent),true)]
+    [CustomEditor(typeof(PoolManager),true)]
     public class PoolComponentInspector : Editor
     {
         /// <summary>
@@ -35,7 +35,7 @@ namespace YouYou
             //base.OnInspectorGUI();
             
             serializedObject.Update();
-            PoolComponent component = base.target as PoolComponent;
+            PoolManager component = null;
             
             //绘制滑动条
             int clearInterval = (int)EditorGUILayout.Slider("释放类对象池间隔", ReleaseClassObjectInterval.intValue, 10, 1800);
@@ -60,9 +60,9 @@ namespace YouYou
             
             GUILayout.EndHorizontal();
 
-            if (component != null && component.PoolManager != null) 
+            if (component != null && component != null) 
             {
-                foreach (var item in component.PoolManager.ClassObjectPool.InspectorDic)
+                foreach (var item in component.ClassObjectPool.InspectorDic)
                 {
                     GUILayout.BeginHorizontal("box");
                 
@@ -71,7 +71,7 @@ namespace YouYou
                 
                     int key = item.Key.GetHashCode();
                     byte resideCount = 0;
-                    component.PoolManager.ClassObjectPool.ClassObjectCount.TryGetValue(key, out resideCount);
+                    component.ClassObjectPool.ClassObjectCount.TryGetValue(key, out resideCount);
                     GUILayout.Label(resideCount.ToString(),GUILayout.Width(50));
                     GUILayout.EndHorizontal();
                 }
@@ -123,9 +123,9 @@ namespace YouYou
             GUILayout.Label("数量",GUILayout.Width(50));
             GUILayout.EndHorizontal();
 
-            if (component != null && component.PoolManager != null)
+            if (component != null && component != null)
             {
-                foreach (var item in component.PoolManager.AssetBundlePool.InspectorDic)
+                foreach (var item in component.AssetBundlePool.InspectorDic)
                 {
                     GUILayout.BeginHorizontal("box");
                     GUILayout.Label(item.Key);
@@ -167,9 +167,9 @@ namespace YouYou
                     GUILayout.Label("计数",GUILayout.Width(50));
                     GUILayout.EndHorizontal();
 
-                    if (component != null && component.PoolManager != null)
+                    if (component != null && component != null)
                     {
-                        foreach (var item in component.PoolManager.AssetPool[assetCategory].InspectorDic)
+                        foreach (var item in component.AssetPool[assetCategory].InspectorDic)
                         {
                             GUILayout.BeginHorizontal("box");
                             GUILayout.Label(item.Key);
