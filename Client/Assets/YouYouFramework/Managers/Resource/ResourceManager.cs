@@ -154,7 +154,7 @@ namespace YouYou
         private void InitCDNAssetBundleInfo()
         {
             string url = string.Format("{0}VersionFile.bytes",
-                GameEntry.Data.SysDataManager.CurrChannelConfig.RealSourceUrl);
+                GameEntry.Data.SysData.CurrChannelConfig.RealSourceUrl);
             GameEntry.Log(LogCategory.Resource, url);
             GameEntry.Http.SendData(url, OnInitCDNAssetBundleInfo, isGetData:true);
         }

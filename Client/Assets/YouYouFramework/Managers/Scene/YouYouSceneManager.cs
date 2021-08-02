@@ -146,9 +146,9 @@ namespace YouYou
         /// </summary>
         private void LoadNewScene()
         {
-            m_CurrSceneEntity = GameEntry.DataTable.DataTableManager.Sys_SceneDBModel.Get(m_CurrLoadSceneId);
+            m_CurrSceneEntity = GameEntry.DataTable.Sys_SceneDBModel.Get(m_CurrLoadSceneId);
             m_CurrSceneDetailList =
-                GameEntry.DataTable.DataTableManager.Sys_SceneDetailDBModel.GetListBySceneId(m_CurrSceneEntity.Id, 2);
+                GameEntry.DataTable.Sys_SceneDetailDBModel.GetListBySceneId(m_CurrSceneEntity.Id, 2);
             m_NeedLoadOrUnLoadSceneDetailCount = m_CurrSceneDetailList.Count;
             for (int i = 0; i < m_NeedLoadOrUnLoadSceneDetailCount; i++)
             {
@@ -221,8 +221,8 @@ namespace YouYou
                 else if (m_CurrProgress >= m_NeedLoadOrUnLoadSceneDetailCount)
                 {
                     Debug.LogError("场景加载完毕");
-                    //播放BGM
-                    GameEntry.Audio.PlayBGM(m_CurrSceneEntity.BGMId);
+                    //播放BGM,临时关闭BGM播放
+                    //GameEntry.Audio.PlayBGM(m_CurrSceneEntity.BGMId);
                     m_NeedLoadOrUnLoadSceneDetailCount = 0;
                     m_CurrLoadOrUnLoadSceneDetailCount = 0;
                     m_CurrSceneIsLoading = false;

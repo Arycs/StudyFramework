@@ -40,10 +40,10 @@ namespace YouYou
         /// </summary>
         public void LoadData()
         {
-            GameEntry.DataTable.DataTableManager.TotalTableCount++;
+            GameEntry.DataTable.TotalTableCount++;
             
             //1.拿到这个表格的buffer
-            GameEntry.DataTable.DataTableManager.GetDataTableBuffer(DataTableName,
+            GameEntry.DataTable.GetDataTableBuffer(DataTableName,
                 (byte[] buffer) =>
                 {
                     //2.加载数据

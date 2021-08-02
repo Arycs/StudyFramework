@@ -15,6 +15,11 @@ namespace YouYou
         /// </summary>
         private Dictionary<int, FsmBase> m_FsmDic;
 
+        /// <summary>
+        /// 状态机的临时编号
+        /// </summary>
+        public int m_TempFsmId = 0;
+
         public FsmManager()
         {
             m_FsmDic = new Dictionary<int, FsmBase>();
@@ -29,10 +34,10 @@ namespace YouYou
         /// <param name="states">状态</param>
         /// <typeparam name="T">拥有者类型</typeparam>
         /// <returns></returns>
-        public Fsm<T> Create<T>(int fsmId, T owner, FsmState<T>[] states) where T : class
+        public Fsm<T> Create<T>(T owner, FsmState<T>[] states) where T : class
         {
-            Fsm<T> fsm = new Fsm<T>(fsmId, owner, states);
-            m_FsmDic[fsmId] = fsm;
+            Fsm<T> fsm = new Fsm<T>(++m_TempFsmId, owner, states);
+            m_FsmDic[m_TempFsmId] = fsm;
             Debug.Log("创建状态机完成,拥有者为 : " + owner);
             return fsm;
         }

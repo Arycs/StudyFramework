@@ -12,10 +12,10 @@ namespace YouYou
     /// </summary>
     public class AudioManager : ManagerBase
     {
-        public AudioManager(int releaseInterval)
+        public AudioManager()
         {
             m_NextReleaseTime = Time.time;
-            m_ReleaseInterval = releaseInterval;
+            m_ReleaseInterval = 120;
         }
 
         /// <summary>
@@ -248,30 +248,36 @@ namespace YouYou
         /// <param name="is3D">是否3D</param>
         /// <param name="pos3D">3D位置</param>
         /// <returns></returns>
-        public int PlayAudio(string eventPath, float volume = 1, string parameterName = null, float value = 0,
+        public int PlayAudio(int audioId, float volume = 1, string parameterName = null, float value = 0,
             bool is3D = false, Vector3 pos3D = default(Vector3))
         {
-            if (string.IsNullOrEmpty(eventPath))
+            Sys_AudioEntity entity = GameEntry.DataTable.Sys_AudioDBModel.Get(audioId);
+            if (entity != null)
             {
+                EventInstance eventInstance = RuntimeManager.CreateInstance(entity.AssetPath);
+                eventInstance.setVolume(volume);
+                if (!string.IsNullOrEmpty(parameterName))
+                {
+                    eventInstance.setParameterByName(parameterName, value);
+                }
+
+                if (is3D)
+                {
+                    eventInstance.set3DAttributes(pos3D.To3DAttributes());
+                }
+
+                eventInstance.start();
+                int serialId = m_Serial++;
+                m_CurrAudioEventsDic[serialId] = eventInstance;
+                return serialId;
+            }
+            else
+            {
+                GameEntry.LogError("Audio不存在ID={0}", audioId);
                 return -1;
             }
 
-            EventInstance eventInstance = RuntimeManager.CreateInstance(eventPath);
-            eventInstance.setVolume(volume);
-            if (!string.IsNullOrEmpty(parameterName))
-            {
-                eventInstance.setParameterByName(parameterName, value);
-            }
-
-            if (is3D)
-            {
-                eventInstance.set3DAttributes(pos3D.To3DAttributes());
-            }
-
-            eventInstance.start();
-            int serialId = m_Serial++;
-            m_CurrAudioEventsDic[serialId] = eventInstance;
-            return serialId;
+            
         }
 
         /// <summary>

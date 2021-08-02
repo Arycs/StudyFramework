@@ -7,37 +7,39 @@ namespace YouYou
 {
     public class GameEntry : MonoBehaviour
     {
+        public static GameEntry Instance;
+
         #region 组件属性
 
         /// <summary>
         /// 事件组件
         /// </summary>
-        public static EventComponent Event { get; private set; }
+        public static EventManager Event { get; private set; }
 
         /// <summary>
         /// 时间组件
         /// </summary>
-        public static TimeComponent Time { get; private set; }
+        public static TimeManager Time { get; private set; }
 
         /// <summary>
         /// 状态机组件
         /// </summary>
-        public static FsmComponent Fsm { get; private set; }
+        public static FsmManager Fsm { get; private set; }
 
         /// <summary>
         /// 流程组件
         /// </summary>
-        public static ProcedureComponent Procedure { get; private set; }
+        public static ProcedureManager Procedure { get; private set; }
 
         /// <summary>
         /// 数据表组件
         /// </summary>
-        public static DataTableComponent DataTable { get; private set; }
+        public static DataTableManager DataTable { get; private set; }
 
         /// <summary>
         /// Socket组件
         /// </summary>
-        public static SocketComponent Socket { get; private set; }
+        public static SocketManager Socket { get; private set; }
 
         /// <summary>
         /// Http组件
@@ -47,12 +49,12 @@ namespace YouYou
         /// <summary>
         /// 数据组件
         /// </summary>
-        public static DataComponent Data { get; private set; }
+        public static DataManager Data { get; private set; }
 
         /// <summary>
         /// 本地化组件
         /// </summary>
-        public static LocalizationComponent Localization { get; private set; }
+        public static LocalizationManager Localization { get; private set; }
 
         /// <summary>
         /// 对象池组件
@@ -62,17 +64,17 @@ namespace YouYou
         /// <summary>
         /// 场景组件
         /// </summary>
-        public static SceneComponent Scene { get; private set; }
+        public static YouYouSceneManager Scene { get; private set; }
 
         /// <summary>
         /// 设置组件
         /// </summary>
-        public static SettingComponent Setting { get; private set; }
+        public static SettingManager Setting { get; private set; }
 
         /// <summary>
         /// 对象组件
         /// </summary>
-        public static GameObjComponent GameObj { get; private set; }
+        public static GameObjManager GameObj { get; private set; }
 
         /// <summary>YouYouSceneManager
         /// 资源加载组件
@@ -97,7 +99,7 @@ namespace YouYou
         /// <summary>
         /// Audio组件
         /// </summary>
-        public static AudioComponent Audio { get; private set; }
+        public static AudioManager Audio { get; private set; }
 
         #endregion
 
@@ -198,26 +200,32 @@ namespace YouYou
 
         #endregion
 
+        private void Awake()
+        {
+            Instance = this;
+        }
+
         private static void InitBaseComponents()
         {
-            Event = GetBaseComponent<EventComponent>();
-            Time = GetBaseComponent<TimeComponent>();
-            Fsm = GetBaseComponent<FsmComponent>();
-            Procedure = GetBaseComponent<ProcedureComponent>();
-            DataTable = GetBaseComponent<DataTableComponent>();
-            Socket = GetBaseComponent<SocketComponent>();
+            Event = new EventManager();
+            Time = new TimeManager();
+            Fsm = new FsmManager();
+            Procedure = new ProcedureManager();
+            DataTable = new DataTableManager();
+            Socket = new SocketManager();
+
             Http = GetBaseComponent<HttpComponent>();
-            Data = GetBaseComponent<DataComponent>();
-            Localization = GetBaseComponent<LocalizationComponent>();
+            Data = new DataManager();
+            Localization = new LocalizationManager();
             Pool = GetBaseComponent<PoolComponent>();
-            Scene = GetBaseComponent<SceneComponent>();
-            Setting = GetBaseComponent<SettingComponent>();
-            GameObj = GetBaseComponent<GameObjComponent>();
+            Scene = new YouYouSceneManager();
+            Setting = new SettingManager();
+            GameObj = new GameObjManager();
             Resource = GetBaseComponent<ResourceComponent>();
             Download = GetBaseComponent<DownloadComponent>();
             UI = GetBaseComponent<UIComponent>();
             Lua = GetBaseComponent<LuaComponent>();
-            Audio = GetBaseComponent<AudioComponent>();
+            Audio = new AudioManager();
         }
 
         void Start()

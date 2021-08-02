@@ -58,7 +58,7 @@ namespace YouYou
         /// <returns></returns>
         public string GetSysCodeContent(int sysCode)
         {
-            Sys_CodeEntity sys_CodeEntity = GameEntry.DataTable.DataTableManager.Sys_CodeDBModel.Get(sysCode);
+            Sys_CodeEntity sys_CodeEntity = GameEntry.DataTable.Sys_CodeDBModel.Get(sysCode);
             if (sys_CodeEntity != null)
             {
                 return GameEntry.Localization.GetString(sys_CodeEntity.Key);

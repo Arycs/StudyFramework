@@ -97,5 +97,28 @@ namespace YouYou
         {
             
         }
+
+        /// <summary>
+        /// 取得参数
+        /// </summary>
+        /// <param name="key"></param>
+        /// <typeparam name="TData"></typeparam>
+        /// <returns></returns>
+        public TData GetData<TData>(string key)
+        {
+            return CurrFsm.GetData<TData>(key);
+        }
+
+        /// <summary>
+        /// 设置参数值
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        /// <typeparam name="TData">泛型类型</typeparam>
+        public void SetData<TData>(string key, TData value)
+        {
+            CurrFsm.SetData<TData>(key, value);
+        }
+
     }
 }

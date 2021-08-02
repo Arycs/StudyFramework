@@ -61,7 +61,7 @@ namespace YouYou
                         {
                             //如果只读区也没有,从CDN读取
                             string url = string.Format("{0}{1}",
-                                GameEntry.Data.SysDataManager.CurrChannelConfig.RealSourceUrl,
+                                GameEntry.Data.SysData.CurrChannelConfig.RealSourceUrl,
                                 ConstDefine.AssetInfoName);
                             GameEntry.Http.SendData(url, OnLoadAssetInfoFromCDN, isGetData: true);
                         }

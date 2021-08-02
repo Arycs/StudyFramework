@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace YouYou
 {
-    [CustomEditor(typeof(LocalizationComponent),true)]
+    [CustomEditor(typeof(LocalizationManager),true)]
     public class LocalizationComponentInspector : Editor
     {
         private SerializedProperty m_CurrLanguage = null;

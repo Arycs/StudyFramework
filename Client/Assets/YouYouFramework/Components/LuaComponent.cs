@@ -51,7 +51,7 @@ namespace YouYou
         /// <returns></returns>
         public void LoadDataTable(string tableName, BaseAction<MMO_MemoryStream> onComplete)
         {
-            GameEntry.DataTable.DataTableManager.GetDataTableBuffer(tableName, (byte[] buffer) =>
+            GameEntry.DataTable.GetDataTableBuffer(tableName, (byte[] buffer) =>
             {
                 LoadDataTableMS.SetLength(0);
                 LoadDataTableMS.Write(buffer, 0, buffer.Length);

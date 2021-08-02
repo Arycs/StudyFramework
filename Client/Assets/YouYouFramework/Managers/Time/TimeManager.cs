@@ -47,5 +47,30 @@ namespace YouYou
         {
             m_TimeActionList.Clear();
         }
+
+        /// <summary>
+        /// 创建定时器
+        /// </summary>
+        /// <returns></returns>
+        public TimeAction CreateTimeAction()
+        {
+            return GameEntry.Pool.DequeueClassObject<TimeAction>();
+        }
+
+        #region  Yield等一帧
+        public void Yield(BaseAction onComplete)
+        {
+            GameEntry.Instance.StartCoroutine(YieldCoroutine(onComplete));
+        }
+
+        private IEnumerator YieldCoroutine(BaseAction onComplete)
+        {
+            yield return null;
+            if (onComplete != null)
+            {
+                onComplete();
+            }
+        }
+        #endregion
     }
 }

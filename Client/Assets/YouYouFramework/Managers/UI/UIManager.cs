@@ -31,7 +31,7 @@ namespace YouYou
             }
 
             //1. 读表
-            Sys_UIFormEntity entity = GameEntry.DataTable.DataTableManager.Sys_UIFormDBModel.Get(uiFormId);
+            Sys_UIFormEntity entity = GameEntry.DataTable.Sys_UIFormDBModel.Get(uiFormId);
             if (entity == null)
             {
                 Debug.LogError("表格中没有对应UI窗体数据 : " + uiFormId);

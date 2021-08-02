@@ -90,8 +90,8 @@ namespace YouYou
         /// <param name="userDta"></param>
         public void OnLoadOneDataTableComplete(object userDta)
         {
-            GameEntry.DataTable.DataTableManager.CurrLoadTableCount++;
-            if (GameEntry.DataTable.DataTableManager.CurrLoadTableCount == GameEntry.DataTable.DataTableManager.TotalTableCount)
+            GameEntry.DataTable.CurrLoadTableCount++;
+            if (GameEntry.DataTable.CurrLoadTableCount == GameEntry.DataTable.TotalTableCount)
             {
                 GameEntry.Event.CommonEvent.Dispatch(SysEventId.LoadDataTableComplete);
             }

@@ -209,7 +209,7 @@ namespace YouYou
         /// <param name="onCancel"></param>
         public void OpenDialogFormBySysCode(int sysCode, DialogFormType dialogFormType = DialogFormType.Normal, BaseAction onConfirm = null, BaseAction onCancel = null)
         {
-            OpenDialForm(dialogFormType, GameEntry.Data.SysDataManager.GetSysCodeContent(sysCode), null, onConfirm, onCancel);
+            OpenDialForm(dialogFormType, GameEntry.Data.SysData.GetSysCodeContent(sysCode), null, onConfirm, onCancel);
         }
 
         /// <summary>
