@@ -19,7 +19,7 @@ public class TestTime : MonoBehaviour
             //创建定时器
             TimeAction action = GameEntry.Time.CreateTimeAction();
             Debug.Log("创建了定时器1");
-            action.Init(1, 1, 2,
+            action.Init(null, 1, 1, 2,
                 () => { Debug.Log("定时器1开始运行"); },
                 (int loop) => { Debug.Log("定时器1 运行中 剩余次数 = " + loop); },
                 () => { Debug.Log("定时器1运行完毕"); }

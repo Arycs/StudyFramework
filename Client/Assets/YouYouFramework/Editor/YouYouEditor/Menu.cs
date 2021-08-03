@@ -16,14 +16,6 @@ using UnityEngine.UI;
 
 public class Menu
 {
-    [MenuItem("悠游工具/设置")]
-    public static void Settings()
-    {
-        SettingsWindow win = (SettingsWindow)EditorWindow.GetWindow(typeof(SettingsWindow));
-        win.titleContent = new GUIContent("全局设置");
-        win.Show();
-    }
-
     [MenuItem("悠游工具/资源管理/资源打包管理")]
     public static void AssetBundleCreate()
     {
