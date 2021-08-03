@@ -37,11 +37,44 @@ namespace YouYou
         {
             m_TimeActionList.Remove(action);
         }
-        
+
+        /// <summary>
+        /// 根据定时器的名字删除定时器
+        /// </summary>
+        /// <param name="timeName"></param>
+        public void RemoveTimeActionByName(string timeName)
+        {
+            LinkedListNode<TimeAction> curr = m_TimeActionList.First;
+            while (curr != null)
+            {
+                if (curr.Value.TimeName.Equals(timeName,StringComparison.CurrentCultureIgnoreCase))
+                {
+                    m_TimeActionList.Remove(curr);
+                    break;
+                }
+                curr = curr.Next;
+            }
+        }
+
         internal void OnUpdate()
         {
             for (LinkedListNode<TimeAction> curr = m_TimeActionList.First;curr!= null;curr = curr.Next)
             {
+                if (curr.Value.OnStartAction.Target == null || curr.Value.OnStartAction.Target.ToString() == "null")
+                {
+                    m_TimeActionList.Remove(curr);
+                    continue;
+                }
+                if (curr.Value.OnUpdateAction.Target == null || curr.Value.OnUpdateAction.Target.ToString() == "null")
+                {
+                    m_TimeActionList.Remove(curr);
+                    continue;
+                }
+                if (curr.Value.OnCompleteAction.Target == null || curr.Value.OnCompleteAction.Target.ToString() == "null")
+                {
+                    m_TimeActionList.Remove(curr);
+                    continue;
+                }
                 curr.Value.OnUpdate();
             }
         }
@@ -59,6 +92,8 @@ namespace YouYou
         {
             return GameEntry.Pool.DequeueClassObject<TimeAction>();
         }
+
+
 
         #region  Yield等一帧
         public void Yield(BaseAction onComplete)

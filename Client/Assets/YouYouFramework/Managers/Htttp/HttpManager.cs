@@ -6,16 +6,19 @@ namespace YouYou
 {
     public class HttpManager : ManagerBase, IDisposable
     {
-        [SerializeField]
-        [Header("正式账号服务器Url")]
+        /// <summary>
+        /// 正式账号服务器Url
+        /// </summary>
         private string m_WebAccountUrl;
 
-        [SerializeField]
-        [Header("测试账号服务器Url")]
+        /// <summary>
+        /// 测试账号服务器Url
+        /// </summary>
         private string m_TestAccountUrl;
 
-        [SerializeField]
-        [Header("是否测试环境")]
+        /// <summary>
+        /// 是否测试环境
+        /// </summary>
         private bool m_IsTest;
 
         /// <summary>
@@ -29,6 +32,14 @@ namespace YouYou
             }
         }
 
+        /// <summary>
+        /// 连接失败后重试次数
+        /// </summary>
+        public int Retry
+        {
+            get; private set;
+        }
+
         public void Dispose()
         {
 
@@ -36,7 +47,11 @@ namespace YouYou
 
         public override void Init()
         {
-            
+            m_WebAccountUrl = GameEntry.ParamsSettings.WebAccountUrl;
+            m_TestAccountUrl = GameEntry.ParamsSettings.TestWebAccountUrl;
+            m_IsTest = GameEntry.ParamsSettings.IsTest;
+
+            Retry = GameEntry.ParamsSettings.GetGradeParamData(ConstDefine.Http_Retry, GameEntry.CurrDeviceGrade);
         }
 
         /// <summary>

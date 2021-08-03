@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sirenix.OdinInspector;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,14 @@ namespace YouYou
 {
     public class GameEntry : MonoBehaviour
     {
+        [FoldoutGroup("ParamsSettings")]
+        [SerializeField]
+        private ParamsSettings.DeviceGrade m_CurrDeviceGrade;
+
+        [FoldoutGroup("ParamsSettings")]
+        [SerializeField]
+        private ParamsSettings m_ParamsSettings;
+
         [Header("游戏物体对象池父物体")]
         public Transform PoolParent;
 
@@ -50,6 +59,21 @@ namespace YouYou
 
         public static GameEntry Instance;
 
+        /// <summary>
+        /// 全局参数设置
+        /// </summary>
+        public static ParamsSettings ParamsSettings
+        {
+            get;private set;
+        }
+
+        /// <summary>
+        /// 全局参数设置
+        /// </summary>
+        public static ParamsSettings.DeviceGrade CurrDeviceGrade
+        {
+            get; private set;
+        }
         #region 组件属性
 
         /// <summary>
@@ -298,6 +322,8 @@ namespace YouYou
         private void Awake()
         {
             Instance = this;
+            CurrDeviceGrade = m_CurrDeviceGrade;
+            ParamsSettings = m_ParamsSettings;
         }
 
         #region InitManagers 初始化管理器
@@ -336,9 +362,11 @@ namespace YouYou
             Scene.Init();
             Resource.Init();
             Download.Init();
-            //UI.Init();
-            Lua.Init();
+            UI.Init();
+            //Lua.Init();
             Audio.Init();
+
+            Procedure.ChangeState(ProcedureState.Launch);
         }
         #endregion
 

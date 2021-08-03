@@ -84,7 +84,7 @@ namespace YouYou
         /// <param name="state"></param>
         public void ChangeState(ProcedureState state)
         {
-            m_CurrFsm.ChangeState((byte)state);
+            m_CurrFsm.ChangeState((sbyte)state);
         }
 
 

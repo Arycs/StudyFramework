@@ -18,7 +18,7 @@ namespace YouYou
         /// <summary>
         /// 状态字典
         /// </summary>
-        private Dictionary<byte, FsmState<T>> m_StateDic;
+        private Dictionary<sbyte, FsmState<T>> m_StateDic;
 
         /// <summary>
         /// 参数字典
@@ -33,7 +33,7 @@ namespace YouYou
         /// <param name="states">状态数组</param>
         public Fsm(int fsmId, T owner,FsmState<T>[] states) : base(fsmId)
         {
-            m_StateDic = new Dictionary<byte, FsmState<T>>();
+            m_StateDic = new Dictionary<sbyte, FsmState<T>>();
             m_ParamDic = new Dictionary<string, VariableBase>();
             //把状态加入字典
             int len = states.Length;
@@ -41,13 +41,10 @@ namespace YouYou
             {
                 FsmState<T> state = states[i];
                 state.curFsm = this;
-                m_StateDic[(byte)i] = state;
+                m_StateDic[(sbyte)i] = state;
             }
             
-            //设置状态机默认状态
-            CurrStateType = 0;
-            m_CurrState = m_StateDic[CurrStateType];
-            m_CurrState.OnEnter();
+            CurrStateType = -1;
         }
 
         /// <summary>
@@ -55,7 +52,7 @@ namespace YouYou
         /// </summary>
         /// <param name="stateType"></param>
         /// <returns></returns>
-        public FsmState<T> GetState(byte stateType)
+        public FsmState<T> GetState(sbyte stateType)
         {
             FsmState<T> state = null;
             m_StateDic.TryGetValue(stateType, out state);
@@ -77,7 +74,7 @@ namespace YouYou
         /// 切换状态
         /// </summary>
         /// <param name="newState"></param>
-        public void ChangeState(byte newState)
+        public void ChangeState(sbyte newState)
         {
             //两个状态一样不重复进入
             if (CurrStateType == newState)
@@ -151,7 +148,7 @@ namespace YouYou
                 m_CurrState.OnLeave();
             }
 
-            foreach (KeyValuePair<byte,FsmState<T>> state in m_StateDic)
+            foreach (KeyValuePair<sbyte,FsmState<T>> state in m_StateDic)
             {
                 state.Value.OnDestroy();    
             }

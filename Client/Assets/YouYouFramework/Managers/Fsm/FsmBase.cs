@@ -23,7 +23,7 @@ namespace YouYou
         /// <summary>
         /// 当前状态的类型
         /// </summary>
-        public byte CurrStateType;
+        public sbyte CurrStateType;
 
         public FsmBase(int fsmId)
         {

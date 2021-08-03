@@ -166,7 +166,7 @@ namespace YouYou
             
             //把音量逐渐变成Max
             m_CurrBGMTimeAction = GameEntry.Time.CreateTimeAction();
-            m_CurrBGMTimeAction.Init(0, 0.05f, 100, null, (int loop) =>
+            m_CurrBGMTimeAction.Init(null,0, 0.05f, 100, null, (int loop) =>
             {
                 m_CurrBGMVolume += 0.1f;
                 m_CurrBGMVolume = Mathf.Min(m_CurrBGMVolume, m_CurrBGMMaxVolume);
@@ -186,7 +186,7 @@ namespace YouYou
             if (BGMEvent.isValid())
             {
                 m_CurrBGMTimeAction = GameEntry.Time.CreateTimeAction();
-                m_CurrBGMTimeAction.Init(0,0.05f,100,null, (int loop) =>
+                m_CurrBGMTimeAction.Init(null,0,0.05f,100,null, (int loop) =>
                     {
                         m_CurrBGMVolume -= 0.1f;
                         m_CurrBGMVolume = Mathf.Max(m_CurrBGMVolume, 0);

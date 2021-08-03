@@ -45,5 +45,10 @@ namespace YouYou
         /// UI关闭声音
         /// </summary>
         public const int Audio_UIClose = 202;
+
+        /// <summary>
+        /// Http重试
+        /// </summary>
+        public const string Http_Retry = "Http_Retry";
     }
 }

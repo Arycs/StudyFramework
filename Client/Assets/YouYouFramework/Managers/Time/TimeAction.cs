@@ -11,9 +11,20 @@ namespace YouYou
     public class TimeAction
     {
         /// <summary>
+        /// 定时器名字
+        /// </summary>
+        public string TimeName
+        {
+            get; private set;
+        }
+
+        /// <summary>
         /// 是否运行中
         /// </summary>
-        public bool IsRuning { get; private set; }
+        public bool IsRuning
+        {
+            get; private set;
+        }
 
         /// <summary>
         /// 是否暂停
@@ -54,21 +65,30 @@ namespace YouYou
         /// 暂停了多久
         /// </summary>
         private float m_PauseTime;
-        
+
         /// <summary>
         /// 开始运行
         /// </summary>
-        private Action m_OnStart;
+        public Action OnStartAction
+        {
+            get; private set;
+        }
 
         /// <summary>
         /// 运行中, 回调参数表示剩余次数
         /// </summary>
-        private Action<int> m_OnUpdate;
+        public Action<int> OnUpdateAction
+        {
+            get; private set;
+        }
 
         /// <summary>
         /// 运行完毕
         /// </summary>
-        private Action m_OnComplete;
+        public Action OnCompleteAction
+        {
+            get; private set;
+        }
 
         /// <summary>
         /// 初始化定时器
@@ -80,15 +100,16 @@ namespace YouYou
         /// <param name="onUpdate">运行回调</param>
         /// <param name="onComplete">结束回调</param>
         /// <returns></returns>
-        public TimeAction Init(float delayTime,float interval,int loop,Action onStart,Action<int> onUpdate,Action onComplete)
+        public TimeAction Init(string timeName = null, float delayTime = 0, float interval = 0, int loop = 1, Action onStart = null, Action<int> onUpdate = null, Action onComplete = null)
         {
+            TimeName = timeName;
             m_DelayTime = delayTime;
             m_Interval = interval;
             m_Loop = loop;
-            m_OnStart = onStart;
-            m_OnUpdate = onUpdate;
-            m_OnComplete = onComplete;
-            
+            OnStartAction = onStart;
+            OnUpdateAction = onUpdate;
+            OnCompleteAction = onComplete;
+
             return this;
         }
 
@@ -125,9 +146,9 @@ namespace YouYou
 
         public void Stop()
         {
-            if (m_OnComplete != null)
+            if (OnCompleteAction != null)
             {
-                m_OnComplete();
+                OnCompleteAction();
             }
             IsRuning = false;
             GameEntry.Time.RemoveTimeAction(this);
@@ -142,7 +163,7 @@ namespace YouYou
             {
                 return;
             }
-            
+
             if (Time.time > m_CurrRunTime + m_DelayTime + m_PauseTime)
             {
                 if (!IsRuning)
@@ -151,9 +172,9 @@ namespace YouYou
                     m_CurrRunTime = Time.time;
                     m_PauseTime = 0;
 
-                    if (m_OnStart != null)
+                    if (OnStartAction != null)
                     {
-                        m_OnStart();
+                        OnStartAction();
                     }
                 }
                 IsRuning = true;
@@ -169,9 +190,9 @@ namespace YouYou
                 m_CurrRunTime = Time.time + m_Interval;
                 m_PauseTime = 0;
                 //以下代码 间隔m_Interval 时间执行一次
-                if (m_OnUpdate!=null)
+                if (OnUpdateAction != null)
                 {
-                    m_OnUpdate(m_Loop - m_CurrLoop);
+                    OnUpdateAction(m_Loop - m_CurrLoop);
                 }
 
                 if (m_Loop > -1)

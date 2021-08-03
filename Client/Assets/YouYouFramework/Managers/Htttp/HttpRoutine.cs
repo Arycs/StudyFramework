@@ -32,18 +32,41 @@ namespace YouYou
         /// <summary>
         /// 是否繁忙
         /// </summary>
-        public bool IsBusy { get; private set; }
+        public bool IsBusy
+        {
+            get; private set;
+        }
+
+        /// <summary>
+        /// 当前重试次数
+        /// </summary>
+        private int m_CurrRetry = 0;
+
+        /// <summary>
+        /// Url
+        /// </summary>
+        private string m_Url;
+
+        /// <summary>
+        /// Post
+        /// </summary>
+        private bool m_IsPost = false;
 
         /// <summary>
         /// 是否获取data数据
         /// </summary>
         private bool m_IsGetData = false;
-        
+
+        /// <summary>
+        /// 发送的数据
+        /// </summary>
+        private Dictionary<string, object> m_Dic;
         #endregion
 
         public HttpRoutine()
         {
             m_CallBackArgs = new HttpCallBackArgs();
+            m_Dic = new Dictionary<string, object>();
         }
 
         #region SendData 发送web数据
@@ -57,46 +80,55 @@ namespace YouYou
         public void SendData(string url, HttpSendDataCallBack callBack, bool isPost = false, bool isGetData = false,
             Dictionary<string, object> dic = null)
         {
-            if (IsBusy) return;
+            if (IsBusy)
+                return;
 
             IsBusy = true;
+            m_Url = url;
             m_CallBack = callBack;
+            m_IsPost = isPost;
             m_IsGetData = isGetData;
-            if (!isPost)
+            m_Dic = dic;
+            SendData();
+        }
+
+        public void SendData()
+        {
+            if (!m_IsPost)
             {
-                GetUrl(url);
+                GetUrl(m_Url);
             }
             else
             {
                 //web加密
-                if (dic != null)
+                if (m_Dic != null)
                 {
                     //客户端标识符
-                    dic["deviceIdentifier"] = DeviceUtil.DeviceIdentifier;
+                    m_Dic["deviceIdentifier"] = DeviceUtil.DeviceIdentifier;
 
                     //设备型号
-                    dic["deviceModel"] = DeviceUtil.DeviceModel;
+                    m_Dic["deviceModel"] = DeviceUtil.DeviceModel;
 
                     long t = GameEntry.Data.SysDataManager.CurrServerTime;
                     //签名
-                    dic["sign"] = EncryptUtil.Md5(string.Format("{0}:{1}", t, DeviceUtil.DeviceIdentifier));
+                    m_Dic["sign"] = EncryptUtil.Md5(string.Format("{0}:{1}", t, DeviceUtil.DeviceIdentifier));
 
                     //时间戳
-                    dic["t"] = t;
+                    m_Dic["t"] = t;
                 }
 
                 string json = string.Empty;
-                if (dic != null)
+                if (m_Dic != null)
                 {
-                    json = JsonMapper.ToJson(dic);
+                    json = JsonMapper.ToJson(m_Dic);
 #if DEBUG_LOG_PROTO
-                    Debug.Log("<color=#ffa200>发送消息:</color><color=#fffb80>" + url +"</color>");
+                    Debug.Log("<color=#ffa200>发送消息:</color><color=#fffb80>" + m_Url + "</color>");
                     Debug.Log("<color=#ffdeb3>==>>" + json + "</color>");
 #endif
-                    GameEntry.Pool.EnqueueClassObject(dic);
+                    GameEntry.Pool.EnqueueClassObject(m_Dic);
                 }
 
-                PostUrl(url, json);
+                PostUrl(m_Url, json);
             }
         }
 
@@ -145,10 +177,20 @@ namespace YouYou
             //发送请求
             yield return data.SendWebRequest();
 
-            IsBusy = false;
             // WebRequest有错误, 回调参数记录错误
             if (data.isNetworkError || data.isHttpError)
             {
+                //报错了， 进行重试
+                m_CurrRetry++;
+                if (m_CurrRetry <= GameEntry.Http.Retry)
+                {
+                    GameEntry.Log(LogCategory.Proto, "<color=#eaff>请求URL：</color><color=#00ff9c> {0}失败 当前重试次数{1}</color>", m_Url, m_CurrRetry);
+                    SendData();
+                    yield break;
+                }
+
+                IsBusy = false;
+
                 if (m_CallBack != null)
                 {
                     m_CallBackArgs.HasError = true;
@@ -156,32 +198,42 @@ namespace YouYou
 
                     if (!m_IsGetData)
                     {
-                        GameEntry.Log(LogCategory.Proto,"<color=#00eaff>接收消息:</color><color=#00ff9c>" + data.url +"</color>");
-                        GameEntry.Log(LogCategory.Proto,"<color=#c5e1dc>==>>" + JsonUtility.ToJson(m_CallBackArgs) + "</color>");
+                        GameEntry.Log(LogCategory.Proto, "<color=#00eaff>接收消息:</color><color=#00ff9c>" + data.url + "</color>");
+                        GameEntry.Log(LogCategory.Proto, "<color=#c5e1dc>==>>" + JsonUtility.ToJson(m_CallBackArgs) + "</color>");
                     }
                     m_CallBack(m_CallBackArgs);
                 }
             }
             else
             {
+                IsBusy = false;
+
                 if (m_CallBack != null)
                 {
                     m_CallBackArgs.HasError = false;
                     m_CallBackArgs.Value = data.downloadHandler.text;
                     if (!m_IsGetData)
                     {
-                        GameEntry.Log(LogCategory.Proto,"<color=#00eaff>接收消息:</color><color=#00ff9c>" + data.url +"</color>");
-                        GameEntry.Log(LogCategory.Proto,"<color=#c5e1dc>==>>" + JsonUtility.ToJson(m_CallBackArgs) + "</color>");
+                        GameEntry.Log(LogCategory.Proto, "<color=#00eaff>接收消息:</color><color=#00ff9c>" + data.url + "</color>");
+                        GameEntry.Log(LogCategory.Proto, "<color=#c5e1dc>==>>" + JsonUtility.ToJson(m_CallBackArgs) + "</color>");
                     }
 
                     m_CallBackArgs.Data = data.downloadHandler.data;
                     m_CallBack(m_CallBackArgs);
                 }
             }
+
+            m_CurrRetry = 0;
+            m_Url = null;
+            if (m_Dic != null)
+            {
+                m_Dic.Clear();
+                m_Dic = null;
+            }
             m_CallBackArgs.Data = null;
             data.Dispose();
             data = null;
-            
+
             //Debug.Log("把Http访问器对象回池");
             GameEntry.Pool.EnqueueClassObject(this);
         }
