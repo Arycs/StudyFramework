@@ -460,7 +460,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b750933e41dfc244a83ce6e83080921d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_CurrDeviceGrade: 1
+  m_CurrDeviceGrade: 2
   m_ParamsSettings: {fileID: 11400000, guid: f50211d2827439e4e9cee00bae64adad, type: 2}
   PoolParent: {fileID: 1917326886}
   GameObjectPoolGroups:
