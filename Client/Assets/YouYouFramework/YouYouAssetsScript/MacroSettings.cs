@@ -21,6 +21,7 @@ public class MacroSettings : ScriptableObject
     [Button(ButtonSizes.Medium), ResponsiveButtonGroup("DefaultButtonSize"), PropertyOrder(1)]
     public void SaveMacro()
     {
+#if UNITY_EDITOR
         m_Macor = string.Empty;
         foreach (var item in Settings)
         {
@@ -46,6 +47,7 @@ public class MacroSettings : ScriptableObject
         PlayerSettings.SetScriptingDefineSymbolsForGroup(BuildTargetGroup.iOS, m_Macor);
         PlayerSettings.SetScriptingDefineSymbolsForGroup(BuildTargetGroup.Standalone, m_Macor);
         Debug.LogError("Save Macro Sucess");
+#endif
     }
 
     private void OnEnable()

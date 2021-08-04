@@ -23,3 +23,15 @@ MonoBehaviour:
     LowValue: 2
     MidleValue: 5
     HighValue: 10
+  - Key: Download_Retry
+    LowValue: 2
+    MidleValue: 5
+    HighValue: 10
+  - Key: Download_RoutineCount
+    LowValue: 3
+    MidleValue: 5
+    HighValue: 10
+  - Key: Download_FlushSize
+    LowValue: 512
+    MidleValue: 1024
+    HighValue: 2046

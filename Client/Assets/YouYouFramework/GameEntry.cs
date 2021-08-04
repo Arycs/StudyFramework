@@ -1,4 +1,4 @@
-﻿using Sirenix.OdinInspector;
+using Sirenix.OdinInspector;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -17,6 +17,7 @@ namespace YouYou
         [SerializeField]
         private ParamsSettings m_ParamsSettings;
 
+        [FoldoutGroup("GameObjectPool")]
         [Header("游戏物体对象池父物体")]
         public Transform PoolParent;
 
@@ -24,35 +25,43 @@ namespace YouYou
         /// 游戏物体对象池的分组
         /// </summary>
         [SerializeField]
+        [FoldoutGroup("GameObjectPool")]
         public GameObjectPoolEntity[] GameObjectPoolGroups;
 
         /// <summary>
         /// 锁定的资源包（不会释放）
         /// </summary>
         [Header("锁定的资源包")]
+        [FoldoutGroup("GameObjectPool")]
         public string[] LockedAssetBundle;
 
         [Header("标准分辨率的宽度")]
+        [FoldoutGroup("UIGroup")]
         [SerializeField]
         public int m_StandardWidth = 1280;
 
         [Header("标准分辨率的高度")]
+        [FoldoutGroup("UIGroup")]
         [SerializeField]
         public int m_StandardHeight = 720;
 
         [Header("UI摄像机")]
+        [FoldoutGroup("UIGroup")]
         [SerializeField]
         public Camera UICamera;
 
         [Header("根画布")]
+        [FoldoutGroup("UIGroup")]
         [SerializeField]
         public Canvas m_UIootCanvas;
 
         [Header("根画布的缩放")]
+        [FoldoutGroup("UIGroup")]
         [SerializeField]
         public CanvasScaler UIRootCanvasScaler;
 
         [Header("UI分组")]
+        [FoldoutGroup("UIGroup")]
         [SerializeField]
         public UIGroup[] UIGroups;
 

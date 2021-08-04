@@ -21,6 +21,7 @@ public class YouYouEditor : OdinMenuEditorWindow
         tree.AddAssetAtPath("YouYouFramework", "YouYouFramework/YouYouAssets/AboutUs.asset").AddIcon(EditorIcons.Airplane);
         tree.AddAssetAtPath("MacroSettings", "YouYouFramework/YouYouAssets/MacroSettings.asset").AddIcon(EditorIcons.Airplane);
         tree.AddAssetAtPath("ParamsSettings", "YouYouFramework/YouYouAssets/ParamsSettings.asset").AddIcon(EditorIcons.Airplane);
+        tree.AddAssetAtPath("AssetBundleSettings", "YouYouFramework/YouYouAssets/AssetBundleSettings.asset").AddIcon(EditorIcons.AlertCircle);
         return tree;
     }
 }

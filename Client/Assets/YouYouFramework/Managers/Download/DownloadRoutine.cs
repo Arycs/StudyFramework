@@ -72,6 +72,11 @@ namespace YouYou
         private AssetBundleInfoEntity m_CurrAssetBundleInfo;
 
         /// <summary>
+        /// 重试次数
+        /// </summary>
+        private int m_CurrRetry = 0;
+
+        /// <summary>
         /// 开始下载
         /// </summary>
         /// <param name="url"></param>
@@ -94,13 +99,20 @@ namespace YouYou
             }
 
             m_DownloadLocalFilePath = m_DownloadLocalFilePath + ".temp";
-            
+            DownloadInner();
+        }
+
+        /// <summary>
+        /// 内部下载
+        /// </summary>
+        private void DownloadInner()
+        {
             if (File.Exists(m_DownloadLocalFilePath))
             {
                 Debug.LogError("验证MD5 如果以前残留文件的MD5 和CDN的不一致 则删除本地临时文件 重新下载");
                 if (PlayerPrefs.HasKey(m_CurrFileUrl))
                 {
-                    if (!PlayerPrefs.GetString(m_CurrFileUrl).Equals(assetBundleInfo.MD5,
+                    if (!PlayerPrefs.GetString(m_CurrFileUrl).Equals(m_CurrAssetBundleInfo.MD5,
                         System.StringComparison.CurrentCultureIgnoreCase))
                     {
                         Debug.LogError("如果不一致, 则删除本地临时文件,重新下载");
@@ -113,7 +125,7 @@ namespace YouYou
                         m_FileStream = File.OpenWrite(m_DownloadLocalFilePath);
                         m_FileStream.Seek(0, SeekOrigin.End);
                         //Debug.LogError("持续下载 beginPos = " + m_BeginPos);
-                        m_BeginPos = (uint) m_FileStream.Length;
+                        m_BeginPos = (uint)m_FileStream.Length;
                         Download(
                             string.Format("{0} {1}", GameEntry.Data.SysDataManager.CurrChannelConfig.RealSourceUrl,
                                 m_CurrFileUrl), m_BeginPos);
@@ -131,6 +143,7 @@ namespace YouYou
                 BeginDownload();
             }
         }
+
 
         /// <summary>
         /// 进行下载 
@@ -227,9 +240,17 @@ namespace YouYou
                 return;
             }
 
-            if (m_UnityWebRequest.isNetworkError)
+            if (m_UnityWebRequest.isNetworkError || m_UnityWebRequest.isHttpError)
             {
-                Debug.LogError("下载失败");
+                m_CurrRetry++;
+                if (m_CurrRetry < GameEntry.Download.Retry)
+                {
+                    Reset();
+                    GameEntry.Log(LogCategory.Resource,"下载完毕 url=>{0}失败 当前重试次数{1}",m_UnityWebRequest.url,m_CurrRetry);
+                    //尝试重新下载
+                    DownloadInner();
+                }
+                GameEntry.LogError("下载失败 =>{0} , error =>{1}", m_UnityWebRequest.url, m_UnityWebRequest.error);
                 Reset();
             }
 

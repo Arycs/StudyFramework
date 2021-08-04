@@ -50,5 +50,20 @@ namespace YouYou
         /// Http重试
         /// </summary>
         public const string Http_Retry = "Http_Retry";
+
+        /// <summary>
+        /// 下载重试次数
+        /// </summary>
+        public const string Download_Retry = "Download_Retry";
+
+        /// <summary>
+        /// 下载器数量
+        /// </summary>
+        public const string Download_RoutineCount = "Download_RoutineCount";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const string Download_FlushSize = "Download_FlushSize";
     }
 }

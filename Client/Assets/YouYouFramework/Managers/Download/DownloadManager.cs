@@ -10,25 +10,44 @@ namespace YouYou
     /// </summary>
     public class DownloadManager : ManagerBase, IDisposable
     {
-        [Header("写入磁盘的缓存大小(字节)")] public int FlushSize = 1024 * 1024;
+        /// <summary>
+        /// 写入磁盘的缓存大小(k)
+        /// </summary>
+        public int FlushSize
+        {
+            get; private set;
+        }
 
-        [Header("下载器的数量")] public int DownloadRoutineCount = 5;
+        /// <summary>
+        /// 多文件下载器中的下载器的数量
+        /// </summary>
+        public int DownloadRoutineCount
+        {
+            get; private set;
+        }
+
+        /// <summary>
+        /// 下载失败的连接重试
+        /// </summary>
+        public int Retry
+        {
+            get; private set;
+        }
 
         /// <summary>
         /// 下载器链表
         /// </summary>
-        private LinkedList<DownloadRoutine> m_DownloadRoutineList;
+        private LinkedList<DownloadRoutine> m_DownloadSingleRoutineList;
 
         /// <summary>
-        /// 需要下载的文件链表
+        /// 多文件下载器链表
         /// </summary>
-        private LinkedList<string> m_NeedDownloadList;
+        private LinkedList<DownloadMulitRoutine> m_DownloadMulitRoutineList;
 
         public DownloadManager()
         {
-            m_DownloadRoutineList = new LinkedList<DownloadRoutine>();
-            m_NeedDownloadList = new LinkedList<string>();
-            m_DownloadMulitCurrSizeDic = new Dictionary<string, ulong>();
+            m_DownloadSingleRoutineList = new LinkedList<DownloadRoutine>();
+            m_DownloadMulitRoutineList = new LinkedList<DownloadMulitRoutine>();
         }
 
         /// <summary>
@@ -36,7 +55,9 @@ namespace YouYou
         /// </summary>
         public override void Init()
         {
-
+            Retry = GameEntry.ParamsSettings.GetGradeParamData(ConstDefine.Download_Retry, GameEntry.CurrDeviceGrade);
+            DownloadRoutineCount = GameEntry.ParamsSettings.GetGradeParamData(ConstDefine.Download_RoutineCount, GameEntry.CurrDeviceGrade);
+            FlushSize = GameEntry.ParamsSettings.GetGradeParamData(ConstDefine.Download_FlushSize, GameEntry.CurrDeviceGrade);
         }
 
         /// <summary>
@@ -45,7 +66,7 @@ namespace YouYou
         /// <param name="url"></param>
         /// <param name="onUpdate"></param>
         /// <param name="onComplete"></param>
-        public void BeginDownloadSingle(string url, BaseAction<string,ulong,float> onUpdate = null, BaseAction<string> onComplete = null)
+        public void BeginDownloadSingle(string url, BaseAction<string, ulong, float> onUpdate = null, BaseAction<string> onComplete = null)
         {
             AssetBundleInfoEntity entity = GameEntry.Resource.ResourceManager.GetAssetBundleInfo(url);
             if (entity == null)
@@ -53,55 +74,20 @@ namespace YouYou
                 GameEntry.LogError("无效的资源包=>" + url);
                 return;
             }
-            
+
             DownloadRoutine routine = GameEntry.Pool.DequeueClassObject<DownloadRoutine>();
-            routine.BeginDownload(url, entity,onUpdate, onComplete: (string fileUrl,DownloadRoutine r) =>
-            {
-                m_DownloadRoutineList.Remove(r);
-                GameEntry.Pool.EnqueueClassObject(routine);
-                if (onComplete != null)
-                {
-                    onComplete(fileUrl);
-                }
-            });
-            m_DownloadRoutineList.AddLast(routine);
+            routine.BeginDownload(url, entity, onUpdate, onComplete: (string fileUrl, DownloadRoutine r) =>
+             {
+                 m_DownloadSingleRoutineList.Remove(r);
+                 GameEntry.Pool.EnqueueClassObject(routine);
+                 if (onComplete != null)
+                 {
+                     onComplete(fileUrl);
+                 }
+             });
+            m_DownloadSingleRoutineList.AddLast(routine);
         }
 
-        /// <summary>
-        /// 多个文件下载委托
-        /// </summary>
-        private BaseAction<int, int, ulong, ulong> m_OnDownloadMulitUpdate;
-
-        /// <summary>
-        /// 多个文件下载完毕委托
-        /// </summary>
-        private BaseAction m_OnDownloadMulitComplete;
-
-        /// <summary>
-        /// 多个文件下载需要的数量
-        /// </summary>
-        private int m_DownloadMulitNeedCount = 0;
-
-        /// <summary>
-        /// 多个文件下载当前下载的数量
-        /// </summary>
-        private int m_DownloadMulitCurrCount = 0;
-
-        /// <summary>
-        /// 多个文件下载总大小(字节)
-        /// </summary>
-        private ulong m_DownloadMulitTotalSize = 0;
-
-        /// <summary>
-        /// 多个文件下载当前大小字节)
-        /// </summary>
-        private ulong m_DownloadMulitCurrSize = 0;
-
-        /// <summary>
-        /// 多个文件下载当前大小
-        /// </summary>
-        private Dictionary<string, ulong> m_DownloadMulitCurrSizeDic;
-        
         /// <summary>
         /// 下载多个文件
         /// </summary>
@@ -111,127 +97,14 @@ namespace YouYou
         public void BeginDownloadMulit(LinkedList<string> lstUrl,
             BaseAction<int, int, ulong, ulong> onDownloadMulitUpdate = null, BaseAction onDownloadMulitComplete = null)
         {
-            m_OnDownloadMulitUpdate = onDownloadMulitUpdate;
-            m_OnDownloadMulitComplete = onDownloadMulitComplete;
-
-            m_NeedDownloadList.Clear();
-            m_DownloadMulitCurrSizeDic.Clear();
-
-            m_DownloadMulitNeedCount = 0;
-            m_DownloadMulitCurrCount = 0;
-
-            m_DownloadMulitTotalSize = 0;
-            m_DownloadMulitCurrSize = 0;
-
-            //1. 把需要下载的加入下载列表
-            for (LinkedListNode<string> item = lstUrl.First; item != null; item = item.Next)
+            DownloadMulitRoutine mulitRoutine = GameEntry.Pool.DequeueClassObject<DownloadMulitRoutine>();
+            mulitRoutine.BeginDownloadMulit(lstUrl, onDownloadMulitUpdate, onDownloadMulitComplete: (DownloadMulitRoutine r) =>
             {
-                string url = item.Value;
-                AssetBundleInfoEntity entity = GameEntry.Resource.ResourceManager.GetAssetBundleInfo(url);
-                if (entity != null)
-                {
-                    m_DownloadMulitTotalSize += entity.Size;
-                    m_DownloadMulitNeedCount++;
-                    m_NeedDownloadList.AddLast(url);
-                    m_DownloadMulitCurrSizeDic[url] = 0;
-                }
-                else
-                {
-                    GameEntry.LogError("无效资源包 =>" + url);
-                }
-            }
-
-            //下载器数量 最多5个
-            int routineCount = Mathf.Min(GameEntry.Download.DownloadRoutineCount, m_NeedDownloadList.Count);
-            for (int i = 0; i < routineCount; i++)
-            {
-                DownloadRoutine routine = GameEntry.Pool.DequeueClassObject<DownloadRoutine>();
-                //Debug.LogError("下载器取池");
-
-                string url = m_NeedDownloadList.First.Value;
-                m_NeedDownloadList.RemoveFirst();
-
-                //Debug.LogError("下载器开始下载=" + url);
-                AssetBundleInfoEntity entity = GameEntry.Resource.ResourceManager.GetAssetBundleInfo(url);
-                routine.BeginDownload(url,entity, OnDownloadMulitUpdate, OnDownloadMulitComplete);
-                m_DownloadRoutineList.AddLast(routine);
-            }
-        }
-
-        /// <summary>
-        /// 多文件下载回调
-        /// </summary>
-        /// <param name="url"></param>
-        /// <param name="currDownloadedSize"></param>
-        /// <param name="progress"></param>
-        private void OnDownloadMulitUpdate(string url, ulong currDownloadedSize, float progress)
-        {
-            m_DownloadMulitCurrSizeDic[url] = currDownloadedSize;
-
-            ulong currSize = 0;
-            var enumerator = m_DownloadMulitCurrSizeDic.GetEnumerator();
-            while (enumerator.MoveNext())
-            {
-                currSize += enumerator.Current.Value;
-            }
-
-            m_DownloadMulitCurrSize = currSize;
-
-            if (m_DownloadMulitCurrSize > m_DownloadMulitTotalSize)
-            {
-                m_DownloadMulitCurrSize = m_DownloadMulitTotalSize;
-            }
-
-            if (m_OnDownloadMulitUpdate != null)
-            {
-                m_OnDownloadMulitUpdate(m_DownloadMulitCurrCount, m_DownloadMulitNeedCount, m_DownloadMulitCurrSize,
-                    m_DownloadMulitTotalSize);
-            }
-        }
-
-        private void OnDownloadMulitComplete(string fileUrl, DownloadRoutine routine)
-        {
-            Debug.LogError("下载完毕=" + fileUrl);
-            //检查队列中是否有要下载的数据
-            if (m_NeedDownloadList.Count > 0)
-            {
-                //让下载器继续工作
-                string url = m_NeedDownloadList.First.Value;
-                m_NeedDownloadList.RemoveFirst();
-                //Debug.LogError("让下载器继续工作 下载=" + url);
-                AssetBundleInfoEntity entity = GameEntry.Resource.ResourceManager.GetAssetBundleInfo(url);
-                routine.BeginDownload(url,entity,OnDownloadMulitUpdate, OnDownloadMulitComplete);
-            }
-            else
-            {
-                m_DownloadRoutineList.Remove(routine);
-                Debug.LogError("下载器回池");
-                GameEntry.Pool.EnqueueClassObject(routine);
-            }
-
-            m_DownloadMulitCurrCount++;
-
-            if (m_OnDownloadMulitUpdate != null)
-            {
-                m_OnDownloadMulitUpdate(m_DownloadMulitCurrCount, m_DownloadMulitNeedCount, m_DownloadMulitCurrSize,
-                    m_DownloadMulitTotalSize);
-            }
-            
-            if (m_DownloadMulitCurrCount == m_DownloadMulitNeedCount)
-            {
-                Debug.LogError("所有资源下载完毕");
-                //结束的时候 直接吧当前下载的大小设置为总大小
-                m_DownloadMulitCurrSize = m_DownloadMulitTotalSize;
-                if (m_OnDownloadMulitUpdate != null)
-                {
-                    m_OnDownloadMulitUpdate(m_DownloadMulitCurrCount, m_DownloadMulitNeedCount, m_DownloadMulitCurrSize,
-                        m_DownloadMulitTotalSize);
-                }
-                if (m_OnDownloadMulitComplete != null)
-                {
-                    m_OnDownloadMulitComplete();
-                }
-            }
+                m_DownloadMulitRoutineList.Remove(r);
+                GameEntry.Pool.EnqueueClassObject(r);
+                onDownloadMulitComplete?.Invoke();
+            });
+            m_DownloadMulitRoutineList.AddLast(mulitRoutine);
         }
 
         /// <summary>
@@ -239,17 +112,34 @@ namespace YouYou
         /// </summary>
         public void OnUpdate()
         {
-            var curr = m_DownloadRoutineList.First;
-            while (curr != null)
+            LinkedListNode<DownloadMulitRoutine> mulitRoutine = m_DownloadMulitRoutineList.First;
+            while (mulitRoutine != null)
             {
-                curr.Value.OnUpdate();
-                curr = curr.Next;
+                mulitRoutine.Value.OnUpdate();
+                mulitRoutine = mulitRoutine.Next;
+            }
+
+            //循环单文件下载器
+            LinkedListNode<DownloadRoutine> singleRoutine = m_DownloadSingleRoutineList.First;
+            while (singleRoutine != null)
+            {
+                singleRoutine.Value.OnUpdate();
+                singleRoutine = singleRoutine.Next;
             }
         }
 
         public void Dispose()
         {
-            
+            m_DownloadSingleRoutineList.Clear();
+
+            //循环多文件下载器
+            LinkedListNode<DownloadMulitRoutine> mulitRoutine = m_DownloadMulitRoutineList.First;
+            while (mulitRoutine != null)
+            {
+                mulitRoutine.Value.Dispose();
+                mulitRoutine = mulitRoutine.Next;
+            }
+            m_DownloadMulitRoutineList.Clear();
         }
     }
 }

@@ -35,7 +35,13 @@ namespace YouYou
             LocalFilePath = Application.persistentDataPath;
 #endif
         }
+        public override void Init()
+        {
+            ResourceManager.Init();
+            ResourceLoaderManager.Init();
 
+            Application.backgroundLoadingPriority = ThreadPriority.High;
+        }
         #region InitStreamingAssetsBundleInfo 初始化只读区资源包信息
         /// <summary>
         /// 初始化只读区资源包信息
@@ -92,9 +98,5 @@ namespace YouYou
             return string.Format("download/scenes/{0}.unity3d", sceneName.ToLower());
         }
 
-        public override void Init()
-        {
-            
-        }
     }
 }

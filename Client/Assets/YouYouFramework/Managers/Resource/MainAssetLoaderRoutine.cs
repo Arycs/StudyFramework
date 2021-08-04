@@ -49,7 +49,7 @@ namespace YouYou
         public void Load(AssetCategory assetCategory, string assetFullName,
             BaseAction<ResourceEntity> onComplete = null)
         {
-#if DISABLE_ASSETBUNDLE
+#if DISABLE_ASSETBUNDLE && UNITY_EDITOR
             Debug.LogError("取池");
             m_CurrResourceEntity = GameEntry.Pool.DequeueClassObject<ResourceEntity>();
             m_CurrResourceEntity.Category = assetCategory;
