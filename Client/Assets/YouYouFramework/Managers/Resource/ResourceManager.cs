@@ -522,7 +522,7 @@ namespace YouYou
 
         public override void Init()
         {
-            throw new NotImplementedException();
+
         }
     }
 }

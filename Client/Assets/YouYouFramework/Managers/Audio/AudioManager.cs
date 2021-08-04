@@ -32,7 +32,7 @@ namespace YouYou
         /// </summary>
         /// <param name="onComplete"></param>
         public void LoadBanks(BaseAction onComplete) {
-#if DISABLE_ASSETBUNDLE
+#if DISABLE_ASSETBUNDLE && UNITY_EDITOR
            string[] arr = Directory.GetFiles(Application.dataPath + "./Download/Audio/", "*.bytes");
             int len = arr.Length;
             for (int i = 0; i < len; i++)

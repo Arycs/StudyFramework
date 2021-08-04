@@ -52,6 +52,7 @@ public class MacroSettings : ScriptableObject
 
     private void OnEnable()
     {
+#if UNITY_EDITOR
         m_Macor = PlayerSettings.GetScriptingDefineSymbolsForGroup(BuildTargetGroup.Android);
         for (int i = 0; i < Settings.Length; i++)
         {
@@ -64,6 +65,7 @@ public class MacroSettings : ScriptableObject
                 Settings[i].Enable = false;
             }
         }
+#endif
     }
 }
 

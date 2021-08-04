@@ -287,7 +287,7 @@ namespace YouYou
             {
                 m_ReleaseResourceNextRunTime = Time.time;
 #if !DISABLE_ASSETBUNDLE
-                PoolManager.ReleaseAssetBundlePool();
+                ReleaseAssetBundlePool();
                 GameEntry.Log(LogCategory.Normal, "释放资源包池");
 #endif
             }
@@ -296,7 +296,7 @@ namespace YouYou
             {
                 m_ReleaseAssetNextRunTime = Time.time;
 #if !DISABLE_ASSETBUNDLE
-                PoolManager.ReleaseAssetPool();
+                ReleaseAssetPool();
                 GameEntry.Log(LogCategory.Normal, "释放Asset池");
 #endif
                 //LuaManager.luaEnv.FullGc();

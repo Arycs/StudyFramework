@@ -391,6 +391,16 @@ namespace YouYou
             {
                 curr.Value.OnUpdate();
             }
+
+            Time.OnUpdate();
+            Procedure.OnUpdate();
+            Socket.OnUpdate();
+            Pool.OnUpdate();
+            Scene.OnUpdate();
+            Resource.OnUpdate();
+            Download.OnUpdate();
+            UI.OnUpdate();
+            Audio.OnUpdate();
         }
 
         /// <summary>

@@ -94,7 +94,7 @@ public class AssetBundleSettings : ScriptableObject
             for (int j = 0; j < lenPath; j++)
             {
                 //打包这个路径
-                string path = assetBundleData.Path[i];
+                string path = assetBundleData.Path[j];
                 BuildAssetBundleForPath(path, assetBundleData.Overall);
             }
         }
@@ -419,7 +419,7 @@ public class AssetBundleSettings : ScriptableObject
                 string filePath = file.FullName; //全名 包含路径扩展名
 
                 //Debug.LogError("filePath=" + filePath);
-                int index = filePath.IndexOf("Assets/", StringComparison.CurrentCultureIgnoreCase);
+                int index = filePath.IndexOf("Assets\\", StringComparison.CurrentCultureIgnoreCase);
 
                 //路径
                 string newPath = filePath.Substring(index);
@@ -582,7 +582,7 @@ public class AssetBundleSettings : ScriptableObject
     /// <param name="oldPath"></param>
     private void CopyFile(string oldPath)
     {
-        if (!Directory.Exists(OutPath))
+        if (Directory.Exists(OutPath))
         {
             Directory.Delete(OutPath, true);
         }
@@ -677,7 +677,7 @@ public class AssetBundleSettings : ScriptableObject
     {
         get
         {
-            return Application.dataPath + "/../" + AssetBundleSavePath + "/" + ResourceVersion + "_Temp" + CurrBuildTarget;
+            return Application.dataPath + "/../" + AssetBundleSavePath + "/" + ResourceVersion + "_Temp/" + CurrBuildTarget;
         }
     }
 
