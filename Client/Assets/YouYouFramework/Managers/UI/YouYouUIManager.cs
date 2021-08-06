@@ -11,8 +11,6 @@ namespace YouYou
     /// </summary>
     public class YouYouUIManager : ManagerBase, IDisposable
     {
-        
-        
         private Dictionary<byte, UIGroup> m_UIGroupDic;
         
         /// <summary>
@@ -23,8 +21,6 @@ namespace YouYou
         /// 当前分辨率比值
         /// </summary>
         private float m_CurrScreen = 0;
-
-        private UIManager m_UIManager;
 
         private UILayer m_UILayer;
 
@@ -51,11 +47,11 @@ namespace YouYou
         
         public YouYouUIManager()
         {
-            m_UIManager = new UIManager();
             m_UILayer = new UILayer();
             m_UILayer.Init(GameEntry.Instance.UIGroups);
-            
+            m_OpenUIFormList = new LinkedList<UIFormBase>();
             m_UIPool = new UIPool();
+            m_UIGroupDic = new Dictionary<byte, UIGroup>();
         }
 
         /// <summary>
@@ -63,8 +59,6 @@ namespace YouYou
         /// </summary>
         public override void Init()
         {
-            m_UIGroupDic = new Dictionary<byte, UIGroup>();
-
             m_StandardScreen = GameEntry.Instance.m_StandardWidth / (float)GameEntry.Instance.m_StandardHeight;
             m_CurrScreen = Screen.width / (float)Screen.height;
             NormalFormCanvasScaler();
@@ -128,35 +122,7 @@ namespace YouYou
         }
         #endregion
 
-        /// <summary>
-        /// 打开UI窗体
-        /// </summary>
-        /// <param name="uiFormId">formId</param>
-        /// <param name="userData">用户数据</param>
-        public void OpenUIForm(int uiFormId, object userData = null,BaseAction<UIFormBase> onOpen = null)
-        {
-            m_UIManager.OpenUIForm(uiFormId,userData,onOpen);
-            m_UIPool.CheckByOpenUI();
-        }
-
-        /// <summary>
-        /// 根据uiformId 关闭UI窗口
-        /// </summary>
-        /// <param name="uiformId"></param>
-        internal void CloseUIForm(int uiformId)
-        {
-            m_UIManager.CloseUIForm(uiformId);
-        }
-
-        /// <summary>
-        /// 关闭界面
-        /// </summary>
-        /// <param name="formBase"></param>
-        public void CloseUIForm(UIFormBase formBase)
-        {
-            m_UIManager.CloseUIForm(formBase);
-        }
-
+        
         /// <summary>
         /// 设置层级
         /// </summary>
@@ -235,6 +201,149 @@ namespace YouYou
                 m_UIPool.CheckClear();
             }
 
+        }
+
+        /// <summary>
+        /// 已经打开的UI链表
+        /// </summary>
+        private LinkedList<UIFormBase> m_OpenUIFormList;
+
+
+        #region  OpenUIForm 打开UI窗体
+
+        /// <summary>
+        /// 打开UI窗体
+        /// </summary>
+        /// <param name="uiFormId">formId</param>
+        /// <param name="userData">用户数据</param>
+        internal void OpenUIForm(int uiFormId, object userData = null, BaseAction<UIFormBase> onOpen = null)
+        {
+            if (IsExists(uiFormId))
+            {
+                return;
+            }
+
+            //1. 读表
+            Sys_UIFormEntity entity = GameEntry.DataTable.Sys_UIFormDBModel.Get(uiFormId);
+            if (entity == null)
+            {
+                Debug.LogError("表格中没有对应UI窗体数据 : " + uiFormId);
+                return;
+            }
+
+            UIFormBase formBase = GameEntry.UI.Dequeue(uiFormId); //以后从对象池获取
+            if (formBase == null)
+            {
+                //TODO : 异步加载UI需要时间 此处需要处理过滤加载中的UI
+
+                string assetPath = string.Empty;
+                switch (GameEntry.Localization.CurrLanguage)
+                {
+                    case YouYouLanguage.Chinese:
+                        assetPath = entity.AssetPath_Chinese;
+                        break;
+                    case YouYouLanguage.English:
+                        assetPath = entity.AssetPath_English;
+                        break;
+                }
+
+                LoadUIAsset(assetPath, (ResourceEntity resourceEntity) =>
+                {
+                    GameObject uiObj = UnityEngine.Object.Instantiate((UnityEngine.Object)resourceEntity.Target) as GameObject;
+
+                    //把克隆出的资源 加入实例资源池
+                    GameEntry.Pool.RegisterInstanceResource(uiObj.GetInstanceID(), resourceEntity);
+
+                    uiObj.transform.SetParent(GameEntry.UI.GetUIGroup(entity.UIGroupId).Group);
+                    uiObj.transform.localPosition = Vector3.zero;
+                    uiObj.transform.localScale = Vector3.one;
+
+                    formBase = uiObj.GetComponent<UIFormBase>();
+                    formBase.Init(uiFormId, entity.UIGroupId, entity.DisableUILayer == 1, entity.IsLock == 1, userData);
+                    m_OpenUIFormList.AddLast(formBase);
+
+                    if (onOpen != null)
+                    {
+                        onOpen(formBase);
+                    }
+                });
+            }
+            else
+            {
+                formBase.gameObject.SetActive(true);
+                formBase.Open(userData);
+                m_OpenUIFormList.AddLast(formBase);
+
+                if (onOpen != null)
+                {
+                    onOpen(formBase);
+                }
+            }
+
+            m_UIPool.CheckByOpenUI();
+        }
+
+        #endregion
+
+        #region LoadUIAsset 加载UI资源
+
+        private void LoadUIAsset(string assetPath, BaseAction<ResourceEntity> onComplete)
+        {
+            GameEntry.Resource.ResourceLoaderManager.LoadMainAsset(AssetCategory.UIPrefab,
+                string.Format("Assets/Download/UI/UIPrefab/{0}.prefab", assetPath),
+                (ResourceEntity resourceEntity) =>
+                {
+                    if (onComplete != null)
+                    {
+                        onComplete(resourceEntity);
+                    }
+                });
+        }
+
+        #endregion
+
+        /// <summary>
+        /// 检查UI是否已经打开
+        /// </summary>
+        /// <returns></returns>
+        public bool IsExists(int uiformId)
+        {
+            for (LinkedListNode<UIFormBase> curr = m_OpenUIFormList.First; curr != null; curr = curr.Next)
+            {
+                if (curr.Value.UIFormId == uiformId)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+
+        /// <summary>
+        /// 根据uiformId 关闭UI窗口
+        /// </summary>
+        /// <param name="uiformId"></param>
+        internal void CloseUIForm(int uiformId)
+        {
+            for (LinkedListNode<UIFormBase> curr = m_OpenUIFormList.First; curr != null; curr = curr.Next)
+            {
+                if (curr.Value.UIFormId == uiformId)
+                {
+                    CloseUIForm(curr.Value);
+                    break;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 关闭界面
+        /// </summary>
+        /// <param name="formBase"></param>
+        internal void CloseUIForm(UIFormBase formBase)
+        {
+            formBase.ToClose();
+            m_OpenUIFormList.Remove(formBase);
         }
     }
 }

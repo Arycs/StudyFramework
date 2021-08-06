@@ -40,7 +40,7 @@ namespace YouYou
             ResourceManager.Init();
             ResourceLoaderManager.Init();
 
-            Application.backgroundLoadingPriority = ThreadPriority.High;
+            //Application.backgroundLoadingPriority = ThreadPriority.High;
         }
         #region InitStreamingAssetsBundleInfo 初始化只读区资源包信息
         /// <summary>

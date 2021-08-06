@@ -132,8 +132,8 @@ public class AssetBundleSettings : ScriptableObject
 
     private void CreateVersionFile()
     {
-        string path = Application.dataPath + "/../AssetBundles/" + ResourceVersion + "/" +
-                     CurrBuildTarget;
+        string path = OutPath;
+           
         if (!Directory.Exists(path))
         {
             Directory.CreateDirectory(path);
@@ -173,7 +173,7 @@ public class AssetBundleSettings : ScriptableObject
 
             string size = file.Length.ToString(); //文件大小
 
-            bool isFirstData = true; //是否初始数据
+            bool isFirstData = false; //是否初始数据
             bool isEncrypt = false; //是否加密
             bool isBreak = false;
 
@@ -182,10 +182,6 @@ public class AssetBundleSettings : ScriptableObject
                 foreach (string xmlPath in Datas[j].Path)
                 {
                     string tempPath = xmlPath;
-                    if (xmlPath.IndexOf(".") != -1)
-                    {
-                        tempPath = xmlPath.Substring(0, xmlPath.IndexOf("."));
-                    }
 
                     name = name.Replace("\\", "/");
                     if (name.IndexOf(tempPath, StringComparison.CurrentCultureIgnoreCase) != -1)
@@ -242,7 +238,7 @@ public class AssetBundleSettings : ScriptableObject
         FileStream fs = new FileStream(filePath, FileMode.Create);
         fs.Write(buffer, 0, buffer.Length);
         fs.Close();
-
+        fs.Dispose();
         Debug.Log("创建版本文件成功");
     }
 
@@ -255,23 +251,23 @@ public class AssetBundleSettings : ScriptableObject
         //临时列表
         List<AssetEntity> tempList = new List<AssetEntity>();
 
+        int len = Datas.Length;
         //循环设置文件夹包括子文件里边的项
-        for (int i = 0; i < Datas.Length; i++)
+        for (int i = 0; i < len; i++)
         {
-            AssetBundleData entity = Datas[i]; //取到一个节点
+            AssetBundleData assetBundleData = Datas[i]; //取到一个节点
 
-            for (int j = 0; j < entity.Path.Length; j++)
+            for (int j = 0; j < assetBundleData.Path.Length; j++)
             {
-                string path = Application.dataPath + "/" + entity.Path[j];
+                string path = Application.dataPath + "/" + assetBundleData.Path[j];
                 //Debug.LogError("path=" + path);
                 CollectFileInfo(tempList, path);
             }
         }
 
-        int len = tempList.Count;
-
         //资源列表
         List<AssetEntity> assetList = new List<AssetEntity>();
+        len = tempList.Count;
 
         for (int i = 0; i < len; i++)
         {
@@ -285,15 +281,9 @@ public class AssetBundleSettings : ScriptableObject
             newEntity.AssetBundleName = entity.AssetBundleName;
             assetList.Add(newEntity);
 
-            //场景不需要检查依赖项
-            if (entity.Category == AssetCategory.Scenes)
-            {
-                continue;
-            }
-
             newEntity.DependsAssetList = new List<AssetDependsEntity>();
 
-            string[] arr = AssetDatabase.GetDependencies(entity.AssetFullName);
+            string[] arr = AssetDatabase.GetDependencies(entity.AssetFullName,true);
             foreach (string str in arr)
             {
                 if (!str.Equals(newEntity.AssetFullName, StringComparison.CurrentCultureIgnoreCase) &&
@@ -310,7 +300,7 @@ public class AssetBundleSettings : ScriptableObject
         }
 
         //生成一个Json文件
-        string targetPath = Application.dataPath + "/../AssetBundles/" + ResourceVersion + "/" + CurrBuildTarget;
+        string targetPath = OutPath;
         if (!Directory.Exists(targetPath))
         {
             Directory.CreateDirectory(targetPath);
@@ -356,6 +346,7 @@ public class AssetBundleSettings : ScriptableObject
         FileStream fs = new FileStream(filePath, FileMode.Create);
         fs.Write(buffer, 0, buffer.Length);
         fs.Close();
+        fs.Dispose();
         Debug.LogError("生成AssetBundleInfo.bytes 完成");
     }
 
@@ -387,53 +378,33 @@ public class AssetBundleSettings : ScriptableObject
     /// <param name="folderPath"></param>
     private void CollectFileInfo(List<AssetEntity> tempLst, string folderPath)
     {
-        if (folderPath.IndexOf(".unity") != -1)
-        {
-            int index = folderPath.IndexOf("Assets/", StringComparison.CurrentCultureIgnoreCase);
-            //路径
-            string newPath = folderPath.Substring(index);
+        DirectoryInfo directory = new DirectoryInfo(folderPath);
 
-            AssetImporter import = AssetImporter.GetAtPath(newPath);
+        //拿到文件夹下所有文件
+        FileInfo[] arrFiles = directory.GetFiles("*", SearchOption.AllDirectories);
+
+        for (int i = 0; i < arrFiles.Length; i++)
+        {
+            FileInfo file = arrFiles[i];
+            if (file.Extension == ".meta")
+                continue;
+            if (file.FullName.IndexOf(".idea") != -1)
+                continue;
+
+            //绝对路径
+            string filePath = file.FullName;
+            //Debug.LogError("filePath==" + filePath);
+            int index = filePath.IndexOf("Assets\\", StringComparison.CurrentCultureIgnoreCase);
+
+            //路径
+            string newPath = filePath.Substring(index);
 
             AssetEntity entity = new AssetEntity();
             entity.AssetFullName = newPath.Replace("\\", "/");
-            entity.Category = AssetCategory.Scenes;
-            entity.AssetBundleName = import.assetBundleName;
+            entity.Category = GetAssetCategory(newPath.Replace(file.Name, "")); // 去掉文件名,只保留路径
+            entity.AssetBundleName = GetAssetBundleName(entity.AssetFullName);
             tempLst.Add(entity);
-        }
-        else
-        {
-            DirectoryInfo directory = new DirectoryInfo(folderPath);
 
-            //拿到文件夹下所有文件
-            FileInfo[] arrFiles = directory.GetFiles("*", SearchOption.AllDirectories);
-
-            for (int i = 0; i < arrFiles.Length; i++)
-            {
-                FileInfo file = arrFiles[i];
-                if (file.Extension == ".meta")
-                {
-                    continue;
-                }
-
-                string filePath = file.FullName; //全名 包含路径扩展名
-
-                //Debug.LogError("filePath=" + filePath);
-                int index = filePath.IndexOf("Assets\\", StringComparison.CurrentCultureIgnoreCase);
-
-                //路径
-                string newPath = filePath.Substring(index);
-                if (newPath.IndexOf(".idea") != -1) // 过滤掉idea文件
-                {
-                    continue;
-                }
-
-                AssetEntity entity = new AssetEntity();
-                entity.AssetFullName = newPath.Replace("\\", "/");
-                entity.Category = GetAssetCategory(newPath.Replace(file.Name, "")); // 去掉文件名,只保留路径
-                entity.AssetBundleName = GetAssetBundleName(newPath);
-                tempLst.Add(entity);
-            }
         }
     }
 
@@ -458,11 +429,11 @@ public class AssetBundleSettings : ScriptableObject
         {
             category = AssetCategory.DataTable;
         }
-        else if (filePath.IndexOf("EffectSources") != -1)
+        else if (filePath.IndexOf("Effect") != -1)
         {
             category = AssetCategory.EffectSources;
         }
-        else if (filePath.IndexOf("RolePrefab") != -1)
+        else if (filePath.IndexOf("Role") != -1)
         {
             category = AssetCategory.RolePrefab;
         }
@@ -494,23 +465,30 @@ public class AssetBundleSettings : ScriptableObject
         return category;
     }
 
-    private string GetAssetBundleName(string newPath)
+    private string GetAssetBundleName(string assetFullName)
     {
-        AssetImporter import = AssetImporter.GetAtPath(newPath);
-        if (import != null)
+        int len = Datas.Length;
+        //循环设置文件夹包括子文件里边的项
+        for (int i = 0; i < len; i++)
         {
-            if (!string.IsNullOrEmpty(import.assetBundleName))
+            AssetBundleData assetBundleData = Datas[i];
+            for (int j = 0; j < assetBundleData.Path.Length; j++)
             {
-                return import.assetBundleName;
+                if (assetFullName.IndexOf(assetBundleData.Path[j], StringComparison.CurrentCultureIgnoreCase) > -1)
+                {
+                    if (assetBundleData.Overall)
+                    {
+                        //文件夹是个整包 则返回这个特文件夹名字
+                        return assetBundleData.Path[j].ToLower();
+                    }
+                    else
+                    {
+                        //零散资源
+                        return assetFullName.Substring(0, assetFullName.LastIndexOf('.')).ToLower().Replace("assets/", "");
+                    }
+                }
             }
         }
-        else
-        {
-            //递归寻找上一级目录
-            string path = newPath.Substring(0, newPath.Replace("\\", "/").LastIndexOf("/"));
-            return GetAssetBundleName(path);
-        }
-
         return null;
     }
     #endregion
@@ -530,7 +508,7 @@ public class AssetBundleSettings : ScriptableObject
                     string path = OutPath + "/" + assetBundleData.Path[j];
                     if (assetBundleData.Overall)
                     {
-                        //不是边离文件夹打包 说明这个路径就是一个包
+                        //不是遍历文件夹打包 说明这个路径就是一个包
                         path = path + ".assetbundle";
                         AssetBundleEncryptFile(path);
                     }
@@ -543,31 +521,31 @@ public class AssetBundleSettings : ScriptableObject
         }
     }
 
-    private void AssetBundleEncryptFolder(string path)
+    private void AssetBundleEncryptFolder(string folderPath, bool isDelete = false)
     {
-        DirectoryInfo directory = new DirectoryInfo(path);
+        DirectoryInfo directory = new DirectoryInfo(folderPath);
         //拿到文件夹下所有文件
         FileInfo[] arrFiles = directory.GetFiles("*", SearchOption.AllDirectories);
 
         foreach (FileInfo file in arrFiles)
         {
-            AssetBundleEncryptFile(file.FullName);
+            AssetBundleEncryptFile(file.FullName, isDelete);
         }
     }
 
-    private void AssetBundleEncryptFile(string path)
+    private void AssetBundleEncryptFile(string filePath, bool isDelete = false)
     {
-        FileInfo fileInfo = new FileInfo(path);
+        FileInfo fileInfo = new FileInfo(filePath);
         byte[] buffer = null;
 
-        using (FileStream fs = new FileStream(path, FileMode.Open))
+        using (FileStream fs = new FileStream(filePath, FileMode.Open))
         {
             buffer = new byte[fs.Length];
             fs.Read(buffer, 0, buffer.Length);
         }
 
         buffer = SecurityUtil.Xor(buffer);
-        using (FileStream fs = new FileStream(path, FileMode.Create))
+        using (FileStream fs = new FileStream(filePath, FileMode.Create))
         {
             fs.Write(buffer, 0, buffer.Length);
             fs.Flush();
@@ -610,6 +588,7 @@ public class AssetBundleSettings : ScriptableObject
     /// <param name="overall"></param>
     private void BuildAssetBundleForPath(string path, bool overall)
     {
+        // Application.dataPath => 当前项目的Assets文件夹
         string fullPath = Application.dataPath + "/" + path;
         //Debug.Log("fullPath" + fullPath);
         //1. 拿到文件夹下所有文件

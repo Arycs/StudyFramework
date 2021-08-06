@@ -16,14 +16,6 @@ using UnityEngine.UI;
 
 public class Menu
 {
-    [MenuItem("悠游工具/资源管理/资源打包管理")]
-    public static void AssetBundleCreate()
-    {
-        AssetBundleWindow win = EditorWindow.GetWindow<AssetBundleWindow>();
-        win.titleContent = new GUIContent("资源打包");
-        win.Show();
-    }
-
     [MenuItem("悠游工具/资源管理/初始资源拷贝到StreamingAsstes")]
     public static void AssetBundleCopyToStreamingAsstes()
     {

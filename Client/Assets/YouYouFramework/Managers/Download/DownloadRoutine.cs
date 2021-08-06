@@ -127,7 +127,7 @@ namespace YouYou
                         //Debug.LogError("持续下载 beginPos = " + m_BeginPos);
                         m_BeginPos = (uint)m_FileStream.Length;
                         Download(
-                            string.Format("{0} {1}", GameEntry.Data.SysDataManager.CurrChannelConfig.RealSourceUrl,
+                            string.Format("{0}{1}", GameEntry.Data.SysDataManager.CurrChannelConfig.RealSourceUrl,
                                 m_CurrFileUrl), m_BeginPos);
                     }
                 }
@@ -240,15 +240,16 @@ namespace YouYou
                 return;
             }
 
-            if (m_UnityWebRequest.isNetworkError || m_UnityWebRequest.isHttpError)
+            if (m_UnityWebRequest.isNetworkError) //|| m_UnityWebRequest.isHttpError
             {
                 m_CurrRetry++;
                 if (m_CurrRetry < GameEntry.Download.Retry)
                 {
+                    GameEntry.Log(LogCategory.Resource, "下载完毕 url=>{0}失败 当前重试次数{1}", m_UnityWebRequest.url, m_CurrRetry);
                     Reset();
-                    GameEntry.Log(LogCategory.Resource,"下载完毕 url=>{0}失败 当前重试次数{1}",m_UnityWebRequest.url,m_CurrRetry);
                     //尝试重新下载
                     DownloadInner();
+                    return;
                 }
                 GameEntry.LogError("下载失败 =>{0} , error =>{1}", m_UnityWebRequest.url, m_UnityWebRequest.error);
                 Reset();

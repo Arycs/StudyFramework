@@ -400,7 +400,6 @@ namespace YouYou
             Resource.OnUpdate();
             Download.OnUpdate();
             UI.OnUpdate();
-            Audio.OnUpdate();
         }
 
         /// <summary>

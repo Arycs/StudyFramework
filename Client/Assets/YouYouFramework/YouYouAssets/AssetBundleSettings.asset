@@ -62,7 +62,7 @@ MonoBehaviour:
     - Download/Scenes/InitScene
   - Name: "\u5176\u4ED6\u573A\u666F"
     Overall: 0
-    IsFirstData: 0
+    IsFirstData: 1
     IsEncrypt: 0
     Path:
     - Download/Scenes/NormalScene
