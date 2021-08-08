@@ -387,10 +387,10 @@ namespace YouYou
         void Update()
         {
             //循环更新组件
-            for (LinkedListNode<IUpdateComponent> curr = m_UpdateComponent.First; curr != null; curr = curr.Next)
-            {
-                curr.Value.OnUpdate();
-            }
+            //for (LinkedListNode<IUpdateComponent> curr = m_UpdateComponent.First; curr != null; curr = curr.Next)
+            //{
+            //    curr.Value.OnUpdate();
+            //}
 
             Time.OnUpdate();
             Procedure.OnUpdate();

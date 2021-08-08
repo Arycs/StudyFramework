@@ -108,15 +108,15 @@ namespace YouYou
                                 }
                                 return;
                             }
-                            
-                            assetEntity = GameEntry.Pool.DequeueClassObject<ResourceEntity>();
-                            assetEntity.Category = m_CurrAssetEntity.Category;
-                            assetEntity.IsAssetBundle = false;
-                            assetEntity.ResourceName = m_CurrAssetEntity.AssetFullName;
-                            assetEntity.Target = obj;
+
+                            m_CurrResourceEntity = GameEntry.Pool.DequeueClassObject<ResourceEntity>();
+                            m_CurrResourceEntity.Category = m_CurrAssetEntity.Category;
+                            m_CurrResourceEntity.IsAssetBundle = false;
+                            m_CurrResourceEntity.ResourceName = m_CurrAssetEntity.AssetFullName;
+                            m_CurrResourceEntity.Target = obj;
 
                             GameEntry.LogError("注册" + m_CurrResourceEntity.ResourceName);
-                            GameEntry.Pool.AssetPool[m_CurrAssetEntity.Category].Register(assetEntity);
+                            GameEntry.Pool.AssetPool[m_CurrAssetEntity.Category].Register(m_CurrResourceEntity);
 
                             //加入到这个资源的依赖资源链表里
                             var CurrDependsResource = m_DependsResourceList.First;
@@ -130,7 +130,7 @@ namespace YouYou
 
                             if (m_OnComplete != null)
                             {
-                                m_OnComplete(assetEntity);
+                                m_OnComplete(m_CurrResourceEntity);
                             }
 
                             Reset();

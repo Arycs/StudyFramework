@@ -56,7 +56,7 @@ namespace YouYou
             }
         }
 
-        internal void OnUpdate()
+        public void OnUpdate()
         {
             for (LinkedListNode<TimeAction> curr = m_TimeActionList.First;curr!= null;curr = curr.Next)
             {

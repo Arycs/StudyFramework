@@ -133,7 +133,7 @@ public class AssetBundleSettings : ScriptableObject
     private void CreateVersionFile()
     {
         string path = OutPath;
-           
+
         if (!Directory.Exists(path))
         {
             Directory.CreateDirectory(path);
@@ -283,7 +283,7 @@ public class AssetBundleSettings : ScriptableObject
 
             newEntity.DependsAssetList = new List<AssetDependsEntity>();
 
-            string[] arr = AssetDatabase.GetDependencies(entity.AssetFullName,true);
+            string[] arr = AssetDatabase.GetDependencies(entity.AssetFullName, true);
             foreach (string str in arr)
             {
                 if (!str.Equals(newEntity.AssetFullName, StringComparison.CurrentCultureIgnoreCase) &&
@@ -402,7 +402,7 @@ public class AssetBundleSettings : ScriptableObject
             AssetEntity entity = new AssetEntity();
             entity.AssetFullName = newPath.Replace("\\", "/");
             entity.Category = GetAssetCategory(newPath.Replace(file.Name, "")); // 去掉文件名,只保留路径
-            entity.AssetBundleName = GetAssetBundleName(entity.AssetFullName);
+            entity.AssetBundleName = (GetAssetBundleName(entity.AssetFullName) + ".assetbundle").ToLower();
             tempLst.Add(entity);
 
         }
@@ -639,7 +639,7 @@ public class AssetBundleSettings : ScriptableObject
         for (int i = 0; i < len; i++)
         {
             FileInfo file = arrFiles[i];
-            if (!file.Extension.Equals(".meta",StringComparison.CurrentCultureIgnoreCase))
+            if (!file.Extension.Equals(".meta", StringComparison.CurrentCultureIgnoreCase))
             {
                 lst.Add("Assets" + file.FullName.Replace("\\", "/").Replace(Application.dataPath, ""));
             }

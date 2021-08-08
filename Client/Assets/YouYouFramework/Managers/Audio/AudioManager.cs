@@ -48,7 +48,19 @@ namespace YouYou
                 onComplete();
             }
 #else
-                    
+            GameEntry.Resource.ResourceLoaderManager.LoadAssetBundle(ConstDefine.AudioAssetBundlePath, onComplete: (AssetBundle bundle) =>
+            {
+                TextAsset[] arr = bundle.LoadAllAssets<TextAsset>();
+                int len = arr.Length;
+                for (int i = 0; i < len; i++)
+                {
+                    RuntimeManager.LoadBank(arr[i]);
+                }
+                if (onComplete != null)
+                {
+                    onComplete();
+                }
+            });
 #endif
         }
 
