@@ -66,6 +66,10 @@ namespace YouYou
 
         public override void Init()
         {
+            ReleaseClassObjectInterval = GameEntry.ParamsSettings.GetGradeParamData(ConstDefine.Pool_ReleaseClassObjectInterval, GameEntry.CurrDeviceGrade);
+            ReleaseAssetBundleInterval = GameEntry.ParamsSettings.GetGradeParamData(ConstDefine.Pool_ReleaseAssetBundleInterval, GameEntry.CurrDeviceGrade);
+            ReleaseAssetInterval = GameEntry.ParamsSettings.GetGradeParamData(ConstDefine.Pool_ReleaseAssetInterval, GameEntry.CurrDeviceGrade);
+
             //确保游戏刚开始运行的时候,分类资源池已经初始化号了
             var enumerator = Enum.GetValues(typeof(AssetCategory)).GetEnumerator();
             while (enumerator.MoveNext())
@@ -78,9 +82,9 @@ namespace YouYou
                 AssetPool[assetCategory] = new ResourcePool(assetCategory.ToString());
             }
 
-            m_ReleaseClassObjectNextRunTime = Time.time;
-            m_ReleaseAssetBundleNextRunTime = Time.time;
-            m_ReleaseAssetNextRunTime = Time.time;
+            ReleaseClassObjectNextRunTime = Time.time;
+            ReleaseAssetBundleNextRunTime = Time.time;
+            ReleaseAssetNextRunTime = Time.time;
 
             InitGameObjectPool();
             m_LockedAssetBundleLength = GameEntry.Instance.LockedAssetBundle.Length;
@@ -237,64 +241,64 @@ namespace YouYou
         /// <summary>
         /// 释放类对象池间隔
         /// </summary>
-        [SerializeField] public int ReleaseClassObjectInterval = 30;
+        public int ReleaseClassObjectInterval = 30;
 
         /// <summary>
         /// 下次释放类对象运行时间
         /// </summary>
-        private float m_ReleaseClassObjectNextRunTime = 0f;
+        public float ReleaseClassObjectNextRunTime = 0f;
 
         /// <summary>
         /// 下次释放AB包运行时间
         /// </summary>
-        private float m_ReleaseAssetBundleNextRunTime = 0f;
+        public float ReleaseAssetBundleNextRunTime = 0f;
 
         /// <summary>
         /// 释放AssetBundle池间隔
         /// </summary>
-        [SerializeField] public int ReleaseResourceInterval = 60;
+        public int ReleaseAssetBundleInterval = 60;
 
         /// <summary>
         /// 下次释放AssetBundle池运行时间
         /// </summary> 
-        private float m_ReleaseResourceNextRunTime = 0f;
+        private float ReleaseResourceNextRunTime = 0f;
 
         /// <summary>
         /// 释放Asset池间隔
         /// </summary>
-        [SerializeField] public int ReleaseAssetInterval = 120;
+        public int ReleaseAssetInterval = 120;
 
         /// <summary>
         /// 下次释放Asset池运行时间  
         /// </summary>
-        public float m_ReleaseAssetNextRunTime = 0f;
+        public float ReleaseAssetNextRunTime = 0f;
 
         /// <summary>
         /// 显示分类资源池
         /// </summary>
-        [SerializeField] public bool ShowAssetPool = false;
+        public bool ShowAssetPool = false;
 
         public void OnUpdate()
         {
-            if (Time.time > m_ReleaseClassObjectNextRunTime + ReleaseClassObjectInterval)
+            if (Time.time > ReleaseClassObjectNextRunTime + ReleaseClassObjectInterval)
             {
-                m_ReleaseClassObjectNextRunTime = Time.time;
+                ReleaseClassObjectNextRunTime = Time.time;
                 ReleaseClassObjectPool();
                 GameEntry.Log(LogCategory.Normal, "释放类对象池");
             }
 
-            if (Time.time > m_ReleaseResourceNextRunTime + ReleaseResourceInterval)
+            if (Time.time > ReleaseResourceNextRunTime + ReleaseAssetBundleInterval)
             {
-                m_ReleaseResourceNextRunTime = Time.time;
+                ReleaseResourceNextRunTime = Time.time;
 #if !DISABLE_ASSETBUNDLE
                 ReleaseAssetBundlePool();
                 GameEntry.Log(LogCategory.Normal, "释放资源包池");
 #endif
             }
 
-            if (Time.time > m_ReleaseAssetNextRunTime + ReleaseAssetInterval)
+            if (Time.time > ReleaseAssetNextRunTime + ReleaseAssetInterval)
             {
-                m_ReleaseAssetNextRunTime = Time.time;
+                ReleaseAssetNextRunTime = Time.time;
 #if !DISABLE_ASSETBUNDLE
                 ReleaseAssetPool();
                 GameEntry.Log(LogCategory.Normal, "释放Asset池");

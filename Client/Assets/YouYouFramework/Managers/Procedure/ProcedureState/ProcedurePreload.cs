@@ -48,7 +48,7 @@ namespace YouYou
         public override void OnUpdate()
         {
             base.OnUpdate();
-            if (m_CurrProgress < m_TargetProgress)
+            if (m_CurrProgress < m_TargetProgress || m_TargetProgress < 100)
             {
                 m_CurrProgress = m_CurrProgress + Time.deltaTime * 200; //根据实际速度调节速度
                 m_PreloadParams.FloatParam1 = m_CurrProgress;

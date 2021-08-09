@@ -37,7 +37,7 @@ namespace YouYou
         /// <summary>
         /// 上次使用时间
         /// </summary>
-        private float LastUseTime;
+        public float LastUseTime;
 
         /// <summary>
         /// 引用计数
@@ -87,7 +87,7 @@ namespace YouYou
         /// <returns></returns>
         public bool GetCanRelease()
         {
-            if (ReferenceCount == 0 && Time.time - LastUseTime > GameEntry.Pool.ReleaseResourceInterval)
+            if (ReferenceCount == 0 && Time.time - LastUseTime > GameEntry.Pool.ReleaseAssetBundleInterval)
             {
                 return true;
             }

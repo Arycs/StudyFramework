@@ -19,9 +19,12 @@ public class YouYouEditor : OdinMenuEditorWindow
     {
         var tree = new OdinMenuTree();
         tree.AddAssetAtPath("YouYouFramework", "YouYouFramework/YouYouAssets/AboutUs.asset").AddIcon(EditorIcons.Airplane);
-        tree.AddAssetAtPath("MacroSettings", "YouYouFramework/YouYouAssets/MacroSettings.asset").AddIcon(EditorIcons.Airplane);
-        tree.AddAssetAtPath("ParamsSettings", "YouYouFramework/YouYouAssets/ParamsSettings.asset").AddIcon(EditorIcons.Airplane);
-        tree.AddAssetAtPath("AssetBundleSettings", "YouYouFramework/YouYouAssets/AssetBundleSettings.asset").AddIcon(EditorIcons.AlertCircle);
+        tree.AddAssetAtPath("MacroSettings", "YouYouFramework/YouYouAssets/MacroSettings.asset").AddIcon(EditorIcons.AlertCircle);;
+        tree.AddAssetAtPath("ParamsSettings", "YouYouFramework/YouYouAssets/ParamsSettings.asset").AddIcon(EditorIcons.Letter);
+        tree.AddAssetAtPath("AssetBundleSettings", "YouYouFramework/YouYouAssets/AssetBundleSettings.asset").AddIcon(EditorIcons.List);
+        tree.AddAssetAtPath("PoolAnalyze_AssetBundlePool", "YouYouFramework/YouYouAssets/PoolAnalyze_AssetBundlePool.asset").AddIcon(EditorIcons.CharGraph);
+        tree.AddAssetAtPath("PoolAnalyze_AssetPool", "YouYouFramework/YouYouAssets/PoolAnalyze_AssetPool.asset").AddIcon(EditorIcons.Link);
+        tree.AddAssetAtPath("PoolAnalyze_ClassObjectPool", "YouYouFramework/YouYouAssets/PoolAnalyze_ClassObjectPool.asset").AddIcon(EditorIcons.FileCabinet);
         return tree;
     }
 }

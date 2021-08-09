@@ -65,5 +65,20 @@ namespace YouYou
         /// 
         /// </summary>
         public const string Download_FlushSize = "Download_FlushSize";
-    }
-}
+
+        /// <summary>
+        /// 类对象池的释放间隔
+        /// </summary>
+        public const string Pool_ReleaseClassObjectInterval = "Pool_ReleaseClassObjectInterval";
+
+        /// <summary>
+        /// AssetBundle池的释放间隔
+        /// </summary>
+        public const string Pool_ReleaseAssetBundleInterval = "Pool_ReleaseAssetBundleInterval";
+
+        /// <summary>
+        /// Asset池的释放间隔
+        /// </summary>
+        public const string Pool_ReleaseAssetInterval = "Pool_ReleaseAssetInterval";
+    }                       
+}                           

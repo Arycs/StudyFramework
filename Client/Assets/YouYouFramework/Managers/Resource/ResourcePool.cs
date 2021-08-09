@@ -11,7 +11,7 @@ namespace YouYou
         /// <summary>
         /// 在监视面板显示的信息
         /// </summary>
-        public Dictionary<string, int> InspectorDic = new Dictionary<string, int>();
+        public Dictionary<string, ResourceEntity> InspectorDic = new Dictionary<string, ResourceEntity>();
 #endif
         /// <summary>
         /// 资源池名称
@@ -47,7 +47,7 @@ namespace YouYou
         {
             entity.Spawn();
 #if UNITY_EDITOR
-            InspectorDic[entity.ResourceName] = entity.ReferenceCount;
+            InspectorDic[entity.ResourceName] = entity;
 #endif
             m_ResourceDic.Add(entity.ResourceName, entity);
         }
@@ -67,7 +67,7 @@ namespace YouYou
 #if UNITY_EDITOR
                 if (InspectorDic.ContainsKey(resourceEntity.ResourceName))
                 {
-                    InspectorDic[resourceEntity.ResourceName] = resourceEntity.ReferenceCount;
+                    InspectorDic[resourceEntity.ResourceName] = resourceEntity;
                 }
 #endif
             }
@@ -89,7 +89,7 @@ namespace YouYou
 #if UNITY_EDITOR
                 if (InspectorDic.ContainsKey(resourceEntity.ResourceName))
                 {
-                    InspectorDic[resourceEntity.ResourceName] = resourceEntity.ReferenceCount;
+                    InspectorDic[resourceEntity.ResourceName] = resourceEntity;
                 }
 #endif
             }

@@ -35,3 +35,15 @@ MonoBehaviour:
     LowValue: 512
     MidleValue: 1024
     HighValue: 2046
+  - Key: Pool_ReleaseClassObjectInterval
+    LowValue: 30
+    MidleValue: 60
+    HighValue: 300
+  - Key: Pool_ReleaseAssetBundleInterval
+    LowValue: 30
+    MidleValue: 60
+    HighValue: 300
+  - Key: Pool_ReleaseAssetInterval
+    LowValue: 60
+    MidleValue: 120
+    HighValue: 600
