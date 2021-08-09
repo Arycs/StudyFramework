@@ -1,7 +1,7 @@
 
 //===================================================
 //作    者：边涯  http://www.u3dol.com
-//创建时间：2021-06-14 17:37:17
+//创建时间：2021-08-09 08:17:34
 //备    注：此代码为工具生成 请勿手工修改
 //===================================================
 using System.Collections;
@@ -38,6 +38,7 @@ public partial class Sys_UIFormDBModel : DataTableDBModelBase<Sys_UIFormDBModel,
             entity.IsLock = ms.ReadInt();
             entity.AssetPath_Chinese = ms.ReadUTF8String();
             entity.AssetPath_English = ms.ReadUTF8String();
+            entity.CanMulit = ms.ReadBool();
 
             m_List.Add(entity);
             m_Dic[entity.Id] = entity;
