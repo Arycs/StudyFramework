@@ -280,7 +280,6 @@ namespace ExcelTool
             sbr.Append("\r\n");
             sbr.Append("//===================================================\r\n");
             sbr.Append("//作    者：边涯  http://www.u3dol.com\r\n");
-            sbr.AppendFormat("//创建时间：{0}\r\n", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
             sbr.Append("//备    注：此代码为工具生成 请勿手工修改\r\n");
             sbr.Append("//===================================================\r\n");
             sbr.Append("using System.Collections;\r\n");
@@ -395,7 +394,6 @@ namespace ExcelTool
             StringBuilder sbr = new StringBuilder();
             sbr.Append("//===================================================\r\n");
             sbr.Append("//作    者：边涯  http://www.u3dol.com\r\n");
-            sbr.AppendFormat("//创建时间：{0}\r\n", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
             sbr.Append("//备    注：此代码为工具生成 请勿手工修改\r\n");
             sbr.Append("//===================================================\r\n");
             sbr.Append("using YouYouServer.Core.DataTableBase;\r\n");
@@ -443,7 +441,6 @@ namespace ExcelTool
             sbr.Append("\r\n");
             sbr.Append("//===================================================\r\n");
             sbr.Append("//作    者：边涯  http://www.u3dol.com\r\n");
-            sbr.AppendFormat("//创建时间：{0}\r\n", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
             sbr.Append("//备    注：此代码为工具生成 请勿手工修改\r\n");
             sbr.Append("//===================================================\r\n");
             sbr.Append("using System.Collections;\r\n");
@@ -579,7 +576,6 @@ namespace ExcelTool
             StringBuilder sbr = new StringBuilder();
             sbr.Append("//===================================================\r\n");
             sbr.Append("//作    者：边涯  http://www.u3dol.com\r\n");
-            sbr.AppendFormat("//创建时间：{0}\r\n", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
             sbr.Append("//备    注：此代码为工具生成 请勿手工修改\r\n");
             sbr.Append("//===================================================\r\n");
             sbr.Append("using YouYouServer.Core.DataTableBase;\r\n");

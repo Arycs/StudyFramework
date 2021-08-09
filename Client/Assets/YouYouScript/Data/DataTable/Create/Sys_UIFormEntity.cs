@@ -1,7 +1,6 @@
 
 //===================================================
 //作    者：边涯  http://www.u3dol.com
-//创建时间：2021-08-09 08:17:34
 //备    注：此代码为工具生成 请勿手工修改
 //===================================================
 using System.Collections;
@@ -51,5 +50,10 @@ public partial class Sys_UIFormEntity : DataTableEntityBase
     /// 允许多实例
     /// </summary>
     public bool CanMulit;
+
+    /// <summary>
+    /// 显示类型=普通 1=反切
+    /// </summary>
+    public byte ShowMode;
 
 }
