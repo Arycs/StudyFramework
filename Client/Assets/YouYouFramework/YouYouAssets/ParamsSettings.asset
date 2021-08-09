@@ -47,3 +47,15 @@ MonoBehaviour:
     LowValue: 60
     MidleValue: 120
     HighValue: 600
+  - Key: UI_PoolMaxCount
+    LowValue: 3
+    MidleValue: 5
+    HighValue: 10
+  - Key: UI_Exprie
+    LowValue: 30
+    MidleValue: 60
+    HighValue: 120
+  - Key: UI_ClearInterval
+    LowValue: 30
+    MidleValue: 60
+    HighValue: 120

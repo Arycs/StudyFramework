@@ -26,19 +26,26 @@ namespace YouYou
 
         private UIPool m_UIPool;
 
-        [Header("释放间隔(秒)")]
-        [SerializeField]
-        private float m_ClearInterval = 120f;
+        public float UIClearInterval
+        {
+            get; private set;
+        }
 
         /// <summary>
         /// UI回池后过期时间
         /// </summary>
-        public float UIExpire = 60f;
+        public float UIExpire
+        {
+            get;private set;
+        }
 
         /// <summary>
         /// UI对象池中 最大的数量
         /// </summary>
-        public int UIPoolMaxCount = 5;
+        public int UIPoolMaxCount
+        {
+            get; private set;
+        }
 
         /// <summary>
         /// 下次运行时间
@@ -59,6 +66,10 @@ namespace YouYou
         /// </summary>
         public override void Init()
         {
+            UIPoolMaxCount = GameEntry.ParamsSettings.GetGradeParamData(ConstDefine.UI_PoolMaxCount, GameEntry.CurrDeviceGrade);
+            UIExpire = GameEntry.ParamsSettings.GetGradeParamData(ConstDefine.UI_Expire, GameEntry.CurrDeviceGrade);
+            UIClearInterval = GameEntry.ParamsSettings.GetGradeParamData(ConstDefine.UI_ClearInterval, GameEntry.CurrDeviceGrade);
+
             m_StandardScreen = GameEntry.Instance.m_StandardWidth / (float)GameEntry.Instance.m_StandardHeight;
             m_CurrScreen = Screen.width / (float)Screen.height;
             NormalFormCanvasScaler();
@@ -194,7 +205,7 @@ namespace YouYou
         public void OnUpdate()
         {
 
-            if (Time.time > m_NextRunTime + m_ClearInterval)
+            if (Time.time > m_NextRunTime + UIClearInterval)
             {
                 m_NextRunTime = Time.time;
                 //释放 UI对象池
@@ -218,16 +229,16 @@ namespace YouYou
         /// <param name="userData">用户数据</param>
         internal void OpenUIForm(int uiFormId, object userData = null, BaseAction<UIFormBase> onOpen = null)
         {
-            if (IsExists(uiFormId))
-            {
-                return;
-            }
-
             //1. 读表
             Sys_UIFormEntity entity = GameEntry.DataTable.Sys_UIFormDBModel.Get(uiFormId);
             if (entity == null)
             {
                 Debug.LogError("表格中没有对应UI窗体数据 : " + uiFormId);
+                return;
+            }
+
+            if (!entity.CanMulit && IsExists(uiFormId))
+            {
                 return;
             }
 

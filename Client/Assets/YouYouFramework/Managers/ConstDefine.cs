@@ -80,5 +80,20 @@ namespace YouYou
         /// Asset池的释放间隔
         /// </summary>
         public const string Pool_ReleaseAssetInterval = "Pool_ReleaseAssetInterval";
+
+        /// <summary>
+        /// UI池中最大数量
+        /// </summary>
+        public const string UI_PoolMaxCount = "UI_PoolMaxCount";
+
+        /// <summary>
+        /// UI过期时间
+        /// </summary>
+        public const string UI_Expire = "UI_Expire";
+
+        /// <summary>
+        /// UI清理间隔
+        /// </summary>
+        public const string UI_ClearInterval = "UI_ClearInterval";
     }                       
 }                           
