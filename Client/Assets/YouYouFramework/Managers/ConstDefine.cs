@@ -89,7 +89,7 @@ namespace YouYou
         /// <summary>
         /// UI过期时间
         /// </summary>
-        public const string UI_Expire = "UI_Expire";
+        public const string UI_Exprie = "UI_Exprie";
 
         /// <summary>
         /// UI清理间隔

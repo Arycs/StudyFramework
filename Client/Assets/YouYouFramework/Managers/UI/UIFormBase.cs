@@ -8,6 +8,11 @@ namespace YouYou
     public class UIFormBase : MonoBehaviour
     {
         /// <summary>
+        /// 是否活跃
+        /// </summary>
+        protected internal bool IsActive;
+
+        /// <summary>
         /// UI窗体的编号
         /// </summary>
         public int UIFormId { get; private set; }
@@ -41,7 +46,7 @@ namespace YouYou
         /// 用户数据
         /// </summary>
         public object UserData { get; private set; }
-
+        
 
         private void Awake()
         {

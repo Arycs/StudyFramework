@@ -40,7 +40,7 @@ namespace YouYou
         /// <param name="form"></param>
         internal void Enqueue(UIFormBase form)
         {
-            form.gameObject.SetActive(false);
+            //form.gameObject.SetActive(false);
             m_UIFormList.AddLast(form);
         }
 
