@@ -29,9 +29,17 @@ namespace YouYou
         /// </summary>
         public override void Init()
         {
+#if DEBUG_MODEL
+            DebugLog = true;
+#endif
+#if DEBUG_LOG_PROTO && DEBUG_MODEL
+            DebugLogProto = true;
+#endif
             //1.实例化 xLua引擎
             luaEnv = new LuaEnv();
-            
+            //重要， 初始化LuaArrAccess
+            LuaArrAccessAPI.RegisterPinFunc(luaEnv.L);
+
 #if DISABLE_ASSETBUNDLE && UNITY_EDITOR
             //2.设置xLua的脚本路径
             luaEnv.DoString(string.Format("package.path = '{0}/?.bytes'", Application.dataPath + "/Download/xLuaLogic"));

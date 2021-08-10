@@ -19,7 +19,7 @@ namespace YouYou
 
         private void OnLogonBGOpen(UIFormBase uiFormBase)
         {
-            GameEntry.UI.OpenUIForm(UIFormId.UI_Reg);
+            GameEntry.UI.OpenUIForm(UIFormId.UI_Login);
 
             GameEntry.Event.CommonEvent.Dispatch(SysEventId.CloseCheckVersionUI);
         }

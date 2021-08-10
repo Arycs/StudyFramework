@@ -232,7 +232,7 @@ namespace YouYou
         /// </summary>
         /// <param name="uiFormId">formId</param>
         /// <param name="userData">用户数据</param>
-        internal void OpenUIForm(int uiFormId, object userData = null, BaseAction<UIFormBase> onOpen = null)
+        public void OpenUIForm(int uiFormId, object userData = null, BaseAction<UIFormBase> onOpen = null)
         {
             //1. 读表
             Sys_UIFormEntity entity = GameEntry.DataTable.Sys_UIFormDBModel.Get(uiFormId);

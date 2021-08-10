@@ -1,6 +1,7 @@
 ﻿require 'Common/Define'
 require 'Common/SysEventId'
 require 'Common/UIFormId'
+local LuaCSharpArr = require 'Common/LuaCSharpArr'
 
 GameInit = {}
 local this = GameInit;
@@ -8,6 +9,7 @@ local this = GameInit;
 function GameInit.Init()
     ---加载配置表
     this.LoadDataTables()
+    this.InitDataManager()
     this.InitProto()
 end
 
@@ -32,6 +34,15 @@ function GameInit.LoadOneTableComplete()
     end
 end
 
+function GameInit.CreateLuaCSharpArr(len)
+    return LuaCSharpArr.New(len);
+end
+
+function GameInit.InitDataManager()
+    require 'DataNode/DataManager/UserDataManager';
+    require 'DataNode/DataManager/ShareData/ShareUserData';
+    UserDataManager.Init();
+end
 --初始化通讯协议
 function GameInit.InitProto()
     require('Common/json')
@@ -52,6 +63,7 @@ end
 --    GameEntry.Socket:SendMainMsgForLua(proto:GetID(),proto:GetCategory(),assert(GlobalPB.encode(ProtoIDName[proto:GetID()], proto.Packet)));
 --end
 --
+
 --function GameInit.Log(params)
 --    if(DebugLog) then
 --        print("[youyou]"..params);

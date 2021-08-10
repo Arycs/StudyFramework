@@ -16,7 +16,7 @@ using UnityEngine.UI;
 
 public class Menu
 {
-    [MenuItem("悠游工具/资源管理/初始资源拷贝到StreamingAsstes")]
+    [MenuItem("YouYouTools/资源管理/初始资源拷贝到StreamingAsstes")]
     public static void AssetBundleCopyToStreamingAsstes()
     {
         string toPath = Application.streamingAssetsPath + "/AssetBundles/";
@@ -144,94 +144,34 @@ public class Menu
             Debug.LogError("该UI上没有LuaForm脚本");
             return;
         }
-
         string viewName = trans.gameObject.name;
 
-        LuaComGroup[] luaComs = luaForm.m_LuaComGroups;
-        int len = luaComs.Length;
+        StringBuilder sbr = new StringBuilder();
 
-        StringBuilder sbrView = new StringBuilder();
-        StringBuilder sbrCtrl = new StringBuilder();
-        sbrView.AppendFormat("");
-        sbrView.AppendFormat("{0}View = {{}};\n", viewName);
-        sbrView.AppendFormat("local this = {0}View;\n", viewName);
-        sbrView.AppendFormat("\n");
-        for (int i = 0; i < len; i++)
-        {
-            LuaComGroup com = luaComs[i];
-            sbrView.AppendFormat("local {0}Index = {1};\n", com.Name, i);
-        }
-
-        sbrView.AppendFormat("\n");
-        sbrView.AppendFormat("function {0}View.OnInit(transform,userData)\n", viewName);
-        sbrView.AppendFormat("    this.InitView(transform);\n");
-        sbrView.AppendFormat("    {0}Ctrl.OnInit(userData);\n", viewName);
-        sbrView.AppendFormat("end\n");
-        sbrView.AppendFormat("\n");
-        sbrView.AppendFormat("function {0}View.InitView(transform)\n", viewName);
-        sbrView.AppendFormat("    this.LuaForm = transform:GetComponent(typeof(CS.YouYou.LuaForm));\n");
-        for (int i = 0; i < len; i++)
-        {
-            LuaComGroup com = luaComs[i];
-            sbrView.AppendFormat("    this.{0} = this.LuaForm:GetLuaComs({0}Index);\n", com.Name);
-        }
-        sbrView.AppendFormat("end\n");
-        sbrView.AppendFormat("\n");
-        sbrView.AppendFormat("function {0}View.OnOpen(userData)\n", viewName);
-        sbrView.AppendFormat("    {0}Ctrl.OnOpen(userData);\n", viewName);
-        sbrView.AppendFormat("end\n");
-        sbrView.AppendFormat("\n");
-        sbrView.AppendFormat("function {0}View.OnClose()\n", viewName);
-        sbrView.AppendFormat("    {0}Ctrl.OnClose();\n", viewName);
-        sbrView.AppendFormat("end\n");
-        sbrView.AppendFormat("\n");
-        sbrView.AppendFormat("function {0}View.OnBeforDestroy()\n", viewName);
-        sbrView.AppendFormat("    {0}Ctrl.OnBeforDestroy();\n", viewName);
-        sbrView.AppendFormat("    this.LuaForm = nil;\n", viewName);
-        for (int i = 0; i < len; i++)
-        {
-            LuaComGroup com = luaComs[i];
-            sbrView.AppendFormat("    this.{0} = nil;\n", com.Name);
-        }
-        sbrView.AppendFormat("end");
+        sbr.AppendFormat("function OnInit(userData)\n");
+        sbr.AppendFormat("\n");
+        sbr.AppendFormat("end\n");
+        sbr.AppendFormat("\n");
+        sbr.AppendFormat("function OnOpen(userData)\n");
+        sbr.AppendFormat("\n");
+        sbr.AppendFormat("end\n");
+        sbr.AppendFormat("\n");
+        sbr.AppendFormat("function OnClose()\n");
+        sbr.AppendFormat("\n");
+        sbr.AppendFormat("end\n");
+        sbr.AppendFormat("\n");
+        sbr.AppendFormat("function OnBeforDestroy()\n");
+        sbr.AppendFormat("\n");
+        sbr.AppendFormat("end\n");
 
 
-        sbrCtrl.AppendFormat("{0}Ctrl = {{}};\n", viewName);
-        sbrCtrl.AppendFormat("\n");
-        sbrCtrl.AppendFormat("local this = {0}Ctrl;\n", viewName);
-        sbrCtrl.AppendFormat("\n");
-        sbrCtrl.AppendFormat("function {0}Ctrl.OnInit(userData)\n", viewName);
-        sbrCtrl.AppendFormat("\n");
-        sbrCtrl.AppendFormat("end\n");
-        sbrCtrl.AppendFormat("\n");
-        sbrCtrl.AppendFormat("function {0}Ctrl.OnOpen(userData)\n", viewName);
-        sbrCtrl.AppendFormat("\n");
-        sbrCtrl.AppendFormat("end\n");
-        sbrCtrl.AppendFormat("\n");
-        sbrCtrl.AppendFormat("function {0}Ctrl.OnClose()\n", viewName);
-        sbrCtrl.AppendFormat("\n");
-        sbrCtrl.AppendFormat("end\n");
-        sbrCtrl.AppendFormat("\n");
-        sbrCtrl.AppendFormat("function {0}Ctrl.OnBeforDestroy()\n", viewName);
-        sbrCtrl.AppendFormat("\n");
-        sbrCtrl.AppendFormat("end\n");
-
-
-        string pathView = Application.dataPath + "/Download/xLuaLogic/Modules/Temp/" + viewName + "View.bytes";
-        string pathCtrl = Application.dataPath + "/Download/xLuaLogic/Modules/Temp/" + viewName + "Ctrl.bytes";
+        string pathView = Application.dataPath + "/Download/xLuaLogic/Modules/Temp/" + viewName + ".bytes";
 
         using (FileStream fs = new FileStream(pathView, FileMode.Create))
         {
             using (StreamWriter sw = new StreamWriter(fs))
             {
-                sw.Write(sbrView.ToString());
-            }
-        }
-        using (FileStream fs = new FileStream(pathCtrl, FileMode.Create))
-        {
-            using (StreamWriter sw = new StreamWriter(fs))
-            {
-                sw.Write(sbrCtrl.ToString());
+                sw.Write(sbr.ToString());
             }
         }
         AssetDatabase.Refresh();

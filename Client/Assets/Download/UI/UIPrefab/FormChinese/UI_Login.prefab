@@ -785,19 +785,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66b761ac30a66b248b7ae9131eeedbe0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_LuaComs:
-  - Name: btnLogin
-    Type: 2
-    Trans: {fileID: 6777793077878204204}
-  - Name: inputUserName
-    Type: 8
-    Trans: {fileID: 8813447269776642807}
-  - Name: inputPassword
-    Type: 8
-    Trans: {fileID: 7614100677246208135}
-  - Name: btnReg
-    Type: 2
-    Trans: {fileID: 1267786202808233174}
+  luaScript: {fileID: 4900000, guid: 880b18abc95fa3f4986fed77da265331, type: 3}
+  m_LuaComGroups:
+  - Name: Common
+    LuaComs:
+    - Name: Btn_Login
+      Type: 2
+      Trans: {fileID: 6777793077878204204}
+    - Name: Btn_Reg
+      Type: 2
+      Trans: {fileID: 1267786202808233174}
+    - Name: Input_UserName
+      Type: 8
+      Trans: {fileID: 8813447269776642807}
+    - Name: Input_Password
+      Type: 8
+      Trans: {fileID: 7614100677246208135}
 --- !u!1 &5674552277860131390
 GameObject:
   m_ObjectHideFlags: 0

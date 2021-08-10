@@ -9,18 +9,18 @@ using UnityEngine;
 public class UserDataManager : IDisposable
 {
     /// <summary>
-    /// 玩家账号
+    /// 共享用户数据
     /// </summary>
-    public long AccountId;
+    public ShareUserData ShareUserData;
 
    public UserDataManager()
    {
-      
+        ShareUserData = new ShareUserData();
    }
 
    public void Clear()
    {
-      
+        ShareUserData.Dispose();
    }
 
    public void Dispose()
