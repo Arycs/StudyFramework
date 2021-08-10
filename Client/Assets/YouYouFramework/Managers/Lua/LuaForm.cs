@@ -50,83 +50,109 @@ namespace YouYou
 
         private OnBeforDestroyHandler onBeforDestroy;
 
-        private LuaTable scriptEnv;
-        private LuaEnv luaEnv;
+        public TextAsset luaScript;
+        [Header("Lua组件")]
+        [SerializeField]
+        public LuaComGroup[] m_LuaComGroups;
 
-        [Header("Lua组件")] 
-        [SerializeField] 
-        private LuaCom[] m_LuaComs;
-
-        public LuaCom[] LuaComs
-        {
-            get { return m_LuaComs; }
-        }
+        //public LuaCom[] LuaComs
+        //{
+        //    get { return m_LuaComs; }
+        //}
 
         /// <summary>
         /// 根据索引来查找组件
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
-        public object GetLuaComs(int index)
+        public void SetLuaComs()
         {
-            LuaCom com = m_LuaComs[index];
-            switch (com.Type)
+            int len = m_LuaComGroups.Length;
+            for (int i = 0; i < len; i++)
             {
-                case LuaComType.GameObject:
-                    return com.Trans.gameObject;
-                case LuaComType.Transform:
-                    return com.Trans;
-                case LuaComType.Button:
-                    return com.Trans.GetComponent<Button>();
-                case LuaComType.Image:
-                    return com.Trans.GetComponent<Image>();
-                case LuaComType.YouYouImage:
-                    return com.Trans.GetComponent<YouYouImage>();
-                case LuaComType.Text:
-                    return com.Trans.GetComponent<Text>();
-                case LuaComType.YouYouText:
-                    return com.Trans.GetComponent<YouYouText>();  
-                case LuaComType.RawImage:
-                    return com.Trans.GetComponent<RawImage>();
-                case LuaComType.InputField:
-                    return com.Trans.GetComponent<InputField>();
-                case LuaComType.Scrollbar:
-                    return com.Trans.GetComponent<Scrollbar>();
-                case LuaComType.ScrollView:
-                    return com.Trans.GetComponent<ScrollRect>();
-                case LuaComType.MulityScroller:
-                    return com.Trans.GetComponent<UIMultiScroller>();
+                LuaComGroup group = m_LuaComGroups[i];
+                int lenCom = group.LuaComs.Length;
+                for (int j = 0; j < lenCom; j++)
+                {
+                    LuaCom com = group.LuaComs[j];
+                    object obj = null;
+                    switch (com.Type)
+                    {
+                        case LuaComType.GameObject:
+                            obj = com.Trans.gameObject;
+                            break;
+                        case LuaComType.Transform:
+                            obj = com.Trans;
+                            break;
+                        case LuaComType.Button:
+                            obj = com.Trans.GetComponent<Button>();
+                            break;
+                        case LuaComType.Image:
+                            obj = com.Trans.GetComponent<Image>();
+                            break;
+                        case LuaComType.YouYouImage:
+                            obj = com.Trans.GetComponent<YouYouImage>();
+                            break;
+                        case LuaComType.Text:
+                            obj = com.Trans.GetComponent<Text>();
+                            break;
+                        case LuaComType.YouYouText:
+                            obj = com.Trans.GetComponent<YouYouText>();
+                            break;
+                        case LuaComType.RawImage:
+                            obj = com.Trans.GetComponent<RawImage>();
+                            break;
+                        case LuaComType.InputField:
+                            obj = com.Trans.GetComponent<InputField>();
+                            break;
+                        case LuaComType.Scrollbar:
+                            obj = com.Trans.GetComponent<Scrollbar>();
+                            break;
+                        case LuaComType.ScrollView:
+                            obj = com.Trans.GetComponent<ScrollRect>();
+                            break;
+                        case LuaComType.MulityScroller:
+                            obj = com.Trans.GetComponent<UIMultiScroller>();
+                            break;
+                    }
+                    scriptEnv.Set(com.Name, obj);
+                }
             }
-
-            return com.Trans;
         }
 
+        private LuaTable scriptEnv;
         protected override void OnInit(object userData)
         {
             base.OnInit(userData);
 
-            luaEnv = LuaManager.luaEnv; //此处要从LuaManager上获取 全局只有一个
-            if (luaEnv == null)
+            if (luaScript == null)
             {
                 return;
             }
 
-            string prefabName = name;
-            if (prefabName.Contains("(Clone)"))
+            if (LuaManager.luaEnv == null)
             {
-                prefabName = prefabName.Split(new string[] {"(Clone)"}, StringSplitOptions.RemoveEmptyEntries)[0] +
-                             "View";
+                return;
             }
+            scriptEnv = LuaManager.luaEnv.NewTable();
 
-            onInit = luaEnv.Global.GetInPath<OnInitHandler>(prefabName + ".OnInit");
-            onOpen = luaEnv.Global.GetInPath<OnOpenHandler>(prefabName + ".OnOpen");
-            onClose = luaEnv.Global.GetInPath<OnCloseHandler>(prefabName + ".OnClose");
-            onBeforDestroy = luaEnv.Global.GetInPath<OnBeforDestroyHandler>(prefabName + ".OnBeforDestroy");
-           
-            if (onInit != null)
-            {
-                onInit(transform, userData);
-            }
+            //为每个脚本设置一个独立的环境，可一定程度上防止脚本间全局变量，函数冲突
+            LuaTable meta = LuaManager.luaEnv.NewTable();
+            meta.Set("__index", LuaManager.luaEnv.Global);
+            scriptEnv.SetMetaTable(meta);
+            meta.Dispose();
+
+            scriptEnv.Set("self", this);
+            SetLuaComs();
+
+            LuaManager.luaEnv.DoString(luaScript.text, "LuaBehaviour", scriptEnv);
+            onInit = scriptEnv.Get<OnInitHandler>("OnInit");
+            onOpen = scriptEnv.Get<OnOpenHandler>("OnOpen");
+            onClose = scriptEnv.Get<OnCloseHandler>("OnClose");
+            onBeforDestroy = scriptEnv.Get<OnBeforDestroyHandler>("OnBeforDestroy");
+
+            onInit?.Invoke(transform, userData);
+
         }
 
         protected override void OnOpen(object userData)
@@ -159,16 +185,40 @@ namespace YouYou
             onOpen = null;
             onClose = null;
             onBeforDestroy = null;
-            
+
             //卸载图片
-            int len = m_LuaComs.Length;
+
+            int len = m_LuaComGroups.Length;
+
             for (int i = 0; i < len; i++)
             {
-                LuaCom com = m_LuaComs[i];
-                com.Trans = null;
-                com = null;
+                LuaComGroup group = m_LuaComGroups[i];
+                int lenCom = group.LuaComs.Length;
+                for (int j = 0; j < lenCom; j++)
+                {
+                    group.LuaComs[j].Trans = null;
+                    group.LuaComs[j] = null;
+                }
+                group = null;
             }
         }
+    }
+
+    /// <summary>
+    /// Lua组件分组
+    /// </summary>
+    [Serializable]
+    public class LuaComGroup
+    {
+        /// <summary>
+        /// 名称
+        /// </summary>
+        public string Name;
+
+        /// <summary>
+        /// Lua组件数组
+        /// </summary>
+        public LuaCom[] LuaComs;
     }
 
     /// <summary>

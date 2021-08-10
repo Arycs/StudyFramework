@@ -147,7 +147,7 @@ public class Menu
 
         string viewName = trans.gameObject.name;
 
-        LuaCom[] luaComs = luaForm.LuaComs;
+        LuaComGroup[] luaComs = luaForm.m_LuaComGroups;
         int len = luaComs.Length;
 
         StringBuilder sbrView = new StringBuilder();
@@ -158,7 +158,7 @@ public class Menu
         sbrView.AppendFormat("\n");
         for (int i = 0; i < len; i++)
         {
-            LuaCom com = luaComs[i];
+            LuaComGroup com = luaComs[i];
             sbrView.AppendFormat("local {0}Index = {1};\n", com.Name, i);
         }
 
@@ -172,7 +172,7 @@ public class Menu
         sbrView.AppendFormat("    this.LuaForm = transform:GetComponent(typeof(CS.YouYou.LuaForm));\n");
         for (int i = 0; i < len; i++)
         {
-            LuaCom com = luaComs[i];
+            LuaComGroup com = luaComs[i];
             sbrView.AppendFormat("    this.{0} = this.LuaForm:GetLuaComs({0}Index);\n", com.Name);
         }
         sbrView.AppendFormat("end\n");
@@ -190,7 +190,7 @@ public class Menu
         sbrView.AppendFormat("    this.LuaForm = nil;\n", viewName);
         for (int i = 0; i < len; i++)
         {
-            LuaCom com = luaComs[i];
+            LuaComGroup com = luaComs[i];
             sbrView.AppendFormat("    this.{0} = nil;\n", com.Name);
         }
         sbrView.AppendFormat("end");

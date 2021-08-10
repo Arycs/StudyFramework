@@ -1,9 +1,6 @@
 ﻿require 'Common/Define'
-require 'Common/Class'
 require 'Common/SysEventId'
 require 'Common/UIFormId'
-require 'Common/SysCode'
---local LuaCSharpArr = require 'Common/LuaCSharpArr'
 
 GameInit = {}
 local this = GameInit;
@@ -11,7 +8,6 @@ local this = GameInit;
 function GameInit.Init()
     ---加载配置表
     this.LoadDataTables()
-    this.InitCtrlAndView()
     this.InitProto()
 end
 
@@ -20,25 +16,6 @@ function GameInit.LoadDataTables()
     --require('DataNode/DataTable/Create/DTChapterEntity')
     --require('DataNode/DataTable/Create/DTChapterDBModel')
     --DTChapterDBModel.LoadList()
-end
-
-function GameInit.InitCtrlAndView()
-    require('Modules/Loading/UI_LoadingCtrl')
-    require('Modules/Loading/UI_LoadingView')
-
-    require('Modules/RegLogon/UI_RegCtrl')
-    require('Modules/RegLogon/UI_RegView')
-
-    require('Modules/RegLogon/UI_LoginCtrl')
-    require('Modules/RegLogon/UI_LoginView')
-end
-
-function GameInit.InitProto()
-
-end
-
-function GameInit.OnLuaFullGc(userData)
-    DTChapterDBModel.CheckGC();
 end
 
 local m_TotalTableCount = 0 --总共需要加载的表格数量
@@ -57,21 +34,26 @@ end
 
 --初始化通讯协议
 function GameInit.InitProto()
-
+    require('Common/json')
+    --2021-8-10 临时注释 ，这几天就得尽快处理
+    --require('DataNode/Proto/ProtoCodeDef')
+    --require('DataNode/ProtoHandler/SocketProtoListenerForLua')
+    --SocketProtoListenerForLua.AddProtoListener()
 end
 
---发送消息到c#
-function GameInit.SendProto(proto)
-    if(DebugLogProto) then
-        print(string.format("<color=#ffa200>发送消息:</color><color=#FFFB80>%s %s</color>", ProtoIDName[proto:GetID()], proto:GetID()));
-        print(string.format("<color=#ffdeb3>==>>%s</color>", json.encode(proto.Packet)));
-    end
 
-    GameEntry.Socket:SendMainMsgForLua(proto:GetID(),proto:GetCategory(),assert(GlobalPB.encode(ProtoIDName[proto:GetID()], proto.Packet)));
-end
-
-function GameInit.Log(params)
-    if(DebugLog) then
-        print("[youyou]"..params);
-    end
-end
+----发送消息到c#
+--function GameInit.SendProto(proto)
+--    if(DebugLogProto) then
+--        print(string.format("<color=#ffa200>发送消息:</color><color=#FFFB80>%s %s</color>", ProtoIDName[proto:GetID()], proto:GetID()));
+--        print(string.format("<color=#ffdeb3>==>>%s</color>", json.encode(proto.Packet)));
+--    end
+--
+--    GameEntry.Socket:SendMainMsgForLua(proto:GetID(),proto:GetCategory(),assert(GlobalPB.encode(ProtoIDName[proto:GetID()], proto.Packet)));
+--end
+--
+--function GameInit.Log(params)
+--    if(DebugLog) then
+--        print("[youyou]"..params);
+--    end
+--end
