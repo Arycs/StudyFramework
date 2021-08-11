@@ -1,0 +1,508 @@
+namespace YouYou.DataTable;
+
+table DTChapter {
+	Id:int;
+	ChapterName:string;
+	GameLevelCount:int;
+	BG_Pic:string;
+	BranchLevelId:[int];
+	BranchLevelName:[string];
+	Uvx:float;
+	Uvy:float;
+}
+table DTChapterList {
+	DTChapters:[DTChapter];
+}
+
+table DTEquip {
+	Id:int;
+	Name:string;
+	UsedLevel:int;
+	Quality:int;
+	Star:int;
+	Description:string;
+	Type:int;
+	SellMoney:int;
+	BackAttrOneType:int;
+	BackAttrOneValue:int;
+	BackAttrTwoType:int;
+	BackAttrTwoValue:int;
+	Attack:int;
+	Defense:int;
+	Hit:int;
+	Dodge:int;
+	Cri:int;
+	Res:int;
+	HP:int;
+	MP:int;
+	maxHole:int;
+	embedProps:string;
+	StrengthenItem:int;
+	StrengthenLvMax:int;
+	StrengthenValue:string;
+	StrengthenItemNumber:string;
+	StrengthenGold:string;
+	StrengthenRatio:string;
+}
+table DTEquipList {
+	DTEquips:[DTEquip];
+}
+
+table DTGameLevel {
+	Id:int;
+	ChapterID:int;
+	Name:string;
+	SceneName:string;
+	SmallMapImg:string;
+	isBoss:int;
+	Ico:string;
+	PosInMap:string;
+	DlgPic:string;
+	CameraRotation:string;
+	Audio_BG:string;
+}
+table DTGameLevelList {
+	DTGameLevels:[DTGameLevel];
+}
+
+table DTGameLevelGrade {
+	Id:int;
+	GameLevelId:int;
+	Grade:int;
+	Desc:string;
+	Type:int;
+	Parameter:string;
+	ConditionDesc:string;
+	Exp:int;
+	Gold:int;
+	CommendFighting:int;
+	TimeLimit:float;
+	Star1:float;
+	Star2:float;
+	Equip:string;
+	Item:string;
+	Material:string;
+}
+table DTGameLevelGradeList {
+	DTGameLevelGrades:[DTGameLevelGrade];
+}
+
+table DTGameLevelMonster {
+	Id:int;
+	GameLevelId:int;
+	Grade:int;
+	RegionId:int;
+	SpriteId:int;
+	SpriteCount:int;
+	Exp:int;
+	Gold:int;
+	DropEquip:string;
+	DropItem:string;
+	DropMaterial:string;
+}
+table DTGameLevelMonsterList {
+	DTGameLevelMonsters:[DTGameLevelMonster];
+}
+
+table DTGameLevelRegion {
+	Id:int;
+	GameLevelId:int;
+	RegionId:int;
+	InitSprite:string;
+}
+table DTGameLevelRegionList {
+	DTGameLevelRegions:[DTGameLevelRegion];
+}
+
+table DTItem {
+	Id:int;
+	Name:string;
+	Type:int;
+	UsedLevel:int;
+	UsedMethod:string;
+	SellMoney:int;
+	Quality:int;
+	Description:string;
+	UsedItems:string;
+	maxAmount:int;
+	packSort:int;
+}
+table DTItemList {
+	DTItems:[DTItem];
+}
+
+table DTJob {
+	Id:int;
+	Desc:string;
+	Name:string;
+	RoleId:int;
+	HeadPic:string;
+	JobPic:string;
+	JobDesc:string;
+	Attack:int;
+	Defense:int;
+	Hit:int;
+	Dodge:int;
+	Cri:int;
+	Res:int;
+}
+table DTJobList {
+	DTJobs:[DTJob];
+}
+
+table DTJobLevel {
+	Id:int;
+	Level:int;
+	NeedExp:int;
+	Energy:int;
+	HP:int;
+	MP:int;
+	Attack:int;
+	Defense:int;
+	Hit:int;
+	Dodge:int;
+	Cri:int;
+	Res:int;
+}
+table DTJobLevelList {
+	DTJobLevels:[DTJobLevel];
+}
+
+table DTMaterials {
+	Id:int;
+	Name:string;
+	Quality:int;
+	Description:string;
+	Type:int;
+	FixedType:int;
+	FixedAddValue:int;
+	maxAmount:int;
+	packSort:int;
+	CompositionProps:string;
+	CompositionMaterialID:int;
+	CompositionGold:string;
+	SellMoney:int;
+}
+table DTMaterialsList {
+	DTMaterialss:[DTMaterials];
+}
+
+table DTNPC {
+	Id:int;
+	Name:string;
+	PrefabName:string;
+	HeadPic:string;
+	HalfBodyPic:string;
+	Talk:string;
+}
+table DTNPCList {
+	DTNPCs:[DTNPC];
+}
+
+table DTPVPSceneMonsterPoint {
+	Id:int;
+	Desc:string;
+	SceneId:int;
+	MonsterId:int;
+	BornPos:[float];
+	IsFixTime:bool;
+	FixTime_Hour:int;
+	FixTime_Minute:int;
+	Interval:int;
+	PatrolX:[float];
+	PatrolY:[float];
+	PatrolZ:[float];
+}
+table DTPVPSceneMonsterPointList {
+	DTPVPSceneMonsterPoints:[DTPVPSceneMonsterPoint];
+}
+
+table DTRechargeShop {
+	Id:int;
+	Type:int;
+	Price:int;
+	Name:string;
+	SalesDesc:string;
+	ProductDesc:string;
+	Virtual:int;
+	Icon:string;
+}
+table DTRechargeShopList {
+	DTRechargeShops:[DTRechargeShop];
+}
+
+table DTRole {
+	Id:int;
+	Desc:string;
+	PrefabId:int;
+	AnimGroupId:int;
+}
+table DTRoleList {
+	DTRoles:[DTRole];
+}
+
+table DTRoleAnimation {
+	Id:int;
+	Desc:string;
+	GroupId:int;
+	AnimPath:string;
+	InitLoad:ubyte;
+	Expire:int;
+}
+table DTRoleAnimationList {
+	DTRoleAnimations:[DTRoleAnimation];
+}
+
+table DTRoleAnimCategory {
+	Id:int;
+	Desc:string;
+	IdleNormalAnimId:int;
+	RunAnimId:int;
+	Attack:[int];
+}
+table DTRoleAnimCategoryList {
+	DTRoleAnimCategorys:[DTRoleAnimCategory];
+}
+
+table DTShop {
+	Id:int;
+	ShopCategoryId:int;
+	GoodsType:int;
+	GoodsId:int;
+	OldPrice:int;
+	Price:int;
+	SellStatus:int;
+}
+table DTShopList {
+	DTShops:[DTShop];
+}
+
+table DTShopCategory {
+	Id:int;
+	Name:string;
+}
+table DTShopCategoryList {
+	DTShopCategorys:[DTShopCategory];
+}
+
+table DTSkill {
+	Id:int;
+	SkillName:string;
+	SkillDesc:string;
+	SkillPic:string;
+	LevelLimit:int;
+	IsPhyAttack:int;
+	AttackTargetCount:int;
+	AttackRange:float;
+	AreaAttackRadius:float;
+	ShowHurtEffectDelaySecond:float;
+	RedScreen:int;
+	AttackState:int;
+	AbnormalState:int;
+	BuffInfoID:int;
+	BuffTargetFilter:int;
+	BuffIsPercentage:int;
+}
+table DTSkillList {
+	DTSkills:[DTSkill];
+}
+
+table DTSkillLevel {
+	Id:int;
+	SkillId:int;
+	Level:int;
+	HurtValueRate:int;
+	SpendMP:int;
+	StateTime:float;
+	AbnormalRatio:float;
+	AStateTimes:int;
+	AStatexiaohao:int;
+	SkillCDTime:float;
+	BuffChance:float;
+	BuffDuration:float;
+	BuffValue:int;
+	NeedCharacterLevel:int;
+	SpendGold:int;
+}
+table DTSkillLevelList {
+	DTSkillLevels:[DTSkillLevel];
+}
+
+table DTSprite {
+	Id:int;
+	SpriteType:int;
+	Name:string;
+	Level:int;
+	IsBoss:int;
+	PrefabName:string;
+	TextureName:string;
+	HeadPic:string;
+	MoveSpeed:float;
+	HP:int;
+	MP:int;
+	Attack:int;
+	Defense:int;
+	Hit:int;
+	Dodge:int;
+	Cri:int;
+	Res:int;
+	Fighting:int;
+	ShowBloodBar:int;
+	BloodBarLayerCount:int;
+	UsedPhyAttack:string;
+	UsedSkillList:string;
+	CanArmor:int;
+	Armor_HP_Percentage:int;
+	Range_View:int;
+	Attack_Interval:float;
+	PhysicalAttackRate:int;
+	DelaySec_Attack:float;
+	RewardExp:int;
+}
+table DTSpriteList {
+	DTSprites:[DTSprite];
+}
+
+table DTSys_Audio {
+	Id:int;
+	Desc:string;
+	AssetPath:string;
+	Is3D:int;
+	Volume:float;
+}
+table DTSys_AudioList {
+	DTSys_Audios:[DTSys_Audio];
+}
+
+table DTSys_Code {
+	Id:int;
+	Desc:string;
+	Name:string;
+}
+table DTSys_CodeList {
+	DTSys_Codes:[DTSys_Code];
+}
+
+table DTSys_CommonEventId {
+	Id:int;
+	Desc:string;
+	Name:string;
+}
+table DTSys_CommonEventIdList {
+	DTSys_CommonEventIds:[DTSys_CommonEventId];
+}
+
+table DTSys_Effect {
+	Id:int;
+	Desc:string;
+	PrefabId:int;
+	KeepTime:float;
+	SoundId:int;
+	Type:int;
+}
+table DTSys_EffectList {
+	DTSys_Effects:[DTSys_Effect];
+}
+
+table DTSys_Prefab {
+	Id:int;
+	Desc:string;
+	Name:string;
+	AssetCategory:int;
+	AssetPath:string;
+	PoolId:ubyte;
+	CullDespawned:ubyte;
+	CullAbove:int;
+	CullDelay:int;
+	CullMaxPerPass:int;
+}
+table DTSys_PrefabList {
+	DTSys_Prefabs:[DTSys_Prefab];
+}
+
+table DTSys_Scene {
+	Id:int;
+	Desc:string;
+	Name:string;
+	SceneName:string;
+	BGMId:int;
+	SceneType:int;
+	PlayerBornPos:[float];
+}
+table DTSys_SceneList {
+	DTSys_Scenes:[DTSys_Scene];
+}
+
+table DTSys_SceneDetail {
+	Id:int;
+	SceneId:int;
+	ScenePath:string;
+	SceneGrade:int;
+}
+table DTSys_SceneDetailList {
+	DTSys_SceneDetails:[DTSys_SceneDetail];
+}
+
+table DTSys_StorySound {
+	Id:int;
+	Desc:string;
+	AssetPath_CN:string;
+	AssetPath_EN:string;
+}
+table DTSys_StorySoundList {
+	DTSys_StorySounds:[DTSys_StorySound];
+}
+
+table DTSys_UIForm {
+	Id:int;
+	Desc:string;
+	Name:string;
+	UIGroupId:ubyte;
+	DisableUILayer:int;
+	IsLock:int;
+	AssetPath_Chinese:string;
+	AssetPath_English:string;
+	CanMulit:bool;
+	ShowMode:ubyte;
+	FreezeMode:ubyte;
+}
+table DTSys_UIFormList {
+	DTSys_UIForms:[DTSys_UIForm];
+}
+
+table DTTask {
+	Id:int;
+	Name:string;
+	Status:int;
+	Content:string;
+}
+table DTTaskList {
+	DTTasks:[DTTask];
+}
+
+table DTWorldMap {
+	Id:int;
+	Name:string;
+	SceneName:string;
+	SmallMapImg:string;
+	NPCList:string;
+	RoleBirthPos:string;
+	CameraRotation:string;
+	TransPos:string;
+	IsCity:int;
+	IsShowInMap:int;
+	PosInMap:string;
+	IcoInMap:string;
+	NearScene:string;
+	Audio_BG:string;
+}
+table DTWorldMapList {
+	DTWorldMaps:[DTWorldMap];
+}
+table DTSys_Localization {
+	Key: string;
+	Value: string;
+}
+table DTSys_LocalizationList {
+	DTSys_Localizations:[DTSys_Localization];
+}

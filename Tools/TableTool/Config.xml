@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Root>
+    <!--FlatcPath-->
+  <FlatcPath>../../../Public/Tools/TableTool</FlatcPath>
+  
+  <!--原始表格路径-->
+  <SourceExcelPath>../../../Public/Tables</SourceExcelPath>
+
+  <!--客户端输出bytes文件路径-->
+  <ClientOutBytesFilePath>../../../Client/Assets/Download/DataTable/</ClientOutBytesFilePath>
+  <!--客户端输出c#文件路径-->
+  <ClientOutCSharpFilePath>../../../Client/Assets/YouYouScript/Data/DataTable/Create/</ClientOutCSharpFilePath>
+  <!--客户端输出lua文件路径-->
+  <ClientOutLuaFilePath>../../../Client/Assets/Download/xLuaLogic/DataNode/DataTable/Create/</ClientOutLuaFilePath>
+
+  <!--服务器输出bytes文件路径-->
+  <ServerOutBytesFilePath>../../../Server/Release/DataTable/</ServerOutBytesFilePath>
+  <!--服务器输出c#文件路径-->
+  <ServerOutCSharpFilePath>../../../Server/YouYouServer/YouYouServer.Common/DataTable/Create/</ServerOutCSharpFilePath>
+  
+  <SysTable>
+    <!--系统表 会对系统表生成对应类-->
+    <Item TableName="DTSys_UIForm">
+      <ClientCSharpFilePath>../../../Client/Assets/YouYouScript/Const/UIFormId.cs</ClientCSharpFilePath>
+      <ClientLuaFilePath>../../../Client/Assets/Download/xLuaLogic/Common/UIFormId.bytes</ClientLuaFilePath>
+      <ServerCSharpFilePath></ServerCSharpFilePath>
+    </Item>
+    <Item TableName="DTSys_Code">
+      <ClientCSharpFilePath>../../../Client/Assets/YouYouScript/Const/SysCode.cs</ClientCSharpFilePath>
+      <ClientLuaFilePath>../../../Client/Assets/Download/xLuaLogic/Common/SysCode.bytes</ClientLuaFilePath>
+      <ServerCSharpFilePath>../../../Server/YouYouServer/YouYouServer.Common/Const/SysCode.cs</ServerCSharpFilePath>
+    </Item>
+    <Item TableName="DTSys_CommonEventId">
+      <ClientCSharpFilePath>../../../Client/Assets/YouYouScript/Const/CommonEventId.cs</ClientCSharpFilePath>
+      <ClientLuaFilePath>../../../Client/Assets/Download/xLuaLogic/Common/CommonEventId.bytes</ClientLuaFilePath>
+      <ServerCSharpFilePath></ServerCSharpFilePath>
+    </Item>
+  </SysTable>
+  <CSharpTableList>
+    <Item Name="DTSys_Audio" />
+    <Item Name="DTSys_Code" />
+    <Item Name="DTSys_Effect" />
+    <Item Name="DTSys_Prefab" />
+    <Item Name="DTSys_Scene" />
+    <Item Name="DTSys_SceneDetail" />
+    <Item Name="DTSys_StorySound" />
+    <Item Name="DTSys_UIForm" />
+    <Item Name="DTPVPSceneMonsterPoint" />
+	<Item Name="DTJob" />
+	<Item Name="DTJobLevel" />
+	<Item Name="DTRole" />
+	<Item Name="DTRoleAnimation" />
+	<Item Name="DTRoleAnimCategory" />
+  </CSharpTableList>
+  <LuaTableList>
+	<Item Name="DTJob" LoadType="0" />
+	<Item Name="DTJobLevel" LoadType="0" />
+  </LuaTableList>
+</Root>
