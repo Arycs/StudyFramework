@@ -151,19 +151,25 @@ namespace YouYou
         /// 发送消息
         /// </summary>
         /// <param name="buffer"></param>
-        public void SendMsg(byte[] buffer)
-        {
-            m_MainSocket.SendMsg(buffer);
-        }
-
-        public void SendMsg(IProto proto)
+        public void SendMainMsg(IProto proto)
         {
 #if DEBUG_LOG_PROTO
-            Debug.Log("<color=#ffa200>发送消息:</color><color=#FFFB80>" + proto.ProtoEnName + "" + proto.ProtoCode +
+            Debug.Log("<color=#ffa200>发送消息:</color><color=#FFFB80>" + proto.ProtoEnName + "" + proto.ProtoId +
                       "</color>");
             Debug.Log("<color=#ffdeb3>==>>" + JsonUtility.ToJson(proto) + "</color>");
 #endif
-            m_MainSocket.SendMsg(proto.ToArray());
+            m_MainSocket.SendMsg(proto);
+        }
+
+        /// <summary>
+        /// Lua中发送消息
+        /// </summary>
+        /// <param name="protoId"></param>
+        /// <param name="category"></param>
+        /// <param name="buffer"></param>
+        public void SendMainMsgForLua(ushort protoId, byte category, byte[] buffer)
+        {
+            m_MainSocket.SendMsg(protoId, category, buffer);
         }
 
         public void Dispose()

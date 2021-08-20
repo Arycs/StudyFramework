@@ -12,12 +12,12 @@ namespace YouYou
     /// <summary>
     /// 协议接口
     /// </summary>
-    public interface IProto
+    public interface IProto :Google.Protobuf.IMessage
     {
         /// <summary>
         /// 协议编号
         /// </summary>
-        ushort ProtoCode { get; }
+        ushort ProtoId { get; }
 
         /// <summary>
         /// 协议编码
@@ -31,12 +31,5 @@ namespace YouYou
         {
             get;
         }
-
-        /// <summary>
-        /// 转化成字节
-        /// </summary>
-        /// <returns></returns>
-        byte[] ToArray(bool isChild = false);
-        
     }
 }

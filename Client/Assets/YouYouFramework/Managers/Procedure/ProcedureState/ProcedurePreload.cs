@@ -40,7 +40,11 @@ namespace YouYou
 
             m_TargetProgress = 99;
 #if !DISABLE_ASSETBUNDLE
-            GameEntry.Resource.InitAssetInfo();
+            GameEntry.Resource.InitAssetInfo(()=>{
+                LoadReport();
+            });
+#else
+            LoadReport();
 #endif
             GameEntry.DataTable.LoadDataTableAsync();
         }
@@ -66,6 +70,19 @@ namespace YouYou
                 GameEntry.Procedure.ChangeState(ProcedureState.LogOn);
 
             }
+        }
+
+        /// <summary>
+        /// 加载日志预设
+        /// </summary>
+        public void LoadReport()
+        {
+#if DEBUG_MODEL
+         GameEntry.Resource.ResourceLoaderManager.LoadMainAsset(AssetCategory.Reporter, ConstDefine.ReporterPath, (ResourceEntity resourceEntity) =>
+            {
+                UnityEngine.Object.Instantiate(resourceEntity.Target as GameObject);
+            });
+#endif
         }
 
         public override void OnLeave()

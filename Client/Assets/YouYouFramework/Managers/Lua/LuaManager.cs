@@ -24,6 +24,9 @@ namespace YouYou
         /// </summary>
         public static LuaEnv luaEnv;
 
+        public bool DebugLog = false;
+        public bool DebugLogProto = false;
+
         /// <summary>
         /// 初始化
         /// </summary>
@@ -228,6 +231,26 @@ namespace YouYou
         public string GetJsonDataValue(JsonData jsonData, string key)
         {
             return jsonData[key].ToString();
+        }
+
+        /// <summary>
+        /// 获取PB文件字节
+        /// </summary>
+        /// <param name="pbName"></param>
+        /// <param name="onComplete"></param>
+        public void GetPBBuffer(string pbName, BaseAction<byte[]> onComplete)
+        {
+#if DISABLE_ASSETBUNDLE
+            byte[] buffer = IOUtil.GetFileBuffer(string.Format("{0}/download/xLuaLogic/PB/{1}.bytes", GameEntry.Resource.LocalFilePath, pbName));
+            onComplete?.Invoke(buffer);
+#else
+            GameEntry.Resource.ResourceLoaderManager.LoadMainAsset(AssetCategory.xLuaLogic, string.Format("Assets/Download/xLuaLogic/PB/{0}.bytes", pbName), onComplete: (ResourceEntity res) =>
+            {
+                TextAsset asset = res.Target as TextAsset;
+                onComplete?.Invoke(asset.bytes);
+            });
+#endif
+
         }
 
         public void Dispose()

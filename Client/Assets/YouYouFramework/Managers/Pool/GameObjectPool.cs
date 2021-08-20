@@ -16,7 +16,7 @@ namespace YouYou
         /// 游戏物体对象池字典
         /// </summary>
         private Dictionary<byte, GameObjectPoolEntity> m_SpawnPoolDic;
-        
+
         /// <summary>
         /// 实例ID对应对象池ID
         /// </summary>
@@ -59,12 +59,12 @@ namespace YouYou
             {
                 Debug.LogError("resourceEntity= " + resourceEntity.ResourceName);
             }
-            
-            GameObject obj = UnityEngine.Object.Instantiate(prefab,pos,rot) as GameObject;
+
+            GameObject obj = UnityEngine.Object.Instantiate(prefab, pos, rot) as GameObject;
             Debug.LogError("实例编号000=" + obj.GetInstanceID());
-            
+
             //注册
-            GameEntry.Pool.RegisterInstanceResource(obj.GetInstanceID(),resourceEntity);
+            GameEntry.Pool.RegisterInstanceResource(obj.GetInstanceID(), resourceEntity);
             return obj;
         }
 
@@ -96,7 +96,7 @@ namespace YouYou
                     yield return null;
                     entity.Pool = null;
                 }
-                
+
                 //创建对象池
                 PathologicalGames.SpawnPool pool = PathologicalGames.PoolManager.Pools.Create(entity.PoolName);
                 pool.group.parent = parent;
@@ -108,6 +108,11 @@ namespace YouYou
         }
 
         /// <summary>
+        /// 加载中的预设池字典
+        /// </summary>
+        private Dictionary<int, HashSet<BaseAction<SpawnPool, Transform, ResourceEntity>>> m_LoadinPrefabPoolDic = new Dictionary<int, HashSet<BaseAction<SpawnPool, Transform, ResourceEntity>>>();
+
+        /// <summary>
         /// 从对象池中获取对象
         /// </summary>
         /// <param name="poolId"></param>
@@ -115,69 +120,113 @@ namespace YouYou
         /// <param name="onComplete"></param>
         public void Spawn(int prefabId, BaseAction<Transform> onComplete)
         {
-            //拿到预设表数据
-            Sys_PrefabEntity entity = GameEntry.DataTable.Sys_PrefabDBModel.Get(prefabId);
-            if (entity == null)
+            lock (m_PrefabPoolQueue)
             {
-                Debug.LogError("预设数据不存在");
-                return;
-            }            
-            GameEntry.Resource.ResourceLoaderManager.LoadMainAsset((AssetCategory)entity.AssetCategory,entity.AssetPath,
-                (ResourceEntity resourceEntity) =>
+                //拿到预设表数据
+                Sys_PrefabEntity entity = GameEntry.DataTable.Sys_PrefabDBModel.Get(prefabId);
+                if (entity == null)
                 {
-                    //拿到对象池
-                    GameObjectPoolEntity gameObjectPoolEntity = m_SpawnPoolDic[entity.PoolId];
+                    Debug.LogError("预设数据不存在");
+                    return;
+                }
 
-                    Transform prefab = ((GameObject) resourceEntity.Target).transform;
-                    //使用预设编号 当做池ID
-                    PrefabPool prefabPool = gameObjectPoolEntity.Pool.GetPrefabPool(entity.Id);
+                //拿到对象池
+                GameObjectPoolEntity gameObjectPoolEntity = m_SpawnPoolDic[(byte)entity.PoolId];
 
-                    if (prefabPool == null)
+                //使用预设编号 当做池ID
+                PrefabPool prefabPool = gameObjectPoolEntity.Pool.GetPrefabPool(entity.Id);
+
+                if (prefabPool != null)
+                {
+                    //拿到一个实例
+                    Transform retTrans = prefabPool.TrySpawnInstance();
+                    if (retTrans != null)
                     {
-                        //先去队列里找 空闲的池
-                        if (m_PrefabPoolQueue.Count >0)
-                        {
-                            Debug.LogError("从队列里取");
-                            prefabPool = m_PrefabPoolQueue.Dequeue();
-
-                            prefabPool.PrefabPoolId = entity.Id;//设置预设池编号
-                            gameObjectPoolEntity.Pool.AddPrefabPool(prefabPool);
-
-                            prefabPool.prefab = prefab;
-                            prefabPool.prefabGO = prefab.gameObject;
-                            prefabPool.AddPrefabToDic(prefab.name,prefab);
-                        }
-                        else
-                        {
-                            prefabPool = new PrefabPool(prefab,entity.Id);
-                            gameObjectPoolEntity.Pool.CreatePrefabPool(prefabPool,resourceEntity);
-                        }
-
-                        prefabPool.OnPrefabPoolClear = (PrefabPool pool) =>
-                        {
-                            //预设池加入队列
-                            pool.PrefabPoolId = 0;
-                            gameObjectPoolEntity.Pool.RemovePrefabPool(pool);
-                            m_PrefabPoolQueue.Enqueue(pool);
-                        };
-                        
-                        //这些属性要从表格中读取
-                        prefabPool.cullDespawned = entity.CullDespawned == 1;
-                        prefabPool.cullAbove = entity.CullAbove;
-                        prefabPool.cullDelay = entity.CullDelay;
-                        prefabPool.cullMaxPerPass = entity.CullMaxPerPass;
+                        int instanceID = retTrans.gameObject.GetInstanceID();
+                        m_InstanceIdPoolDic[instanceID] = (byte)entity.PoolId;
+                        onComplete?.Invoke(retTrans);
+                        return;
                     }
+                }
 
-                    if (onComplete != null)
+                HashSet<BaseAction<SpawnPool, Transform, ResourceEntity>> lst = null;
+                if (m_LoadinPrefabPoolDic.TryGetValue(prefabId,out lst))
+                {
+                    //进行拦截
+                    //如果存在加载中的asset 把委托加入对应的链表 然后直接返回
+                    lst.Add((_SpawnPool, _Transform, _ResourceEntity) =>
                     {
                         //拿到一个实例
-                        Transform retTrans = gameObjectPoolEntity.Pool.Spawn(prefab, resourceEntity);
+                        Transform retTrans = _SpawnPool.Spawn(_Transform, _ResourceEntity);
                         int instanceID = retTrans.gameObject.GetInstanceID();
-                        m_InstanceIdPoolDic[instanceID] = entity.PoolId;
-                        onComplete(retTrans);
-                    }
+                        m_InstanceIdPoolDic[instanceID] = (byte)entity.PoolId;
+                        onComplete?.Invoke(retTrans);
+                    });
+                    return;
+                }
+                //这里说明是加载在第一个
+                lst = GameEntry.Pool.DequeueClassObject<HashSet<BaseAction<SpawnPool, Transform, ResourceEntity>>>();
+                lst.Add((_SpawnPool, _Transform, _ResourceEntity) =>
+                {
+                    //拿到一个实例
+                    Transform retTrans = _SpawnPool.Spawn(_Transform, _ResourceEntity);
+                    int instanceID = retTrans.gameObject.GetInstanceID();
+                    m_InstanceIdPoolDic[instanceID] = (byte)entity.PoolId;
+                    onComplete?.Invoke(retTrans);
                 });
-            
+                m_LoadinPrefabPoolDic[prefabId] = lst;
+
+                GameEntry.Resource.ResourceLoaderManager.LoadMainAsset((AssetCategory)entity.AssetCategory, entity.AssetPath,
+                    (ResourceEntity resourceEntity) =>
+                    {
+                        Transform prefab = ((GameObject)resourceEntity.Target).transform;
+
+                        if (prefabPool == null)
+                        {
+                            //先去队列里找 空闲的池
+                            if (m_PrefabPoolQueue.Count > 0)
+                            {
+                                Debug.LogError("从队列里取");
+                                prefabPool = m_PrefabPoolQueue.Dequeue();
+
+                                prefabPool.PrefabPoolId = entity.Id;//设置预设池编号
+                                gameObjectPoolEntity.Pool.AddPrefabPool(prefabPool);
+
+                                prefabPool.prefab = prefab;
+                                prefabPool.prefabGO = prefab.gameObject;
+                                prefabPool.AddPrefabToDic(prefab.name, prefab);
+                            }
+                            else
+                            {
+                                prefabPool = new PrefabPool(prefab, entity.Id);
+                                gameObjectPoolEntity.Pool.CreatePrefabPool(prefabPool, resourceEntity);
+                            }
+
+                            prefabPool.OnPrefabPoolClear = (PrefabPool pool) =>
+                            {
+                                //预设池加入队列
+                                pool.PrefabPoolId = 0;
+                                gameObjectPoolEntity.Pool.RemovePrefabPool(pool);
+                                m_PrefabPoolQueue.Enqueue(pool);
+                            };
+
+                            //这些属性要从表格中读取
+                            prefabPool.cullDespawned = entity.CullDespawned == 1;
+                            prefabPool.cullAbove = entity.CullAbove;
+                            prefabPool.cullDelay = entity.CullDelay;
+                            prefabPool.cullMaxPerPass = entity.CullMaxPerPass;
+                        }
+
+                        var enumerator = lst.GetEnumerator();
+                        while (enumerator.MoveNext())
+                        {
+                            enumerator.Current?.Invoke(gameObjectPoolEntity.Pool, prefab, resourceEntity);
+                        }
+                        m_LoadinPrefabPoolDic.Remove(prefabId);
+                        lst.Clear(); // 一定要清空
+                        GameEntry.Pool.EnqueueClassObject(lst);
+                    });
+            }
         }
 
         #region Despawn 对象回池
@@ -201,7 +250,7 @@ namespace YouYou
             int instanceID = instance.gameObject.GetInstanceID();
             byte poolId = m_InstanceIdPoolDic[instanceID];
             m_InstanceIdPoolDic.Remove(instanceID);
-            Despawn(poolId,instance);
+            Despawn(poolId, instance);
         }
 
         #endregion
