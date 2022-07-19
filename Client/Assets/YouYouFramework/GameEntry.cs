@@ -229,6 +229,15 @@ namespace YouYou
             get; private set;
         }
 
+        /// <summary>
+        /// 日志管理器
+        /// </summary>
+        public static LoggerManager Logger
+        {
+            get;private set;
+        }
+
+
         #endregion
 
         #region 基础组件管理
@@ -357,7 +366,9 @@ namespace YouYou
             UI = new YouYouUIManager();
             Lua = new LuaManager();
             Audio = new AudioManager();
+            Logger = new LoggerManager();
 
+            Logger.Init();
             Event.Init();
             Time.Init();
             Fsm.Init();
@@ -442,23 +453,23 @@ namespace YouYou
             {
                 default:
                 case LogCategory.Normal:
-#if DEBUG_LOG_NORMAL
-                    Debug.Log(args.Length == 0 ? message : string.Format(message, args));
+#if DEBUG_LOG_NORMAL && DEBUG_MODEL
+                    Debug.Log("[YouYou]" + (args.Length == 0 ? message : string.Format(message, args)));
 #endif
                     break;
                 case LogCategory.Procedure:
-#if DEBUG_LOG_PROCEDURE
-                    Debug.Log(string.Format("<color=#ffffff>{0}</color>", args.Length == 0 ? message : string.Format(message, args)));
+#if DEBUG_LOG_PROCEDURE && DEBUG_MODEL
+                    Debug.Log("[YouYou]" + (string.Format("<color=#ffffff>{0}</color>", args.Length == 0 ? message : string.Format(message, args))));
 #endif
                     break;
                 case LogCategory.Resource:
-#if DEBUG_LOG_PROCEDURE
-                    Debug.Log(string.Format("<color=#ACE44A>{0}</color>", args.Length == 0 ? message : string.Format(message, args)));
+#if DEBUG_LOG_PROCEDURE && DEBUG_MODEL
+                    Debug.Log("[YouYou]" + (string.Format("<color=#ACE44A>{0}</color>", args.Length == 0 ? message : string.Format(message, args))));
 #endif
                     break;
                 case LogCategory.Proto:
-#if DEBUG_LOG_PROTO
-                    Debug.Log(args.Length == 0 ? message : string.Format(message, args));
+#if DEBUG_LOG_PROTO && DEBUG_MODEL
+                    Debug.Log("[YouYou]" + (args.Length == 0 ? message : string.Format(message, args)));
 #endif
                     break;
             }
@@ -471,8 +482,8 @@ namespace YouYou
         /// <param name="args"></param>
         public static void LogError(string message, params object[] args)
         {
-#if DEBUG_LOG_ERROR
-            Debug.LogError(args.Length == 0 ? message : string.Format(message, args));
+#if DEBUG_LOG_ERROR && DEBUG_MODEL
+            Debug.LogError("[YouYou]" + (args.Length == 0 ? message : string.Format(message, args)));
 #endif
         }
     }

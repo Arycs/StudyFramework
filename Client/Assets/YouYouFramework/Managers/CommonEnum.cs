@@ -160,7 +160,11 @@ public enum AssetCategory
     /// <summary>
     /// lua脚本
     /// </summary>
-    xLuaLogic
+    xLuaLogic,
+    /// <summary>
+    /// 日志预设
+    /// </summary>
+    Reporter
 }
 #endregion
 

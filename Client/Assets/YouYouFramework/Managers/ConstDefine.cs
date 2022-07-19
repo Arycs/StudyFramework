@@ -35,7 +35,12 @@ namespace YouYou
         /// 声音资源包路径
         /// </summary>
         public const string AudioAssetBundlePath = "download/audio.assetbundle";
-        
+
+        /// <summary>
+        /// 日志预设路径
+        /// </summary>
+        public const string ReporterPath = "download/reporter.assetbundle";
+
         /// <summary>
         /// 点击按钮声音
         /// </summary>

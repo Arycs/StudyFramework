@@ -22,9 +22,9 @@ namespace YouYou
             }
             if (Input.GetKeyUp(KeyCode.B))
             {
-                C2GWS_RegClientProto proto = new C2GWS_RegClientProto();
-                proto.AccountId = 1;
-                GameEntry.Socket.SendMsg(proto);
+                //C2GWS_RegClientProto proto = new C2GWS_RegClientProto();
+                //proto.AccountId = 1;
+                //GameEntry.Socket.SendMsg(proto);
             }
         }
     }

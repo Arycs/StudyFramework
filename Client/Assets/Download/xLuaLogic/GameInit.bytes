@@ -5,6 +5,8 @@ local LuaCSharpArr = require 'Common/LuaCSharpArr'
 
 GameInit = {}
 local this = GameInit;
+local DebugLogProto = false;
+local DebugLog = false;
 
 function GameInit.Init()
     ---加载配置表
@@ -46,26 +48,52 @@ end
 --初始化通讯协议
 function GameInit.InitProto()
     require('Common/json')
-    --2021-8-10 临时注释 ，这几天就得尽快处理
-    --require('DataNode/Proto/ProtoCodeDef')
-    --require('DataNode/ProtoHandler/SocketProtoListenerForLua')
-    --SocketProtoListenerForLua.AddProtoListener()
+    require('DataNode/Proto/ProtoDef')
+    require('DataNode/Proto/SocketProtoListenerForLua')
+
+    if GameEntry.Lua.DebugLog then
+        DebugLog = true;
+    end
+    if GameEntry.Lua.DebugLogProto then
+        DebugLogProto = true;
+    end
+
+    SocketProtoListenerForLua.AddProtoListener();
+
+    GameEntry.Lua:GetPBBuffer("Proto_C2GWS",function(buffer)
+        GlobalPB.load(buffer)
+    end);
+
+    GameEntry.Lua:GetPBBuffer("Proto_C2WS",function(buffer)
+        GlobalPB.load(buffer)
+    end);
+
+    GameEntry.Lua:GetPBBuffer("Proto_GWS2C",function(buffer)
+        GlobalPB.load(buffer)
+    end);
+
+    GameEntry.Lua:GetPBBuffer("Proto_WS2C",function(buffer)
+        GlobalPB.load(buffer)
+    end);
+end
+
+function GameInit.GetDebugLogProto()
+    return DebugLogProto;
 end
 
 
 ----发送消息到c#
---function GameInit.SendProto(proto)
---    if(DebugLogProto) then
---        print(string.format("<color=#ffa200>发送消息:</color><color=#FFFB80>%s %s</color>", ProtoIDName[proto:GetID()], proto:GetID()));
---        print(string.format("<color=#ffdeb3>==>>%s</color>", json.encode(proto.Packet)));
---    end
---
---    GameEntry.Socket:SendMainMsgForLua(proto:GetID(),proto:GetCategory(),assert(GlobalPB.encode(ProtoIDName[proto:GetID()], proto.Packet)));
---end
---
+function GameInit.SendProto(proto)
+    if(DebugLogProto) then
+        print(string.format("<color=#ffa200>发送消息:</color><color=#FFFB80>%s %s</color>", ProtoIDName[proto:GetID()], proto:GetID()));
+        print(string.format("<color=#ffdeb3>==>>%s</color>", json.encode(proto.Packet)));
+    end
 
---function GameInit.Log(params)
---    if(DebugLog) then
---        print("[youyou]"..params);
---    end
---end
+    GameEntry.Socket:SendMainMsgForLua(proto:GetID(),proto:GetCategory(),assert(GlobalPB.encode(ProtoIDName[proto:GetID()], proto.Packet)));
+end
+
+function GameInit.Log(params)
+    if(DebugLog) then
+        print("[youyou]"..params);
+    end
+end

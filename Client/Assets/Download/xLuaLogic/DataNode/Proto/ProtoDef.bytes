@@ -1,4 +1,4 @@
--- Create By 悠游课堂 http://www.u3dol.com 悠游 1111
+-- Create By 悠游课堂 http://www.u3dol.com 张峻硕13196091831
 local ProtoBase = Class("ProtoBase")
 
 function ProtoBase:__init(packet)
