@@ -73,7 +73,6 @@ namespace YouYouServer.Model.ServerManager
         }
         #endregion
 
-
         #region StarListen 启动监听
         /// <summary>
         /// 启动监听
@@ -118,7 +117,7 @@ namespace YouYouServer.Model.ServerManager
         /// <summary>
         /// 注册玩家客户端
         /// </summary>
-        /// <param name="playerClient"></param>
+        /// <param name="playerClient"></param> 
         public static void RegisterPlayerClient(PlayerForGatewayClient playerClient)
         {
             LoggerMgr.Log(Core.LoggerLevel.Log, LogType.SysLog, "RegisterPlayerClient Success AccountId = {0}", playerClient.AccountId);

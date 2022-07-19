@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "D:\\GitHub_Repository\\Server\\YouYouServer\\YouYouServer.WebAccount\\YouYouServer.WebAccount.csproj": {}
+    "E:\\StudyFramework\\Server\\YouYouServer\\YouYouServer.WebAccount\\YouYouServer.WebAccount.csproj": {}
   },
   "projects": {
-    "D:\\GitHub_Repository\\Server\\YouYouServer\\YouYouServer.Core\\YouYouServer.Core.csproj": {
+    "E:\\StudyFramework\\Server\\YouYouServer\\YouYouServer.Core\\YouYouServer.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\GitHub_Repository\\Server\\YouYouServer\\YouYouServer.Core\\YouYouServer.Core.csproj",
+        "projectUniqueName": "E:\\StudyFramework\\Server\\YouYouServer\\YouYouServer.Core\\YouYouServer.Core.csproj",
         "projectName": "YouYouServer.Core",
-        "projectPath": "D:\\GitHub_Repository\\Server\\YouYouServer\\YouYouServer.Core\\YouYouServer.Core.csproj",
+        "projectPath": "E:\\StudyFramework\\Server\\YouYouServer\\YouYouServer.Core\\YouYouServer.Core.csproj",
         "packagesPath": "C:\\Users\\78685\\.nuget\\packages\\",
-        "outputPath": "D:\\GitHub_Repository\\Server\\YouYouServer\\YouYouServer.Core\\obj\\",
+        "outputPath": "E:\\StudyFramework\\Server\\YouYouServer\\YouYouServer.Core\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "E:\\Vs_2019\\Vs_2019_Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
           "C:\\Users\\78685\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -72,21 +76,25 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.404\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\GitHub_Repository\\Server\\YouYouServer\\YouYouServer.Model\\YouYouServer.Model.csproj": {
+    "E:\\StudyFramework\\Server\\YouYouServer\\YouYouServer.Model\\YouYouServer.Model.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\GitHub_Repository\\Server\\YouYouServer\\YouYouServer.Model\\YouYouServer.Model.csproj",
+        "projectUniqueName": "E:\\StudyFramework\\Server\\YouYouServer\\YouYouServer.Model\\YouYouServer.Model.csproj",
         "projectName": "YouYouServer.Model",
-        "projectPath": "D:\\GitHub_Repository\\Server\\YouYouServer\\YouYouServer.Model\\YouYouServer.Model.csproj",
+        "projectPath": "E:\\StudyFramework\\Server\\YouYouServer\\YouYouServer.Model\\YouYouServer.Model.csproj",
         "packagesPath": "C:\\Users\\78685\\.nuget\\packages\\",
-        "outputPath": "D:\\GitHub_Repository\\Server\\YouYouServer\\YouYouServer.Model\\obj\\",
+        "outputPath": "E:\\StudyFramework\\Server\\YouYouServer\\YouYouServer.Model\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "E:\\Vs_2019\\Vs_2019_Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
           "C:\\Users\\78685\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -100,8 +108,8 @@
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "D:\\GitHub_Repository\\Server\\YouYouServer\\YouYouServer.Core\\YouYouServer.Core.csproj": {
-                "projectPath": "D:\\GitHub_Repository\\Server\\YouYouServer\\YouYouServer.Core\\YouYouServer.Core.csproj"
+              "E:\\StudyFramework\\Server\\YouYouServer\\YouYouServer.Core\\YouYouServer.Core.csproj": {
+                "projectPath": "E:\\StudyFramework\\Server\\YouYouServer\\YouYouServer.Core\\YouYouServer.Core.csproj"
               }
             }
           }
@@ -130,21 +138,25 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.404\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\GitHub_Repository\\Server\\YouYouServer\\YouYouServer.WebAccount\\YouYouServer.WebAccount.csproj": {
+    "E:\\StudyFramework\\Server\\YouYouServer\\YouYouServer.WebAccount\\YouYouServer.WebAccount.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\GitHub_Repository\\Server\\YouYouServer\\YouYouServer.WebAccount\\YouYouServer.WebAccount.csproj",
+        "projectUniqueName": "E:\\StudyFramework\\Server\\YouYouServer\\YouYouServer.WebAccount\\YouYouServer.WebAccount.csproj",
         "projectName": "YouYouServer.WebAccount",
-        "projectPath": "D:\\GitHub_Repository\\Server\\YouYouServer\\YouYouServer.WebAccount\\YouYouServer.WebAccount.csproj",
+        "projectPath": "E:\\StudyFramework\\Server\\YouYouServer\\YouYouServer.WebAccount\\YouYouServer.WebAccount.csproj",
         "packagesPath": "C:\\Users\\78685\\.nuget\\packages\\",
-        "outputPath": "D:\\GitHub_Repository\\Server\\YouYouServer\\YouYouServer.WebAccount\\obj\\",
+        "outputPath": "E:\\StudyFramework\\Server\\YouYouServer\\YouYouServer.WebAccount\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "E:\\Vs_2019\\Vs_2019_Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
           "C:\\Users\\78685\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -158,8 +170,8 @@
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "D:\\GitHub_Repository\\Server\\YouYouServer\\YouYouServer.Model\\YouYouServer.Model.csproj": {
-                "projectPath": "D:\\GitHub_Repository\\Server\\YouYouServer\\YouYouServer.Model\\YouYouServer.Model.csproj"
+              "E:\\StudyFramework\\Server\\YouYouServer\\YouYouServer.Model\\YouYouServer.Model.csproj": {
+                "projectPath": "E:\\StudyFramework\\Server\\YouYouServer\\YouYouServer.Model\\YouYouServer.Model.csproj"
               }
             }
           }
@@ -191,7 +203,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.404\\RuntimeIdentifierGraph.json"
         }
       }
     }

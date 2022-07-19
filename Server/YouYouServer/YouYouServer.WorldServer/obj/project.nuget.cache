@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "S/sOGThGyUlmRCCDAiMuDV68Z646Ap2n24rc04kIPBK6GFV479YQzH2ENShjtIacmFzOHSVQI6/871JdZiBQ/Q==",
+  "dgSpecHash": "BRiR/49eghoVyxMm/X6yoxINStvxSzXbT4kaiSg4qetlIPSa1gx9MBegA6fFmJ6tnbVUe4vlsBmS2uFqylvn0g==",
   "success": true,
-  "projectFilePath": "D:\\GitHub_Repository\\Server\\YouYouServer\\YouYouServer.WorldServer\\YouYouServer.WorldServer.csproj",
+  "projectFilePath": "E:\\StudyFramework\\Server\\YouYouServer\\YouYouServer.WorldServer\\YouYouServer.WorldServer.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\78685\\.nuget\\packages\\csrediscore\\3.1.6\\csrediscore.3.1.6.nupkg.sha512",
     "C:\\Users\\78685\\.nuget\\packages\\dnsclient\\1.2.0\\dnsclient.1.2.0.nupkg.sha512",

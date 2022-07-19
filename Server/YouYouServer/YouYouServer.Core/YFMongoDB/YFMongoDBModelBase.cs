@@ -52,7 +52,6 @@ namespace YouYouServer.Core.YFMongoDB
         }
         #endregion
 
-
         #region 获取文档集合 GetCollection
         private IMongoCollection<T> m_Collection = null;
 

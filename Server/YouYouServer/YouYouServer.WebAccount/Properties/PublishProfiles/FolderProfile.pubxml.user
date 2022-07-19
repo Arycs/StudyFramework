@@ -4,6 +4,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 -->
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <_PublishTargetUrl>D:\GitHub_Repository\Server\Release\WebAccount</_PublishTargetUrl>
+    <_PublishTargetUrl>E:\StudyFramework\Server\Release\WebAccount</_PublishTargetUrl>
+    <History>True|2022-07-19T13:41:56.0232160Z;False|2022-07-19T21:41:16.0062687+08:00;True|2022-07-19T21:09:45.5077324+08:00;False|2022-07-19T21:09:09.1438032+08:00;True|2022-01-26T21:43:28.9480086+08:00;True|2022-01-26T21:38:56.4766329+08:00;True|2022-01-26T15:33:06.4718024+08:00;True|2022-01-26T14:45:12.5639435+08:00;</History>
   </PropertyGroup>
 </Project>

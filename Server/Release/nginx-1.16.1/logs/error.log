@@ -1,2 +1,6 @@
 2021/02/26 08:10:41 [emerg] 18848#16692: bind() to 0.0.0.0:80 failed (10013: An attempt was made to access a socket in a way forbidden by its access permissions)
 2021/02/26 08:11:35 [emerg] 2400#13668: bind() to 0.0.0.0:80 failed (10013: An attempt was made to access a socket in a way forbidden by its access permissions)
+2022/07/18 22:41:14 [emerg] 19528#20336: bind() to 0.0.0.0:80 failed (10013: An attempt was made to access a socket in a way forbidden by its access permissions)
+2022/07/19 21:26:44 [emerg] 20708#21344: bind() to 0.0.0.0:80 failed (10013: An attempt was made to access a socket in a way forbidden by its access permissions)
+2022/07/19 21:40:21 [error] 17332#22168: *1 CreateFile() "E:\StudyFramework\Server\Release\nginx-1.16.1/html/favicon.ico" failed (2: The system cannot find the file specified), client: 127.0.0.1, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "localhost", referrer: "http://localhost/"
+2022/07/19 21:40:35 [error] 17332#22168: *1 CreateFile() "E:\StudyFramework\Server\Release\nginx-1.16.1/html/account" failed (2: The system cannot find the file specified), client: 127.0.0.1, server: localhost, request: "GET /account HTTP/1.1", host: "localhost"

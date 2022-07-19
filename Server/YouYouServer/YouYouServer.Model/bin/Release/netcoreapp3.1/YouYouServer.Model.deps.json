@@ -1064,6 +1064,14 @@
         "runtime": {
           "YouYouServer.Core.dll": {}
         }
+      },
+      "zlib.net/1.0.3.0": {
+        "runtime": {
+          "zlib.net.dll": {
+            "assemblyVersion": "1.0.3.0",
+            "fileVersion": "1.0.3.0"
+          }
+        }
       }
     }
   },
@@ -1817,6 +1825,11 @@
     },
     "YouYouServer.Core/1.0.0": {
       "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "zlib.net/1.0.3.0": {
+      "type": "reference",
       "serviceable": false,
       "sha512": ""
     }

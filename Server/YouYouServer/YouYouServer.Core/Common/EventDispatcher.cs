@@ -41,7 +41,6 @@ namespace YouYouServer.Core.Common
         /// </summary>
         /// <param name="protoCode"></param>
         /// <param name="handler"></param>
-        //移除监听
         public void RemoveEventListener(ushort protoCode, OnActionHandler handler)
         {
             if (dic.ContainsKey(protoCode))

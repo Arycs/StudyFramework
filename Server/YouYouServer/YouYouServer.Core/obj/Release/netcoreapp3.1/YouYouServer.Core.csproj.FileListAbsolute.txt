@@ -7,3 +7,16 @@ D:\GitHub_Repository\Server\YouYouServer\YouYouServer.Core\obj\Release\netcoreap
 D:\GitHub_Repository\Server\YouYouServer\YouYouServer.Core\obj\Release\netcoreapp3.1\YouYouServer.Core.csproj.CoreCompileInputs.cache
 D:\GitHub_Repository\Server\YouYouServer\YouYouServer.Core\obj\Release\netcoreapp3.1\YouYouServer.Core.dll
 D:\GitHub_Repository\Server\YouYouServer\YouYouServer.Core\obj\Release\netcoreapp3.1\YouYouServer.Core.pdb
+E:\StudyFramework\Server\YouYouServer\YouYouServer.Core\bin\Release\netcoreapp3.1\YouYouServer.Core.deps.json
+E:\StudyFramework\Server\YouYouServer\YouYouServer.Core\bin\Release\netcoreapp3.1\YouYouServer.Core.dll
+E:\StudyFramework\Server\YouYouServer\YouYouServer.Core\bin\Release\netcoreapp3.1\YouYouServer.Core.pdb
+E:\StudyFramework\Server\YouYouServer\YouYouServer.Core\bin\Release\netcoreapp3.1\Google.Protobuf.dll
+E:\StudyFramework\Server\YouYouServer\YouYouServer.Core\bin\Release\netcoreapp3.1\zlib.net.dll
+E:\StudyFramework\Server\YouYouServer\YouYouServer.Core\obj\Release\netcoreapp3.1\YouYouServer.Core.csproj.AssemblyReference.cache
+E:\StudyFramework\Server\YouYouServer\YouYouServer.Core\obj\Release\netcoreapp3.1\YouYouServer.Core.GeneratedMSBuildEditorConfig.editorconfig
+E:\StudyFramework\Server\YouYouServer\YouYouServer.Core\obj\Release\netcoreapp3.1\YouYouServer.Core.AssemblyInfoInputs.cache
+E:\StudyFramework\Server\YouYouServer\YouYouServer.Core\obj\Release\netcoreapp3.1\YouYouServer.Core.AssemblyInfo.cs
+E:\StudyFramework\Server\YouYouServer\YouYouServer.Core\obj\Release\netcoreapp3.1\YouYouServer.Core.csproj.CoreCompileInputs.cache
+E:\StudyFramework\Server\YouYouServer\YouYouServer.Core\obj\Release\netcoreapp3.1\YouYouServer.Core.dll
+E:\StudyFramework\Server\YouYouServer\YouYouServer.Core\obj\Release\netcoreapp3.1\YouYouServer.Core.pdb
+E:\StudyFramework\Server\YouYouServer\YouYouServer.Core\obj\Release\netcoreapp3.1\YouYouServer.Core.csproj.CopyComplete

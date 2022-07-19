@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "V5JU+NSbOjA0ZOWAbLkvIua4Q/wM9q5fFiFrsF1yOCPuTuWZMBL157DycOM5tuRnscKPPxXBFoPm9jpwzJmUkw==",
+  "dgSpecHash": "etQ2FdjYqgrjjThAyXFqe6KPtVTdCBWAABh+zjPyIl307yQjdFlz9i4CLyujVeR7ych3O5ogJu/HdVlbbRTKsg==",
   "success": true,
-  "projectFilePath": "D:\\GitHub_Repository\\Server\\YouYouServer\\YouYouServer.GameServer\\YouYouServer.GameServer.csproj",
+  "projectFilePath": "E:\\StudyFramework\\Server\\YouYouServer\\YouYouServer.GameServer\\YouYouServer.GameServer.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\78685\\.nuget\\packages\\csrediscore\\3.1.6\\csrediscore.3.1.6.nupkg.sha512",
     "C:\\Users\\78685\\.nuget\\packages\\dnsclient\\1.2.0\\dnsclient.1.2.0.nupkg.sha512",

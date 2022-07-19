@@ -6334,19 +6334,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\78685\\.nuget\\packages\\": {}
+    "C:\\Users\\78685\\.nuget\\packages\\": {},
+    "E:\\Vs_2019\\Vs_2019_Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\GitHub_Repository\\Server\\YouYouServer\\YouYouServer.Model\\YouYouServer.Model.csproj",
+      "projectUniqueName": "E:\\StudyFramework\\Server\\YouYouServer\\YouYouServer.Model\\YouYouServer.Model.csproj",
       "projectName": "YouYouServer.Model",
-      "projectPath": "D:\\GitHub_Repository\\Server\\YouYouServer\\YouYouServer.Model\\YouYouServer.Model.csproj",
+      "projectPath": "E:\\StudyFramework\\Server\\YouYouServer\\YouYouServer.Model\\YouYouServer.Model.csproj",
       "packagesPath": "C:\\Users\\78685\\.nuget\\packages\\",
-      "outputPath": "D:\\GitHub_Repository\\Server\\YouYouServer\\YouYouServer.Model\\obj\\",
+      "outputPath": "E:\\StudyFramework\\Server\\YouYouServer\\YouYouServer.Model\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "E:\\Vs_2019\\Vs_2019_Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
         "C:\\Users\\78685\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -6360,8 +6365,8 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "projectReferences": {
-            "D:\\GitHub_Repository\\Server\\YouYouServer\\YouYouServer.Core\\YouYouServer.Core.csproj": {
-              "projectPath": "D:\\GitHub_Repository\\Server\\YouYouServer\\YouYouServer.Core\\YouYouServer.Core.csproj"
+            "E:\\StudyFramework\\Server\\YouYouServer\\YouYouServer.Core\\YouYouServer.Core.csproj": {
+              "projectPath": "E:\\StudyFramework\\Server\\YouYouServer\\YouYouServer.Core\\YouYouServer.Core.csproj"
             }
           }
         }
@@ -6390,7 +6395,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.404\\RuntimeIdentifierGraph.json"
       }
     }
   }

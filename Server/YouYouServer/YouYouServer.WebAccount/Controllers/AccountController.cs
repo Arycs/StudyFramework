@@ -197,6 +197,9 @@ namespace YouYouServer.WebAccount.Controllers
 
             //return accountEntity.YFId.ToString();
 
+            //========================从Redies中获取数据
+            //AccountEntity a =  await YFRedisHelper.YFCacheShellAsync("Arycs丶", id.ToString(), GetAccountAsync);
+            //return JsonConvert.SerializeObject(a);
 
             //==========================从Redis中获取数据===============
             string str = Request.HttpContext.Connection.LocalIpAddress.MapToIPv4().ToString() + ":" + Request.HttpContext.Connection.LocalPort;

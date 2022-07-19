@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?> 
 <Root>
   <AreaServerId>1</AreaServerId>
-  <CurrServerType>2</CurrServerType>
-  <CurrServerId>1</CurrServerId>
+  <CurrServerType>0</CurrServerType>
+  <CurrServerId>0</CurrServerId>
   <MongoConnectionString>mongodb://127.0.0.1</MongoConnectionString>
   <RedisConnectionString>127.0.0.1:6379</RedisConnectionString>
   <DataTablePath>E:\StudyFramework\Server\Release\DataTable</DataTablePath>
@@ -17,3 +17,4 @@
     <Item ServerType="2" ServerId="2" Ip="192.168.0.107" Port="1305" />   <!--网关服务器2-->
   </Servers>
  </Root>
+ 
