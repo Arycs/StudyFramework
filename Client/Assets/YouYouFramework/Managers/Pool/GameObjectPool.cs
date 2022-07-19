@@ -130,6 +130,7 @@ namespace YouYou
 
                     Transform prefab = ((GameObject) resourceEntity.Target).transform;
                     //使用预设编号 当做池ID
+                    //TODO ERROR 此处 好像有问题
                     PrefabPool prefabPool = gameObjectPoolEntity.Pool.GetPrefabPool(entity.Id);
 
                     if (prefabPool == null)

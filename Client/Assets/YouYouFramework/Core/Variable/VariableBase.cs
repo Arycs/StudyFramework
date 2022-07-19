@@ -18,7 +18,7 @@ namespace YouYou
         /// <summary>
         /// 引用计数
         /// </summary>
-        public byte ReferenceCount { get; private set; }
+        private byte ReferenceCount { get; set; }
 
 
         /// <summary>

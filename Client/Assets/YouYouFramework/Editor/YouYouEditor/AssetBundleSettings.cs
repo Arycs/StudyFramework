@@ -203,8 +203,7 @@ public class AssetBundleSettings : ScriptableObject
                 isFirstData = true;
             }
 
-            string strLine = string.Format("{0}|{1}|{2}|{3}|{4}", name, md5, size, isFirstData ? 1 : 0,
-                isEncrypt ? 1 : 0);
+            string strLine = $"{name}|{md5}|{size}|{(isFirstData ? 1 : 0)}|{(isEncrypt ? 1 : 0)}";
             sbContent.AppendLine(strLine);
         }
 
@@ -652,28 +651,14 @@ public class AssetBundleSettings : ScriptableObject
     /// <summary>
     /// 临时目录
     /// </summary>
-    public string TempPath
-    {
-        get
-        {
-            return Application.dataPath + "/../" + AssetBundleSavePath + "/" + ResourceVersion + "_Temp/" + CurrBuildTarget;
-        }
-    }
+    private string TempPath => Application.dataPath + "/../" + AssetBundleSavePath + "/" + ResourceVersion + "_Temp/" + CurrBuildTarget;
 
-    public string OutPath
-    {
-        get
-        {
-            return TempPath.Replace("_Temp", "");
-        }
-    }
+    private string OutPath => TempPath.Replace("_Temp", "");
+
     #endregion
 
     [LabelText("资源包保存路径")]
     [FolderPath]
-    /// <summary>
-    /// 资源包保存路径
-    /// </summary>
     public string AssetBundleSavePath;
 
     [LabelText("勾选进行编辑")]
@@ -686,35 +671,15 @@ public class AssetBundleSettings : ScriptableObject
     [Serializable]
     public class AssetBundleData
     {
-        [LabelText("名称")]
-        /// <summary>
-        /// 名称
-        /// </summary>
-        public string Name;
+        [LabelText("名称")] public string Name;
 
-        [LabelText("文件夹为一个资源")]
-        /// <summary>
-        /// 文件夹为一个资源
-        /// </summary>
-        public bool Overall;
+        [LabelText("文件夹为一个资源")] public bool Overall;
 
-        [LabelText("是否为初始资源")]
-        /// <summary>
-        /// 是否为初始资源
-        /// </summary>
-        public bool IsFirstData;
+        [LabelText("是否为初始资源")] public bool IsFirstData;
 
-        [LabelText("是否加密")]
-        /// <summary>
-        /// 是否加密
-        /// </summary>
-        public bool IsEncrypt;
+        [LabelText("是否加密")] public bool IsEncrypt;
 
-        [FolderPath(ParentFolder = "Asset")]
-        /// <summary>
-        /// 路径
-        /// </summary>
-        public string[] Path;
+        [FolderPath(ParentFolder = "Asset")] public string[] Path;
 
     }
 }

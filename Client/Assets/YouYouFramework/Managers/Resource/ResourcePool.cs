@@ -127,7 +127,7 @@ namespace YouYou
                 LinkedListNode<string> next = curr.Next;
                 m_NeedRemoveKeyList.Remove(curr);
                 curr = next;
-             }
+            }
         }
 
         /// <summary>

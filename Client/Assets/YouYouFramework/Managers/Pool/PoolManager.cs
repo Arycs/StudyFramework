@@ -38,11 +38,7 @@ namespace YouYou
             get; private set;
         }
 
-        [Header("锁定的资源包")]
-        /// <summary>
-        /// 锁定的资源包(不会释放)
-        /// </summary>
-        public string[] LockedAssetBundle =
+        [Header("锁定的资源包")] public string[] LockedAssetBundle =
         {
             "download/ui/uifont.assetbundle",
             "download/cusshaders.assetbundle",

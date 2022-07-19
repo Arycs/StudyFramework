@@ -8,7 +8,7 @@ namespace YouYou
     /// <summary>
     /// 资源加载器
     /// </summary>
-    public class AssetLoaderRoutine : MonoBehaviour
+    public class AssetLoaderRoutine 
     {
         /// <summary>
         /// 资源加载请求

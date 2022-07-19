@@ -64,7 +64,7 @@ namespace YouYou
         public void ReadAssetBundle(string fileUrl, Action<byte[]> onComplete)
         {
             GameEntry.Instance.StartCoroutine(
-                ReadStreamingAsset(string.Format("{0}/AssetBundles/{1}", m_StreamingAssetsPath, fileUrl), onComplete));
+                ReadStreamingAsset($"{m_StreamingAssetsPath}/AssetBundles/{fileUrl}", onComplete));
         }
         #endregion
     }

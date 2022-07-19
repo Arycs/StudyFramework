@@ -8,3 +8,11 @@ Client/Tools/
 Tools/ExcelTool/.vs/
 Tools/youyou_Proto/.vs/
 Client/LuaLib/
+Client/Logs/Packages-Update.log
+Client/Client.sln.DotSettings.user
+Client/.vsconfig
+Client/Assets/Download/xLuaLogic/.idea/.gitignore
+Client/Assets/Download/xLuaLogic/.idea/misc.xml
+Client/Assets/Download/xLuaLogic/.idea/modules.xml
+Client/Assets/Download/xLuaLogic/.idea/vcs.xml
+Client/Assets/Download/xLuaLogic/.idea/xLuaLogic.iml

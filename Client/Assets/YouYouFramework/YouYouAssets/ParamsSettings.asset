@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ParamsSettings
   m_EditorClassIdentifier: 
   WebAccountUrl: 
-  TestWebAccountUrl: localhost:7000
+  TestWebAccountUrl: localhost:8001
   IsTest: 1
   GeneralParams:
   - Key: 

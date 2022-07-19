@@ -100,7 +100,7 @@ namespace YouYou
         /// <param name="onUpdate">运行回调</param>
         /// <param name="onComplete">结束回调</param>
         /// <returns></returns>
-        public TimeAction Init(string timeName = null, float delayTime = 0, float interval = 0, int loop = 1, Action onStart = null, Action<int> onUpdate = null, Action onComplete = null)
+        public TimeAction Init(string timeName = null, float delayTime = 0, float interval = 1, int loop = 1, Action onStart = null, Action<int> onUpdate = null, Action onComplete = null)
         {
             TimeName = timeName;
             m_DelayTime = delayTime;

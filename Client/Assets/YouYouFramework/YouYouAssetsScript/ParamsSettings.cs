@@ -28,25 +28,25 @@ public class ParamsSettings : ScriptableObject
     public GradeParamData[] GradeParams;
 
     /// <summary>
-    /// ³£¹æ²ÎÊı
+    /// å¸¸è§„å‚æ•°
     /// </summary>
     [Serializable]
     public class GeneralParamData
     {
         /// <summary>
-        /// ²ÎÊıKey
+        /// å‚æ•°Key
         /// </summary>
         [TableColumnWidth(160, Resizable = false)]
         public string Key;
 
         /// <summary>
-        /// ²ÎÊıÖµ
+        /// å‚æ•°å€¼
         /// </summary>
         public int Value;
     }
 
     /// <summary>
-    /// Éè±¸µÈ¼¶
+    /// è®¾å¤‡ç­‰çº§
     /// </summary>
     public enum DeviceGrade
     {
@@ -56,11 +56,10 @@ public class ParamsSettings : ScriptableObject
     }
 
     private int m_LenGradeParams = 0;
+
     /// <summary>
-    /// ¸ù¾İKeyºÍÉè±¸µÈ¼¶»ñÈ¡²ÎÊı
+    /// æ ¹æ®Keyå’Œè®¾å¤‡ç­‰çº§è·å–å‚æ•°
     /// </summary>
-    /// <param name="http_Retry"></param>
-    /// <param name="currDeviceGrade"></param>
     /// <returns></returns>
     public int GetGradeParamData(string key, DeviceGrade grade)
     {
@@ -78,13 +77,13 @@ public class ParamsSettings : ScriptableObject
     }
 
     /// <summary>
-    /// µÈ¼¶²ÎÊıÊı¾İ
+    /// ç­‰çº§å‚æ•°æ•°æ®
     /// </summary>
     [Serializable]
     public class GradeParamData
     {
         /// <summary>
-        /// ²ÎÊıKey
+        /// å‚æ•°Key
         /// </summary>
         [TableColumnWidth(160, Resizable = false)]
         public string Key;

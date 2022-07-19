@@ -13,10 +13,10 @@ public class MacroSettings : ScriptableObject
     [HideLabel]
     public MacroData[] Settings;
 
-    //ButtonSizes.Medium Õâ¸öÊôĞÔ±íÊ¾°´Å¥µÄ¸ß¶È
-    //ResponsiveButtonGroup("DefaultButtonSize") ÓĞÕâ¾ä»°°´Å¥»áÅÅĞò
-    //ResponsiveButtonGroup ±íÊ¾°´Å¥µÄ·Ö×é Èç¹û·Ö×éÃû×ÖÒ»Ñù£¬ºá×ÅÅÅĞò£¬Èç¹û²»Ò»ÑùÔòÊú×ÅÅÅĞò
-    //PropertyOrder ±íÊ¾µ±Ç°»ØÖ®µÄËùÓĞ×é¼şµÄË³Ğò
+    //ButtonSizes.Medium è¿™ä¸ªå±æ€§è¡¨ç¤ºæŒ‰é’®çš„é«˜åº¦
+    //ResponsiveButtonGroup("DefaultButtonSize") æœ‰è¿™å¥è¯æŒ‰é’®ä¼šæ’åº
+    //ResponsiveButtonGroup è¡¨ç¤ºæŒ‰é’®çš„åˆ†ç»„ å¦‚æœåˆ†ç»„åå­—ä¸€æ ·ï¼Œæ¨ªç€æ’åºï¼Œå¦‚æœä¸ä¸€æ ·åˆ™ç«–ç€æ’åº
+    //PropertyOrder è¡¨ç¤ºå½“å‰å›ä¹‹çš„æ‰€æœ‰ç»„ä»¶çš„é¡ºåº
 
     [Button(ButtonSizes.Medium), ResponsiveButtonGroup("DefaultButtonSize"), PropertyOrder(1)]
     public void SaveMacro()
@@ -73,18 +73,18 @@ public class MacroSettings : ScriptableObject
 public class MacroData
 {
     /// <summary>
-    /// ÆôÓÃ
+    /// å¯ç”¨
     /// </summary>
     [TableColumnWidth(80, Resizable = false)]
     public bool Enable;
 
     /// <summary>
-    /// ºêÃû³Æ
+    /// å®åç§°
     /// </summary>
     public string Name;
 
     /// <summary>
-    /// ºê
+    /// å®
     /// </summary>
     public string Macro;
 }
