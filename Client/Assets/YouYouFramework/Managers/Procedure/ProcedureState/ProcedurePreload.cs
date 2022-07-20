@@ -121,7 +121,6 @@ namespace YouYou
         public void OnLoadDataTableComplete(object userData)
         {
             GameEntry.Log(LogCategory.Normal,"加载所有表格完毕");
-            //执行Lua初始化
             LoadAudio();
         }
 

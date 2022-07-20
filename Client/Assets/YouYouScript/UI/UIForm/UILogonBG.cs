@@ -8,6 +8,7 @@ public class UILogonBG : UIFormBase
     protected override void OnInit(object userData)
     {
         base.OnInit(userData);
+
     }
 
     protected override void OnOpen(object userData)
