@@ -30,7 +30,7 @@ namespace YouYou
         }
 
         /// <summary>
-        /// HTTP请求回来的数据,服务器没写好,先注释.
+        /// HTTP请求回来的数据
         /// </summary>
         /// <param name="args"></param>
         private void OnWebAccountInit(HttpCallBackArgs args)

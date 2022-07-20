@@ -187,16 +187,12 @@ namespace YouYou
                 //说明资源在资源包池中存在
                 AssetBundle assetbundle = assetBundleEntity.Target as AssetBundle;
                 Debug.LogError("说明资源在资源包池中存在 从资源池中加载的AssetBundle");
-                if (onComplete != null)
-                {
-                    onComplete(assetbundle);
-                }
+                onComplete?.Invoke(assetbundle);
 
                 return;
             }
 
-            LinkedList<Action<AssetBundle>> lst = null;
-            if (m_LoadingAssetBundle.TryGetValue(assetbundlePath,out lst))
+            if (m_LoadingAssetBundle.TryGetValue(assetbundlePath,out var lst))
             {
                 //如果存在加载中的bundle 把委托加入对应的链表 然后直接返回
                 lst.AddLast(onComplete);
@@ -221,10 +217,7 @@ namespace YouYou
             routine.LoadAssetBundle(assetbundlePath);
             routine.OnAssetBundleCreateUpdate = (float progress) =>
             {
-                if (onUpdate != null)
-                {
-                    onUpdate(progress);
-                }
+                onUpdate?.Invoke(progress);
             };
             routine.OnLoadAssetBundleComplete = (AssetBundle assetbundle) =>
             {
@@ -295,19 +288,13 @@ namespace YouYou
             routine.LoadAsset(assetName, assetBundle);
             routine.OnAssetUpdate = (float progress) =>
             {
-                if (onUpdate != null)
-                {
-                    onUpdate(progress);
-                }
+                onUpdate?.Invoke(progress);
             };
             routine.OnLoadAssetComplete = (UnityEngine.Object obj) =>
             {
                 for (LinkedListNode<Action<UnityEngine.Object>> curr = lst.First;curr != null;curr = curr.Next)
                 {
-                    if (curr.Value != null)
-                    {
-                        curr.Value(obj);
-                    }
+                    curr.Value?.Invoke(obj);
                 }
                 lst.Clear(); //一定要清空
                 GameEntry.Pool.EnqueueClassObject(lst);
@@ -327,11 +314,17 @@ namespace YouYou
         /// <param name="assetCategory">资源分类</param>
         /// <param name="assetFullName">资源路径</param>
         /// <param name="onComplete"></param>
-        public void LoadMainAsset(AssetCategory assetCategory, string assetFullName,
+        public async void LoadMainAsset(AssetCategory assetCategory, string assetFullName,
             BaseAction<ResourceEntity> onComplete = null)
         {
             MainAssetLoaderRoutine routine = GameEntry.Pool.DequeueClassObject<MainAssetLoaderRoutine>();
-            routine.Load(assetCategory, assetFullName,onComplete);
+            routine.OnComplete = onComplete;
+            var res = await routine.Load(assetCategory, assetFullName);
+            if (res != null)
+            {
+                onComplete?.Invoke(res);
+            }
+            
         }
 
         /// <summary>

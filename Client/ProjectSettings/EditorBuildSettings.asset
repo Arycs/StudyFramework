@@ -8,13 +8,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Scene_Launch.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
-  - enabled: 0
+  - enabled: 1
     path: Assets/Download/Scenes/InitScene/GameScene_HuPaoCun.unity
     guid: e97802877b368c242b0925ae02902cff
-  - enabled: 0
+  - enabled: 1
     path: Assets/Download/Scenes/InitScene/GameScene_HuPaoCun_02.unity
     guid: 1f970f8fe82ce194889f671317919c3a
-  - enabled: 0
+  - enabled: 1
     path: Assets/Download/Scenes/InitScene/GameScene_HuPaoCun_03.unity
     guid: 3b9bae63409fb9f4fbb3aa334eb00a9e
   - enabled: 0

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace YouYou
@@ -38,7 +39,7 @@ namespace YouYou
         /// 著资源加载完毕
         /// </summary>
         /// <returns></returns>
-        private BaseAction<ResourceEntity> m_OnComplete;
+        public BaseAction<ResourceEntity> OnComplete;
 
         /// <summary>
         /// 加载主资源
@@ -46,8 +47,7 @@ namespace YouYou
         /// <param name="assetCategory"></param>
         /// <param name="assetFullName"></param>
         /// <param name="onComplete"></param>
-        public void Load(AssetCategory assetCategory, string assetFullName,
-            BaseAction<ResourceEntity> onComplete = null)
+        public async UniTask<ResourceEntity> Load(AssetCategory assetCategory, string assetFullName)
         {
 #if DISABLE_ASSETBUNDLE && UNITY_EDITOR
             Debug.LogError("取池");
@@ -56,16 +56,12 @@ namespace YouYou
             m_CurrResourceEntity.IsAssetBundle = false;
             m_CurrResourceEntity.ResourceName = assetFullName;
             m_CurrResourceEntity.Target = UnityEditor.AssetDatabase.LoadAssetAtPath<GameObject>(assetFullName);
-            if (onComplete != null)
-            {
-                onComplete(m_CurrResourceEntity);
-            }
+            return m_CurrResourceEntity;
 #else
-            m_OnComplete = onComplete;
             m_CurrAssetEntity = GameEntry.Resource.ResourceLoaderManager.GetAssetEntity(assetCategory, assetFullName);
             LoadDependsAsset();
+            return null;
 #endif
-
         }
 
         /// <summary>
@@ -80,11 +76,7 @@ namespace YouYou
             {
                 Debug.LogError("从分类资源池加载" + assetEntity.ResourceName);
                 //说明资源在分类资源池中存在
-                if (m_OnComplete != null)
-                {
-                    m_OnComplete(assetEntity);
-                }
-
+                OnComplete?.Invoke(assetEntity);
                 return;
             }
 
@@ -102,9 +94,9 @@ namespace YouYou
                                 .Spawn(m_CurrAssetEntity.AssetFullName);
                             if (m_CurrResourceEntity != null)
                             {
-                                if (m_OnComplete != null)
+                                if (OnComplete != null)
                                 {
-                                    m_OnComplete(m_CurrResourceEntity);
+                                    OnComplete(m_CurrResourceEntity);
                                 }
                                 return;
                             }
@@ -128,9 +120,9 @@ namespace YouYou
                                 CurrDependsResource = next;
                             }
 
-                            if (m_OnComplete != null)
+                            if (OnComplete != null)
                             {
-                                m_OnComplete(m_CurrResourceEntity);
+                                OnComplete(m_CurrResourceEntity);
                             }
 
                             Reset();
@@ -142,7 +134,7 @@ namespace YouYou
         /// <summary>
         /// 加载依赖资源
         /// </summary>
-        private void LoadDependsAsset()
+        private async void LoadDependsAsset()
         {
             List<AssetDependsEntity> lst = m_CurrAssetEntity.DependsAssetList;
             if (lst != null)
@@ -153,7 +145,8 @@ namespace YouYou
                 {
                     AssetDependsEntity entity = lst[i];
                     MainAssetLoaderRoutine routine = GameEntry.Pool.DequeueClassObject<MainAssetLoaderRoutine>();
-                    routine.Load(entity.Category, entity.AssetFullName, OnLoadDependsAssetComplete);
+                    routine.OnComplete = OnLoadDependsAssetComplete;
+                    await routine.Load(entity.Category, entity.AssetFullName);
                 }
             }
             else
@@ -188,7 +181,7 @@ namespace YouYou
         /// </summary>
         private void Reset()
         {
-            m_OnComplete = null;
+            OnComplete = null;
             m_CurrAssetEntity = null;
             m_CurrResourceEntity = null;
             m_NeedLoadAssetDependCount = 0;

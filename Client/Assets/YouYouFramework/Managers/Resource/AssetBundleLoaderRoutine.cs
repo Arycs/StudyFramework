@@ -32,19 +32,19 @@ namespace YouYou
 
         #region LoadAssetBundle 加载资源包
 
-        public async void LoadAssetBundle(string assetbundlePath)
+        public async void LoadAssetBundle(string assetBundlePath)
         {
-            m_CurrAssetBundleInfo = GameEntry.Resource.ResourceManager.GetAssetBundleInfo(assetbundlePath);
-            byte[] buffer = GameEntry.Resource.ResourceManager.LocalAssetsManager.GetFileBuffer(assetbundlePath);
+            m_CurrAssetBundleInfo = GameEntry.Resource.ResourceManager.GetAssetBundleInfo(assetBundlePath);
+            byte[] buffer = GameEntry.Resource.ResourceManager.LocalAssetsManager.GetFileBuffer(assetBundlePath);
             if (buffer == null)
             {
                 //如果可写区没有 那么就从只读区获取
-              var buff = await GameEntry.Resource.ResourceManager.StreamingAssetsManager.ReadAssetBundle(assetbundlePath);
+              var buff = await GameEntry.Resource.ResourceManager.StreamingAssetsManager.ReadAssetBundle(assetBundlePath);
               if (buff == null)
               {
                   //如果只读区也没有,从CDN下载
-                  Debug.LogError("资源包需要下载assetBundlePath = >" + assetbundlePath);
-                  GameEntry.Download.BeginDownloadSingle(assetbundlePath, onComplete: (string fileUrl) =>
+                  Debug.LogError("资源包需要下载assetBundlePath = >" + assetBundlePath);
+                  GameEntry.Download.BeginDownloadSingle(assetBundlePath, onComplete: (string fileUrl) =>
                   {
                       Debug.LogError("下载完毕fileUrl =>" + fileUrl);
                       buffer = GameEntry.Resource.ResourceManager.LocalAssetsManager.GetFileBuffer(fileUrl);
@@ -67,7 +67,7 @@ namespace YouYou
         /// 异步加载资源包
         /// </summary>
         /// <param name="buffer"></param>
-        public void LoadAssetBundleAsync(byte[] buffer)
+        private void LoadAssetBundleAsync(byte[] buffer)
         {
             if (m_CurrAssetBundleInfo.IsEncrypt)
             {
@@ -81,7 +81,7 @@ namespace YouYou
         /// <summary>
         /// 重置
         /// </summary>
-        public void Reset()
+        private void Reset()
         {
             m_CurrAssetBundleCreateRequest = null;
         }
@@ -109,29 +109,20 @@ namespace YouYou
                     {
                         GameEntry.Log(LogCategory.Resource,"资源包=>{0} 加载完毕",m_CurrAssetBundleInfo.AssetBundleName);
                         Reset(); //一定 要早点Reset
-                        if (OnLoadAssetBundleComplete != null)
-                        {
-                            OnLoadAssetBundleComplete(assetBundle);
-                        }
+                        OnLoadAssetBundleComplete?.Invoke(assetBundle);
                     }
                     else
                     {
                         GameEntry.Log(LogCategory.Resource,"资源包=>{0} 加载失败",m_CurrAssetBundleInfo.AssetBundleName);
                         Reset();
 
-                        if (OnLoadAssetBundleComplete != null)
-                        {
-                            OnLoadAssetBundleComplete(null);
-                        }
+                        OnLoadAssetBundleComplete?.Invoke(null);
                     }
                 }
                 else
                 {
                     //加载进度
-                    if (OnAssetBundleCreateUpdate != null)
-                    {
-                        OnAssetBundleCreateUpdate(m_CurrAssetBundleCreateRequest.progress);
-                    }
+                    OnAssetBundleCreateUpdate?.Invoke(m_CurrAssetBundleCreateRequest.progress);
                 }
             }
         }

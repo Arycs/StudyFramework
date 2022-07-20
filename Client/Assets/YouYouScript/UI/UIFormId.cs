@@ -10,6 +10,11 @@ public static class UIFormId
     public const int Loading = 1;
 
     /// <summary>
+    /// 通知窗口
+    /// </summary>
+    public const int Dialog = 2;
+    
+    /// <summary>
     /// 登录背景 界面
     /// </summary>
     public const int UI_LogonBG = 101;
