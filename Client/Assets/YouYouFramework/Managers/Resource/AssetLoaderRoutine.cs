@@ -39,7 +39,7 @@ namespace YouYou
         /// <summary>
         /// 重置
         /// </summary>
-        public void Reset()
+        private void Reset()
         {
             m_CurrAssetBundleRequest = null;
         }
@@ -66,19 +66,13 @@ namespace YouYou
                     {
                         GameEntry.Log(LogCategory.Resource,"资源 =>{0} 加载完毕",obj.name);
                         Reset(); //一定要早点Reset
-                        if (OnLoadAssetComplete != null)
-                        {
-                            OnLoadAssetComplete(obj);
-                        }
+                        OnLoadAssetComplete?.Invoke(obj);
                     }
                     else
                     {
                         GameEntry.LogError("资源=>{0} 加载失败", obj.name);
                         Reset(); //一定要早点Reset
-                        if (OnLoadAssetComplete != null)
-                        {
-                            OnLoadAssetComplete(obj);
-                        }
+                        OnLoadAssetComplete?.Invoke(obj);
                     }
                 }
                 else

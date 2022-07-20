@@ -95,7 +95,7 @@ namespace YouYou
         /// <returns></returns>
         public string GetSceneAssetBundlePath(string sceneName)
         {
-            return string.Format("download/scenes/{0}.unity3d", sceneName.ToLower());
+            return $"download/scenes/{sceneName.ToLower()}.unity3d";
         }
 
     }

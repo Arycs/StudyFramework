@@ -80,7 +80,7 @@ namespace YouYou
 #if DEBUG_MODEL
          GameEntry.Resource.ResourceLoaderManager.LoadMainAsset(AssetCategory.Reporter, ConstDefine.ReporterPath, (ResourceEntity resourceEntity) =>
             {
-                UnityEngine.Object.Instantiate(resourceEntity.Target as GameObject);
+                Object.Instantiate(resourceEntity.Target as GameObject);
             });
 #endif
         }

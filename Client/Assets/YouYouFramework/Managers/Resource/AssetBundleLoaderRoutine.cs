@@ -32,33 +32,30 @@ namespace YouYou
 
         #region LoadAssetBundle 加载资源包
 
-        public void LoadAssetBundle(string assetbundlePath)
+        public async void LoadAssetBundle(string assetbundlePath)
         {
             m_CurrAssetBundleInfo = GameEntry.Resource.ResourceManager.GetAssetBundleInfo(assetbundlePath);
             byte[] buffer = GameEntry.Resource.ResourceManager.LocalAssetsManager.GetFileBuffer(assetbundlePath);
             if (buffer == null)
             {
                 //如果可写区没有 那么就从只读区获取
-                GameEntry.Resource.ResourceManager.StreamingAssetsManager.ReadAssetBundle(assetbundlePath,
-                    (byte[] buff) =>
-                    {
-                        if (buff == null)
-                        {
-                            //如果只读区也没有,从CDN下载
-                            Debug.LogError("资源包需要下载assetBundlePath = >" + assetbundlePath);
-                            GameEntry.Download.BeginDownloadSingle(assetbundlePath,onComplete: (string fileUrl) =>
-                            {
-                                Debug.LogError("下载完毕fileUrl =>" + fileUrl);
-                                buffer = GameEntry.Resource.ResourceManager.LocalAssetsManager.GetFileBuffer(fileUrl);
-                                Debug.LogError("准备加载资源包=" + buffer);
-                                LoadAssetBundleAsync(buffer);
-                            });
-                        }
-                        else
-                        {
-                            LoadAssetBundleAsync(buff);
-                        }
-                    });
+              var buff = await GameEntry.Resource.ResourceManager.StreamingAssetsManager.ReadAssetBundle(assetbundlePath);
+              if (buff == null)
+              {
+                  //如果只读区也没有,从CDN下载
+                  Debug.LogError("资源包需要下载assetBundlePath = >" + assetbundlePath);
+                  GameEntry.Download.BeginDownloadSingle(assetbundlePath, onComplete: (string fileUrl) =>
+                  {
+                      Debug.LogError("下载完毕fileUrl =>" + fileUrl);
+                      buffer = GameEntry.Resource.ResourceManager.LocalAssetsManager.GetFileBuffer(fileUrl);
+                      Debug.LogError("准备加载资源包=" + buffer);
+                      LoadAssetBundleAsync(buffer);
+                  });
+              }
+              else
+              {
+                  LoadAssetBundleAsync(buff);
+              }
             }
             else
             {

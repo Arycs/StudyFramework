@@ -156,10 +156,7 @@ namespace YouYou
                 (UnityEngine.Object obj) =>
                 {
                     TextAsset asset = obj as TextAsset;
-                    if (onComplete != null)
-                    {
-                        onComplete(asset.bytes);
-                    }
+                    onComplete?.Invoke(asset.bytes);
                 });
 #endif
         }

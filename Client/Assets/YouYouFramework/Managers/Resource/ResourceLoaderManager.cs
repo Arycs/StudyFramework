@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -47,29 +48,26 @@ namespace YouYou
         /// <summary>
         /// 初始化资源信息
         /// </summary>
-        public void InitAssetInfo()
+        public async void InitAssetInfo()
         {
             byte[] buffer =
                 GameEntry.Resource.ResourceManager.LocalAssetsManager.GetFileBuffer(ConstDefine.AssetInfoName);
             if (buffer == null)
             {
                 //如果可写区没有 那么就从只读区获取
-                GameEntry.Resource.ResourceManager.StreamingAssetsManager.ReadAssetBundle(ConstDefine.AssetInfoName,
-                    (byte[] buff) =>
-                    {
-                        if (buff == null)
-                        {
-                            //如果只读区也没有,从CDN读取
-                            string url = string.Format("{0}{1}",
-                                GameEntry.Data.SysDataManager.CurrChannelConfig.RealSourceUrl,
-                                ConstDefine.AssetInfoName);
-                            GameEntry.Http.SendData(url, OnLoadAssetInfoFromCDN, isGetData: true);
-                        }
-                        else
-                        {
-                            InitAssetInfo(buff);
-                        }
-                    });
+                var buff = await GameEntry.Resource.ResourceManager.StreamingAssetsManager.ReadAssetBundle(ConstDefine.AssetInfoName);
+                if (buff == null)
+                {
+                    //如果只读区也没有,从CDN读取
+                    string url = string.Format("{0}{1}",
+                        GameEntry.Data.SysDataManager.CurrChannelConfig.RealSourceUrl,
+                        ConstDefine.AssetInfoName);
+                    GameEntry.Http.SendData(url, OnLoadAssetInfoFromCDN, isGetData: true);
+                }
+                else
+                {
+                    InitAssetInfo(buff);
+                }
             }
             else
             {
@@ -333,13 +331,7 @@ namespace YouYou
             BaseAction<ResourceEntity> onComplete = null)
         {
             MainAssetLoaderRoutine routine = GameEntry.Pool.DequeueClassObject<MainAssetLoaderRoutine>();
-            routine.Load(assetCategory, assetFullName, (ResourceEntity resEntity) =>
-            {
-                if (onComplete != null)
-                {
-                    onComplete(resEntity);
-                }
-            });
+            routine.Load(assetCategory, assetFullName,onComplete);
         }
 
         /// <summary>

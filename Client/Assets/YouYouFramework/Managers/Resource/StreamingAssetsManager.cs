@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace YouYou
@@ -29,27 +31,13 @@ namespace YouYou
         /// 读取StreamingAssets下的资源
         /// </summary>
         /// <param name="url"></param>
-        /// <param name="onComplete"></param>
         /// <returns></returns>
-        public IEnumerator ReadStreamingAsset(string url, Action<byte[]> onComplete)
+        private async UniTask<byte[]> ReadStreamingAsset(string url)
         {
             using (WWW www = new WWW(url))
             {
-                yield return www;
-                if (www.error == null)
-                {
-                    if (onComplete != null)
-                    {
-                        onComplete(www.bytes);
-                    }
-                }
-                else
-                {
-                    if (onComplete != null)
-                    {
-                        onComplete(null);
-                    }
-                }
+                await www;
+                return www.error == null ? www.bytes : null;
             }
         }
 
@@ -61,10 +49,10 @@ namespace YouYou
         /// </summary>
         /// <param name="fileUrl">资源路径</param>
         /// <param name="onComplete"></param>
-        public void ReadAssetBundle(string fileUrl, Action<byte[]> onComplete)
+        public async UniTask<byte[]> ReadAssetBundle(string fileUrl)
         {
-            GameEntry.Instance.StartCoroutine(
-                ReadStreamingAsset($"{m_StreamingAssetsPath}/AssetBundles/{fileUrl}", onComplete));
+           return await ReadStreamingAsset($"{m_StreamingAssetsPath}/AssetBundles/{fileUrl}");
+           
         }
         #endregion
     }
