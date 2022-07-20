@@ -113,7 +113,7 @@ namespace YouYou
 
         private void OnDestroy()
         {
-            OnBeforDestroy();
+            OnBeforeDestroy();
         }
 
         protected virtual void OnInit(object userData)
@@ -128,7 +128,7 @@ namespace YouYou
         {
         }
 
-        protected virtual void OnBeforDestroy()
+        protected virtual void OnBeforeDestroy()
         {
             
         }

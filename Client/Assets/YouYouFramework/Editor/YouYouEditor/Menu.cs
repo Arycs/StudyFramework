@@ -131,50 +131,50 @@ public class Menu
     [MenuItem("悠游工具/生成Lua脚本")]
     public static void CreateLuaView()
     {
-        if (Selection.transforms.Length == 0)
-        {
-            return;
-        }
-
-        Transform trans = Selection.transforms[0];
-
-        LuaForm luaForm = trans.GetComponent<LuaForm>();
-        if (luaForm == null)
-        {
-            Debug.LogError("该UI上没有LuaForm脚本");
-            return;
-        }
-        string viewName = trans.gameObject.name;
-
-        StringBuilder sbr = new StringBuilder();
-
-        sbr.AppendFormat("function OnInit(userData)\n");
-        sbr.AppendFormat("\n");
-        sbr.AppendFormat("end\n");
-        sbr.AppendFormat("\n");
-        sbr.AppendFormat("function OnOpen(userData)\n");
-        sbr.AppendFormat("\n");
-        sbr.AppendFormat("end\n");
-        sbr.AppendFormat("\n");
-        sbr.AppendFormat("function OnClose()\n");
-        sbr.AppendFormat("\n");
-        sbr.AppendFormat("end\n");
-        sbr.AppendFormat("\n");
-        sbr.AppendFormat("function OnBeforDestroy()\n");
-        sbr.AppendFormat("\n");
-        sbr.AppendFormat("end\n");
-
-
-        string pathView = Application.dataPath + "/Download/xLuaLogic/Modules/Temp/" + viewName + ".bytes";
-
-        using (FileStream fs = new FileStream(pathView, FileMode.Create))
-        {
-            using (StreamWriter sw = new StreamWriter(fs))
-            {
-                sw.Write(sbr.ToString());
-            }
-        }
-        AssetDatabase.Refresh();
+        // if (Selection.transforms.Length == 0)
+        // {
+        //     return;
+        // }
+        //
+        // Transform trans = Selection.transforms[0];
+        //
+        // LuaForm luaForm = trans.GetComponent<LuaForm>();
+        // if (luaForm == null)
+        // {
+        //     Debug.LogError("该UI上没有LuaForm脚本");
+        //     return;
+        // }
+        // string viewName = trans.gameObject.name;
+        //
+        // StringBuilder sbr = new StringBuilder();
+        //
+        // sbr.AppendFormat("function OnInit(userData)\n");
+        // sbr.AppendFormat("\n");
+        // sbr.AppendFormat("end\n");
+        // sbr.AppendFormat("\n");
+        // sbr.AppendFormat("function OnOpen(userData)\n");
+        // sbr.AppendFormat("\n");
+        // sbr.AppendFormat("end\n");
+        // sbr.AppendFormat("\n");
+        // sbr.AppendFormat("function OnClose()\n");
+        // sbr.AppendFormat("\n");
+        // sbr.AppendFormat("end\n");
+        // sbr.AppendFormat("\n");
+        // sbr.AppendFormat("function OnBeforDestroy()\n");
+        // sbr.AppendFormat("\n");
+        // sbr.AppendFormat("end\n");
+        //
+        //
+        // string pathView = Application.dataPath + "/Download/xLuaLogic/Modules/Temp/" + viewName + ".bytes";
+        //
+        // using (FileStream fs = new FileStream(pathView, FileMode.Create))
+        // {
+        //     using (StreamWriter sw = new StreamWriter(fs))
+        //     {
+        //         sw.Write(sbr.ToString());
+        //     }
+        // }
+        // AssetDatabase.Refresh();
     }
     #endregion
 

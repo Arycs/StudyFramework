@@ -82,9 +82,9 @@ public class UIDialogForm : UIFormBase
         base.OnClose();
     }
 
-    protected override void OnBeforDestroy()
+    protected override void OnBeforeDestroy()
     {
-        base.OnBeforDestroy();
+        base.OnBeforeDestroy();
 
         txtTitle = null;
         txtContent = null;

@@ -334,7 +334,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5029886287460498973}
+      - m_Target: {fileID: 0}
         m_MethodName: Close
         m_Mode: 1
         m_Arguments:
@@ -943,7 +943,7 @@ GameObject:
   - component: {fileID: 5029886287460498972}
   - component: {fileID: 5029886287460498975}
   - component: {fileID: 5029886287460498974}
-  - component: {fileID: 5029886287460498973}
+  - component: {fileID: 4605538663116076858}
   m_Layer: 5
   m_Name: UI_Reg
   m_TagString: Untagged
@@ -988,7 +988,7 @@ Canvas:
   m_OverrideSorting: 1
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 25
+  m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -1009,7 +1009,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 55
---- !u!114 &5029886287460498973
+--- !u!114 &4605538663116076858
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1018,25 +1018,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 5029886287460498969}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66b761ac30a66b248b7ae9131eeedbe0, type: 3}
+  m_Script: {fileID: 11500000, guid: f8c27252fb87cfb47af7cf018fcdff7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  luaScript: {fileID: 4900000, guid: 0c992c85b2e906449b40b16aa8d347e0, type: 3}
-  m_LuaComGroups:
-  - Name: Common
-    LuaComs:
-    - Name: Btn_Reg
-      Type: 2
-      Trans: {fileID: 5619684284875649066}
-    - Name: Btn_Login
-      Type: 2
-      Trans: {fileID: 6777793077878204204}
-    - Name: Input_UserName
-      Type: 8
-      Trans: {fileID: 8813447269776642807}
-    - Name: Input_Password
-      Type: 8
-      Trans: {fileID: 7614100677246208135}
+  btnReg: {fileID: 1681124282666977037}
+  btnLogin: {fileID: 4208543334574362962}
+  inputUserName: {fileID: 5644919308653904711}
+  inputPassword: {fileID: 6301985944739840915}
 --- !u!1 &5674552277860131390
 GameObject:
   m_ObjectHideFlags: 0

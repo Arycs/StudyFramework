@@ -8,9 +8,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using DG.Tweening;
-using XLua;
 
-[LuaCallCSharp]
 public static class GameObjectUtil
 {
     /// <summary>

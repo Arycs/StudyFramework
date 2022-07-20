@@ -707,7 +707,7 @@ GameObject:
   - component: {fileID: 5029886287460498972}
   - component: {fileID: 5029886287460498975}
   - component: {fileID: 5029886287460498974}
-  - component: {fileID: 5029886287460498973}
+  - component: {fileID: -4281089833184218836}
   m_Layer: 5
   m_Name: UI_Login
   m_TagString: Untagged
@@ -752,7 +752,7 @@ Canvas:
   m_OverrideSorting: 1
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 25
+  m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -773,7 +773,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 55
---- !u!114 &5029886287460498973
+--- !u!114 &-4281089833184218836
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -782,25 +782,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 5029886287460498969}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66b761ac30a66b248b7ae9131eeedbe0, type: 3}
+  m_Script: {fileID: 11500000, guid: 00aa031f74f575b488d27455e2ecc1ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  luaScript: {fileID: 4900000, guid: 880b18abc95fa3f4986fed77da265331, type: 3}
-  m_LuaComGroups:
-  - Name: Common
-    LuaComs:
-    - Name: Btn_Login
-      Type: 2
-      Trans: {fileID: 6777793077878204204}
-    - Name: Btn_Reg
-      Type: 2
-      Trans: {fileID: 1267786202808233174}
-    - Name: Input_UserName
-      Type: 8
-      Trans: {fileID: 8813447269776642807}
-    - Name: Input_Password
-      Type: 8
-      Trans: {fileID: 7614100677246208135}
 --- !u!1 &5674552277860131390
 GameObject:
   m_ObjectHideFlags: 0

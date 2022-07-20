@@ -1,9 +1,3 @@
-//===================================================
-//作    者：边涯  http://www.u3dol.com
-//创建时间：
-//备    注：
-//===================================================
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -100,9 +94,9 @@ public class UICheckVersionForm : UIFormBase
 
     #endregion
 
-    protected override void OnBeforDestroy()
+    protected override void OnBeforeDestroy()
     {
-        base.OnBeforDestroy();
+        base.OnBeforeDestroy();
         GameEntry.Event.CommonEvent.RemoveEventListener(SysEventId.CheckVersionBeginDownload,
             OnCheckVersionBeginDownload);
         GameEntry.Event.CommonEvent.RemoveEventListener(SysEventId.CheckVersionDownloadUpdate,

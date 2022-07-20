@@ -81,13 +81,10 @@ namespace YouYou
                         }
                     }
                 }
-            }
-            else
-            {
-                //加载进度
-                if (OnAssetUpdate != null)
+                else
                 {
-                    OnAssetUpdate(m_CurrAssetBundleRequest.progress);
+                    //加载进度
+                    OnAssetUpdate?.Invoke(m_CurrAssetBundleRequest.progress);
                 }
             }
         }

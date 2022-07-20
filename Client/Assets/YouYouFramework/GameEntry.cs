@@ -213,13 +213,6 @@ namespace YouYou
             get; private set;
         }
 
-        /// <summary>
-        /// Lua组件
-        /// </summary>
-        public static LuaManager Lua
-        {
-            get; private set;
-        }
 
         /// <summary>
         /// Audio组件
@@ -364,7 +357,6 @@ namespace YouYou
             Resource = new AddressableManager();
             Download = new DownloadManager();
             UI = new YouYouUIManager();
-            Lua = new LuaManager();
             Audio = new AudioManager();
             Logger = new LoggerManager();
 
@@ -383,7 +375,6 @@ namespace YouYou
             Resource.Init();
             Download.Init();
             UI.Init();
-            //Lua.Init();
             Audio.Init();
 
             Procedure.ChangeState(ProcedureState.Launch);
@@ -438,7 +429,6 @@ namespace YouYou
             Resource.Dispose();
             Download.Dispose();
             UI.Init();
-            Lua.Dispose();
             Audio.Dispose();
         }
 
@@ -463,7 +453,7 @@ namespace YouYou
 #endif
                     break;
                 case LogCategory.Resource:
-#if DEBUG_LOG_PROCEDURE && DEBUG_MODEL
+#if DEBUG_LOG_RESOURCE && DEBUG_MODEL
                     Debug.Log("[YouYou]" + (string.Format("<color=#ACE44A>{0}</color>", args.Length == 0 ? message : string.Format(message, args))));
 #endif
                     break;

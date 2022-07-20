@@ -550,7 +550,7 @@ GameObject:
   - component: {fileID: 224895590960629200}
   - component: {fileID: 223887179264670012}
   - component: {fileID: 114064796442120344}
-  - component: {fileID: 4012154391030041554}
+  - component: {fileID: -5831883989260854976}
   m_Layer: 5
   m_Name: UI_CheckVersion
   m_TagString: Untagged
@@ -619,8 +619,8 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 311
---- !u!114 &4012154391030041554
+    m_Bits: 55
+--- !u!114 &-5831883989260854976
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -629,7 +629,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1988337133857764}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66b761ac30a66b248b7ae9131eeedbe0, type: 3}
+  m_Script: {fileID: 11500000, guid: f8c349014ada07444b96fddbe083241a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_LuaComs: []
+  txtTip: {fileID: 114377027449689054}
+  txtSize: {fileID: 114775997617702992}
+  txtResourceVersion: {fileID: 114903840000054890}
+  scrollbar: {fileID: 114015048614398324}

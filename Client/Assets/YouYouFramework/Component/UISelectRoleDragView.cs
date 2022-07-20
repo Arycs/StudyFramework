@@ -16,7 +16,6 @@ public class UISelectRoleDragView : MonoBehaviour, IBeginDragHandler, IDragHandl
     //结束拖拽的位置
     private Vector2 m_DragEndPos = Vector2.zero;
 
-    [XLua.CSharpCallLua]
     public delegate void OnDragingHandler(int dir);
     /// <summary>
     /// 拖拽中
@@ -24,7 +23,6 @@ public class UISelectRoleDragView : MonoBehaviour, IBeginDragHandler, IDragHandl
     public OnDragingHandler OnDraging;
 
 
-    [XLua.CSharpCallLua]
     public delegate void OnDragCompleteHandler(int dir);
     /// <summary>
     /// 拖拽委托 0=左 1=右
@@ -32,7 +30,6 @@ public class UISelectRoleDragView : MonoBehaviour, IBeginDragHandler, IDragHandl
     public OnDragCompleteHandler OnDragComplete;
 
 
-    [XLua.CSharpCallLua]
     public delegate void OnDoubleClickHandler();
     /// <summary>
     /// 双击

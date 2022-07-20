@@ -45,7 +45,7 @@ namespace YouYou
                         if (buff == null)
                         {
                             //如果只读区也没有,从CDN下载
-                            Debug.LogError("资源包需要下载assetbundlePath = >" + assetbundlePath);
+                            Debug.LogError("资源包需要下载assetBundlePath = >" + assetbundlePath);
                             GameEntry.Download.BeginDownloadSingle(assetbundlePath,onComplete: (string fileUrl) =>
                             {
                                 Debug.LogError("下载完毕fileUrl =>" + fileUrl);

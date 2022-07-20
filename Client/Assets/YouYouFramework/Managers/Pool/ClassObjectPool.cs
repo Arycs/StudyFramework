@@ -94,7 +94,7 @@ namespace YouYou
                 else
                 {
                     //如果队列中没有,则实例化一个
-                    Debug.Log("对象" + key + "不存在 进行实例化");
+                    //Debug.Log("对象" + key + "不存在 进行实例化");
                     return new T();
                 }
             }
@@ -111,7 +111,7 @@ namespace YouYou
             lock (m_ClassObjectPoolDic)
             {
                 int key = obj.GetType().GetHashCode();
-                Debug.Log("对象" + key + "回池了");
+                //Debug.Log("对象" + key + "回池了");
                 Queue<object> queue = null;
                 m_ClassObjectPoolDic.TryGetValue(key, out queue);
                 

@@ -1,9 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
-using XLua;
 using UnityEngine.UI;
 
-[LuaCallCSharp]
 public class UIMultiScroller : MonoBehaviour
 {
     public enum Arrangement { Horizontal, Vertical, }
@@ -49,7 +47,6 @@ public class UIMultiScroller : MonoBehaviour
     /// </summary>
     /// <param name="index">索引</param>
     /// <param name="obj">创建的物体</param>
-    [CSharpCallLua]
     public delegate void OnItemCreateHandler(int index, GameObject obj);
 
     //第二步 在Lua中 添加监听这个委托

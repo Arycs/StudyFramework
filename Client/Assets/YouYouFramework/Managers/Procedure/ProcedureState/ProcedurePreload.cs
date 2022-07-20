@@ -39,10 +39,10 @@ namespace YouYou
             GameEntry.Event.CommonEvent.Dispatch(SysEventId.PreloadBegin);
 
             m_TargetProgress = 99;
+
+            
 #if !DISABLE_ASSETBUNDLE
-            GameEntry.Resource.InitAssetInfo(()=>{
-                LoadReport();
-            });
+            GameEntry.Resource.InitAssetInfo();
 #else
             LoadReport();
 #endif
@@ -122,7 +122,6 @@ namespace YouYou
         {
             GameEntry.Log(LogCategory.Normal,"加载所有表格完毕");
             //执行Lua初始化
-            GameEntry.Lua.Init();
             LoadAudio();
         }
 
@@ -137,7 +136,9 @@ namespace YouYou
         /// </summary>
         private void LoadAudio()
         {
-            GameEntry.Audio.LoadBanks(() => { LoadShader(); });
+            LoadShader();
+            //TODO 声音这里FMOD相关后续还需重新处理.临时屏蔽掉
+            //GameEntry.Audio.LoadBanks(() => {  });
         }
 
         /// <summary>

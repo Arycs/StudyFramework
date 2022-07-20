@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine.UI;
-using XLua;
 
 public class PageView : MonoBehaviour
 {
@@ -51,7 +50,6 @@ public class PageView : MonoBehaviour
     private bool m_IsPlaying = false;    //标记是否正在播放缓动动画
     private Queue<GameObject> m_Queue;
 
-    [CSharpCallLua]
     public delegate void OnItemCreateHandler(int dataIndex, GameObject obj);
     public OnItemCreateHandler OnItemCreate;
 

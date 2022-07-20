@@ -8,10 +8,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System;
-using XLua;
 using UnityEngine.UI;
 
-[LuaCallCSharp]
 public class GameUtil
 {
     #region GetRandomPos 获取目标点周围的随机点

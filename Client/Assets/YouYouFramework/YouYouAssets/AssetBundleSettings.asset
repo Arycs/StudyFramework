@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f0f076004dff5644b237659b6bb8b3e, type: 3}
   m_Name: AssetBundleSettings
   m_EditorClassIdentifier: 
-  ResourceVersion: 1.0.1
+  ResourceVersion: 1.0.7
   CurrBuildTarget: 0
   Options: 272
   AssetBundleSavePath: AssetBundles
@@ -36,12 +36,6 @@ MonoBehaviour:
     IsEncrypt: 1
     Path:
     - Download/DataTable
-  - Name: xLuaLogic
-    Overall: 1
-    IsFirstData: 1
-    IsEncrypt: 1
-    Path:
-    - Download/xLuaLogic
   - Name: Role
     Overall: 0
     IsFirstData: 0

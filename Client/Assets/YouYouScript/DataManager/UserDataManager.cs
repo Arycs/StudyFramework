@@ -11,16 +11,12 @@ public class UserDataManager : IDisposable
     /// <summary>
     /// 共享用户数据
     /// </summary>
-    public ShareUserData ShareUserData;
-
    public UserDataManager()
    {
-        ShareUserData = new ShareUserData();
    }
 
    public void Clear()
    {
-        ShareUserData.Dispose();
    }
 
    public void Dispose()
