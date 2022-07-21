@@ -5,7 +5,7 @@ using zlib;
 /// <summary>
 /// 压缩帮助类
 /// </summary>
-public class ZlibHelper
+public class ZlibUtil
 {
     #region CompressBytes 对原始字节数组进行zlib压缩，得到处理结果字节数组
     /// <summary>

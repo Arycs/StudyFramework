@@ -2,7 +2,7 @@
 <Root>
   <AreaServerId>1</AreaServerId>
   <CurrServerType>0</CurrServerType>
-  <CurrServerId>0</CurrServerId>
+  <CurrServerId>1</CurrServerId>
   <MongoConnectionString>mongodb://127.0.0.1</MongoConnectionString>
   <RedisConnectionString>127.0.0.1:6379</RedisConnectionString>
   <DataTablePath>E:\StudyFramework\Server\Release\DataTable</DataTablePath>

@@ -10,7 +10,9 @@ using YouYouServer.Core.Logger;
 namespace YouYouServer.Model.ServerManager
 {
     /// <summary>
-    /// 服务器客户端
+    /// 服务器客户端,
+    /// 相当于一个中转站,
+    /// GameServer和GateWayServer连接到WorldServer时,WorldServer先创建ServerClient然后根据对应的消息实例化对应的服务器
     /// </summary>
     public class ServerClient : IDisposable
     {

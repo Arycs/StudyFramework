@@ -163,7 +163,7 @@ namespace YouYouServer.Core.Common
 
                                     if (isCompress)
                                     {
-                                        bufferNew = ZlibHelper.DeCompressBytes(bufferNew);
+                                        bufferNew = ZlibUtil.DeCompressBytes(bufferNew);
                                     }
 
                                     //协议编号
@@ -378,7 +378,7 @@ namespace YouYouServer.Core.Common
             bool isCompress = data.Length > m_CompressLen ? true : false;
             if (isCompress)
             {
-                data = ZlibHelper.CompressBytes(data);
+                data = ZlibUtil.CompressBytes(data);
             }
 
             //2.异或
