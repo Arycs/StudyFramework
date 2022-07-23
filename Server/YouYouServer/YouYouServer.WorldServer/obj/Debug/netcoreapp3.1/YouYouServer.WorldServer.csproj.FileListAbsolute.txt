@@ -28,7 +28,7 @@ D:\GitHub_Repository\Server\YouYouServer\YouYouServer.WorldServer\bin\Debug\netc
 D:\GitHub_Repository\Server\YouYouServer\YouYouServer.WorldServer\bin\Debug\netcoreapp3.1\Configs\ChannelConfig.xml
 E:\StudyFramework\Server\YouYouServer\YouYouServer.WorldServer\bin\Debug\netcoreapp3.1\YouYouServer.WorldServer.exe
 E:\StudyFramework\Server\YouYouServer\YouYouServer.WorldServer\bin\Debug\netcoreapp3.1\Configs\ChannelConfig.xml
-E:\StudyFramework\Server\YouYouServer\YouYouServer.WorldServer\bin\Debug\netcoreapp3.1\Configs\ServerConfig.xml
+E:\StudyFramework\Server\YouYouServer\YouYouServer.WorldServer\bin\Debug\netcoreapp3.1\Configs\HotFixConfig.xml
 E:\StudyFramework\Server\YouYouServer\YouYouServer.WorldServer\bin\Debug\netcoreapp3.1\YouYouServer.WorldServer.deps.json
 E:\StudyFramework\Server\YouYouServer\YouYouServer.WorldServer\bin\Debug\netcoreapp3.1\YouYouServer.WorldServer.runtimeconfig.json
 E:\StudyFramework\Server\YouYouServer\YouYouServer.WorldServer\bin\Debug\netcoreapp3.1\YouYouServer.WorldServer.runtimeconfig.dev.json
@@ -42,10 +42,13 @@ E:\StudyFramework\Server\YouYouServer\YouYouServer.WorldServer\bin\Debug\netcore
 E:\StudyFramework\Server\YouYouServer\YouYouServer.WorldServer\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
 E:\StudyFramework\Server\YouYouServer\YouYouServer.WorldServer\bin\Debug\netcoreapp3.1\SafeObjectPool.dll
 E:\StudyFramework\Server\YouYouServer\YouYouServer.WorldServer\bin\Debug\netcoreapp3.1\SharpCompress.dll
+E:\StudyFramework\Server\YouYouServer\YouYouServer.WorldServer\bin\Debug\netcoreapp3.1\YouYouServer.Commmon.dll
 E:\StudyFramework\Server\YouYouServer\YouYouServer.WorldServer\bin\Debug\netcoreapp3.1\YouYouServer.Core.dll
 E:\StudyFramework\Server\YouYouServer\YouYouServer.WorldServer\bin\Debug\netcoreapp3.1\YouYouServer.Model.dll
+E:\StudyFramework\Server\YouYouServer\YouYouServer.WorldServer\bin\Debug\netcoreapp3.1\Google.Protobuf.dll
 E:\StudyFramework\Server\YouYouServer\YouYouServer.WorldServer\bin\Debug\netcoreapp3.1\zlib.net.dll
 E:\StudyFramework\Server\YouYouServer\YouYouServer.WorldServer\bin\Debug\netcoreapp3.1\YouYouServer.Model.pdb
+E:\StudyFramework\Server\YouYouServer\YouYouServer.WorldServer\bin\Debug\netcoreapp3.1\YouYouServer.Commmon.pdb
 E:\StudyFramework\Server\YouYouServer\YouYouServer.WorldServer\bin\Debug\netcoreapp3.1\YouYouServer.Core.pdb
 E:\StudyFramework\Server\YouYouServer\YouYouServer.WorldServer\obj\Debug\netcoreapp3.1\YouYouServer.WorldServer.csproj.AssemblyReference.cache
 E:\StudyFramework\Server\YouYouServer\YouYouServer.WorldServer\obj\Debug\netcoreapp3.1\YouYouServer.WorldServer.GeneratedMSBuildEditorConfig.editorconfig

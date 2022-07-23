@@ -1,10 +1,8 @@
 ﻿using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
-using System.Text;
-using YouYouServer.Core.Utils;
 
-namespace YouYouServer.Core.Logger
+namespace YouYouServer.Core
 {
     public class LoggerMgr
     {
@@ -141,7 +139,7 @@ namespace YouYouServer.Core.Logger
 
             if (async)
             {
-                LoggerDBModel.AddAsync(loggerEntity);
+               _ = LoggerDBModel.AddAsync(loggerEntity);
             }
             else
             {
@@ -198,7 +196,7 @@ namespace YouYouServer.Core.Logger
 
                     if (async)
                     {
-                        LoggerDBModel.AddManyAsync(m_LoggerList);
+                        _ = LoggerDBModel.AddManyAsync(m_LoggerList);
                     }
                     else
                     {

@@ -1809,6 +1809,19 @@
           "lib/netstandard1.3/System.Xml.XDocument.dll": {}
         }
       },
+      "YouYouServer.Commmon/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "dependencies": {
+          "YouYouServer.Core": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/YouYouServer.Commmon.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/YouYouServer.Commmon.dll": {}
+        }
+      },
       "YouYouServer.Core/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
@@ -1829,6 +1842,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
         "dependencies": {
+          "YouYouServer.Commmon": "1.0.0",
           "YouYouServer.Core": "1.0.0"
         },
         "compile": {
@@ -6334,6 +6348,11 @@
         "system.xml.xdocument.4.3.0.nupkg.sha512",
         "system.xml.xdocument.nuspec"
       ]
+    },
+    "YouYouServer.Commmon/1.0.0": {
+      "type": "project",
+      "path": "../YouYouServer.Commmon/YouYouServer.Commmon.csproj",
+      "msbuildProject": "../YouYouServer.Commmon/YouYouServer.Commmon.csproj"
     },
     "YouYouServer.Core/1.0.0": {
       "type": "project",

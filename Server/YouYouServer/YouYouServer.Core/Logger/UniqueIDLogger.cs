@@ -1,8 +1,6 @@
-﻿using System;
-using MongoDB.Driver;
-using YouYouServer.Core.YFMongoDB;
+﻿using MongoDB.Driver;
 
-namespace YouYouServer.Core.Logger
+namespace YouYouServer.Core
 {
     public class UniqueIDLogger : YFUniqueIDBase
     {

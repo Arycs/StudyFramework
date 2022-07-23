@@ -37,7 +37,7 @@ E:\StudyFramework\Server\YouYouServer\YouYouServer.WebAccount\bin\Debug\netcorea
 E:\StudyFramework\Server\YouYouServer\YouYouServer.WebAccount\bin\Debug\netcoreapp3.1\appsettings.json
 E:\StudyFramework\Server\YouYouServer\YouYouServer.WebAccount\bin\Debug\netcoreapp3.1\YouYouServer.WebAccount.exe
 E:\StudyFramework\Server\YouYouServer\YouYouServer.WebAccount\bin\Debug\netcoreapp3.1\Configs\ChannelConfig.xml
-E:\StudyFramework\Server\YouYouServer\YouYouServer.WebAccount\bin\Debug\netcoreapp3.1\Configs\ServerConfig.xml
+E:\StudyFramework\Server\YouYouServer\YouYouServer.WebAccount\bin\Debug\netcoreapp3.1\Configs\HotFixConfig.xml
 E:\StudyFramework\Server\YouYouServer\YouYouServer.WebAccount\bin\Debug\netcoreapp3.1\YouYouServer.WebAccount.deps.json
 E:\StudyFramework\Server\YouYouServer\YouYouServer.WebAccount\bin\Debug\netcoreapp3.1\YouYouServer.WebAccount.runtimeconfig.json
 E:\StudyFramework\Server\YouYouServer\YouYouServer.WebAccount\bin\Debug\netcoreapp3.1\YouYouServer.WebAccount.runtimeconfig.dev.json
@@ -51,10 +51,13 @@ E:\StudyFramework\Server\YouYouServer\YouYouServer.WebAccount\bin\Debug\netcorea
 E:\StudyFramework\Server\YouYouServer\YouYouServer.WebAccount\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
 E:\StudyFramework\Server\YouYouServer\YouYouServer.WebAccount\bin\Debug\netcoreapp3.1\SafeObjectPool.dll
 E:\StudyFramework\Server\YouYouServer\YouYouServer.WebAccount\bin\Debug\netcoreapp3.1\SharpCompress.dll
+E:\StudyFramework\Server\YouYouServer\YouYouServer.WebAccount\bin\Debug\netcoreapp3.1\YouYouServer.Commmon.dll
 E:\StudyFramework\Server\YouYouServer\YouYouServer.WebAccount\bin\Debug\netcoreapp3.1\YouYouServer.Core.dll
 E:\StudyFramework\Server\YouYouServer\YouYouServer.WebAccount\bin\Debug\netcoreapp3.1\YouYouServer.Model.dll
+E:\StudyFramework\Server\YouYouServer\YouYouServer.WebAccount\bin\Debug\netcoreapp3.1\Google.Protobuf.dll
 E:\StudyFramework\Server\YouYouServer\YouYouServer.WebAccount\bin\Debug\netcoreapp3.1\zlib.net.dll
 E:\StudyFramework\Server\YouYouServer\YouYouServer.WebAccount\bin\Debug\netcoreapp3.1\YouYouServer.Model.pdb
+E:\StudyFramework\Server\YouYouServer\YouYouServer.WebAccount\bin\Debug\netcoreapp3.1\YouYouServer.Commmon.pdb
 E:\StudyFramework\Server\YouYouServer\YouYouServer.WebAccount\bin\Debug\netcoreapp3.1\YouYouServer.Core.pdb
 E:\StudyFramework\Server\YouYouServer\YouYouServer.WebAccount\obj\Debug\netcoreapp3.1\YouYouServer.WebAccount.csproj.AssemblyReference.cache
 E:\StudyFramework\Server\YouYouServer\YouYouServer.WebAccount\obj\Debug\netcoreapp3.1\YouYouServer.WebAccount.GeneratedMSBuildEditorConfig.editorconfig

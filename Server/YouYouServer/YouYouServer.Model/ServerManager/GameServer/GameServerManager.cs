@@ -4,9 +4,9 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using YouYouServer.Common;
-using YouYouServer.Core.Logger;
+using YouYouServer.Core;
 
-namespace YouYouServer.Model.ServerManager
+namespace YouYouServer.Model
 {
     /// <summary>
     /// 游戏服管理器

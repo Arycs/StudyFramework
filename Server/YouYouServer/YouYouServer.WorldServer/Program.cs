@@ -1,16 +1,7 @@
 ﻿using System;
-using System.Threading.Tasks;
-using YouYouServer.Core.Logger;
-using YouYouServer.Core.Utils;
+using YouYouServer.Common;
+using YouYouServer.Core;
 using YouYouServer.Model;
-using YouYouServer.Model.DataTable;
-using YouYouServer.Model.DBModels;
-using YouYouServer.Model.Entitys;
-using YouYouServer.Model.Logic.DBModels;
-using YouYouServer.Model.Logic.Entitys;
-using YouYouServer.Model.Managers;
-using YouYouServer.Model.ServerManager;
-using YouYouServer.Model.Test;
 
 namespace YouYouServer.WorldServer
 {
@@ -19,14 +10,26 @@ namespace YouYouServer.WorldServer
         static void Main(string[] args)
         {
             Console.WriteLine("Hello WorldServer!");
+            HotFixConfig.Load();
+            HotFixHelper.LoadHotFixAssembly();
+
             ServerConfig.Init();
             DataTableManager.Init();
             LoggerMgr.Init();
             YFRedisClient.InitRedisClient();
 
             WorldServerManager.Init();
-            
-            Console.ReadLine();
+
+            while (true)
+            {
+                string key = Console.ReadLine();
+                if (key == "R")
+                {
+                    HotFixConfig.Load();
+                    HotFixHelper.LoadHotFixAssembly();
+                }
+            }
+
         }
     }
 }

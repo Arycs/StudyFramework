@@ -5,9 +5,8 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using YouYou;
-using YouYouServer.Core.Logger;
 
-namespace YouYouServer.Core.Common
+namespace YouYouServer.Core
 {
     public class ClientSocket
     {

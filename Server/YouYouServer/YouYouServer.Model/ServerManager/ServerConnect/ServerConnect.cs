@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using YouYouServer.Common;
 using YouYouServer.Core;
-using YouYouServer.Core.Common;
-using YouYouServer.Core.Logger;
 
-namespace YouYouServer.Model.ServerManager
+namespace YouYouServer.Model
 {
     /// <summary>
     /// 中心服务器连接器
@@ -29,24 +26,6 @@ namespace YouYouServer.Model.ServerManager
         }
 
         /// <summary>
-        /// 发送协议时候的MS缓存
-        /// </summary>
-        public MMO_MemoryStream SendProtoMS
-        {
-            get; private set;
-        }
-
-
-        /// <summary>
-        /// 解析协议时候的MS缓存
-        /// </summary>
-        public MMO_MemoryStream GetProtoMS
-        {
-            get; private set;
-        }
-
-
-        /// <summary>
         /// 当前的服务器配置
         /// </summary>
         private ServerConfig.Server m_CurrConfig;
@@ -61,8 +40,6 @@ namespace YouYouServer.Model.ServerManager
             m_CurrConfig = serverConfig;
 
             EventDispatcher = new EventDispatcher();
-            SendProtoMS = new MMO_MemoryStream();
-            GetProtoMS = new MMO_MemoryStream();
         }
 
         /// <summary>
@@ -92,6 +69,4 @@ namespace YouYouServer.Model.ServerManager
             ClientSocket.Connect(m_CurrConfig.Ip, m_CurrConfig.Port);
         }
     }
-
-
 }

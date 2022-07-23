@@ -1,8 +1,7 @@
 ﻿using System;
-using YouYouServer.Core.Logger;
+using YouYouServer.Common;
+using YouYouServer.Core;
 using YouYouServer.Model;
-using YouYouServer.Model.Managers;
-using YouYouServer.Model.ServerManager;
 
 namespace YouYouServer.GameServer
 {
@@ -11,6 +10,8 @@ namespace YouYouServer.GameServer
         static void Main(string[] args)
         {
             Console.WriteLine("Hello GameServer!");
+            HotFixConfig.Load();
+            HotFixHelper.LoadHotFixAssembly();
 
             ServerConfig.Init();
             DataTableManager.Init();

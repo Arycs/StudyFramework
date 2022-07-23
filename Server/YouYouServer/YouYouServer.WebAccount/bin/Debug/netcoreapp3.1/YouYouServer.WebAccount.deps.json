@@ -1386,6 +1386,17 @@
           "System.Xml.ReaderWriter": "4.3.0"
         }
       },
+      "YouYouServer.Commmon/1.0.0": {
+        "dependencies": {
+          "YouYouServer.Core": "1.0.0"
+        },
+        "runtime": {
+          "YouYouServer.Commmon.dll": {}
+        },
+        "compile": {
+          "YouYouServer.Commmon.dll": {}
+        }
+      },
       "YouYouServer.Core/1.0.0": {
         "dependencies": {
           "CSRedisCore": "3.1.6",
@@ -1402,6 +1413,7 @@
       },
       "YouYouServer.Model/1.0.0": {
         "dependencies": {
+          "YouYouServer.Commmon": "1.0.0",
           "YouYouServer.Core": "1.0.0"
         },
         "runtime": {
@@ -1409,6 +1421,14 @@
         },
         "compile": {
           "YouYouServer.Model.dll": {}
+        }
+      },
+      "Google.Protobuf/3.7.0.0": {
+        "runtime": {
+          "Google.Protobuf.dll": {
+            "assemblyVersion": "3.7.0.0",
+            "fileVersion": "3.7.0.0"
+          }
         }
       },
       "zlib.net/1.0.3.0": {
@@ -3861,6 +3881,11 @@
       "path": "system.xml.xdocument/4.3.0",
       "hashPath": "system.xml.xdocument.4.3.0.nupkg.sha512"
     },
+    "YouYouServer.Commmon/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
     "YouYouServer.Core/1.0.0": {
       "type": "project",
       "serviceable": false,
@@ -3868,6 +3893,11 @@
     },
     "YouYouServer.Model/1.0.0": {
       "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Google.Protobuf/3.7.0.0": {
+      "type": "reference",
       "serviceable": false,
       "sha512": ""
     },

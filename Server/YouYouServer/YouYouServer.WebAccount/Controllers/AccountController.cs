@@ -1,18 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using MongoDB.Driver;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using YouYouServer.Common;
 using YouYouServer.Core;
-using YouYouServer.Core.Common;
-using YouYouServer.Core.Utils;
-using YouYouServer.Model.DataTable;
-using YouYouServer.Model.Logic.DBModels;
-using YouYouServer.Model.Logic.Entitys;
-using YouYouServer.Model.Managers;
 
 namespace YouYouServer.WebAccount.Controllers
 {
@@ -59,11 +52,11 @@ namespace YouYouServer.WebAccount.Controllers
             if (type == 0)
             {
                 //注册
-                AccountEntity accountEntity = await RegisterAsync(userName, pwd, channelId, deviceIdentifier, deviceModel);
+                AccountEntity accountEntity = await HotFixMgr.CurrAccountControllerHandler.RegisterAsync(userName, pwd, channelId, deviceIdentifier, deviceModel);
                 if (accountEntity == null)
                 {
                     ret.HasError = true;
-                    ret.ErrorCode = 10003;
+                    ret.ErrorCode = SysCode.Reg_UserNameExists;
                     return JsonConvert.SerializeObject(ret);
                 }
 
@@ -72,147 +65,17 @@ namespace YouYouServer.WebAccount.Controllers
             else if(type == 1)
             {
                 //登录
-                AccountEntity accountEntity = await LoginAsync(userName, pwd, channelId, deviceIdentifier, deviceModel);
+                AccountEntity accountEntity = await HotFixMgr.CurrAccountControllerHandler.LoginAsync(userName, pwd, channelId, deviceIdentifier, deviceModel);
                 if (accountEntity == null)
                 {
                     ret.HasError = true;
-                    ret.ErrorCode = 10004;
+                    ret.ErrorCode = SysCode.Login_UnExists;
                     return JsonConvert.SerializeObject(ret);
                 }
                 ret.Value = JsonConvert.SerializeObject(accountEntity);
             }
 
             return JsonConvert.SerializeObject(ret);
-        }
-
-        #region LoginAsync 异步登录
-        /// <summary>
-        /// 异步登录
-        /// </summary>
-        /// <param name="userName"></param>
-        /// <param name="pwd"></param>
-        /// <param name="channelId"></param>
-        /// <param name="deviceIdentifier"></param>
-        /// <param name="deviceModel"></param>
-        /// <returns></returns>
-        private async Task<AccountEntity> LoginAsync(string userName, string pwd, short channelId, string deviceIdentifier, string deviceModel)
-        {
-            AccountEntity accountEntity = await YFRedisHelper.YFCacheShellAsync("Login_User", string.Format("{0}^{1}", userName, pwd), GetAccountAsync);
-            // 如果账号存在 并且换了设备 更新设备信息
-            if (accountEntity != null && (accountEntity.ChannelId != channelId || !accountEntity.DeviceIdentifier.EndsWith(deviceIdentifier,StringComparison.CurrentCultureIgnoreCase)|| !accountEntity.DeviceModel.EndsWith(deviceModel,StringComparison.CurrentCultureIgnoreCase)))
-            {
-                accountEntity.ChannelId = channelId;
-                accountEntity.DeviceIdentifier = deviceIdentifier;
-                accountEntity.DeviceModel = deviceModel;
-
-                await DBModelMgr.AccountDBModel.UpdateAsync(accountEntity);
-            }
-
-            return accountEntity;
-        }
-        #endregion
-
-        #region RegisterAsync 异步注册
-        /// <summary>
-        /// 异步注册方法
-        /// </summary>
-        /// <param name="userName"></param>
-        /// <param name="pwd"></param>
-        /// <param name="channelId"></param>
-        /// <param name="deviceIdentifier"></param>
-        /// <param name="deviceModel"></param>
-        /// <returns></returns>
-        private async Task<AccountEntity> RegisterAsync(string userName, string pwd, short channelId, string deviceIdentifier, string deviceModel)
-        {
-            //1.把UserName 写入UserName 集合
-            long result = await YFRedisHelper.SAddAsync("Register_UserName", userName);
-
-            //写入失败
-            if (result == 0)
-            {
-                return null;
-            }
-
-            //2.去Mongodb 查询是否存在
-            AccountEntity accountEntity = await DBModelMgr.AccountDBModel.GetEntityAsync(Builders<AccountEntity>.Filter.Eq(a => a.UserName, userName));
-
-            //如果DB 存在 不能注册
-            if (accountEntity != null)
-            {
-                return null;
-            }
-
-            //3.写入DBModel 
-            accountEntity = new AccountEntity();
-            accountEntity.YFId = await DBModelMgr.UniqueIDAccount.GetUniqueIDAsync(0);
-
-            accountEntity.ChannelId = channelId;
-            accountEntity.DeviceIdentifier = deviceIdentifier;
-            accountEntity.DeviceModel = deviceModel;
-
-            accountEntity.UserName = userName;
-            accountEntity.Password = pwd;
-            accountEntity.CreateTime = DateTime.UtcNow;
-            accountEntity.UpdateTime = DateTime.UtcNow;
-
-            await DBModelMgr.AccountDBModel.AddAsync(accountEntity);
-            return accountEntity;
-        }
-        #endregion
-
-        /// <summary>
-        /// 异步查询账户实体
-        /// </summary>
-        /// <param name="key"></param>
-        /// <returns></returns>
-        private async Task<AccountEntity> GetAccountAsync(string key)
-        {
-            string[] arr = key.Split("^");
-            if (arr.Length == 2)
-            {
-                return await DBModelMgr.AccountDBModel.GetEntityAsync(Builders<AccountEntity>.Filter.And(Builders<AccountEntity>.Filter.Eq(a => a.UserName, arr[0]),
-                    Builders<AccountEntity>.Filter.Eq(a => a.Password, arr[1])));
-            }
-            return null;
-        }
-
-
-        [HttpGet]
-        public async Task<string> Get(long id)
-        {
-            //==========================读表获取数据===============
-            //Sys_UIFormEntity sys_UIFormEntity = DataTableManager.Sys_UIFormDBModel.Get(id);
-            //return Newtonsoft.Json.JsonConvert.SerializeObject(sys_UIFormEntity);
-
-            //==========================向Mongo中添加数据===============
-
-            //AccountEntity accountEntity = new AccountEntity();
-            //accountEntity.YFId = await DBModelMgr.UniqueIDAccount.GetUniqueIDAsync(0);
-            //accountEntity.UserName = "Arycs2";
-            //accountEntity.Password = "123456";
-            //accountEntity.CreateTime = DateTime.UtcNow;
-            //accountEntity.UpdateTime = DateTime.UtcNow;
-
-            //await DBModelMgr.AccountDBModel.AddAsync(accountEntity);
-
-            //return accountEntity.YFId.ToString();
-
-            //========================从Redies中获取数据
-            //AccountEntity a =  await YFRedisHelper.YFCacheShellAsync("Arycs丶", id.ToString(), GetAccountAsync);
-            //return JsonConvert.SerializeObject(a);
-
-            //==========================从Redis中获取数据===============
-            string str = Request.HttpContext.Connection.LocalIpAddress.MapToIPv4().ToString() + ":" + Request.HttpContext.Connection.LocalPort;
-            AccountEntity accountEntity = await YFRedisHelper.YFCacheShellAsync("youyouAccount", id.ToString(), GetAccount);
-            return JsonConvert.SerializeObject(accountEntity) + "server = " + str;
-        }
-
-        private async Task<AccountEntity> GetAccount(string arg)
-        {
-            long yfId = 0;
-            long.TryParse(arg, out yfId);
-
-            return await DBModelMgr.AccountDBModel.GetEntityAsync(yfId);
         }
     }
 }

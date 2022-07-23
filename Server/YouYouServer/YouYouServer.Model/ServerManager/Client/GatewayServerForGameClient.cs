@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using YouYouServer.Common;
+﻿using YouYouServer.Common;
 using YouYouServer.Core;
 
-namespace YouYouServer.Model.ServerManager
+namespace YouYouServer.Model
 {
     /// <summary>
     /// 网关服务器客户端
@@ -42,7 +39,7 @@ namespace YouYouServer.Model.ServerManager
         {
             //游戏服务器端收到的中转消息 都是经过中转的
             //所以这里直接解析中转协议
-            CarryProto proto = CarryProto.GetProto(CurrServerClient.GetProtoMS, buffer);
+            CarryProto proto = CarryProto.GetProto(buffer);
             if (proto.CarryProtoCategory == ProtoCategory.Client2GameServer)
             {
                 long accountId = proto.AccountId;
@@ -57,7 +54,7 @@ namespace YouYouServer.Model.ServerManager
                 }
 
                 // 2. 给这个玩家客户端派发消息
-                playerForGameClient.EventDispatcher.Dispatch(proto.CarryProtoCode, proto.Buffer);
+                playerForGameClient.EventDispatcher.Dispatch(proto.CarryProtoId, proto.Buffer);
             }
         }
 

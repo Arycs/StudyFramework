@@ -1,23 +1,24 @@
-﻿using System;
+﻿using Google.Protobuf;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using YouYou;
+using YouYouServer.Common;
 using YouYouServer.Core;
-using YouYouServer.Model.Entitys;
 
-namespace YouYouServer.Model.ServerManager
+namespace YouYouServer.Model
 {
     /// <summary>
     /// 游戏服务器上的玩家客户端
     /// </summary>
-    public class PlayerForGameClient :PlayerClientBase
+    public class PlayerForGameClient : PlayerClientBase
     {
         /// <summary>
         /// 当前角色
         /// </summary>
         public RoleEntity CurrRole
         {
-            get;private set;
+            get; private set;
         }
 
         /// <summary>
@@ -25,18 +26,10 @@ namespace YouYouServer.Model.ServerManager
         /// </summary>
         private GatewayServerForGameClient m_GatewayServerForGameClient;
 
-        public PlayerForGameClient(long accountId, GatewayServerForGameClient gatewayServerForWorldClient) : base() {
+        public PlayerForGameClient(long accountId, GatewayServerForGameClient gatewayServerForWorldClient) : base()
+        {
             AccountId = accountId;
             m_GatewayServerForGameClient = gatewayServerForWorldClient;
-            AddEventListener();
-        }
-        public override void AddEventListener()
-        {
-            base.AddEventListener();
-        }
-        public override void RemoveEventListener()
-        {
-            base.RemoveEventListener();
         }
 
         /// <summary>
@@ -45,9 +38,10 @@ namespace YouYouServer.Model.ServerManager
         /// <param name="proto"></param>
         private void SendCarryToClient(IProto proto)
         {
-            CarryProto carryProto = new CarryProto(AccountId, proto.ProtoCode, proto.Category, proto.ToArray(SendProtoMS));
-            m_GatewayServerForGameClient.CurrServerClient.ClientSocket.SendMsg(carryProto.ToArray(m_GatewayServerForGameClient.CurrServerClient.SendProtoMS
-                ));
+            CarryProto carryProto = new CarryProto(AccountId, proto.ProtoId, proto.Category, proto.ToByteArray());
+            m_GatewayServerForGameClient.CurrServerClient.ClientSocket.SendMsg(
+               carryProto
+               );
         }
     }
 }

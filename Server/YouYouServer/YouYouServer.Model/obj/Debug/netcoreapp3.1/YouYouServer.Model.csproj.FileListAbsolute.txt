@@ -13,12 +13,15 @@ D:\GitHub_Repository\Server\YouYouServer\YouYouServer.Model\obj\Debug\netcoreapp
 D:\GitHub_Repository\Server\YouYouServer\YouYouServer.Model\bin\Debug\netcoreapp3.1\Configs\ServerConfig.xml
 D:\GitHub_Repository\Server\YouYouServer\YouYouServer.Model\bin\Debug\netcoreapp3.1\Configs\ChannelConfig.xml
 E:\StudyFramework\Server\YouYouServer\YouYouServer.Model\bin\Debug\netcoreapp3.1\Configs\ChannelConfig.xml
-E:\StudyFramework\Server\YouYouServer\YouYouServer.Model\bin\Debug\netcoreapp3.1\Configs\ServerConfig.xml
+E:\StudyFramework\Server\YouYouServer\YouYouServer.Model\bin\Debug\netcoreapp3.1\Configs\HotFixConfig.xml
 E:\StudyFramework\Server\YouYouServer\YouYouServer.Model\bin\Debug\netcoreapp3.1\YouYouServer.Model.deps.json
 E:\StudyFramework\Server\YouYouServer\YouYouServer.Model\bin\Debug\netcoreapp3.1\YouYouServer.Model.dll
 E:\StudyFramework\Server\YouYouServer\YouYouServer.Model\bin\Debug\netcoreapp3.1\YouYouServer.Model.pdb
+E:\StudyFramework\Server\YouYouServer\YouYouServer.Model\bin\Debug\netcoreapp3.1\Google.Protobuf.dll
+E:\StudyFramework\Server\YouYouServer\YouYouServer.Model\bin\Debug\netcoreapp3.1\YouYouServer.Commmon.dll
 E:\StudyFramework\Server\YouYouServer\YouYouServer.Model\bin\Debug\netcoreapp3.1\YouYouServer.Core.dll
 E:\StudyFramework\Server\YouYouServer\YouYouServer.Model\bin\Debug\netcoreapp3.1\zlib.net.dll
+E:\StudyFramework\Server\YouYouServer\YouYouServer.Model\bin\Debug\netcoreapp3.1\YouYouServer.Commmon.pdb
 E:\StudyFramework\Server\YouYouServer\YouYouServer.Model\bin\Debug\netcoreapp3.1\YouYouServer.Core.pdb
 E:\StudyFramework\Server\YouYouServer\YouYouServer.Model\obj\Debug\netcoreapp3.1\YouYouServer.Model.csproj.AssemblyReference.cache
 E:\StudyFramework\Server\YouYouServer\YouYouServer.Model\obj\Debug\netcoreapp3.1\YouYouServer.Model.GeneratedMSBuildEditorConfig.editorconfig

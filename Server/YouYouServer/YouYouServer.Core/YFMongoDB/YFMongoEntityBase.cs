@@ -2,10 +2,8 @@
 using MongoDB.Bson.Serialization.Attributes;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace YouYouServer.Core.YFMongoDB
+namespace YouYouServer.Core
 {
     /// <summary>
     /// MongoEntity基类, 特性是忽略没有匹配的字段

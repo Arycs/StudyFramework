@@ -1,10 +1,7 @@
 ﻿using MongoDB.Driver;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using YouYouServer.Core.YFMongoDB;
 
-namespace YouYouServer.Core.Logger
+namespace YouYouServer.Core
 {
     public class LoggerDBModel : YFMongoDBModelBase<LoggerEntity>
     {

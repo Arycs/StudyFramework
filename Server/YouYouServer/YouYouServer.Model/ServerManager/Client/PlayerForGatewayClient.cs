@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net.Sockets;
-using System.Text;
+using YouYou.Proto;
 using YouYouServer.Core;
-using YouYouServer.Core.Common;
 
-namespace YouYouServer.Model.ServerManager
+namespace YouYouServer.Model
 {
     /// <summary>
     /// 玩家客户端
@@ -47,6 +45,47 @@ namespace YouYouServer.Model.ServerManager
         }
 
         /// <summary>
+        /// 监听玩家客户端的消息
+        /// </summary>
+        public void AddEventListener()
+        {
+            EventDispatcher.AddEventListener(ProtoIdDefine.Proto_C2GWS_RegClient, OnC2GWS_RegClient);
+        }
+
+        /// <summary>
+        /// 移除玩家客户端的消息
+        /// </summary>
+        public void RemoveEventListener()
+        {
+            EventDispatcher.RemoveEventListener(ProtoIdDefine.Proto_C2GWS_RegClient, OnC2GWS_RegClient);
+        }
+
+        /// <summary>
+        /// 注册客户端
+        /// </summary>
+        /// <param name="buffer"></param>
+        private void OnC2GWS_RegClient(byte[] buffer)
+        {
+            C2GWS_RegClient proto = (C2GWS_RegClient)C2GWS_RegClient.Descriptor.Parser.ParseFrom(buffer);
+
+            //此处可以加个验证  验证账号合法性
+
+            AccountId = proto.AccountId;
+            GatewayServerManager.RegisterPlayerClient(this);
+            SendRegClientResult();
+        }
+
+        /// <summary>
+        /// 向客户端发送注册结果
+        /// </summary>
+        private void SendRegClientResult()
+        {
+            GWS2C_ReturnRegClient proto = new GWS2C_ReturnRegClient();
+            proto.Result = true;
+            ClientSocket.SendMsg(proto);
+        }
+
+        /// <summary>
         /// 收到中转协议并处理
         /// </summary>
         /// <param name="protoCode">协议编号</param>
@@ -77,50 +116,15 @@ namespace YouYouServer.Model.ServerManager
         {
             CarryProto proto = new CarryProto(AccountId, protoCode, ProtoCategory.Client2WorldServer, buffer);
             //通过中心服务器连接代理
-            GatewayServerManager.ConnectWorldAgent.TargetServerConnect.ClientSocket.SendMsg(proto.ToArray(GatewayServerManager.ConnectWorldAgent.TargetServerConnect.SendProtoMS));
+            GatewayServerManager.ConnectWorldAgent.TargetServerConnect.ClientSocket.SendMsg(
+                proto
+                );
         }
 
-        /// <summary>
-        /// 监听玩家客户端的消息
-        /// </summary>
-        public override void AddEventListener()
-        {
-            base.AddEventListener();
-            EventDispatcher.AddEventListener(ProtoCodeDef.C2GWS_RegClient, OnC2GWS_RegClient);
-        }
+        
 
-        /// <summary>
-        /// 移除玩家客户端的消息
-        /// </summary>
-        public override void RemoveEventListener()
-        {
-            base.RemoveEventListener();
-            EventDispatcher.RemoveEventListener(ProtoCodeDef.C2GWS_RegClient, OnC2GWS_RegClient);
-        }
+        
 
-        /// <summary>
-        /// 注册客户端
-        /// </summary>
-        /// <param name="buffer"></param>
-        private void OnC2GWS_RegClient(byte[] buffer)
-        {
-            C2GWS_RegClientProto proto = C2GWS_RegClientProto.GetProto(GetProtoMS, buffer);
-
-            //此处可以加个验证  验证账号合法性
-
-            AccountId = proto.AccountId;
-            GatewayServerManager.RegisterPlayerClient(this);
-            SendRegClientResult();
-        }
-
-        /// <summary>
-        /// 向客户端发送注册结果
-        /// </summary>
-        private void SendRegClientResult()
-        {
-            GWS2C_ReturnRegClientProto proto = new GWS2C_ReturnRegClientProto();
-            proto.Result = true;
-            ClientSocket.SendMsg(proto.ToArray(SendProtoMS));
-        }
+        
     }
 }

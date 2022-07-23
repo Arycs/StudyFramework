@@ -1,8 +1,7 @@
 ﻿using System;
-using YouYouServer.Core.Logger;
+using YouYouServer.Common;
+using YouYouServer.Core;
 using YouYouServer.Model;
-using YouYouServer.Model.Managers;
-using YouYouServer.Model.ServerManager;
 
 namespace YouYouServer.GatewayServer
 {
@@ -11,6 +10,9 @@ namespace YouYouServer.GatewayServer
         static void Main(string[] args)
         {
             Console.WriteLine("Hello GatewayServer!");
+
+            HotFixConfig.Load();
+            HotFixHelper.LoadHotFixAssembly();
 
             ServerConfig.Init();
             DataTableManager.Init();

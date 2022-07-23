@@ -3,9 +3,9 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using YouYouServer.Common;
-using YouYouServer.Core.Logger;
+using YouYouServer.Core;
 
-namespace YouYouServer.Model.ServerManager
+namespace YouYouServer.Model
 {
     /// <summary>
     /// 中心服务器管理器
@@ -70,7 +70,7 @@ namespace YouYouServer.Model.ServerManager
             //实例化Socket
             m_ListenSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
-            //想操作系统申请一个可用的ip和端口用来通讯
+            //向操作系统申请一个可用的ip和端口用来通讯
             m_ListenSocket.Bind(new IPEndPoint(IPAddress.Parse(CurrServer.Ip), CurrServer.Port));
 
             m_ListenSocket.Listen(20);
@@ -108,6 +108,8 @@ namespace YouYouServer.Model.ServerManager
         public static void RegisterGameServerClient(GameServerClient gameServerClient) {
             LoggerMgr.Log(Core.LoggerLevel.Log, LogType.SysLog, "RegGameServer Success ServerId={1}", gameServerClient.ServerId);
             m_GameServerClientDic.Add(gameServerClient.ServerId, gameServerClient);
+
+            CheckAllServerClientRegisterComplete();
         }
         
         /// <summary>

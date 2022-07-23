@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using YouYouServer.Core.YFMongoDB;
-
-namespace YouYouServer.Core.Logger
+﻿namespace YouYouServer.Core
 {
     /// <summary>
     /// 日志管理器

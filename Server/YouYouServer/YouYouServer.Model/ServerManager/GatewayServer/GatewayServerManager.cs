@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using YouYouServer.Common;
-using YouYouServer.Core.Logger;
+using YouYouServer.Core;
 
-namespace YouYouServer.Model.ServerManager
+namespace YouYouServer.Model
 {
     /// <summary>
     /// 网关服务管理器
@@ -29,6 +28,11 @@ namespace YouYouServer.Model.ServerManager
         private static List<ServerConfig.Server> LstGameServer = null;
 
         /// <summary>
+        /// 网关连接到游戏服的代理
+        /// </summary>
+        private static Dictionary<int, GatewayConnectGameAgent> m_GatewayConnectGameAgentDic;
+
+        /// <summary>
         /// 连接到中心服务器代理
         /// </summary>
         public static GatewayConnectWorldAgent ConnectWorldAgent;
@@ -43,6 +47,7 @@ namespace YouYouServer.Model.ServerManager
         public static void Init()
         {
             m_PlayerClientDic = new Dictionary<long, PlayerForGatewayClient>();
+            m_GatewayConnectGameAgentDic = new Dictionary<int, GatewayConnectGameAgent>();
 
             CurrServer = ServerConfig.GetCurrServer();
             LstGameServer = ServerConfig.GetServerByType(ConstDefine.ServerType.GameServer);
@@ -66,12 +71,29 @@ namespace YouYouServer.Model.ServerManager
             {
                 GatewayConnectGameAgent agent = new GatewayConnectGameAgent(LstGameServer[i]);
                 agent.RegisterToGameServer();
+
+                //把这个连接到游戏服代理加入字典
+                m_GatewayConnectGameAgentDic[agent.TargetServerConfig.ServerId] = agent;
+
             }
 
             //通知中心服务器 注册游戏服完毕
             ConnectWorldAgent.ToRegGameServerSuccess();
         }
         #endregion
+
+        /// <summary>
+        /// 获取游戏服的代理
+        /// </summary>
+        /// <param name="gameServerId"></param>
+        /// <returns></returns>
+        public static GatewayConnectGameAgent GetGameServerAgent(int gameServerId)
+        {
+            GatewayConnectGameAgent agent = null;
+            m_GatewayConnectGameAgentDic.TryGetValue(gameServerId, out agent);
+            return agent;
+        }
+
 
         #region StarListen 启动监听
         /// <summary>
@@ -125,16 +147,6 @@ namespace YouYouServer.Model.ServerManager
         }
 
         /// <summary>
-        /// 移除玩家客户端
-        /// </summary>
-        /// <param name="playerForGatewayClient"></param>
-        public static void RemovePlayerClient(PlayerForGatewayClient playerForGatewayClient)
-        {
-            LoggerMgr.Log(Core.LoggerLevel.Log, LogType.SysLog, "RemovePlayerClient Success AccountId = {0}", playerForGatewayClient.AccountId);
-            m_PlayerClientDic.Remove(playerForGatewayClient.AccountId);
-        }
-
-        /// <summary>
         /// 通过ID 获取玩家客户端
         /// </summary>
         /// <param name="accountId"></param>
@@ -145,5 +157,17 @@ namespace YouYouServer.Model.ServerManager
             m_PlayerClientDic.TryGetValue(accountId, out playerForGatewayClient);
             return playerForGatewayClient;
         }
+
+        /// <summary>
+        /// 移除玩家客户端
+        /// </summary>
+        /// <param name="playerForGatewayClient"></param>
+        public static void RemovePlayerClient(PlayerForGatewayClient playerForGatewayClient)
+        {
+            LoggerMgr.Log(Core.LoggerLevel.Log, LogType.SysLog, "RemovePlayerClient Success AccountId = {0}", playerForGatewayClient.AccountId);
+            m_PlayerClientDic.Remove(playerForGatewayClient.AccountId);
+        }
+
+        
     }
 }

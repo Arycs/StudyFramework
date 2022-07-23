@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using YouYou.Proto;
 using YouYouServer.Common;
-using YouYouServer.Core.Logger;
+using YouYouServer.Core;
 
-namespace YouYouServer.Model.ServerManager
+namespace YouYouServer.Model
 {
     /// <summary>
     /// 游戏服务器连接到中心服务器代理
@@ -45,6 +45,7 @@ namespace YouYouServer.Model.ServerManager
         }
 
         #region RegisterToWorldServer 注册到中心服务器
+
         /// <summary>
         /// 注册到中心服务器
         /// </summary>
@@ -53,9 +54,9 @@ namespace YouYouServer.Model.ServerManager
             TargetServerConnect.Connect(onConnectSuccess: (Action)(() =>
             {
                 //告诉中心服务器 我是谁
-                GS2WS_RegGameServerProto proto = new GS2WS_RegGameServerProto();
+                GS2WS_RegGameServer proto = new GS2WS_RegGameServer();
                 proto.ServerId = GameServerManager.CurrServer.ServerId;
-                TargetServerConnect.ClientSocket.SendMsg(proto.ToArray((Core.Common.MMO_MemoryStream)TargetServerConnect.SendProtoMS));
+                TargetServerConnect.ClientSocket.SendMsg(proto);
             }));
         }
         #endregion

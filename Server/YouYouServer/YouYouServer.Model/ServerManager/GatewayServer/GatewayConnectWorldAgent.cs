@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using YouYou.Proto;
 using YouYouServer.Common;
 using YouYouServer.Core;
-using YouYouServer.Core.Logger;
 
-namespace YouYouServer.Model.ServerManager
+namespace YouYouServer.Model
 {
     /// <summary>
     /// 网关服务器链接中心服务器代理
@@ -32,7 +31,7 @@ namespace YouYouServer.Model.ServerManager
         public override void AddEventListener()
         {
             base.AddEventListener();
-            TargetServerConnect.EventDispatcher.AddEventListener(ProtoCodeDef.WS2GWS_ToRegGameServer, OnWS2GWS_ToRegGameServer);
+            TargetServerConnect.EventDispatcher.AddEventListener(ProtoIdDefine.Proto_WS2GWS_ToRegGameServer, OnWS2GWS_ToRegGameServer);
         }
 
         /// <summary>
@@ -41,7 +40,7 @@ namespace YouYouServer.Model.ServerManager
         public override void RemoveEventListener()
         {
             base.RemoveEventListener();
-            TargetServerConnect.EventDispatcher.RemoveEventListener(ProtoCodeDef.WS2GWS_ToRegGameServer, OnWS2GWS_ToRegGameServer);
+            TargetServerConnect.EventDispatcher.RemoveEventListener(ProtoIdDefine.Proto_WS2GWS_ToRegGameServer, OnWS2GWS_ToRegGameServer);
         }
 
         /// <summary>
@@ -54,7 +53,7 @@ namespace YouYouServer.Model.ServerManager
         { 
             //网关服务器端接收到的中转消息 都是经过中转的（中心服务器或游戏服务器 发过来的）
             //所以这里直接解析中转协议
-            CarryProto proto = CarryProto.GetProto(TargetServerConnect.GetProtoMS, buffer);
+            CarryProto proto = CarryProto.GetProto(buffer);
             if (proto.CarryProtoCategory == ProtoCategory.WorldServer2Client)
             {
                 long accountId = proto.AccountId;
@@ -75,9 +74,9 @@ namespace YouYouServer.Model.ServerManager
             TargetServerConnect.Connect(onConnectSuccess: (Action)(() =>
             {
                 //告诉中心服务器 我是谁
-                GWS2WS_RegGatewayServerProto proto = new GWS2WS_RegGatewayServerProto();
+                GWS2WS_RegGatewayServer proto = new GWS2WS_RegGatewayServer();
                 proto.ServerId = GatewayServerManager.CurrServer.ServerId;
-                TargetServerConnect.ClientSocket.SendMsg(proto.ToArray((Core.Common.MMO_MemoryStream)TargetServerConnect.SendProtoMS));
+                TargetServerConnect.ClientSocket.SendMsg(proto);
             }));
         }
         #endregion
@@ -96,8 +95,8 @@ namespace YouYouServer.Model.ServerManager
         /// </summary>
         public void ToRegGameServerSuccess()
         {
-            GWS2WS_RegGameServerSuccessProto proto = new GWS2WS_RegGameServerSuccessProto();
-            TargetServerConnect.ClientSocket.SendMsg(proto.ToArray(TargetServerConnect.SendProtoMS));
+            GWS2WS_RegGameServerSuccess proto = new GWS2WS_RegGameServerSuccess();
+            TargetServerConnect.ClientSocket.SendMsg(proto);
         }
     }
 

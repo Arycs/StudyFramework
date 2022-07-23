@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace YouYouServer.Model.ServerManager
+namespace YouYouServer.Model
 {
     /// <summary>
     /// 游戏服务器客户端

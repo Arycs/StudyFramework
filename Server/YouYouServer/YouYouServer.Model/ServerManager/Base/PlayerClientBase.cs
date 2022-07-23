@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using YouYouServer.Core.Common;
+using YouYouServer.Core;
 
-namespace YouYouServer.Model.ServerManager
+namespace YouYouServer.Model
 {
     /// <summary>
     /// 游戏服务器上的玩家客户端
@@ -23,48 +23,14 @@ namespace YouYouServer.Model.ServerManager
             get; private set;
         }
 
-        /// <summary>
-        /// 发送协议时候的MS缓存
-        /// </summary>
-        public MMO_MemoryStream SendProtoMS
-        {
-            get; private set;
-        }
-
-        /// <summary>
-        /// 解析协议时候的MS缓存
-        /// </summary>
-        public MMO_MemoryStream GetProtoMS
-        {
-            get;private set;
-        }
-
         public PlayerClientBase()
         {
             EventDispatcher = new EventDispatcher();
-            SendProtoMS = new MMO_MemoryStream();
-            GetProtoMS = new MMO_MemoryStream();
-        }
-
-        /// <summary>
-        /// 监听玩家客户端的消息
-        /// </summary>
-        public virtual void AddEventListener()
-        {
-
-        }
-
-        /// <summary>
-        /// 移除监听玩家客户端的消息
-        /// </summary>
-        public virtual void RemoveEventListener()
-        {
-
         }
 
         public void Dispose()
         {
-            RemoveEventListener();
+
         }
     }
 }

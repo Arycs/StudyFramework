@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net.Sockets;
-using System.Text;
+using YouYou.Proto;
 using YouYouServer.Common;
 using YouYouServer.Core;
-using YouYouServer.Core.Common;
-using YouYouServer.Core.Logger;
 
-namespace YouYouServer.Model.ServerManager
+namespace YouYouServer.Model
 {
     /// <summary>
     /// 服务器客户端,
@@ -86,17 +83,17 @@ namespace YouYouServer.Model.ServerManager
         /// </summary>
         private void AddEventListener()
         {
-            EventDispatcher.AddEventListener(ProtoCodeDef.GS2WS_RegGameServer, OnGS2WS_RegGameServer);
-            EventDispatcher.AddEventListener(ProtoCodeDef.GWS2WS_RegGatewayServer, OnGWS2WS_RegGatewayServer);
-            EventDispatcher.AddEventListener(ProtoCodeDef.GWS2GS_RegGatewayServer, OnGWS2GS_RegGatewayServer);
+            EventDispatcher.AddEventListener(ProtoIdDefine.Proto_GS2WS_RegGameServer, OnGS2WS_RegGameServer);
+            EventDispatcher.AddEventListener(ProtoIdDefine.Proto_GWS2WS_RegGatewayServer, OnGWS2WS_RegGatewayServer);
+            EventDispatcher.AddEventListener(ProtoIdDefine.Proto_GWS2GS_RegGatewayServer, OnGWS2GS_RegGatewayServer);
         }
 
 
         private void RemoveEventListener()
         {
-            EventDispatcher.RemoveEventListener(ProtoCodeDef.GS2WS_RegGameServer, OnGS2WS_RegGameServer);
-            EventDispatcher.RemoveEventListener(ProtoCodeDef.GWS2WS_RegGatewayServer, OnGWS2WS_RegGatewayServer);
-            EventDispatcher.RemoveEventListener(ProtoCodeDef.GWS2GS_RegGatewayServer, OnGWS2GS_RegGatewayServer);
+            EventDispatcher.RemoveEventListener(ProtoIdDefine.Proto_GS2WS_RegGameServer, OnGS2WS_RegGameServer);
+            EventDispatcher.RemoveEventListener(ProtoIdDefine.Proto_GWS2WS_RegGatewayServer, OnGWS2WS_RegGatewayServer);
+            EventDispatcher.RemoveEventListener(ProtoIdDefine.Proto_GWS2GS_RegGatewayServer, OnGWS2GS_RegGatewayServer);
         }
 
         /// <summary>
@@ -105,7 +102,7 @@ namespace YouYouServer.Model.ServerManager
         /// <param name="buffer"></param>
         private void OnGS2WS_RegGameServer(byte[] buffer)
         {
-            GS2WS_RegGameServerProto proto = GS2WS_RegGameServerProto.GetProto(GetProtoMS, buffer);
+            GS2WS_RegGameServer proto = GS2WS_RegGameServer.Parser.ParseFrom(buffer);
             ServerConfig.Server server = ServerConfig.GetServer(ConstDefine.ServerType.GameServer, proto.ServerId);
             if (server != null)
             {
@@ -126,7 +123,7 @@ namespace YouYouServer.Model.ServerManager
         /// <param name="buffer"></param>
         private void OnGWS2WS_RegGatewayServer(byte[] buffer)
         {
-            GWS2WS_RegGatewayServerProto proto = GWS2WS_RegGatewayServerProto.GetProto(GetProtoMS, buffer);
+            GWS2WS_RegGatewayServer proto = GWS2WS_RegGatewayServer.Parser.ParseFrom(buffer);
             ServerConfig.Server server = ServerConfig.GetServer(ConstDefine.ServerType.GatewayServer, proto.ServerId);
             if (server != null)
             {
@@ -147,7 +144,7 @@ namespace YouYouServer.Model.ServerManager
         /// <param name="buffer"></param>
         private void OnGWS2GS_RegGatewayServer(byte[] buffer)
         {
-            GWS2GS_RegGatewayServerProto proto = GWS2GS_RegGatewayServerProto.GetProto(GetProtoMS, buffer);
+            GWS2GS_RegGatewayServer proto = GWS2GS_RegGatewayServer.Parser.ParseFrom(buffer);
             ServerConfig.Server server = ServerConfig.GetServer(ConstDefine.ServerType.GatewayServer, proto.ServerId);
             if (server != null)
             {

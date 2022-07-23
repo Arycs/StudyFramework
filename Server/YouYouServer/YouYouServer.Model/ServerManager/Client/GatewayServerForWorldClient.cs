@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using YouYou.Proto;
 using YouYouServer.Common;
 using YouYouServer.Core;
 
-namespace YouYouServer.Model.ServerManager
+namespace YouYouServer.Model
 {
     /// <summary>
     /// 作为中心服务武器的网关服务器客户端
@@ -33,6 +34,46 @@ namespace YouYouServer.Model.ServerManager
 
             AddEventListener();
         }
+        
+        public override void AddEventListener()
+        {
+            base.AddEventListener();
+
+            #region 作为中心服务器客户端 收到的消息
+            CurrServerClient.EventDispatcher.AddEventListener(ProtoIdDefine.Proto_GWS2WS_RegGameServerSuccess, OnGWS2WS_RegGameServerSuccess);
+            #endregion
+        }
+
+        /// <summary>
+        /// 移除监听
+        /// </summary>
+        public override void RemoveEventListener()
+        {
+            base.RemoveEventListener();
+            #region 作为中心服务器客户端 收到的消息
+            CurrServerClient.EventDispatcher.RemoveEventListener(ProtoIdDefine.Proto_GWS2WS_RegGameServerSuccess, OnGWS2WS_RegGameServerSuccess);
+            #endregion
+        }
+
+        /// <summary>
+        /// 通知网关服务器去注册游戏服
+        /// </summary>
+        public void SendToRegGameServer()
+        {
+            WS2GWS_ToRegGameServer proto = new WS2GWS_ToRegGameServer();
+            CurrServerClient.ClientSocket.SendMsg(proto);
+        }
+
+        /// <summary>
+        /// 网关服务器通知中心服务器注册到游戏服完毕
+        /// </summary>
+        /// <param name="buffer"></param>
+        private void OnGWS2WS_RegGameServerSuccess(byte[] buffer)
+        {
+            CurrServerStatus = ConstDefine.GatewayServerStatus.RegGameServerSuccess;
+            WorldServerManager.CheckAllGatewayServerRegisterGameServerComplete();
+        }
+
         /// <summary>
         /// 收到中转协议并处理
         /// </summary>
@@ -43,7 +84,7 @@ namespace YouYouServer.Model.ServerManager
         {
             //中心服务器端收到的中转消息 都是经过中转的
             //所以这里直接解析中转协议
-            CarryProto proto = CarryProto.GetProto(CurrServerClient.GetProtoMS, buffer);
+            CarryProto proto = CarryProto.GetProto(buffer);
 
             if (proto.CarryProtoCategory == ProtoCategory.Client2WorldServer)
             {
@@ -58,47 +99,9 @@ namespace YouYouServer.Model.ServerManager
                     WorldServerManager.RegisterPlayerForWorldClient(playerForWorldClient);
                 }
                 // 2.给这个玩家客户端派发消息
-                playerForWorldClient.EventDispatcher.Dispatch(proto.CarryProtoCode, proto.Buffer);
+                playerForWorldClient.EventDispatcher.Dispatch(proto.CarryProtoId, proto.Buffer);
             }
         }
 
-        public override void AddEventListener()
-        {
-            base.AddEventListener();
-
-            #region 作为中心服务器客户端 收到的消息
-            CurrServerClient.EventDispatcher.AddEventListener(ProtoCodeDef.GWS2WS_RegGameServerSuccess, OnGWS2WS_RegGameServerSuccess);
-            #endregion
-        }
-
-        /// <summary>
-        /// 移除监听
-        /// </summary>
-        public override void RemoveEventListener()
-        {
-            base.RemoveEventListener();
-            #region 作为中心服务器客户端 收到的消息
-            CurrServerClient.EventDispatcher.RemoveEventListener(ProtoCodeDef.GWS2WS_RegGameServerSuccess, OnGWS2WS_RegGameServerSuccess);
-            #endregion
-        }
-
-        /// <summary>
-        /// 通知网关服务器去注册游戏服
-        /// </summary>
-        public void SendToRegGameServer()
-        {
-            WS2GWS_ToRegGameServerProto proto = new WS2GWS_ToRegGameServerProto();
-            CurrServerClient.ClientSocket.SendMsg(proto.ToArray(CurrServerClient.SendProtoMS));
-        }
-
-        /// <summary>
-        /// 网关服务器通知中心服务器注册到游戏服完毕
-        /// </summary>
-        /// <param name="buffer"></param>
-        private void OnGWS2WS_RegGameServerSuccess(byte[] buffer)
-        {
-            CurrServerStatus = ConstDefine.GatewayServerStatus.RegGameServerSuccess;
-            WorldServerManager.CheckAllGatewayServerRegisterGameServerComplete();
-        }
     }
 }

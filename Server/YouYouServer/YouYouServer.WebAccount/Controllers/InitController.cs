@@ -1,14 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using YouYouServer.Core.Utils;
-using YouYouServer.Core.Common;
-using YouYouServer.Model.Logic.Entitys;
-using YouYouServer.Model.Managers;
+using YouYouServer.Common;
+using YouYouServer.Core;
 
 namespace YouYouServer.WebAccount.Controllers
 {
@@ -16,9 +11,16 @@ namespace YouYouServer.WebAccount.Controllers
     [ApiController]
     public class InitController : ControllerBase
     {
-        public string Get()
+
+        public string Get(string key)
         {
-            return "OK";
+            switch (key)
+            {
+                case "ReLoad":
+                    HotFixMgr.Load();
+                    break;
+            }
+            return "Complete";
         }
 
         [HttpPost]
@@ -29,6 +31,7 @@ namespace YouYouServer.WebAccount.Controllers
 
             string channelId = dic["ChannelId"].ToString();
             string innerVersion = dic["InnerVersion"].ToString();
+
             ChannelEntity channelEntity = ChannelConfig.Get(channelId, innerVersion);
             RetValue ret = new RetValue();
 
@@ -50,9 +53,7 @@ namespace YouYouServer.WebAccount.Controllers
                 ret.HasError = true;
             }
 
-           
             return JsonConvert.SerializeObject(ret);
-
         }
     }
 }
