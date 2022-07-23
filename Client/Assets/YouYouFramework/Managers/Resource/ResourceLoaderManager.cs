@@ -48,7 +48,7 @@ namespace YouYou
         /// <summary>
         /// 初始化资源信息
         /// </summary>
-        public async void InitAssetInfo()
+        public async UniTask  InitAssetInfo()
         {
             byte[] buffer =
                 GameEntry.Resource.ResourceManager.LocalAssetsManager.GetFileBuffer(ConstDefine.AssetInfoName);
@@ -59,9 +59,8 @@ namespace YouYou
                 if (buff == null)
                 {
                     //如果只读区也没有,从CDN读取
-                    string url = string.Format("{0}{1}",
-                        GameEntry.Data.SysDataManager.CurrChannelConfig.RealSourceUrl,
-                        ConstDefine.AssetInfoName);
+                    string url =
+                        $"{GameEntry.Data.SysDataManager.CurrChannelConfig.RealSourceUrl}{ConstDefine.AssetInfoName}";
                     GameEntry.Http.SendData(url, OnLoadAssetInfoFromCDN, isGetData: true);
                 }
                 else
@@ -133,6 +132,12 @@ namespace YouYou
                     }
                 }
 
+                var abc = entity.Category;
+                if (abc == AssetCategory.Reporter)
+                {
+                    var a = 1;
+                }
+                
                 m_AssetInfoDic[entity.Category][entity.AssetFullName] = entity;
             }
         }

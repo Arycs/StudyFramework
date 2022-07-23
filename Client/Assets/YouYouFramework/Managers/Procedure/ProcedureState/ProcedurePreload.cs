@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace YouYou
@@ -24,7 +25,7 @@ namespace YouYou
         /// </summary>
         private BaseParams m_PreloadParams;
 
-        public override void OnEnter()
+        public override async void OnEnter()
         {
             base.OnEnter();
             GameEntry.Log(LogCategory.Procedure, "OnEnter ProcedurePreload");
@@ -44,7 +45,8 @@ namespace YouYou
 
 
 #if !DISABLE_ASSETBUNDLE
-            GameEntry.Resource.InitAssetInfo();
+            await GameEntry.Resource.InitAssetInfo();
+            LoadReport();
 #else
             LoadReport();
 #endif
@@ -80,8 +82,14 @@ namespace YouYou
         public void LoadReport()
         {
 #if DEBUG_MODEL
-            // GameEntry.Resource.ResourceLoaderManager.LoadMainAsset(AssetCategory.Reporter, ConstDefine.ReporterPath,
-            //     (ResourceEntity resourceEntity) => { Object.Instantiate(resourceEntity.Target as GameObject); });
+#if DISABLE_ASSETBUNDLE
+            
+            GameEntry.Resource.ResourceLoaderManager.LoadMainAsset(AssetCategory.Reporter, "Assets/Download/Reporter/report.prefab",
+                (ResourceEntity resourceEntity) => { Object.Instantiate(resourceEntity.Target as GameObject); });
+#else
+            GameEntry.Resource.ResourceLoaderManager.LoadMainAsset(AssetCategory.Reporter, ConstDefine.ReporterPath,
+                (ResourceEntity resourceEntity) => { Object.Instantiate(resourceEntity.Target as GameObject); });
+#endif
 #endif
         }
 

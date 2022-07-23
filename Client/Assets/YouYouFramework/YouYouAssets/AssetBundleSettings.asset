@@ -86,3 +86,9 @@ MonoBehaviour:
     IsEncrypt: 0
     Path:
     - Download/UI/UIRes/Loading
+  - Name: Reporter
+    Overall: 1
+    IsFirstData: 1
+    IsEncrypt: 0
+    Path:
+    - Download/Reporter

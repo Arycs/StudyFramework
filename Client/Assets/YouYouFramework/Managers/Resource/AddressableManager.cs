@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 namespace YouYou
 {
@@ -56,9 +57,9 @@ namespace YouYou
         /// <summary>
         /// 初始化资源信息
         /// </summary>
-        public void InitAssetInfo()
+        public async UniTask InitAssetInfo()
         {
-            ResourceLoaderManager.InitAssetInfo();
+            await ResourceLoaderManager.InitAssetInfo();
         }
         #endregion
 

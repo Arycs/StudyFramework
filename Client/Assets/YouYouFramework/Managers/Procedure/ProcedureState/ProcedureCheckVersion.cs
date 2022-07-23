@@ -13,7 +13,7 @@ namespace YouYou
         {
             base.OnEnter();
             Debug.Log("OnEnter ProcedureCheckVersion");
-
+            
 #if DISABLE_ASSETBUNDLE
             GameEntry.Procedure.ChangeState(ProcedureState.Preload);
 #else

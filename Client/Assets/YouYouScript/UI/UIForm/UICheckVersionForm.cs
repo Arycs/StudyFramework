@@ -43,22 +43,25 @@ public class UICheckVersionForm : UIFormBase
         txtSize.gameObject.SetActive(true);
         scrollbar.gameObject.SetActive(true);
 
-        txtResourceVersion.text = string.Format("资源版本号 {0}", GameEntry.Resource.ResourceManager.CDNVersion);
+        Debug.Log("==============>>>>>>>>>>>>>检查版本 资源版本号  ");
+        txtResourceVersion.text = $"资源版本号 {GameEntry.Resource.ResourceManager.CDNVersion}";
     }
 
     private void OnCheckVersionDownloadUpdate(object userData)
     {
         BaseParams args = userData as BaseParams;
 
-        txtTip.text = string.Format("正在下载{0}/{1}", args.IntParam1, args.IntParam2);
+        txtTip.text = $"正在下载{args.IntParam1}/{args.IntParam2}";
         scrollbar.size = (float) args.IntParam1 / args.IntParam2;
 
-        txtSize.text = string.Format("{0:f2}M/{1:f2}M", (float) args.ULongParam1 / (1024 * 1024),
-            (float) args.ULongParam2 / (1024 * 1024));
+        txtSize.text = $"{(float) args.ULongParam1 / (1024 * 1024):f2}M/{(float) args.ULongParam2 / (1024 * 1024):f2}M";
+        Debug.Log("==============>>>>>>>>>>>>>检查版本 正在下载  ");
+
     }
 
     private void OnCheckVersionDownloadComolete(object userData)
     {
+        
     }
 
     #endregion
@@ -70,15 +73,19 @@ public class UICheckVersionForm : UIFormBase
         txtTip.gameObject.SetActive(true);
         scrollbar.gameObject.SetActive(true);
         txtSize.gameObject.SetActive(false);
-        txtResourceVersion.text = string.Format("资源版本号 {0}", GameEntry.Resource.ResourceManager.CDNVersion);
+        txtResourceVersion.text = $"资源版本号 {GameEntry.Resource.ResourceManager.CDNVersion}";
+        Debug.Log("==============>>>>>>>>>>>>>预加载 资源版本号  ");
+
     }
 
     private void OnPreloadUpdate(object userData)
     {
         BaseParams args = userData as BaseParams;
 
-        txtTip.text = string.Format("正在加载资源 {0:f0}%", Mathf.Min(args.FloatParam1, 100));
+        txtTip.text = $"正在加载资源 {Mathf.Min(args.FloatParam1, 100):f0}%";
         scrollbar.size = args.FloatParam1 * 0.01f;
+        Debug.Log("==============>>>>>>>>>>>>>预加载 加载  ");
+
     }
 
     private void OnPreloadComplete(object userData)

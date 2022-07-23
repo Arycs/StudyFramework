@@ -27,6 +27,7 @@ namespace YouYou
         /// </summary>
         private Queue<PrefabPool> m_PrefabPoolQueue;
 
+       
         public GameObjectPool()
         {
             m_SpawnPoolDic = new Dictionary<byte, GameObjectPoolEntity>();
@@ -108,6 +109,12 @@ namespace YouYou
         }
 
         /// <summary>
+        /// 加载中的预设池
+        /// </summary>
+        private Dictionary<int, HashSet<BaseAction<SpawnPool, Transform, ResourceEntity>>> m_LoadingPrefabPoolDic =
+            new Dictionary<int, HashSet<BaseAction<SpawnPool, Transform, ResourceEntity>>>();
+
+        /// <summary>
         /// 从对象池中获取对象
         /// </summary>
         /// <param name="poolId"></param>
@@ -121,18 +128,55 @@ namespace YouYou
             {
                 Debug.LogError("预设数据不存在");
                 return;
-            }            
+            }
+
+            //拿到对象池
+            GameObjectPoolEntity gameObjectPoolEntity = m_SpawnPoolDic[entity.PoolId];
+            //使用预设编号 当做池ID
+            PrefabPool prefabPool = gameObjectPoolEntity.Pool.GetPrefabPool(entity.Id);
+
+            if (prefabPool != null)
+            {
+                Transform retTrans = prefabPool.TrySpawnInstance();
+                if (retTrans!=null)
+                {
+                    int instanceID = retTrans.gameObject.GetInstanceID();
+                    m_InstanceIdPoolDic[instanceID] = (byte) entity.PoolId;
+                    onComplete?.Invoke(retTrans);
+                    return;
+                }
+            }
+
+            if (m_LoadingPrefabPoolDic.TryGetValue(prefabId, out var lst)) 
+            {
+                //进行拦截
+                //如果存在加载中的asset 把委托加入到对应的链表,然后直接返回
+                lst.Add((_SpawnPool, _Transform, _ResourceEntity) =>
+                {
+                    var retTrans = _SpawnPool.Spawn(_Transform, _ResourceEntity);
+                    var instanceID = retTrans.gameObject.GetInstanceID();
+                    m_InstanceIdPoolDic[instanceID] = (byte) entity.PoolId;
+                    onComplete?.Invoke(retTrans);
+                });
+                return;
+            }
+            
+            //这里说明是加载在第一个
+            lst = GameEntry.Pool.DequeueClassObject<HashSet<BaseAction<SpawnPool, Transform, ResourceEntity>>>();
+            lst.Add(((_SpawnPool, _Transform, _ResourceEntity) =>
+            {
+                var retTrans = _SpawnPool.Spawn(_Transform, _ResourceEntity);
+                var instanceID = retTrans.gameObject.GetInstanceID();
+                m_InstanceIdPoolDic[instanceID] = (byte) entity.PoolId;
+                onComplete.Invoke(retTrans);
+            }));
+            m_LoadingPrefabPoolDic[prefabId] = lst;
+            
+            
             GameEntry.Resource.ResourceLoaderManager.LoadMainAsset((AssetCategory)entity.AssetCategory,entity.AssetPath,
                 (ResourceEntity resourceEntity) =>
                 {
-                    //拿到对象池
-                    GameObjectPoolEntity gameObjectPoolEntity = m_SpawnPoolDic[entity.PoolId];
-
                     Transform prefab = ((GameObject) resourceEntity.Target).transform;
-                    //使用预设编号 当做池ID
-                    //TODO ERROR 此处 好像有问题
-                    PrefabPool prefabPool = gameObjectPoolEntity.Pool.GetPrefabPool(entity.Id);
-
                     if (prefabPool == null)
                     {
                         //先去队列里找 空闲的池
@@ -169,14 +213,15 @@ namespace YouYou
                         prefabPool.cullMaxPerPass = entity.CullMaxPerPass;
                     }
 
-                    if (onComplete != null)
+                    var enumerator = lst.GetEnumerator();
+                    while (enumerator.MoveNext())
                     {
-                        //拿到一个实例
-                        Transform retTrans = gameObjectPoolEntity.Pool.Spawn(prefab, resourceEntity);
-                        int instanceID = retTrans.gameObject.GetInstanceID();
-                        m_InstanceIdPoolDic[instanceID] = entity.PoolId;
-                        onComplete(retTrans);
+                        enumerator.Current?.Invoke(gameObjectPoolEntity.Pool,prefab,resourceEntity);
                     }
+
+                    m_LoadingPrefabPoolDic.Remove(prefabId);
+                    lst.Clear();
+                    GameEntry.Pool.EnqueueClassObject(lst);
                 });
             
         }

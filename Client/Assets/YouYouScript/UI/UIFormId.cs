@@ -33,7 +33,4 @@ public static class UIFormId
     /// 任务列表
     /// </summary>
     public const int UI_Task = 104;
-
-
-
 }
