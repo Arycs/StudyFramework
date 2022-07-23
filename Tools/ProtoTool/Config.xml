@@ -1,18 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Root>
-  <ProtocPath>..\..\Public\ProtoTool</ProtocPath>
+  <ProtocPath>..\..\..\StudyFramework\Tools\ProtoTool</ProtocPath>
 
   
-  <ClientOutProtoPath>..\..\Client\Assets\Game\YouYouScript\Data\ProtoData\Proto\</ClientOutProtoPath>
-  <ClientOutProtoHandlerPath>..\..\Client\Assets\Game\YouYouScript\Data\ProtoData\ProtoHandler\</ClientOutProtoHandlerPath>
-  <ClientOutProtoIdDefinePath>..\..\Client\Assets\Game\YouYouScript\Data\ProtoData\ProtoIdDefine.cs</ClientOutProtoIdDefinePath>
-  <ClientOutSocketProtoListenerPath>..\..\Client\Assets\Game\YouYouScript\Data\ProtoData\SocketProtoListener.cs</ClientOutSocketProtoListenerPath>
+  <ClientOutProtoPath>..\..\..\Client\Assets\YouYouScript\Data\ProtoData\Proto\</ClientOutProtoPath>
+  <ClientOutProtoHandlerPath>..\..\..\Client\Assets\YouYouScript\Data\ProtoData\ProtoHandler\</ClientOutProtoHandlerPath>
+  <ClientOutProtoIdDefinePath>..\..\..\Client\Assets\YouYouScript\Data\ProtoData\ProtoIdDefine.cs</ClientOutProtoIdDefinePath>
+  <ClientOutSocketProtoListenerPath>..\..\..\Client\Assets\YouYouScript\Data\ProtoData\SocketProtoListener.cs</ClientOutSocketProtoListenerPath>
 
-  <ClientOutLuaPBPath>..\..\Client\Assets\Download\xLuaLogic\PB\</ClientOutLuaPBPath>
-  <ClientOutLuaProtoHandlerPath>..\..\Client\Assets\Download\xLuaLogic\DataNode\ProtoHandler\</ClientOutLuaProtoHandlerPath>
-  <ClientOutLuaProtoDefPath>..\..\Client\Assets\Download\xLuaLogic\DataNode\Proto\ProtoDef.bytes</ClientOutLuaProtoDefPath>
-  <ClientOutLuaProtoListenerPath>..\..\Client\Assets\Download\xLuaLogic\DataNode\Proto\SocketProtoListenerForLua.bytes</ClientOutLuaProtoListenerPath>
+  <ClientOutLuaPBPath>..\..\..\StudyFramework\Tools\ProtoTool\Pb\PB\</ClientOutLuaPBPath>
+  <ClientOutLuaProtoHandlerPath>..\..\..\StudyFramework\Tools\ProtoTool\ProtoHandler\</ClientOutLuaProtoHandlerPath>
+  <ClientOutLuaProtoDefPath>..\..\..\StudyFramework\Tools\ProtoTool\ProtoDef.bytes</ClientOutLuaProtoDefPath>
+  <ClientOutLuaProtoListenerPath>..\..\..\StudyFramework\Tools\ProtoTool\SocketProtoListenerForLua.bytes</ClientOutLuaProtoListenerPath>
 
-  <ServerOutProtoPath>..\..\Server\YouYouServer\YouYouServer.Common\ProtoData\Proto\</ServerOutProtoPath>
-  <ServerOutProtoIdDefinePath>..\..\Server\YouYouServer\YouYouServer.Common\ProtoData\ProtoIdDefine.cs</ServerOutProtoIdDefinePath>
+  <ServerOutProtoPath>..\..\..\Server\YouYouServer\YouYouServer.Common\ProtoData\Proto\</ServerOutProtoPath>
+  <ServerOutProtoIdDefinePath>..\..\..\Server\YouYouServer\YouYouServer.Common\ProtoData\ProtoIdDefine.cs</ServerOutProtoIdDefinePath>
 </Root>
