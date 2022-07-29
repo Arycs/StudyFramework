@@ -42,7 +42,7 @@ namespace YouYouServer.HotFix
             accountEntity = new AccountEntity();
             accountEntity.YFId = await DBModelMgr.UniqueIDAccount.GetUniqueIDAsync(0);
 
-            accountEntity.ChannelId = channelId;
+            accountEntity.ChannelId =(short) (channelId + 100);
             accountEntity.DeviceIdentifier = deviceIdentifier;
             accountEntity.DeviceModel = deviceModel;
 
