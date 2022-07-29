@@ -7,9 +7,9 @@ using System.Collections;
 using YouYou;
 
 /// <summary>
-/// Sys_Prefab实体
+/// Job实体
 /// </summary>
-public partial class Sys_PrefabEntity : DataTableEntityBase
+public partial class JobEntity : DataTableEntityBase
 {
     /// <summary>
     /// 描述
@@ -17,43 +17,58 @@ public partial class Sys_PrefabEntity : DataTableEntityBase
     public string Desc;
 
     /// <summary>
-    /// 描述
+    /// Name
     /// </summary>
     public string Name;
 
     /// <summary>
-    /// 资源分类
+    /// 关联角色Id
     /// </summary>
-    public int AssetCategory;
+    public int RoleId;
 
     /// <summary>
-    /// 路径
+    /// 头像
     /// </summary>
-    public string AssetPath;
+    public string HeadPic;
 
     /// <summary>
-    /// 对象池编号
+    /// 职业半身像
     /// </summary>
-    public byte PoolId;
+    public string JobPic;
 
     /// <summary>
-    /// 是否开启缓存池自动清理模式
+    /// 职业描述
     /// </summary>
-    public byte CullDespawned;
+    public string JobDesc;
 
     /// <summary>
-    /// 缓存池自动清理但是始终保留几个对象不清理
+    /// 系数---攻击
     /// </summary>
-    public int CullAbove;
+    public int Attack;
 
     /// <summary>
-    /// 多长时间清理一次单位是秒
+    /// 系数--防御
     /// </summary>
-    public int CullDelay;
+    public int Defense;
 
     /// <summary>
-    /// 每次清理几个
+    /// 系数--命中率
     /// </summary>
-    public int CullMaxPerPass;
+    public int Hit;
+
+    /// <summary>
+    /// 系数--闪避率
+    /// </summary>
+    public int Dodge;
+
+    /// <summary>
+    /// 系数--暴击率
+    /// </summary>
+    public int Cri;
+
+    /// <summary>
+    /// 系数--抗性
+    /// </summary>
+    public int Res;
 
 }

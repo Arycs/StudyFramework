@@ -25,3 +25,10 @@ D:\YouYouTools\ExcelTool\obj\Debug\ExcelTool.csprojAssemblyReference.cache
 D:\YouYouTools\ExcelTool\obj\Debug\ExcelTool.csproj.CoreCompileInputs.cache
 D:\YouYouTools\ExcelTool\obj\Debug\ExcelTool.exe
 D:\YouYouTools\ExcelTool\obj\Debug\ExcelTool.pdb
+E:\StudyFramework\Tools\ExcelTool\bin\Debug\ExcelTool.exe.config
+E:\StudyFramework\Tools\ExcelTool\bin\Debug\ExcelTool.exe
+E:\StudyFramework\Tools\ExcelTool\bin\Debug\ExcelTool.pdb
+E:\StudyFramework\Tools\ExcelTool\obj\Debug\ExcelTool.csproj.AssemblyReference.cache
+E:\StudyFramework\Tools\ExcelTool\obj\Debug\ExcelTool.csproj.CoreCompileInputs.cache
+E:\StudyFramework\Tools\ExcelTool\obj\Debug\ExcelTool.exe
+E:\StudyFramework\Tools\ExcelTool\obj\Debug\ExcelTool.pdb

@@ -12,7 +12,7 @@ namespace YouYou
         {
             InitDBModel();
         }
-        
+
         /// <summary>
         /// 总共需要加载的表格数量
         /// </summary>
@@ -22,7 +22,7 @@ namespace YouYou
         /// 当前需要加载的表格数量
         /// </summary>
         public int CurrLoadTableCount = 0;
-        
+
         /// <summary>
         /// 
         /// </summary>
@@ -74,6 +74,11 @@ namespace YouYou
         public Sys_AudioDBModel Sys_AudioDBModel { get; private set; }
 
         /// <summary>
+        /// 职业表
+        /// </summary>
+        public JobDBModel JobList { get; private set; }
+
+        /// <summary>
         /// 初始化DBModel
         /// </summary>
         private void InitDBModel()
@@ -89,9 +94,10 @@ namespace YouYou
             Sys_SceneDBModel = new Sys_SceneDBModel();
             Sys_SceneDetailDBModel = new Sys_SceneDetailDBModel();
             Sys_AudioDBModel = new Sys_AudioDBModel();
+
+            JobList = new JobDBModel();
         }
 
-       
 
         /// <summary>
         /// 加载表格
@@ -109,13 +115,15 @@ namespace YouYou
             Sys_SceneDBModel.LoadData();
             Sys_SceneDetailDBModel.LoadData();
             Sys_AudioDBModel.LoadData();
+            
+            JobList.LoadData();
         }
 
         /// <summary>
         /// 表格资源包
         /// </summary>
         private AssetBundle m_DataTableBundle;
-        
+
         /// <summary>
         /// 异步加载表格
         /// </summary>
@@ -124,7 +132,8 @@ namespace YouYou
 #if DISABLE_ASSETBUNDLE
             LoadDataTable();
 #else
-            GameEntry.Resource.ResourceLoaderManager.LoadAssetBundle("download/datatable.assetbundle",onComplete:(AssetBundle bundle) =>
+            GameEntry.Resource.ResourceLoaderManager.LoadAssetBundle("download/datatable.assetbundle",
+                onComplete: (AssetBundle bundle) =>
                 {
                     m_DataTableBundle = bundle;
                     Debug.LogError("LoadDataTableAsync 拿到了 bundle");
@@ -176,12 +185,10 @@ namespace YouYou
 
         public void Dispose()
         {
-
         }
 
         public override void Init()
         {
-
         }
     }
 }

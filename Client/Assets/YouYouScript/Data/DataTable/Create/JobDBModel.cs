@@ -9,14 +9,14 @@ using System;
 using YouYou;
 
 /// <summary>
-/// Sys_Prefab数据管理
+/// Job数据管理
 /// </summary>
-public partial class Sys_PrefabDBModel : DataTableDBModelBase<Sys_PrefabDBModel, Sys_PrefabEntity>
+public partial class JobDBModel : DataTableDBModelBase<JobDBModel, JobEntity>
 {
     /// <summary>
     /// 文件名称
     /// </summary>
-    public override string DataTableName { get { return "Sys_Prefab"; } }
+    public override string DataTableName { get { return "Job"; } }
 
     /// <summary>
     /// 加载列表
@@ -28,17 +28,20 @@ public partial class Sys_PrefabDBModel : DataTableDBModelBase<Sys_PrefabDBModel,
 
         for (int i = 0; i < rows; i++)
         {
-            Sys_PrefabEntity entity = new Sys_PrefabEntity();
+            JobEntity entity = new JobEntity();
             entity.Id = ms.ReadInt();
             entity.Desc = ms.ReadUTF8String();
             entity.Name = ms.ReadUTF8String();
-            entity.AssetCategory = ms.ReadInt();
-            entity.AssetPath = ms.ReadUTF8String();
-            entity.PoolId = (byte)ms.ReadByte();
-            entity.CullDespawned = (byte)ms.ReadByte();
-            entity.CullAbove = ms.ReadInt();
-            entity.CullDelay = ms.ReadInt();
-            entity.CullMaxPerPass = ms.ReadInt();
+            entity.RoleId = ms.ReadInt();
+            entity.HeadPic = ms.ReadUTF8String();
+            entity.JobPic = ms.ReadUTF8String();
+            entity.JobDesc = ms.ReadUTF8String();
+            entity.Attack = ms.ReadInt();
+            entity.Defense = ms.ReadInt();
+            entity.Hit = ms.ReadInt();
+            entity.Dodge = ms.ReadInt();
+            entity.Cri = ms.ReadInt();
+            entity.Res = ms.ReadInt();
 
             m_List.Add(entity);
             m_Dic[entity.Id] = entity;

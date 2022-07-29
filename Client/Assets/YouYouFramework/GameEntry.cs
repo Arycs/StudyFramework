@@ -9,60 +9,43 @@ namespace YouYou
 {
     public class GameEntry : MonoBehaviour
     {
-        [FoldoutGroup("ParamsSettings")]
-        [SerializeField]
+        [FoldoutGroup("ParamsSettings")] [SerializeField]
         private ParamsSettings.DeviceGrade m_CurrDeviceGrade;
 
-        [FoldoutGroup("ParamsSettings")]
-        [SerializeField]
+        [FoldoutGroup("ParamsSettings")] [SerializeField]
         private ParamsSettings m_ParamsSettings;
 
-        [FoldoutGroup("GameObjectPool")]
-        [Header("游戏物体对象池父物体")]
+        [FoldoutGroup("GameObjectPool")] [Header("游戏物体对象池父物体")]
         public Transform PoolParent;
 
         /// <summary>
         /// 游戏物体对象池的分组
         /// </summary>
-        [SerializeField]
-        [FoldoutGroup("GameObjectPool")]
+        [SerializeField] [FoldoutGroup("GameObjectPool")]
         public GameObjectPoolEntity[] GameObjectPoolGroups;
 
         /// <summary>
         /// 锁定的资源包（不会释放）
         /// </summary>
-        [Header("锁定的资源包")]
-        [FoldoutGroup("GameObjectPool")]
+        [Header("锁定的资源包")] [FoldoutGroup("GameObjectPool")]
         public string[] LockedAssetBundle;
 
-        [Header("标准分辨率的宽度")]
-        [FoldoutGroup("UIGroup")]
-        [SerializeField]
+        [Header("标准分辨率的宽度")] [FoldoutGroup("UIGroup")] [SerializeField]
         public int m_StandardWidth = 1280;
 
-        [Header("标准分辨率的高度")]
-        [FoldoutGroup("UIGroup")]
-        [SerializeField]
+        [Header("标准分辨率的高度")] [FoldoutGroup("UIGroup")] [SerializeField]
         public int m_StandardHeight = 720;
 
-        [Header("UI摄像机")]
-        [FoldoutGroup("UIGroup")]
-        [SerializeField]
+        [Header("UI摄像机")] [FoldoutGroup("UIGroup")] [SerializeField]
         public Camera UICamera;
 
-        [Header("根画布")]
-        [FoldoutGroup("UIGroup")]
-        [SerializeField]
+        [Header("根画布")] [FoldoutGroup("UIGroup")] [SerializeField]
         public Canvas m_UIootCanvas;
 
-        [Header("根画布的缩放")]
-        [FoldoutGroup("UIGroup")]
-        [SerializeField]
+        [Header("根画布的缩放")] [FoldoutGroup("UIGroup")] [SerializeField]
         public CanvasScaler UIRootCanvasScaler;
 
-        [Header("UI分组")]
-        [FoldoutGroup("UIGroup")]
-        [SerializeField]
+        [Header("UI分组")] [FoldoutGroup("UIGroup")] [SerializeField]
         public UIGroup[] UIGroups;
 
 
@@ -71,165 +54,105 @@ namespace YouYou
         /// <summary>
         /// 全局参数设置
         /// </summary>
-        public static ParamsSettings ParamsSettings
-        {
-            get;private set;
-        }
+        public static ParamsSettings ParamsSettings { get; private set; }
 
         /// <summary>
         /// 全局参数设置
         /// </summary>
-        public static ParamsSettings.DeviceGrade CurrDeviceGrade
-        {
-            get; private set;
-        }
+        public static ParamsSettings.DeviceGrade CurrDeviceGrade { get; private set; }
+
         #region 组件属性
 
         /// <summary>
         /// 事件组件
         /// </summary>
-        public static EventManager Event
-        {
-            get; private set;
-        }
+        public static EventManager Event { get; private set; }
 
         /// <summary>
         /// 时间组件
         /// </summary>
-        public static TimeManager Time
-        {
-            get; private set;
-        }
+        public static TimeManager Time { get; private set; }
 
         /// <summary>
         /// 状态机组件
         /// </summary>
-        public static FsmManager Fsm
-        {
-            get; private set;
-        }
+        public static FsmManager Fsm { get; private set; }
 
         /// <summary>
         /// 流程组件
         /// </summary>
-        public static ProcedureManager Procedure
-        {
-            get; private set;
-        }
+        public static ProcedureManager Procedure { get; private set; }
 
         /// <summary>
         /// 数据表组件
         /// </summary>
-        public static DataTableManager DataTable
-        {
-            get; private set;
-        }
+        public static DataTableManager DataTable { get; private set; }
 
         /// <summary>
         /// Socket组件
         /// </summary>
-        public static SocketManager Socket
-        {
-            get; private set;
-        }
+        public static SocketManager Socket { get; private set; }
 
         /// <summary>
         /// Http组件
         /// </summary>
-        public static HttpManager Http
-        {
-            get; private set;
-        }
+        public static HttpManager Http { get; private set; }
 
         /// <summary>
         /// 数据组件
         /// </summary>
-        public static DataManager Data
-        {
-            get; private set;
-        }
+        public static DataManager Data { get; private set; }
 
         /// <summary>
         /// 本地化组件
         /// </summary>
-        public static LocalizationManager Localization
-        {
-            get; private set;
-        }
+        public static LocalizationManager Localization { get; private set; }
 
         /// <summary>
         /// 对象池组件
         /// </summary>
-        public static PoolManager Pool
-        {
-            get; private set;
-        }
+        public static PoolManager Pool { get; private set; }
 
         /// <summary>
         /// 场景组件
         /// </summary>
-        public static YouYouSceneManager Scene
-        {
-            get; private set;
-        }
+        public static YouYouSceneManager Scene { get; private set; }
 
         /// <summary>
         /// 设置组件
         /// </summary>
-        public static SettingManager Setting
-        {
-            get; private set;
-        }
+        public static SettingManager Setting { get; private set; }
 
         /// <summary>
         /// 对象组件
         /// </summary>
-        public static GameObjManager GameObj
-        {
-            get; private set;
-        }
+        public static GameObjManager GameObj { get; private set; }
 
         /// <summary>
         /// 可寻址资源管理器
         /// </summary>
-        public static AddressableManager Resource
-        {
-            get; private set;
-        }
+        public static AddressableManager Resource { get; private set; }
 
         /// <summary>
         /// 下载组件
         /// </summary>
-        public static DownloadManager Download
-        {
-            get; private set;
-        }
+        public static DownloadManager Download { get; private set; }
 
         /// <summary>
         /// UI组件
         /// </summary>
-        public static YouYouUIManager UI
-        {
-            get; private set;
-        }
+        public static YouYouUIManager UI { get; private set; }
 
 
         /// <summary>
         /// Audio组件
         /// </summary>
-        public static AudioManager Audio
-        {
-            get; private set;
-        }
+        public static AudioManager Audio { get; private set; }
 
         /// <summary>
         /// 日志管理器
         /// </summary>
-        public static LoggerManager Logger
-        {
-            get;private set;
-        }
-
+        public static LoggerManager Logger { get; private set; }
 
         #endregion
 
@@ -272,7 +195,7 @@ namespace YouYou
 
         public static T GetBaseComponent<T>() where T : YouYouBaseComponent
         {
-            return (T)GetBaseComponent(typeof(T));
+            return (T) GetBaseComponent(typeof(T));
         }
 
         internal static YouYouBaseComponent GetBaseComponent(Type type)
@@ -338,6 +261,7 @@ namespace YouYou
         }
 
         #region InitManagers 初始化管理器
+
         /// <summary>
         /// 初始化管理器
         /// </summary>
@@ -379,6 +303,7 @@ namespace YouYou
 
             Procedure.ChangeState(ProcedureState.Launch);
         }
+
         #endregion
 
         void Start()
@@ -449,12 +374,14 @@ namespace YouYou
                     break;
                 case LogCategory.Procedure:
 #if DEBUG_LOG_PROCEDURE && DEBUG_MODEL
-                    Debug.Log("[YouYou]" + (string.Format("<color=#ffffff>{0}</color>", args.Length == 0 ? message : string.Format(message, args))));
+                    Debug.Log("[YouYou]" + (string.Format("<color=#ffffff>{0}</color>",
+                        args.Length == 0 ? message : string.Format(message, args))));
 #endif
                     break;
                 case LogCategory.Resource:
 #if DEBUG_LOG_RESOURCE && DEBUG_MODEL
-                    Debug.Log("[YouYou]" + (string.Format("<color=#ACE44A>{0}</color>", args.Length == 0 ? message : string.Format(message, args))));
+                    Debug.Log("[YouYou]" + (string.Format("<color=#ACE44A>{0}</color>",
+                        args.Length == 0 ? message : string.Format(message, args))));
 #endif
                     break;
                 case LogCategory.Proto:
