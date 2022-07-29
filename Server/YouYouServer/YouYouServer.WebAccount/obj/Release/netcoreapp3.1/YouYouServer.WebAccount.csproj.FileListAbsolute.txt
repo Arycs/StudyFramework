@@ -68,4 +68,7 @@ E:\StudyFramework\Server\YouYouServer\YouYouServer.WebAccount\obj\Release\netcor
 E:\StudyFramework\Server\YouYouServer\YouYouServer.WebAccount\obj\Release\netcoreapp3.1\YouYouServer.WebAccount.pdb
 E:\StudyFramework\Server\YouYouServer\YouYouServer.WebAccount\obj\Release\netcoreapp3.1\YouYouServer.WebAccount.genruntimeconfig.cache
 E:\StudyFramework\Server\YouYouServer\YouYouServer.WebAccount\obj\Release\netcoreapp3.1\YouYouServer.WebAccount.csproj.CopyComplete
-E:\StudyFramework\Server\YouYouServer\YouYouServer.WebAccount\bin\Release\netcoreapp3.1\Configs\ServerConfig.xml
+E:\StudyFramework\Server\YouYouServer\YouYouServer.WebAccount\bin\Release\netcoreapp3.1\Configs\HotFixConfig.xml
+E:\StudyFramework\Server\YouYouServer\YouYouServer.WebAccount\bin\Release\netcoreapp3.1\YouYouServer.Commmon.dll
+E:\StudyFramework\Server\YouYouServer\YouYouServer.WebAccount\bin\Release\netcoreapp3.1\Google.Protobuf.dll
+E:\StudyFramework\Server\YouYouServer\YouYouServer.WebAccount\bin\Release\netcoreapp3.1\YouYouServer.Commmon.pdb

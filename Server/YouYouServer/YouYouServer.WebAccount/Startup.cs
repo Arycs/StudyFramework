@@ -50,6 +50,7 @@ namespace YouYouServer.WebAccount
                 endpoints.MapControllers();
             });
 
+            HotFixMgr.Load();
             ServerConfig.Init();
             ChannelConfig.Init();
             DataTableManager.Init();

@@ -1,9 +1,0 @@
-D:\GitHub_Repository\Server\YouYouServer\YouYouServer.CSRedis\bin\Debug\netcoreapp3.1\YouYouServer.CSRedis.deps.json
-D:\GitHub_Repository\Server\YouYouServer\YouYouServer.CSRedis\bin\Debug\netcoreapp3.1\YouYouServer.CSRedis.dll
-D:\GitHub_Repository\Server\YouYouServer\YouYouServer.CSRedis\bin\Debug\netcoreapp3.1\YouYouServer.CSRedis.pdb
-D:\GitHub_Repository\Server\YouYouServer\YouYouServer.CSRedis\obj\Debug\netcoreapp3.1\YouYouServer.CSRedis.csprojAssemblyReference.cache
-D:\GitHub_Repository\Server\YouYouServer\YouYouServer.CSRedis\obj\Debug\netcoreapp3.1\YouYouServer.CSRedis.AssemblyInfoInputs.cache
-D:\GitHub_Repository\Server\YouYouServer\YouYouServer.CSRedis\obj\Debug\netcoreapp3.1\YouYouServer.CSRedis.AssemblyInfo.cs
-D:\GitHub_Repository\Server\YouYouServer\YouYouServer.CSRedis\obj\Debug\netcoreapp3.1\YouYouServer.CSRedis.csproj.CoreCompileInputs.cache
-D:\GitHub_Repository\Server\YouYouServer\YouYouServer.CSRedis\obj\Debug\netcoreapp3.1\YouYouServer.CSRedis.dll
-D:\GitHub_Repository\Server\YouYouServer\YouYouServer.CSRedis\obj\Debug\netcoreapp3.1\YouYouServer.CSRedis.pdb

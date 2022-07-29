@@ -26,4 +26,7 @@ E:\StudyFramework\Server\YouYouServer\YouYouServer.Model\obj\Release\netcoreapp3
 E:\StudyFramework\Server\YouYouServer\YouYouServer.Model\obj\Release\netcoreapp3.1\YouYouServer.Model.dll
 E:\StudyFramework\Server\YouYouServer\YouYouServer.Model\obj\Release\netcoreapp3.1\YouYouServer.Model.pdb
 E:\StudyFramework\Server\YouYouServer\YouYouServer.Model\obj\Release\netcoreapp3.1\YouYouServer.Model.csproj.CopyComplete
-E:\StudyFramework\Server\YouYouServer\YouYouServer.Model\bin\Release\netcoreapp3.1\Configs\ServerConfig.xml
+E:\StudyFramework\Server\YouYouServer\YouYouServer.Model\bin\Release\netcoreapp3.1\Configs\HotFixConfig.xml
+E:\StudyFramework\Server\YouYouServer\YouYouServer.Model\bin\Release\netcoreapp3.1\Google.Protobuf.dll
+E:\StudyFramework\Server\YouYouServer\YouYouServer.Model\bin\Release\netcoreapp3.1\YouYouServer.Commmon.dll
+E:\StudyFramework\Server\YouYouServer\YouYouServer.Model\bin\Release\netcoreapp3.1\YouYouServer.Commmon.pdb

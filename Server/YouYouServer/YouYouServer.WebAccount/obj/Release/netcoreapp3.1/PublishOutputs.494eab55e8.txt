@@ -1,5 +1,5 @@
 E:\StudyFramework\Server\YouYouServer\YouYouServer.WebAccount\obj\Release\netcoreapp3.1\PubTmp\Out\Configs\ChannelConfig.xml
-E:\StudyFramework\Server\YouYouServer\YouYouServer.WebAccount\obj\Release\netcoreapp3.1\PubTmp\Out\Configs\ServerConfig.xml
+E:\StudyFramework\Server\YouYouServer\YouYouServer.WebAccount\obj\Release\netcoreapp3.1\PubTmp\Out\Configs\HotFixConfig.xml
 E:\StudyFramework\Server\YouYouServer\YouYouServer.WebAccount\obj\Release\netcoreapp3.1\PubTmp\Out\YouYouServer.WebAccount.exe
 E:\StudyFramework\Server\YouYouServer\YouYouServer.WebAccount\obj\Release\netcoreapp3.1\PubTmp\Out\appsettings.Development.json
 E:\StudyFramework\Server\YouYouServer\YouYouServer.WebAccount\obj\Release\netcoreapp3.1\PubTmp\Out\appsettings.json
@@ -15,8 +15,11 @@ E:\StudyFramework\Server\YouYouServer\YouYouServer.WebAccount\obj\Release\netcor
 E:\StudyFramework\Server\YouYouServer\YouYouServer.WebAccount\obj\Release\netcoreapp3.1\PubTmp\Out\Newtonsoft.Json.dll
 E:\StudyFramework\Server\YouYouServer\YouYouServer.WebAccount\obj\Release\netcoreapp3.1\PubTmp\Out\SafeObjectPool.dll
 E:\StudyFramework\Server\YouYouServer\YouYouServer.WebAccount\obj\Release\netcoreapp3.1\PubTmp\Out\SharpCompress.dll
+E:\StudyFramework\Server\YouYouServer\YouYouServer.WebAccount\obj\Release\netcoreapp3.1\PubTmp\Out\YouYouServer.Commmon.dll
 E:\StudyFramework\Server\YouYouServer\YouYouServer.WebAccount\obj\Release\netcoreapp3.1\PubTmp\Out\YouYouServer.Core.dll
 E:\StudyFramework\Server\YouYouServer\YouYouServer.WebAccount\obj\Release\netcoreapp3.1\PubTmp\Out\YouYouServer.Model.dll
+E:\StudyFramework\Server\YouYouServer\YouYouServer.WebAccount\obj\Release\netcoreapp3.1\PubTmp\Out\Google.Protobuf.dll
 E:\StudyFramework\Server\YouYouServer\YouYouServer.WebAccount\obj\Release\netcoreapp3.1\PubTmp\Out\zlib.net.dll
 E:\StudyFramework\Server\YouYouServer\YouYouServer.WebAccount\obj\Release\netcoreapp3.1\PubTmp\Out\YouYouServer.Model.pdb
+E:\StudyFramework\Server\YouYouServer\YouYouServer.WebAccount\obj\Release\netcoreapp3.1\PubTmp\Out\YouYouServer.Commmon.pdb
 E:\StudyFramework\Server\YouYouServer\YouYouServer.WebAccount\obj\Release\netcoreapp3.1\PubTmp\Out\YouYouServer.Core.pdb
