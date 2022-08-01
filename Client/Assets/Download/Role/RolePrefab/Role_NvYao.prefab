@@ -141,7 +141,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4407371611257127482
 Transform:
   m_ObjectHideFlags: 0
@@ -174,7 +174,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 0cd7c6286615a574f9b47fc84013cbb2, type: 2}
+  - {fileID: 2100000, guid: 6e5fd81aa8e2d5d438f2a37ce06c16a8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -199,7 +199,7 @@ SkinnedMeshRenderer:
   m_Quality: 0
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: -6736003789438326295, guid: d19b1627a0ddcaf4bbde749e52f64a19, type: 3}
+  m_Mesh: {fileID: -6736003789438326295, guid: 08d0480363f15874ca65a2ba053f3921, type: 3}
   m_Bones:
   - {fileID: 910593206459924707}
   - {fileID: 4519451568087250193}
@@ -231,7 +231,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1967769692082095552
 Transform:
   m_ObjectHideFlags: 0
@@ -264,7 +264,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 0cd7c6286615a574f9b47fc84013cbb2, type: 2}
+  - {fileID: 2100000, guid: 6e5fd81aa8e2d5d438f2a37ce06c16a8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -289,7 +289,7 @@ SkinnedMeshRenderer:
   m_Quality: 0
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: 2959467708922500008, guid: d19b1627a0ddcaf4bbde749e52f64a19, type: 3}
+  m_Mesh: {fileID: 2959467708922500008, guid: 08d0480363f15874ca65a2ba053f3921, type: 3}
   m_Bones:
   - {fileID: 910593206459924707}
   - {fileID: 4519451568087250193}
@@ -469,7 +469,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1508969216015867756
 Transform:
   m_ObjectHideFlags: 0
@@ -502,7 +502,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 0cd7c6286615a574f9b47fc84013cbb2, type: 2}
+  - {fileID: 2100000, guid: 6e5fd81aa8e2d5d438f2a37ce06c16a8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -527,7 +527,7 @@ SkinnedMeshRenderer:
   m_Quality: 0
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: -7240787807053030327, guid: d19b1627a0ddcaf4bbde749e52f64a19, type: 3}
+  m_Mesh: {fileID: -7240787807053030327, guid: 08d0480363f15874ca65a2ba053f3921, type: 3}
   m_Bones:
   - {fileID: 910593206459924707}
   - {fileID: 4542910292446961408}
@@ -644,7 +644,6 @@ GameObject:
   - component: {fileID: 1398774021225349987}
   - component: {fileID: 7402089715298828024}
   - component: {fileID: 8253505357919991033}
-  - component: {fileID: 3672094361121852075}
   m_Layer: 0
   m_Name: Role_NvYao
   m_TagString: Untagged
@@ -738,27 +737,6 @@ SkinnedMeshRenderer:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
   m_DirtyAABB: 1
---- !u!114 &3672094361121852075
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2680249083972055408}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5523260a4559cc14c88fb5344d1c8e3c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_RootBone: {fileID: 910593206459924707}
-  m_CurrSkinnedMeshRenderer: {fileID: 8253505357919991033}
-  Parts:
-  - No: 1
-    Part: {fileID: 4682060503135892175}
-  - No: 2
-    Part: {fileID: 8721018201786320167}
-  - No: 3
-    Part: {fileID: 5414389922771367687}
 --- !u!1 &2944214136732417734
 GameObject:
   m_ObjectHideFlags: 0
