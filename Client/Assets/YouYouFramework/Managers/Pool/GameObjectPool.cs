@@ -120,7 +120,7 @@ namespace YouYou
         /// <param name="poolId"></param>
         /// <param name="prefab"></param>
         /// <param name="onComplete"></param>
-        public void Spawn(int prefabId, BaseAction<Transform> onComplete)
+        public void Spawn(int prefabId, BaseAction<Transform,bool> onComplete)
         {
             //拿到预设表数据
             Sys_PrefabEntity entity = GameEntry.DataTable.Sys_PrefabDBModel.Get(prefabId);
@@ -129,20 +129,20 @@ namespace YouYou
                 Debug.LogError("预设数据不存在");
                 return;
             }
-
+            
             //拿到对象池
             GameObjectPoolEntity gameObjectPoolEntity = m_SpawnPoolDic[entity.PoolId];
             //使用预设编号 当做池ID
             PrefabPool prefabPool = gameObjectPoolEntity.Pool.GetPrefabPool(entity.Id);
-
             if (prefabPool != null)
             {
+                //拿到一个实例, 激活一个已有的
                 Transform retTrans = prefabPool.TrySpawnInstance();
                 if (retTrans!=null)
                 {
                     int instanceID = retTrans.gameObject.GetInstanceID();
                     m_InstanceIdPoolDic[instanceID] = (byte) entity.PoolId;
-                    onComplete?.Invoke(retTrans);
+                    onComplete?.Invoke(retTrans,false);
                     return;
                 }
             }
@@ -153,10 +153,12 @@ namespace YouYou
                 //如果存在加载中的asset 把委托加入到对应的链表,然后直接返回
                 lst.Add((_SpawnPool, _Transform, _ResourceEntity) =>
                 {
-                    var retTrans = _SpawnPool.Spawn(_Transform, _ResourceEntity);
+                    //拿到一个实例
+                    bool isNewInstance = false;
+                    var retTrans = _SpawnPool.Spawn(_Transform, ref isNewInstance ,_ResourceEntity);
                     var instanceID = retTrans.gameObject.GetInstanceID();
                     m_InstanceIdPoolDic[instanceID] = (byte) entity.PoolId;
-                    onComplete?.Invoke(retTrans);
+                    onComplete?.Invoke(retTrans,isNewInstance);
                 });
                 return;
             }
@@ -165,10 +167,12 @@ namespace YouYou
             lst = GameEntry.Pool.DequeueClassObject<HashSet<BaseAction<SpawnPool, Transform, ResourceEntity>>>();
             lst.Add(((_SpawnPool, _Transform, _ResourceEntity) =>
             {
-                var retTrans = _SpawnPool.Spawn(_Transform, _ResourceEntity);
+                //拿到一个实例
+                bool isNewInstance = false;
+                var retTrans = _SpawnPool.Spawn(_Transform, ref isNewInstance ,_ResourceEntity);
                 var instanceID = retTrans.gameObject.GetInstanceID();
                 m_InstanceIdPoolDic[instanceID] = (byte) entity.PoolId;
-                onComplete.Invoke(retTrans);
+                onComplete.Invoke(retTrans,isNewInstance);
             }));
             m_LoadingPrefabPoolDic[prefabId] = lst;
             
@@ -235,6 +239,7 @@ namespace YouYou
         public void Despawn(byte poolId, Transform instance)
         {
             GameObjectPoolEntity entity = m_SpawnPoolDic[poolId];
+            instance.SetParent(entity.Pool.transform); //重置到原始对象池节点下
             entity.Pool.Despawn(instance);
         }
 

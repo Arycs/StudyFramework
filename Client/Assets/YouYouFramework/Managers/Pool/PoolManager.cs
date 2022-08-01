@@ -330,11 +330,11 @@ namespace YouYou
         /// <summary>
         /// 从对象池中获取对象
         /// </summary>
-        /// <param name="poolId"></param>
+        /// <param name="prefabId"></param>
         /// <param name="onComplete"></param>
-        public void GameObjectSpawn(byte poolId, BaseAction<Transform> onComplete)
+        public void GameObjectSpawn(int prefabId, BaseAction<Transform,bool> onComplete)
         {
-            GameObjectPool.Spawn(poolId, onComplete);
+            GameObjectPool.Spawn(prefabId, onComplete);
         }
 
         #endregion
@@ -347,9 +347,14 @@ namespace YouYou
         /// </summary>
         /// <param name="poolId"></param>
         /// <param name="instance"></param>
-        public void GameObjectDespawn(byte poolId, Transform instance)
+        public void GameObjectDeSpawn(byte poolId, Transform instance)
         {
             GameObjectPool.Despawn(poolId, instance);
+        }
+
+        public void GameObjectDeSpawn(Transform instance)
+        {
+            GameObjectPool.Despawn(instance);
         }
 
         #endregion
