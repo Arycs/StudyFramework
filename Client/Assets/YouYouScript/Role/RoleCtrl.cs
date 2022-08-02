@@ -21,6 +21,8 @@ public class RoleCtrl : BaseSprite
     /// </summary>
     private SkinnedMeshRenderer m_CurrSkinnedMeshRenderer;
 
+    private RoleSkinComponent m_CurrRoleSkinComponent;
+    
     private void Update()
     {
         if (Input.GetKeyUp(KeyCode.A))
@@ -78,7 +80,13 @@ public class RoleCtrl : BaseSprite
             m_CurrSkinTransform.SetParent(transform);
             m_CurrSkinTransform.localPosition = Vector3.zero;
 
-            m_CurrSkinnedMeshRenderer = m_CurrSkinTransform.GetComponentInChildren<SkinnedMeshRenderer>();
+            m_CurrRoleSkinComponent = m_CurrSkinTransform.GetComponent<RoleSkinComponent>();
+            if (m_CurrRoleSkinComponent == null)
+            {
+                //角色根阶段上的SkinnedMeshRenderer
+                m_CurrSkinnedMeshRenderer = m_CurrSkinTransform.GetComponentInChildren<SkinnedMeshRenderer>();
+
+            }
         });
     }
 

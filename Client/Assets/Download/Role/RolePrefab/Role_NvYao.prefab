@@ -141,7 +141,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4407371611257127482
 Transform:
   m_ObjectHideFlags: 0
@@ -231,7 +231,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1967769692082095552
 Transform:
   m_ObjectHideFlags: 0
@@ -469,7 +469,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1508969216015867756
 Transform:
   m_ObjectHideFlags: 0
@@ -644,6 +644,7 @@ GameObject:
   - component: {fileID: 1398774021225349987}
   - component: {fileID: 7402089715298828024}
   - component: {fileID: 8253505357919991033}
+  - component: {fileID: 5545896063615104555}
   m_Layer: 0
   m_Name: Role_NvYao
   m_TagString: Untagged
@@ -678,10 +679,11 @@ Animation:
   m_GameObject: {fileID: 2680249083972055408}
   m_Enabled: 1
   serializedVersion: 3
-  m_Animation: {fileID: 1827226128182048838, guid: d19b1627a0ddcaf4bbde749e52f64a19,
+  m_Animation: {fileID: 1827226128182048838, guid: 08d0480363f15874ca65a2ba053f3921,
     type: 3}
   m_Animations:
   - {fileID: 1827226128182048838, guid: d19b1627a0ddcaf4bbde749e52f64a19, type: 3}
+  - {fileID: 1827226128182048838, guid: 08d0480363f15874ca65a2ba053f3921, type: 3}
   m_WrapMode: 0
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
@@ -737,6 +739,18 @@ SkinnedMeshRenderer:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
   m_DirtyAABB: 1
+--- !u!114 &5545896063615104555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2680249083972055408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebb368278c46c8f498cf3416da9aa8e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2944214136732417734
 GameObject:
   m_ObjectHideFlags: 0
