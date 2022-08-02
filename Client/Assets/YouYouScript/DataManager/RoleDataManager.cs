@@ -24,13 +24,13 @@ public class RoleDataManager : IDisposable
     /// <param name="onComplete"></param>
     public void CreatePlayerByJobId(int jobId, BaseAction<RoleCtrl> onComplete = null)
     {
-        //皮肤编号
-        int skinId = GameEntry.DataTable.JobList.Get(jobId).RoleId;
+        //角色ID
+        int roleId = GameEntry.DataTable.JobList.Get(jobId).RoleId;
         //加载角色控制器
         GameEntry.Pool.GameObjectSpawn(SysPrefabId.RoleCtrl, (Transform trans, bool isNewInstance) =>
         {
             RoleCtrl roleCtrl = trans.GetComponent<RoleCtrl>();
-            roleCtrl.Init(skinId);
+            roleCtrl.Init(roleId);
 
             if (!isNewInstance)
             {

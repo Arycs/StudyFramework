@@ -9,8 +9,10 @@ namespace YouYou
     {
         private void Awake()
         {
-            
+            OnAwake();
         }
+
+        
 
         // Start is called before the first frame update
         void Start()
@@ -27,7 +29,12 @@ namespace YouYou
         /// <summary>
         /// 自动初始化  注意与Init的区别
         /// </summary>
-        protected void OnInit()
+        protected virtual void OnInit()
+        {
+            
+        }
+        
+        protected virtual void OnAwake()
         {
             
         }

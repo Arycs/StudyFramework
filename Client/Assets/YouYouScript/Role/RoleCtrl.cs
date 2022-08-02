@@ -21,8 +21,16 @@ public class RoleCtrl : BaseSprite
     /// </summary>
     private SkinnedMeshRenderer m_CurrSkinnedMeshRenderer;
 
+    /// <summary>
+    ///  网格合并的皮肤SkinnedMeshRenderer, 作为一种换装方式
+    /// </summary>
     private RoleSkinComponent m_CurrRoleSkinComponent;
-    
+
+    /// <summary>
+    /// 动画片段字典
+    /// </summary>
+    private Dictionary<string, AnimationClip> m_AnimationClipDic;
+
     private void Update()
     {
         if (Input.GetKeyUp(KeyCode.A))
@@ -51,9 +59,52 @@ public class RoleCtrl : BaseSprite
     }
 
 
-    public void Init(int skinId)
+    public void Init(int roleId)
     {
-        m_SkinId = skinId;
+        RoleEntity drRole = GameEntry.DataTable.RoleList.Get(roleId);
+        m_SkinId = drRole.PrefabId;
+
+        LoadInitRoleAnimations(drRole.AnimGroupId);
+    }
+
+    /// <summary>
+    /// 加载初始角色动画
+    /// </summary>
+    /// <param name="animGroupId"></param>
+    private void LoadInitRoleAnimations(int animGroupId)
+    {
+        List<RoleAnimationEntity> roleAnimations = GameEntry.DataTable.RoleAnimationList.GetListByGroupId(animGroupId);
+        int lenRoleAnimations = roleAnimations.Count;
+        for (int i = 0; i < lenRoleAnimations; i++)
+        {
+            RoleAnimationEntity roleAnimation = roleAnimations[i];
+            if (roleAnimation.InitLoad == 1)
+            {
+                LoadRoleAnimation(roleAnimation);
+            }
+        }
+    }
+
+    /// <summary>
+    /// 加载角色动画
+    /// </summary>
+    /// <param name="roleAnimation"></param>
+    private void LoadRoleAnimation(RoleAnimationEntity roleAnimation)
+    {
+        GameEntry.Resource.ResourceLoaderManager.LoadMainAsset(AssetCategory.RoleSources,
+            GameUtil.GetRoleAnimationPath(roleAnimation.AnimPath), (
+                entity =>
+                {
+                    var animationClip = entity.Target as AnimationClip;
+                    m_AnimationClipDic[roleAnimation.AnimPath] = animationClip;
+                    Debug.LogError($"角色动画路径===> {roleAnimation.AnimPath} :=====: 动画片段==>{animationClip}");
+                }));
+    }
+
+    protected override void OnAwake()
+    {
+        base.OnAwake();
+        m_AnimationClipDic = new Dictionary<string, AnimationClip>();
     }
 
     public override void OnOpen()
@@ -85,7 +136,6 @@ public class RoleCtrl : BaseSprite
             {
                 //角色根阶段上的SkinnedMeshRenderer
                 m_CurrSkinnedMeshRenderer = m_CurrSkinTransform.GetComponentInChildren<SkinnedMeshRenderer>();
-
             }
         });
     }
