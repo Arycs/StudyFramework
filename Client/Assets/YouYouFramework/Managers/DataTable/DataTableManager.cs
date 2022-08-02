@@ -79,6 +79,16 @@ namespace YouYou
         public JobDBModel JobList { get; private set; }
 
         /// <summary>
+        /// 角色动画表
+        /// </summary>
+        public RoleAnimationDBModel RoleAnimationList { get; private set; }
+
+        /// <summary>
+        /// 角色列表
+        /// </summary>
+        public RoleDBModel RoleList { get; private set; }
+
+        /// <summary>
         /// 初始化DBModel
         /// </summary>
         private void InitDBModel()
@@ -96,6 +106,8 @@ namespace YouYou
             Sys_AudioDBModel = new Sys_AudioDBModel();
 
             JobList = new JobDBModel();
+            RoleAnimationList = new RoleAnimationDBModel();
+            RoleList = new RoleDBModel();
         }
 
 
@@ -117,6 +129,8 @@ namespace YouYou
             Sys_AudioDBModel.LoadData();
             
             JobList.LoadData();
+            RoleAnimationList.LoadData();
+            RoleList.LoadData();
         }
 
         /// <summary>
