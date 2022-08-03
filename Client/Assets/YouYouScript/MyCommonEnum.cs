@@ -13,5 +13,30 @@ public class MyCommonEnum
         /// 跑
         /// </summary>
         Run = 1,
+        /// <summary>
+        /// 攻击状态
+        /// </summary>
+        Attack,
+    }
+
+    /// <summary>
+    /// 角色动画分类
+    /// </summary>
+    public enum RoleAnimCategory
+    {
+        /// <summary>
+        /// 普通待机
+        /// </summary>
+        IdleNormal,
+        
+        /// <summary>
+        /// 跑
+        /// </summary>
+        Run,
+        
+        /// <summary>
+        /// 攻击
+        /// </summary>
+        Attack,
     }
 }

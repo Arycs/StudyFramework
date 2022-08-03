@@ -13,7 +13,7 @@ namespace YouYou
         /// <summary>
         /// 状态所对应的状态机
         /// </summary>
-        public Fsm<T> curFsm;
+        public Fsm<T> CurrFsm;
 
         /// <summary>
         /// 进入状态

@@ -89,6 +89,11 @@ namespace YouYou
         public DTRoleDBModel RoleList { get; private set; }
 
         /// <summary>
+        /// 角色对应动画列表
+        /// </summary>
+        public DTRoleAnimCategoryDBModel RoleAnimCategoryList { get; private set; }
+
+        /// <summary>
         /// 初始化DBModel
         /// </summary>
         private void InitDBModel()
@@ -108,6 +113,7 @@ namespace YouYou
             JobList = new DTJobDBModel();
             RoleAnimationList = new DTRoleAnimationDBModel();
             RoleList = new DTRoleDBModel();
+            RoleAnimCategoryList = new DTRoleAnimCategoryDBModel();
         }
 
 
@@ -131,6 +137,7 @@ namespace YouYou
             JobList.LoadData();
             RoleAnimationList.LoadData();
             RoleList.LoadData();
+            RoleAnimCategoryList.LoadData();
         }
 
         /// <summary>
@@ -185,7 +192,7 @@ namespace YouYou
         }
 
 
-        public void Clear()
+        private void Clear()
         {
             //每个表都Clear
             Sys_CodeDBModel.Clear();
@@ -195,10 +202,19 @@ namespace YouYou
             Sys_SoundDBModel.Clear();
             Sys_StorySoundDBModel.Clear();
             Sys_UIFormDBModel.Clear();
+            Sys_SceneDBModel.Clear();
+            Sys_SceneDetailDBModel.Clear();
+            Sys_AudioDBModel.Clear();
+            
+            JobList.Clear();
+            RoleAnimationList.Clear();
+            RoleList.Clear();
+            RoleAnimCategoryList.Clear();
         }
 
         public void Dispose()
         {
+            Clear();
         }
 
         public override void Init()

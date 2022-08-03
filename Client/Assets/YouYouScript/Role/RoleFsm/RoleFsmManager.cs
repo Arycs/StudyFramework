@@ -49,9 +49,10 @@ public class RoleFsmManager : ManagerBase
 
     public override void Init()
     {
-        FsmState<RoleFsmManager>[] states = new FsmState<RoleFsmManager>[2];
-        states[0] = new RoleFsmIdle();
-        states[1] = new RoleFsmRun();
+        FsmState<RoleFsmManager>[] states = new FsmState<RoleFsmManager>[3];
+        states[(sbyte)RoleFsmState.Idle] = new RoleFsmIdle();
+        states[(sbyte)RoleFsmState.Run] = new RoleFsmRun();
+        states[(sbyte)RoleFsmState.Attack] = new RoleFsmAttack();
         m_CurrFsm = GameEntry.Fsm.Create(this, states);
     }
 

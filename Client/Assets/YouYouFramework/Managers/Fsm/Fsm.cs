@@ -47,7 +47,7 @@ namespace YouYou
             for (int i = 0; i < len; i++)
             {
                 FsmState<T> state = states[i];
-                state.curFsm = this;
+                state.CurrFsm = this;
                 m_StateDic[(sbyte) i] = state;
             }
 

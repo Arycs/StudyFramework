@@ -6,7 +6,7 @@ using UnityEngine.Animations;
 using UnityEngine.Playables;
 using YouYou;
 
-public class RoleCtrl : BaseSprite,IUpdateComponent
+public class RoleCtrl : BaseSprite, IUpdateComponent
 {
     /// <summary>
     /// 皮肤编号
@@ -63,10 +63,20 @@ public class RoleCtrl : BaseSprite,IUpdateComponent
     #endregion
 
     /// <summary>
+    /// 当前角色对应表格数据
+    /// </summary>
+    private DTRoleEntity m_CurrDTRole;
+
+    /// <summary>
+    /// 当前角色动画分类数据
+    /// </summary>
+    private DTRoleAnimCategoryEntity m_CurrDTRoleAnimCategory;
+
+    /// <summary>
     /// 当前角色状态机管理器
     /// </summary>
     private RoleFsmManager m_CurrRoleFsmManager;
-    
+
     protected override void OnAwake()
     {
         base.OnAwake();
@@ -102,9 +112,10 @@ public class RoleCtrl : BaseSprite,IUpdateComponent
 
     public void Init(int roleId)
     {
-        DTRoleEntity drRole = GameEntry.DataTable.RoleList.Get(roleId);
-        m_SkinId = drRole.PrefabId;
-        
+        m_CurrDTRole = GameEntry.DataTable.RoleList.Get(roleId);
+        m_CurrDTRoleAnimCategory = GameEntry.DataTable.RoleAnimCategoryList.Get(roleId);
+        m_SkinId = m_CurrDTRole.PrefabId;
+
         //初始化状态机
         m_CurrRoleFsmManager.Init();
     }
@@ -118,7 +129,8 @@ public class RoleCtrl : BaseSprite,IUpdateComponent
         m_RoleAnimInfoDic.Clear();
 
         //根据动画组编号, 加载动画
-        List<DTRoleAnimationEntity> roleAnimations = GameEntry.DataTable.RoleAnimationList.GetListByGroupId(animGroupId);
+        List<DTRoleAnimationEntity> roleAnimations =
+            GameEntry.DataTable.RoleAnimationList.GetListByGroupId(animGroupId);
         int lenRoleAnimations = roleAnimations.Count;
         for (int i = 0; i < lenRoleAnimations; i++)
         {
@@ -174,10 +186,37 @@ public class RoleCtrl : BaseSprite,IUpdateComponent
     }
 
     /// <summary>
+    /// 根据动画分类进行播放
+    /// </summary>
+    /// <param name="roleAnimCategory"></param>
+    /// <returns></returns>
+    public RoleAnimInfo PlayAnimByAnimCategory(MyCommonEnum.RoleAnimCategory roleAnimCategory)
+    {
+        int animId = -1;
+        switch (roleAnimCategory)
+        {
+            default:
+            case MyCommonEnum.RoleAnimCategory.IdleNormal:
+                animId = m_CurrDTRoleAnimCategory.IdleNormalAnimId;
+                break;
+            case MyCommonEnum.RoleAnimCategory.Run:
+                animId = m_CurrDTRoleAnimCategory.RunAnimId;
+                break;
+            case MyCommonEnum.RoleAnimCategory.Attack:
+                animId = m_CurrDTRoleAnimCategory.Attack_1;
+                break;
+        }
+
+        RoleAnimInfo roleAnimInfo = null;
+        PlayAnimByAnimId(animId, ref roleAnimInfo);
+        return roleAnimInfo;
+    }
+
+    /// <summary>
     /// 根据动画编号播放动画
     /// </summary>
     /// <param name="animId"></param>
-    public void PlayAnimByAnimId(int animId)
+    private void PlayAnimByAnimId(int animId, ref RoleAnimInfo roleAnimInfo)
     {
         //将正在播放的动画 属性设置为false
         var enumerator = m_RoleAnimInfoDic.GetEnumerator();
@@ -185,12 +224,12 @@ public class RoleCtrl : BaseSprite,IUpdateComponent
         {
             enumerator.Current.Value.IsPlaying = false;
         }
-        
-        if (m_RoleAnimInfoDic.TryGetValue(animId, out var roleAnimInfo))
+
+        if (m_RoleAnimInfoDic.TryGetValue(animId, out roleAnimInfo))
         {
             roleAnimInfo.LastUseTime = Time.time; //设置最后使用时间
             roleAnimInfo.IsPlaying = true;
-            
+
             if (roleAnimInfo.IsLoad)
             {
                 PlayAnim(roleAnimInfo);
@@ -261,8 +300,9 @@ public class RoleCtrl : BaseSprite,IUpdateComponent
             //第一步 创建画布
             if (m_PlayableGraph.IsValid())
             {
-                m_PlayableGraph.Destroy();   
+                m_PlayableGraph.Destroy();
             }
+
             m_PlayableGraph = PlayableGraph.Create("PlayableGraph_" + m_SkinId);
 
             //创建输出节点
@@ -273,9 +313,9 @@ public class RoleCtrl : BaseSprite,IUpdateComponent
                 //角色根阶段上的SkinnedMeshRenderer
                 m_CurrSkinnedMeshRenderer = m_CurrSkinTransform.GetComponentInChildren<SkinnedMeshRenderer>();
             }
-            //TODO 此处应该关联角色,不应该写死,后续增加对应表格进行修改
-            LoadInitRoleAnimations(1);
-            
+
+            LoadInitRoleAnimations(m_CurrDTRole.AnimGroupId);
+
             //默认进入待机状态
             m_CurrRoleFsmManager.ChangeState(MyCommonEnum.RoleFsmState.Idle);
         });
@@ -356,10 +396,25 @@ public class RoleCtrl : BaseSprite,IUpdateComponent
 
     public void OnUpdate()
     {
+        //TODO 测试代码
+        if (Input.GetKeyUp(KeyCode.A))
+        {
+            m_CurrRoleFsmManager.ChangeState(MyCommonEnum.RoleFsmState.Idle);
+        }
+        else if (Input.GetKeyUp(KeyCode.B))
+        {
+            m_CurrRoleFsmManager.ChangeState(MyCommonEnum.RoleFsmState.Run);
+        }
+        else if (Input.GetKeyUp(KeyCode.C))
+        {
+            m_CurrRoleFsmManager.ChangeState(MyCommonEnum.RoleFsmState.Attack);
+        }
+
         if (m_CurrRoleFsmManager == null)
         {
             return;
         }
+
         m_CurrRoleFsmManager.OnUpdate();
     }
 }
