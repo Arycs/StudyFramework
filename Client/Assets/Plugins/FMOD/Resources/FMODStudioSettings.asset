@@ -15,8 +15,8 @@ MonoBehaviour:
   SwitchSettingsMigration: 1
   HasSourceProject: 1
   HasPlatforms: 1
-  sourceProjectPath: E:/MyGitProgram/StudyFramework/FMODProject/FMODProject.fspro
-  SourceBankPathUnformatted: E:/MyGitProgram/StudyFramework/FMODProject/Build
+  sourceProjectPath: E:/StudyFramework/FMODProject/FMODProject.fspro
+  SourceBankPathUnformatted: E:/StudyFramework/FMODProject/Build
   AutomaticEventLoading: 1
   BankLoadType: 0
   AutomaticSampleLoading: 0
@@ -75,7 +75,10 @@ MonoBehaviour:
   - Platform: 20
     Value: 32
   Plugins: []
-  MasterBanks: []
-  Banks: []
+  MasterBanks:
+  - Master
+  Banks:
+  - BackGround
+  - UI
   BanksToLoad: []
   LiveUpdatePort: 9264
