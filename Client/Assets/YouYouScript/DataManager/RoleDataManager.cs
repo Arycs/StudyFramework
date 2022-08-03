@@ -72,4 +72,18 @@ public class RoleDataManager : IDisposable
     {
         m_RoleList.Clear();
     }
+
+    /// <summary>
+    /// 检查需要卸载的角色动画
+    /// </summary>
+    public void CheckUnLoadRoleAnimation()
+    {
+        for (var curr = m_RoleList.First; curr != null;)
+        {
+            var next = curr.Next;
+            curr.Value.CheckUnLoadRoleAnimation();
+            curr = next;
+        }
+        
+    }
 }

@@ -156,103 +156,6 @@ namespace YouYou
 
         #endregion
 
-        #region 基础组件管理
-
-        /// <summary>
-        /// 基础组件的列表
-        /// </summary>
-        private static readonly LinkedList<YouYouBaseComponent> m_BaseComponent = new LinkedList<YouYouBaseComponent>();
-
-        #region RegisterBaseComponent 注册基础组件
-
-        /// <summary>
-        /// 注册组件
-        /// </summary>
-        /// <param name="component"></param>
-        internal static void RegisterBaseComponent(YouYouBaseComponent component)
-        {
-            //获取到组件类型
-            Type type = component.GetType();
-
-            LinkedListNode<YouYouBaseComponent> curr = m_BaseComponent.First;
-            while (curr != null)
-            {
-                if (curr.Value.GetType() == type)
-                {
-                    return;
-                }
-
-                curr = curr.Next;
-            }
-
-            //把组件加入最后一个节点
-            m_BaseComponent.AddLast(component);
-        }
-
-        #endregion
-
-        #region GetBaseComponent 获取基础组件
-
-        public static T GetBaseComponent<T>() where T : YouYouBaseComponent
-        {
-            return (T) GetBaseComponent(typeof(T));
-        }
-
-        internal static YouYouBaseComponent GetBaseComponent(Type type)
-        {
-            LinkedListNode<YouYouBaseComponent> curr = m_BaseComponent.First;
-            while (curr != null)
-            {
-                if (curr.Value.GetType() == type)
-                {
-                    return curr.Value;
-                }
-
-                curr = curr.Next;
-            }
-
-            return null;
-        }
-
-        #endregion
-
-        #endregion
-
-        #region 更新组件管理
-
-        /// <summary>
-        /// 更新组件的列表
-        /// </summary>
-        private static readonly LinkedList<IUpdateComponent> m_UpdateComponent = new LinkedList<IUpdateComponent>();
-
-        #region RegisterUpdateComponent 注册更新组件
-
-        /// <summary>
-        /// 注册更新组件
-        /// </summary>
-        /// <param name="component"></param>
-        public static void RegisterUpdateComponent(IUpdateComponent component)
-        {
-            m_UpdateComponent.AddLast(component);
-        }
-
-        #endregion
-
-        #region RemoveUpdateComponent 移除更新组件
-
-        /// <summary>
-        /// 移除更新组件
-        /// </summary>
-        /// <param name="component"></param>
-        public static void RemoveUpdateComponent(IUpdateComponent component)
-        {
-            m_UpdateComponent.Remove(component);
-        }
-
-        #endregion
-
-        #endregion
-
         private void Awake()
         {
             Instance = this;
@@ -313,12 +216,6 @@ namespace YouYou
 
         void Update()
         {
-            //循环更新组件
-            //for (LinkedListNode<IUpdateComponent> curr = m_UpdateComponent.First; curr != null; curr = curr.Next)
-            //{
-            //    curr.Value.OnUpdate();
-            //}
-
             Time.OnUpdate();
             Procedure.OnUpdate();
             Socket.OnUpdate();
@@ -327,6 +224,8 @@ namespace YouYou
             Resource.OnUpdate();
             Download.OnUpdate();
             UI.OnUpdate();
+            Audio.OnUpdate();
+            Data.OnUpdate();
         }
 
         /// <summary>
@@ -334,12 +233,6 @@ namespace YouYou
         /// </summary>
         private void OnDestroy()
         {
-            ////关闭所有的基础组件
-            //for (LinkedListNode<YouYouBaseComponent> curr = m_BaseComponent.First; curr != null; curr = curr.Next)
-            //{
-            //    curr.Value.Shutdown();
-            //}
-
             Event.Dispose();
             Time.Dispose();
             Fsm.Dispose();

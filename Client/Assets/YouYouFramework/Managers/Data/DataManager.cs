@@ -35,6 +35,11 @@ namespace YouYou
         /// </summary>
         public RoleDataManager RoleDataManager { get;private set; }
 
+        /// <summary>
+        /// 下次运行时间
+        /// </summary>
+        private float m_NextRunTime = 0f;
+        
         public DataManager()
         {
             CacheDataManager = new CacheDataManager();
@@ -43,6 +48,17 @@ namespace YouYou
             PVEMapDataManaer = new PVEMapDataManager();
             RoleDataManager = new RoleDataManager();
         }
+
+        public void OnUpdate()
+        {
+            //TODO 30后续改为配置
+            if (Time.time > m_NextRunTime + 30)
+            {
+                m_NextRunTime = Time.time;
+                RoleDataManager.CheckUnLoadRoleAnimation();
+            }
+        }
+
 
         public void Dispose()
         {

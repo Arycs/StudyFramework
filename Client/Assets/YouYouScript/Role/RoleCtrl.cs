@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations;
+using UnityEngine.Playables;
 using YouYou;
 
 public class RoleCtrl : BaseSprite
@@ -26,21 +28,66 @@ public class RoleCtrl : BaseSprite
     /// </summary>
     private RoleSkinComponent m_CurrRoleSkinComponent;
 
+    #region 动画相关
+
     /// <summary>
     /// 动画片段字典
     /// </summary>
     private Dictionary<string, AnimationClip> m_AnimationClipDic;
 
+    /// <summary>
+    /// 动画画布
+    /// </summary>
+    private PlayableGraph m_PlayableGraph;
+
+    /// <summary>
+    /// 动画组件
+    /// </summary>
+    private Animator m_Animator;
+
+    /// <summary>
+    /// 动画输出
+    /// </summary>
+    private AnimationPlayableOutput m_AnimationPlayableOutput;
+
+    /// <summary>
+    /// 动画混合Playable
+    /// </summary>
+    private AnimationMixerPlayable m_AnimationMixerPlayable;
+
+    /// <summary>
+    /// 动画剪辑Playable字典
+    /// </summary>
+    private Dictionary<int, RoleAnimInfo> m_RoleAnimInfoDic = new Dictionary<int, RoleAnimInfo>(100);
+
+    #endregion
+
+    protected override void OnAwake()
+    {
+        base.OnAwake();
+        m_AnimationClipDic = new Dictionary<string, AnimationClip>();
+    }
+
+    protected override void OnBeforDestroy()
+    {
+        base.OnBeforDestroy();
+        //销毁画布
+        if (m_PlayableGraph.IsValid())
+        {
+            m_PlayableGraph.Destroy();
+        }
+    }
+
     private void Update()
     {
-        if (Input.GetKeyUp(KeyCode.A))
-        {
-            ChangeSkin(100001);
-        }
-        else if (Input.GetKeyUp(KeyCode.B))
-        {
-            ChangeSkin(100002);
-        }
+        // if (Input.GetKeyUp(KeyCode.A))
+        // {
+        //     ChangeSkin(100001);
+        // }
+        // else if (Input.GetKeyUp(KeyCode.B))
+        // {
+        //     ChangeSkin(100002);
+        // }
     }
 
     /// <summary>
@@ -73,11 +120,22 @@ public class RoleCtrl : BaseSprite
     /// <param name="animGroupId"></param>
     private void LoadInitRoleAnimations(int animGroupId)
     {
+        m_RoleAnimInfoDic.Clear();
+
+        //根据动画组编号, 加载动画
         List<RoleAnimationEntity> roleAnimations = GameEntry.DataTable.RoleAnimationList.GetListByGroupId(animGroupId);
         int lenRoleAnimations = roleAnimations.Count;
         for (int i = 0; i < lenRoleAnimations; i++)
         {
             RoleAnimationEntity roleAnimation = roleAnimations[i];
+            m_RoleAnimInfoDic.Add(roleAnimation.Id, new RoleAnimInfo()
+            {
+                CurrRoleAnimationData = roleAnimation,
+                IsLoad = false,
+                LastUseTime = 0,
+                Index = i
+            });
+
             if (roleAnimation.InitLoad == 1)
             {
                 LoadRoleAnimation(roleAnimation);
@@ -89,7 +147,7 @@ public class RoleCtrl : BaseSprite
     /// 加载角色动画
     /// </summary>
     /// <param name="roleAnimation"></param>
-    private void LoadRoleAnimation(RoleAnimationEntity roleAnimation)
+    private void LoadRoleAnimation(RoleAnimationEntity roleAnimation, BaseAction<RoleAnimInfo> onComplete = null)
     {
         GameEntry.Resource.ResourceLoaderManager.LoadMainAsset(AssetCategory.RoleSources,
             GameUtil.GetRoleAnimationPath(roleAnimation.AnimPath), (
@@ -97,15 +155,83 @@ public class RoleCtrl : BaseSprite
                 {
                     var animationClip = entity.Target as AnimationClip;
                     m_AnimationClipDic[roleAnimation.AnimPath] = animationClip;
-                    Debug.LogError($"角色动画路径===> {roleAnimation.AnimPath} :=====: 动画片段==>{animationClip}");
+
+                    Debug.LogError($"角色动画路径===> {roleAnimation.AnimPath} :=====: 动画片段==>{animationClip.name}");
+
+                    //创建AnimationClipPlayable
+                    AnimationClipPlayable animationClipPlayable =
+                        AnimationClipPlayable.Create(m_PlayableGraph, animationClip);
+
+                    if (m_RoleAnimInfoDic.TryGetValue(roleAnimation.Id, out var roleAnimInfo))
+                    {
+                        roleAnimInfo.CurrPlayable = animationClipPlayable;
+                        roleAnimInfo.IsLoad = true; //当前动画已经加载
+                        roleAnimInfo.LastUseTime = 0;
+
+                        //链接到MixerPlayable
+                        m_PlayableGraph.Connect(animationClipPlayable, 0, m_AnimationMixerPlayable, roleAnimInfo.Index);
+                        //把权重设置为0
+                        m_AnimationMixerPlayable.SetInputWeight(roleAnimInfo.Index, 0);
+
+                        onComplete?.Invoke(roleAnimInfo);
+                    }
                 }));
     }
 
-    protected override void OnAwake()
+    /// <summary>
+    /// 根据动画编号播放动画
+    /// </summary>
+    /// <param name="animId"></param>
+    private void PlayAnimByAnimId(int animId)
     {
-        base.OnAwake();
-        m_AnimationClipDic = new Dictionary<string, AnimationClip>();
+        //将正在播放的动画 属性设置为false
+        var enumerator = m_RoleAnimInfoDic.GetEnumerator();
+        while (enumerator.MoveNext())
+        {
+            enumerator.Current.Value.IsPlaying = false;
+        }
+        
+        if (m_RoleAnimInfoDic.TryGetValue(animId, out var roleAnimInfo))
+        {
+            roleAnimInfo.LastUseTime = Time.time; //设置最后使用时间
+            roleAnimInfo.IsPlaying = true;
+            
+            if (roleAnimInfo.IsLoad)
+            {
+                PlayAnim(roleAnimInfo);
+            }
+            else
+            {
+                //动画不存在 先加载动画
+                LoadRoleAnimation(roleAnimInfo.CurrRoleAnimationData, PlayAnim);
+            }
+        }
     }
+
+    private void PlayAnim(RoleAnimInfo roleAnimInfo)
+    {
+        m_PlayableGraph.Play();
+
+        //根据索引拿到Playable
+        var playable = m_AnimationMixerPlayable.GetInput(roleAnimInfo.Index);
+        playable.SetTime(0);
+        playable.Play();
+
+        int len = m_RoleAnimInfoDic.Count;
+        for (int i = 0; i < len; i++)
+        {
+            if (i == roleAnimInfo.Index)
+            {
+                //动画的长度
+                m_AnimationMixerPlayable.SetInputWeight(i, 1);
+            }
+            else
+            {
+                m_AnimationMixerPlayable.SetInputWeight(i, 0);
+            }
+        }
+    }
+
 
     public override void OnOpen()
     {
@@ -132,12 +258,40 @@ public class RoleCtrl : BaseSprite
             m_CurrSkinTransform.localPosition = Vector3.zero;
 
             m_CurrRoleSkinComponent = m_CurrSkinTransform.GetComponent<RoleSkinComponent>();
+
+            m_Animator = m_CurrSkinTransform.GetComponent<Animator>();
+            //第一步 创建画布
+            if (m_PlayableGraph.IsValid())
+            {
+                m_PlayableGraph.Destroy();   
+            }
+            m_PlayableGraph = PlayableGraph.Create("PlayableGraph_" + m_SkinId);
+
+            //创建输出节点
+            m_AnimationPlayableOutput = AnimationPlayableOutput.Create(m_PlayableGraph, "output", m_Animator);
+            CreateMixerPlayable();
             if (m_CurrRoleSkinComponent == null)
             {
                 //角色根阶段上的SkinnedMeshRenderer
                 m_CurrSkinnedMeshRenderer = m_CurrSkinTransform.GetComponentInChildren<SkinnedMeshRenderer>();
             }
+
+            LoadInitRoleAnimations(1);
         });
+    }
+
+    /// <summary>
+    /// 创建混合Playable
+    /// </summary>
+    private void CreateMixerPlayable()
+    {
+        //创建动画混合Playable
+        m_AnimationMixerPlayable = AnimationMixerPlayable.Create(m_PlayableGraph, 100);
+
+        //设置Output的源
+        m_AnimationPlayableOutput.SetSourcePlayable(m_AnimationMixerPlayable, 0);
+
+        //这时候是没有任何动画的
     }
 
     /// <summary>
@@ -180,5 +334,22 @@ public class RoleCtrl : BaseSprite
     public void DeSpawn()
     {
         UnLoadSkin();
+    }
+
+    /// <summary>
+    /// 检查需要卸载的角色动画
+    /// </summary>
+    public void CheckUnLoadRoleAnimation()
+    {
+        var enumerator = m_RoleAnimInfoDic.GetEnumerator();
+        while (enumerator.MoveNext())
+        {
+            var roleAnimInfo = enumerator.Current.Value;
+            if (roleAnimInfo.IsExpire)
+            {
+                roleAnimInfo.IsLoad = false;
+                roleAnimInfo.CurrPlayable.Destroy();
+            }
+        }
     }
 }
