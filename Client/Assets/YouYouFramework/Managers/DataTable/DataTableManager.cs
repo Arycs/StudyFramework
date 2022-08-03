@@ -26,32 +26,32 @@ namespace YouYou
         /// <summary>
         /// 
         /// </summary>
-        public Sys_CodeDBModel Sys_CodeDBModel { get; private set; }
+        public DTSys_CodeDBModel Sys_CodeDBModel { get; private set; }
 
         /// <summary>
         /// 系统特效表
         /// </summary>
-        public Sys_EffectDBModel Sys_EffectDBModel { get; private set; }
+        public DTSys_EffectDBModel Sys_EffectDBModel { get; private set; }
 
         /// <summary>
         /// 系统预置体表
         /// </summary>
-        public Sys_PrefabDBModel Sys_PrefabDBModel { get; private set; }
+        public DTSys_PrefabDBModel Sys_PrefabDBModel { get; private set; }
 
         /// <summary>
         /// 系统声音表
         /// </summary>
-        public Sys_SoundDBModel Sys_SoundDBModel { get; private set; }
+        public DTSys_SoundDBModel Sys_SoundDBModel { get; private set; }
 
         /// <summary>
         /// 系统剧情声音表
         /// </summary>
-        public Sys_StorySoundDBModel Sys_StorySoundDBModel { get; private set; }
+        public DTSys_StorySoundDBModel Sys_StorySoundDBModel { get; private set; }
 
         /// <summary>
         /// 系统UI预制表
         /// </summary>
-        public Sys_UIFormDBModel Sys_UIFormDBModel { get; private set; }
+        public DTSys_UIFormDBModel Sys_UIFormDBModel { get; private set; }
 
         /// <summary>
         /// 系統本地化表
@@ -61,32 +61,32 @@ namespace YouYou
         /// <summary>
         /// 系统场景表
         /// </summary>
-        public Sys_SceneDBModel Sys_SceneDBModel { get; private set; }
+        public DTSys_SceneDBModel Sys_SceneDBModel { get; private set; }
 
         /// <summary>
         /// 系统场景详情表
         /// </summary>
-        public Sys_SceneDetailDBModel Sys_SceneDetailDBModel { get; private set; }
+        public DTSys_SceneDetailDBModel Sys_SceneDetailDBModel { get; private set; }
 
         /// <summary>
         /// 音效表
         /// </summary>
-        public Sys_AudioDBModel Sys_AudioDBModel { get; private set; }
+        public DTSys_AudioDBModel Sys_AudioDBModel { get; private set; }
 
         /// <summary>
         /// 职业表
         /// </summary>
-        public JobDBModel JobList { get; private set; }
+        public DTJobDBModel JobList { get; private set; }
 
         /// <summary>
         /// 角色动画表
         /// </summary>
-        public RoleAnimationDBModel RoleAnimationList { get; private set; }
+        public DTRoleAnimationDBModel RoleAnimationList { get; private set; }
 
         /// <summary>
         /// 角色列表
         /// </summary>
-        public RoleDBModel RoleList { get; private set; }
+        public DTRoleDBModel RoleList { get; private set; }
 
         /// <summary>
         /// 初始化DBModel
@@ -94,20 +94,20 @@ namespace YouYou
         private void InitDBModel()
         {
             //每个表都需要new一下
-            Sys_CodeDBModel = new Sys_CodeDBModel();
-            Sys_EffectDBModel = new Sys_EffectDBModel();
+            Sys_CodeDBModel = new DTSys_CodeDBModel();
+            Sys_EffectDBModel = new DTSys_EffectDBModel();
             LocalizationDBModel = new LocalizationDBModel();
-            Sys_PrefabDBModel = new Sys_PrefabDBModel();
-            Sys_SoundDBModel = new Sys_SoundDBModel();
-            Sys_StorySoundDBModel = new Sys_StorySoundDBModel();
-            Sys_UIFormDBModel = new Sys_UIFormDBModel();
-            Sys_SceneDBModel = new Sys_SceneDBModel();
-            Sys_SceneDetailDBModel = new Sys_SceneDetailDBModel();
-            Sys_AudioDBModel = new Sys_AudioDBModel();
+            Sys_PrefabDBModel = new DTSys_PrefabDBModel();
+            Sys_SoundDBModel = new DTSys_SoundDBModel();
+            Sys_StorySoundDBModel = new DTSys_StorySoundDBModel();
+            Sys_UIFormDBModel = new DTSys_UIFormDBModel();
+            Sys_SceneDBModel = new DTSys_SceneDBModel();
+            Sys_SceneDetailDBModel = new DTSys_SceneDetailDBModel();
+            Sys_AudioDBModel = new DTSys_AudioDBModel();
 
-            JobList = new JobDBModel();
-            RoleAnimationList = new RoleAnimationDBModel();
-            RoleList = new RoleDBModel();
+            JobList = new DTJobDBModel();
+            RoleAnimationList = new DTRoleAnimationDBModel();
+            RoleList = new DTRoleDBModel();
         }
 
 

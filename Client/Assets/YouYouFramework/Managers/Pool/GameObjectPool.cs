@@ -123,7 +123,7 @@ namespace YouYou
         public void Spawn(int prefabId, BaseAction<Transform,bool> onComplete)
         {
             //拿到预设表数据
-            Sys_PrefabEntity entity = GameEntry.DataTable.Sys_PrefabDBModel.Get(prefabId);
+            DTSys_PrefabEntity entity = GameEntry.DataTable.Sys_PrefabDBModel.Get(prefabId);
             if (entity == null)
             {
                 Debug.LogError("预设数据不存在");

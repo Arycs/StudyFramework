@@ -102,7 +102,7 @@ public class RoleCtrl : BaseSprite,IUpdateComponent
 
     public void Init(int roleId)
     {
-        RoleEntity drRole = GameEntry.DataTable.RoleList.Get(roleId);
+        DTRoleEntity drRole = GameEntry.DataTable.RoleList.Get(roleId);
         m_SkinId = drRole.PrefabId;
         
         //初始化状态机
@@ -118,11 +118,11 @@ public class RoleCtrl : BaseSprite,IUpdateComponent
         m_RoleAnimInfoDic.Clear();
 
         //根据动画组编号, 加载动画
-        List<RoleAnimationEntity> roleAnimations = GameEntry.DataTable.RoleAnimationList.GetListByGroupId(animGroupId);
+        List<DTRoleAnimationEntity> roleAnimations = GameEntry.DataTable.RoleAnimationList.GetListByGroupId(animGroupId);
         int lenRoleAnimations = roleAnimations.Count;
         for (int i = 0; i < lenRoleAnimations; i++)
         {
-            RoleAnimationEntity roleAnimation = roleAnimations[i];
+            DTRoleAnimationEntity roleAnimation = roleAnimations[i];
             m_RoleAnimInfoDic.Add(roleAnimation.Id, new RoleAnimInfo()
             {
                 CurrRoleAnimationData = roleAnimation,
@@ -142,7 +142,7 @@ public class RoleCtrl : BaseSprite,IUpdateComponent
     /// 加载角色动画
     /// </summary>
     /// <param name="roleAnimation"></param>
-    private void LoadRoleAnimation(RoleAnimationEntity roleAnimation, BaseAction<RoleAnimInfo> onComplete = null)
+    private void LoadRoleAnimation(DTRoleAnimationEntity roleAnimation, BaseAction<RoleAnimInfo> onComplete = null)
     {
         GameEntry.Resource.ResourceLoaderManager.LoadMainAsset(AssetCategory.RoleSources,
             GameUtil.GetRoleAnimationPath(roleAnimation.AnimPath), (

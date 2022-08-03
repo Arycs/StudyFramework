@@ -21,7 +21,7 @@ public class RoleAnimInfo
     /// <summary>
     /// 当前的动画数据
     /// </summary>
-    public RoleAnimationEntity CurrRoleAnimationData;
+    public DTRoleAnimationEntity CurrRoleAnimationData;
 
     /// <summary>
     /// 最后使用时间

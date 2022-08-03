@@ -24,12 +24,12 @@ namespace YouYou
         /// <summary>
         /// 当前场景数据实体
         /// </summary>
-        private Sys_SceneEntity m_CurrSceneEntity;
+        private DTSys_SceneEntity m_CurrSceneEntity;
 
         /// <summary>
         /// 当前场景明细
         /// </summary>
-        private List<Sys_SceneDetailEntity> m_CurrSceneDetailList;
+        private List<DTSys_SceneDetailEntity> m_CurrSceneDetailList;
 
         /// <summary>
         /// 需要加载或卸载的明细数量
@@ -164,7 +164,7 @@ namespace YouYou
                 SceneLoaderRoutine routine = GameEntry.Pool.DequeueClassObject<SceneLoaderRoutine>();
                 m_SceneLoaderList.AddLast(routine);
 
-                Sys_SceneDetailEntity entity = m_CurrSceneDetailList[i];
+                DTSys_SceneDetailEntity entity = m_CurrSceneDetailList[i];
                 routine.LoadScene(entity.Id, entity.ScenePath, OnLoadSceneProgressUpdate, OnLoadSceneComplete);
             }
         }

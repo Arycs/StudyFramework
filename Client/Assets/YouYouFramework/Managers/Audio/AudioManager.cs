@@ -97,7 +97,7 @@ namespace YouYou
         /// <param name="audioId"></param>
         public void PlayBGM(int audioId)
         {
-            Sys_AudioEntity entity = GameEntry.DataTable.Sys_AudioDBModel.Get(audioId);
+            DTSys_AudioEntity entity = GameEntry.DataTable.Sys_AudioDBModel.Get(audioId);
             if (entity != null)
             {
                 PlayBGM(entity.AssetPath, entity.volume);
@@ -274,7 +274,7 @@ namespace YouYou
         public int PlayAudio(int audioId, string parameterName = null, float value = 0,
             Vector3 pos3D = default(Vector3))
         {
-            Sys_AudioEntity entity = GameEntry.DataTable.Sys_AudioDBModel.Get(audioId);
+            DTSys_AudioEntity entity = GameEntry.DataTable.Sys_AudioDBModel.Get(audioId);
             if (entity != null)
             {
                 return PlayAudio(entity.AssetPath, entity.volume, parameterName, value, entity.Is3D == 1, pos3D);

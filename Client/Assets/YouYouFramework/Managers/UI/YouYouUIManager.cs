@@ -235,7 +235,7 @@ namespace YouYou
         public void OpenUIForm(int uiFormId, object userData = null, BaseAction<UIFormBase> onOpen = null)
         {
             //1. 读表
-            Sys_UIFormEntity entity = GameEntry.DataTable.Sys_UIFormDBModel.Get(uiFormId);
+            DTSys_UIFormEntity entity = GameEntry.DataTable.Sys_UIFormDBModel.Get(uiFormId);
             if (entity == null)
             {
                 Debug.LogError("表格中没有对应UI窗体数据 : " + uiFormId);
@@ -301,7 +301,7 @@ namespace YouYou
         /// <param name="sys_UIFormEntity"></param>
         /// <param name="formBase"></param>
         /// <param name="onOpen"></param>
-        private void OpenUI(Sys_UIFormEntity sys_UIFormEntity, UIFormBase formBase, BaseAction<UIFormBase> onOpen)
+        private void OpenUI(DTSys_UIFormEntity sys_UIFormEntity, UIFormBase formBase, BaseAction<UIFormBase> onOpen)
         {
             //判断反切UI
             UIFormShowMode uiFormShowMode = (UIFormShowMode)sys_UIFormEntity.ShowMode;
@@ -415,7 +415,7 @@ namespace YouYou
             formBase.ToClose();
             
             //判断UI显示类型
-            Sys_UIFormEntity entity = GameEntry.DataTable.Sys_UIFormDBModel.Get(formBase.UIFormId);
+            DTSys_UIFormEntity entity = GameEntry.DataTable.Sys_UIFormDBModel.Get(formBase.UIFormId);
             if (entity == null)
             {
                 GameEntry.LogError(formBase.UIFormId + "对应的UI窗体不存在");
