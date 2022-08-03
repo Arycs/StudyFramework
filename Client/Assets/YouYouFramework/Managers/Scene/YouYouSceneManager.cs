@@ -24,8 +24,8 @@ namespace YouYou
         /// <summary>
         /// 当前场景数据实体
         /// </summary>
-        private DTSys_SceneEntity m_CurrSceneEntity;
-
+        public DTSys_SceneEntity CurrSceneEntity { get; private set; }
+        
         /// <summary>
         /// 当前场景明细
         /// </summary>
@@ -65,7 +65,9 @@ namespace YouYou
         /// 加载完毕委托
         /// </summary>
         private BaseAction m_OnComplete = null;
-        
+
+       
+
         public YouYouSceneManager()
         {
             m_SceneLoaderList = new LinkedList<SceneLoaderRoutine>();
@@ -134,7 +136,7 @@ namespace YouYou
         /// </summary>
         private void UnLoadCurrScene()
         {
-            if (m_CurrSceneEntity != null)
+            if (CurrSceneEntity != null)
             {
                 m_NeedLoadOrUnLoadSceneDetailCount = m_CurrSceneDetailList.Count;
                 for (int i = 0; i < m_NeedLoadOrUnLoadSceneDetailCount; i++)
@@ -155,9 +157,9 @@ namespace YouYou
         /// </summary>
         private void LoadNewScene()
         {
-            m_CurrSceneEntity = GameEntry.DataTable.Sys_SceneDBModel.Get(m_CurrLoadSceneId);
+            CurrSceneEntity = GameEntry.DataTable.Sys_SceneDBModel.Get(m_CurrLoadSceneId);
             m_CurrSceneDetailList =
-                GameEntry.DataTable.Sys_SceneDetailDBModel.GetListBySceneId(m_CurrSceneEntity.Id, 2);
+                GameEntry.DataTable.Sys_SceneDetailDBModel.GetListBySceneId(CurrSceneEntity.Id, 2);
             m_NeedLoadOrUnLoadSceneDetailCount = m_CurrSceneDetailList.Count;
             for (int i = 0; i < m_NeedLoadOrUnLoadSceneDetailCount; i++)
             {

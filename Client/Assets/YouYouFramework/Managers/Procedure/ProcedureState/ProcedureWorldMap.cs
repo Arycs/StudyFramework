@@ -14,7 +14,7 @@ namespace YouYou
             base.OnEnter();
             GameEntry.Log(LogCategory.Procedure,"OnEnter ProcedureWorldMap");
             //加载场景
-            GameEntry.Scene.LoadScene(SysScene.Test,false,(() =>
+            GameEntry.Scene.LoadScene(SysScene.DaLi,false,(() =>
             {
                 GameEntry.Event.CommonEvent.Dispatch(SysEventId.CloseCheckVersionUI);
 

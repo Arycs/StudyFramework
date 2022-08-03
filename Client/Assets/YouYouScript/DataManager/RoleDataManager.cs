@@ -32,6 +32,12 @@ public class RoleDataManager : IDisposable
             RoleCtrl roleCtrl = trans.GetComponent<RoleCtrl>();
             roleCtrl.Init(roleId);
 
+            //设置角色坐标位置
+            roleCtrl.transform.position = new Vector3(
+                GameEntry.Scene.CurrSceneEntity.PlayerBornPos_1,
+                GameEntry.Scene.CurrSceneEntity.PlayerBornPos_2,
+                GameEntry.Scene.CurrSceneEntity.PlayerBornPos_3);
+            
             if (!isNewInstance)
             {
                 //如果不是新实例,在这里执行OnOpen方法
