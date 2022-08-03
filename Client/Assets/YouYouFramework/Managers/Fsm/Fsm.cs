@@ -8,8 +8,13 @@ namespace YouYou
     /// 状态机
     /// </summary>
     /// <typeparam name="T">拥有者</typeparam>
-    public class Fsm<T>:FsmBase where T:class
+    public class Fsm<T> : FsmBase where T : class
     {
+        /// <summary>
+        /// 拥有者
+        /// </summary>
+        public T Owner { get; private set; }
+
         /// <summary>
         /// 当前状态
         /// </summary>
@@ -24,26 +29,28 @@ namespace YouYou
         /// 参数字典
         /// </summary>
         private Dictionary<string, VariableBase> m_ParamDic;
-        
+
         /// <summary>
         /// 构造函数
         /// </summary>
         /// <param name="fsmId">状态机编号</param>
         /// <param name="owner">拥有者</param>
         /// <param name="states">状态数组</param>
-        public Fsm(int fsmId, T owner,FsmState<T>[] states) : base(fsmId)
+        public Fsm(int fsmId, T owner, FsmState<T>[] states) : base(fsmId)
         {
             m_StateDic = new Dictionary<sbyte, FsmState<T>>();
             m_ParamDic = new Dictionary<string, VariableBase>();
+            Owner = owner;
+            
             //把状态加入字典
             int len = states.Length;
             for (int i = 0; i < len; i++)
             {
                 FsmState<T> state = states[i];
                 state.curFsm = this;
-                m_StateDic[(sbyte)i] = state;
+                m_StateDic[(sbyte) i] = state;
             }
-            
+
             CurrStateType = -1;
         }
 
@@ -81,7 +88,7 @@ namespace YouYou
             {
                 return;
             }
-            
+
             if (m_CurrState != null)
             {
                 m_CurrState.OnLeave();
@@ -89,7 +96,7 @@ namespace YouYou
 
             CurrStateType = newState;
             m_CurrState = m_StateDic[CurrStateType];
-            
+
             //进入新状态
             m_CurrState.OnEnter();
         }
@@ -103,7 +110,7 @@ namespace YouYou
         public void SetData<TData>(string key, TData value)
         {
             VariableBase itemBase = null;
-            if (m_ParamDic.TryGetValue(key,out itemBase))
+            if (m_ParamDic.TryGetValue(key, out itemBase))
             {
                 Debug.Log("修改已有值");
                 Variable<TData> item = itemBase as Variable<TData>;
@@ -129,13 +136,13 @@ namespace YouYou
         public TData GetData<TData>(string key)
         {
             VariableBase itemBase = null;
-           if (m_ParamDic.TryGetValue(key,out itemBase))
-           {
-               Variable<TData> item = itemBase as Variable<TData>;
-               return item.Value;
-           }
+            if (m_ParamDic.TryGetValue(key, out itemBase))
+            {
+                Variable<TData> item = itemBase as Variable<TData>;
+                return item.Value;
+            }
 
-           return default(TData);
+            return default(TData);
         }
 
         /// <summary>
@@ -148,9 +155,9 @@ namespace YouYou
                 m_CurrState.OnLeave();
             }
 
-            foreach (KeyValuePair<sbyte,FsmState<T>> state in m_StateDic)
+            foreach (KeyValuePair<sbyte, FsmState<T>> state in m_StateDic)
             {
-                state.Value.OnDestroy();    
+                state.Value.OnDestroy();
             }
 
             m_StateDic.Clear();

@@ -16,11 +16,6 @@ namespace YouYou
         public int FsmId { get; private set; }
 
         /// <summary>
-        /// 拥有者
-        /// </summary>
-        public Type Owner { get; private set; }
-
-        /// <summary>
         /// 当前状态的类型
         /// </summary>
         public sbyte CurrStateType;
