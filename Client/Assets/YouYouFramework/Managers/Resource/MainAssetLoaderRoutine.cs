@@ -55,7 +55,7 @@ namespace YouYou
             m_CurrResourceEntity.Category = assetCategory;
             m_CurrResourceEntity.IsAssetBundle = false;
             m_CurrResourceEntity.ResourceName = assetFullName;
-            m_CurrResourceEntity.Target = UnityEditor.AssetDatabase.LoadAssetAtPath<GameObject>(assetFullName);
+            m_CurrResourceEntity.Target = UnityEditor.AssetDatabase.LoadAssetAtPath<UnityEngine.Object>(assetFullName);
             return m_CurrResourceEntity;
 #else
             m_CurrAssetEntity = GameEntry.Resource.ResourceLoaderManager.GetAssetEntity(assetCategory, assetFullName);
