@@ -154,6 +154,11 @@ namespace YouYou
         /// </summary>
         public static LoggerManager Logger { get; private set; }
 
+        /// <summary>
+        /// 输入管理器
+        /// </summary>
+        public static InputManager Input { get; private set; }
+        
         #endregion
 
         #region 更新组件管理
@@ -196,6 +201,9 @@ namespace YouYou
             Instance = this;
             CurrDeviceGrade = m_CurrDeviceGrade;
             ParamsSettings = m_ParamsSettings;
+            
+            InitManagers();
+
         }
 
         #region InitManagers 初始化管理器
@@ -221,7 +229,8 @@ namespace YouYou
             UI = new YouYouUIManager();
             Audio = new AudioManager();
             Logger = new LoggerManager();
-
+            Input = new InputManager();
+            
             Logger.Init();
             Event.Init();
             Time.Init();
@@ -238,6 +247,7 @@ namespace YouYou
             Download.Init();
             UI.Init();
             Audio.Init();
+            Input.Init();
 
             Procedure.ChangeState(ProcedureState.Launch);
         }
@@ -246,7 +256,6 @@ namespace YouYou
 
         void Start()
         {
-            InitManagers();
         }
 
         void Update()
@@ -267,6 +276,7 @@ namespace YouYou
             UI.OnUpdate();
             Audio.OnUpdate();
             Data.OnUpdate();
+            Input.OnUpdate();
         }
 
         /// <summary>
@@ -274,6 +284,8 @@ namespace YouYou
         /// </summary>
         private void OnDestroy()
         {
+            Logger.SyncLog();
+            Logger.Dispose();
             Event.Dispose();
             Time.Dispose();
             Fsm.Dispose();
@@ -289,6 +301,8 @@ namespace YouYou
             Download.Dispose();
             UI.Init();
             Audio.Dispose();
+            Data.Dispose();
+            Input.Dispose();
         }
 
         /// <summary>
