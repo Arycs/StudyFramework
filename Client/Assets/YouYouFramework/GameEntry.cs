@@ -15,6 +15,10 @@ namespace YouYou
         [FoldoutGroup("ParamsSettings")] [SerializeField]
         private ParamsSettings m_ParamsSettings;
 
+        [FoldoutGroup("ParamsSettings")]
+        [SerializeField]
+        private YouYouLanguage m_CurrLanguage;
+        
         [FoldoutGroup("GameObjectPool")] [Header("游戏物体对象池父物体")]
         public Transform PoolParent;
 
@@ -48,7 +52,56 @@ namespace YouYou
         [Header("UI分组")] [FoldoutGroup("UIGroup")] [SerializeField]
         public UIGroup[] UIGroups;
 
+        #region 时间缩放
+        [CustomValueDrawer("SetTimeScale")]
+        public float timeScale;
 
+#if UNITY_EDITOR
+        [ButtonGroup]
+        [LabelText("0")]
+        private void timeScale0()
+        {
+            timeScale = 0;
+        }
+
+        [ButtonGroup]
+        [LabelText("0.5")]
+        private void timeScale05()
+        {
+            timeScale = 0.5f;
+        }
+
+        [ButtonGroup]
+        [LabelText("1")]
+        private void timeScale1()
+        {
+            timeScale = 1;
+        }
+
+        [ButtonGroup]
+        [LabelText("2")]
+        private void timeScale2()
+        {
+            timeScale = 2;
+        }
+
+        [ButtonGroup]
+        [LabelText("3")]
+        private void timeScale3()
+        {
+            timeScale = 3;
+        }
+
+        private float SetTimeScale(float value, GUIContent label)
+        {
+            float ret = UnityEditor.EditorGUILayout.Slider(label, value, 0f, 3);
+            UnityEngine.Time.timeScale = ret;
+            return ret;
+        }
+#endif
+        #endregion
+        
+        
         public static GameEntry Instance;
 
         /// <summary>
@@ -60,6 +113,16 @@ namespace YouYou
         /// 全局参数设置
         /// </summary>
         public static ParamsSettings.DeviceGrade CurrDeviceGrade { get; private set; }
+
+        /// <summary>
+        /// 当前语言（要和本地化表的语言字段 一致）
+        /// </summary>
+        public static YouYouLanguage CurrLanguage { get; private set; }
+        
+        /// <summary>
+        /// 摄像机控制器
+        /// </summary>
+        public static CameraCtrl CameraCtrl;
 
         #region 组件属性
 
@@ -158,7 +221,7 @@ namespace YouYou
         /// 输入管理器
         /// </summary>
         public static InputManager Input { get; private set; }
-        
+
         #endregion
 
         #region 更新组件管理
@@ -201,9 +264,9 @@ namespace YouYou
             Instance = this;
             CurrDeviceGrade = m_CurrDeviceGrade;
             ParamsSettings = m_ParamsSettings;
+            CurrLanguage = m_CurrLanguage;
             
             InitManagers();
-
         }
 
         #region InitManagers 初始化管理器
@@ -230,7 +293,7 @@ namespace YouYou
             Audio = new AudioManager();
             Logger = new LoggerManager();
             Input = new InputManager();
-            
+
             Logger.Init();
             Event.Init();
             Time.Init();
@@ -256,6 +319,7 @@ namespace YouYou
 
         void Start()
         {
+            UnityEngine.Time.timeScale = timeScale = 1;
         }
 
         void Update()

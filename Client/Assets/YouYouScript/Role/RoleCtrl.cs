@@ -396,6 +396,16 @@ public class RoleCtrl : BaseSprite, IUpdateComponent
 
     public void OnUpdate()
     {
+        if (m_CurrRoleFsmManager == null)
+        {
+            return;
+        }
+
+        m_CurrRoleFsmManager.OnUpdate();
+        //摄像机跟随
+        GameEntry.CameraCtrl.transform.position = transform.position;
+        
+        
         //TODO 测试代码
         if (Input.GetKeyUp(KeyCode.A))
         {
@@ -409,12 +419,5 @@ public class RoleCtrl : BaseSprite, IUpdateComponent
         {
             m_CurrRoleFsmManager.ChangeState(MyCommonEnum.RoleFsmState.Attack);
         }
-
-        if (m_CurrRoleFsmManager == null)
-        {
-            return;
-        }
-
-        m_CurrRoleFsmManager.OnUpdate();
     }
 }
