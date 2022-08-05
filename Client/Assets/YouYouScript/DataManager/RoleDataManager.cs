@@ -11,6 +11,10 @@ public class RoleDataManager : IDisposable
     /// </summary>
     private LinkedList<RoleCtrl> m_RoleList;
 
+    /// <summary>
+    /// 当前玩家
+    /// </summary>
+    public RoleCtrl CurrPlayer { get; private set; }
 
     public RoleDataManager()
     {
@@ -37,12 +41,16 @@ public class RoleDataManager : IDisposable
                 GameEntry.Scene.CurrSceneEntity.PlayerBornPos_1,
                 GameEntry.Scene.CurrSceneEntity.PlayerBornPos_2,
                 GameEntry.Scene.CurrSceneEntity.PlayerBornPos_3);
-            
+
             if (!isNewInstance)
             {
                 //如果不是新实例,在这里执行OnOpen方法
                 roleCtrl.OnOpen();
             }
+
+            //TODO 临时写  当前玩家即为生成的玩家
+            CurrPlayer = roleCtrl;
+            
             m_RoleList.AddLast(roleCtrl);
             onComplete?.Invoke(roleCtrl);
         });
@@ -90,6 +98,5 @@ public class RoleDataManager : IDisposable
             curr.Value.CheckUnLoadRoleAnimation();
             curr = next;
         }
-        
     }
 }

@@ -20,4 +20,6 @@ public class RoleFsmIdle : RoleFsmBase
     {
         base.OnLeave();
     }
+
+    protected override bool IsGround => true;
 }

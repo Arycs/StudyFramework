@@ -69,6 +69,17 @@ namespace YouYou
 
         private void Input_OnClick(TouchEventData t1)
         {
+            if (GameEntry.Data.RoleDataManager.CurrPlayer == null)
+            {
+               return;
+            }
+
+            Ray ray = GameEntry.CameraCtrl.MainCamera.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hitInfo;
+            if (Physics.Raycast(ray,out hitInfo, 1000f, 1 << LayerMask.NameToLayer("Ground")))
+            {
+                GameEntry.Data.RoleDataManager.CurrPlayer.MoveTo(hitInfo.point);
+            }
         }
 
         private void Input_OnBeginDrag(TouchEventData t1)

@@ -77,11 +77,19 @@ public class RoleCtrl : BaseSprite, IUpdateComponent
     /// </summary>
     private RoleFsmManager m_CurrRoleFsmManager;
 
+    /// <summary>
+    /// 移动速度 //TODO 后续读表格或者服务器下发
+    /// </summary>
+    public float MoveSpeed = 10f;
+
+    public CharacterController CharacterController { get; private set; }
+
     protected override void OnAwake()
     {
         base.OnAwake();
         m_AnimationClipDic = new Dictionary<string, AnimationClip>();
         m_CurrRoleFsmManager = new RoleFsmManager(this);
+        CharacterController = GetComponent<CharacterController>();
     }
 
     protected override void OnBeforDestroy()
@@ -392,6 +400,16 @@ public class RoleCtrl : BaseSprite, IUpdateComponent
                 roleAnimInfo.CurrPlayable.Destroy();
             }
         }
+    }
+
+    /// <summary>
+    /// 角色移动
+    /// </summary>
+    /// <param name="targetPos"></param>
+    public void MoveTo(Vector3 targetPos)
+    {
+        m_CurrRoleFsmManager.SetData(MyConstDefine.TargetPos, targetPos);
+        m_CurrRoleFsmManager.ChangeState(MyCommonEnum.RoleFsmState.Run);
     }
 
     public void OnUpdate()
