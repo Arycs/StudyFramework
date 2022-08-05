@@ -438,4 +438,14 @@ public class RoleCtrl : BaseSprite, IUpdateComponent
             m_CurrRoleFsmManager.ChangeState(MyCommonEnum.RoleFsmState.Attack);
         }
     }
+
+    public void JoystickMove(Vector2 dir)
+    {
+        m_CurrRoleFsmManager.JoystickMove(dir);
+    }
+
+    public void JoystickStop(Vector2 dir)
+    {
+        m_CurrRoleFsmManager.ChangeState(MyCommonEnum.RoleFsmState.Idle);
+    }
 }

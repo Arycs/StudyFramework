@@ -1,3 +1,4 @@
+using UnityEngine;
 using YouYou;
 using static MyCommonEnum;
 
@@ -36,6 +37,11 @@ public class RoleFsmManager : ManagerBase
     /// 当前的角色状态
     /// </summary>
     public FsmState<RoleFsmManager> CurrRoleFsm => m_CurrFsm.GetState(m_CurrFsm.CurrStateType);
+
+    /// <summary>
+    /// 跑步状态
+    /// </summary>
+    private RoleFsmRun m_RoleFsmRun;
     
     /// <summary>
     /// 当前角色控制器
@@ -51,7 +57,9 @@ public class RoleFsmManager : ManagerBase
     {
         FsmState<RoleFsmManager>[] states = new FsmState<RoleFsmManager>[3];
         states[(sbyte)RoleFsmState.Idle] = new RoleFsmIdle();
-        states[(sbyte)RoleFsmState.Run] = new RoleFsmRun();
+
+        m_RoleFsmRun = new RoleFsmRun();
+        states[(sbyte)RoleFsmState.Run] = m_RoleFsmRun;
         states[(sbyte)RoleFsmState.Attack] = new RoleFsmAttack();
         m_CurrFsm = GameEntry.Fsm.Create(this, states);
     }
@@ -90,5 +98,11 @@ public class RoleFsmManager : ManagerBase
     public TData GetData<TData>(string key)
     {
         return CurrFsm.GetData<TData>(key);
+    }
+
+    public void JoystickMove(Vector2 dir)
+    {
+        ChangeState(RoleFsmState.Run);
+        m_RoleFsmRun.JoystickMove(dir);
     }
 }

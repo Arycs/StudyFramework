@@ -52,8 +52,13 @@ public partial class DTSys_UIFormEntity : DataTableEntityBase
     public bool CanMulit;
 
     /// <summary>
-    /// 显示类型=普通 1=反切
+    /// 显示类型0=普通1=反切
     /// </summary>
     public byte ShowMode;
+
+    /// <summary>
+    /// 冻结类型0=置空层1=禁用
+    /// </summary>
+    public byte FreezeMode;
 
 }

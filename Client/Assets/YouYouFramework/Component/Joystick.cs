@@ -4,47 +4,54 @@ using UnityEngine.UI;
 
 namespace YouYou
 {
-    public class Joystick : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
+    public class Joystick : UIFormBase,IUpdateComponent, IPointerDownHandler, IDragHandler, IPointerUpHandler
     {
         public float maxRadius = 100; //Handle 移动最大半径
         public Direction activatedAxis = (Direction) (-1); //选择激活的轴向
+        [SerializeField] private Image m_JoystickArea; //摇杆活动区域
         [SerializeField] bool dynamic = true; // 动态摇杆
         [SerializeField] Transform handle; //摇杆
         [SerializeField] Transform backGround; //背景
         public BaseAction<Vector2> OnChanged; //事件 ： 摇杆被 拖拽时
         public BaseAction<Vector2> OnDown; // 事件： 摇杆被按下时
         public BaseAction<Vector2> OnUp; //事件 ： 摇杆上抬起时
-
-        public bool IsDraging
-        {
-            get { return fingerId != int.MinValue; }
-        } //摇杆拖拽状态
-
+        public bool IsDraging => fingerId != int.MinValue; //摇杆拖拽状态
         public bool DynamicJoystick //运行时代码配置摇杆是否为动态摇杆
         {
             set
             {
-                if (dynamic != value)
-                {
-                    dynamic = value;
-                    ConfigJoystick();
-                }
+                if (dynamic == value) return;
+                dynamic = value;
+                ConfigJoystick();
             }
-            get { return dynamic; }
+            get => dynamic;
         }
 
-        #region MonoBehaviour functions
+        #region UIFormBase functions
 
-        private void Awake()
+        protected override void OnInit(object userData)
         {
+            base.OnInit(userData);
             //注册摇杆
             GameEntry.Input.Joystick = this;
             backGroundOriginLocalPostion = backGround.localPosition;
         }
 
-        private Vector2 m_ChangeValue;
+        protected override void OnOpen(object userData)
+        {
+            base.OnOpen(userData);
+            GameEntry.RegisterUpdateComponent(this);
+        }
 
-        void Update()
+        protected override void OnClose()
+        {
+            base.OnClose();
+            GameEntry.RemoveUpdateComponent(this);
+        }
+
+        private Vector2 m_ChangeValue;
+    
+        public void OnUpdate()
         {
             if (OnChanged != null)
             {
@@ -125,8 +132,8 @@ namespace YouYou
 #if UNITY_EDITOR
         private void OnValidate()
         {
-            if (!handle) handle = transform.Find("BackGround/Handle");
-            if (!backGround) backGround = transform.Find("BackGround");
+            if (!handle) handle = transform.Find("JoystickArea/BackGround/Handle");
+            if (!backGround) backGround = transform.Find("JoystickArea/BackGround");
             ConfigJoystick();
         }
 #endif

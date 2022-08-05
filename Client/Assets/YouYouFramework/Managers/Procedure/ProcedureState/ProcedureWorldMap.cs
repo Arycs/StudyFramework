@@ -27,6 +27,19 @@ namespace YouYou
             GameEntry.Input.OnEndDrag += Input_OnEndDrag;
             GameEntry.Input.OnDrag += Input_OnDrag;
             GameEntry.Input.OnZoom += Input_OnZoom;
+            
+            //加载摇杆
+            GameEntry.UI.OpenUIForm(UIFormId.UI_Joystick,null,(form =>
+            {
+                GameEntry.Input.Joystick.OnChanged = v =>
+                {
+                    GameEntry.Data.RoleDataManager.CurrPlayer.JoystickMove(v);
+                };
+                GameEntry.Input.Joystick.OnUp = v =>
+                {
+                    GameEntry.Data.RoleDataManager.CurrPlayer.JoystickStop(v);
+                };
+            }));
         }
 
 
@@ -58,6 +71,10 @@ namespace YouYou
             GameEntry.Input.OnEndDrag -= Input_OnEndDrag;
             GameEntry.Input.OnDrag -= Input_OnDrag;
             GameEntry.Input.OnZoom -= Input_OnZoom;
+            
+            //TODO 这里调用会导致 游戏关闭时 UI层级调用出问题 
+            //关闭摇杆
+            //GameEntry.UI.CloseUIForm(UIFormId.UI_Joystick);
         }
 
         public override void OnDestroy()
@@ -94,6 +111,18 @@ namespace YouYou
 
         private void Input_OnDrag(TouchDirection t1, TouchEventData t2)
         {
+            //防止UI 穿透
+            if (GameEntry.Input.IsPointerOverGameObject(Input.mousePosition))
+            {
+                return;
+            }
+            
+            //摇杆拖拽中, 禁止滑动摄像机
+            if (GameEntry.Input.Joystick.IsDraging)
+            {
+                return;
+            }
+            
             GameEntry.CameraCtrl.IsOnDrag = true;
             switch (t1)
             {
@@ -116,6 +145,12 @@ namespace YouYou
 
         private void Input_OnZoom(ZoomType t1)
         {
+            //防止UI 穿透
+            if (GameEntry.Input.IsPointerOverGameObject(Input.mousePosition))
+            {
+                return;
+            }
+            
             switch (t1)
             {
                 case ZoomType.In:

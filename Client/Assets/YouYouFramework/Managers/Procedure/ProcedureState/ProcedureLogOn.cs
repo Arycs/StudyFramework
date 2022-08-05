@@ -12,10 +12,10 @@ namespace YouYou
         public override void OnEnter()
         {
             base.OnEnter();
-            GameEntry.Log(LogCategory.Procedure,"OnEnter ProcedureLogOn");
+            GameEntry.Log(LogCategory.Procedure, "OnEnter ProcedureLogOn");
             //TODO 临时注释, 切换到PVP
             //GameEntry.UI.OpenUIForm(UIFormId.UI_LogonBG, onOpen: OnLogonBGOpen);
-            
+
             GameEntry.Procedure.ChangeState(ProcedureState.WorldMap);
         }
 

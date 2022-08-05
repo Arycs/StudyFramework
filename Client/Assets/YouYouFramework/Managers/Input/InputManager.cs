@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace YouYou
 {
@@ -10,13 +11,11 @@ namespace YouYou
     /// </summary>
     public class InputManager : ManagerBase, IDisposable
     {
-        
         /// <summary>
         /// 摇杆
         /// </summary>
         public Joystick Joystick;
 
-        
         /// <summary>
         /// 输入控制器
         /// </summary>
@@ -61,6 +60,26 @@ namespace YouYou
 #else
             //移动端
 #endif
+        }
+
+        private List<RaycastResult> raycastResults = new List<RaycastResult>();
+
+        /// <summary>
+        /// 判断UI穿透
+        /// </summary>
+        /// <param name="screenPosition"></param>
+        /// <returns></returns>
+        public bool IsPointerOverGameObject(Vector2 screenPosition)
+        {
+            //实例化点击事件
+            PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
+            //将点击事件的屏幕坐标赋值给点击事件
+            eventDataCurrentPosition.position = new Vector2(screenPosition.x, screenPosition.y);
+
+            raycastResults.Clear();
+            //向点击处发射射线
+            EventSystem.current.RaycastAll(eventDataCurrentPosition, raycastResults);
+            return raycastResults.Count > 0;
         }
 
         internal void OnUpdate()

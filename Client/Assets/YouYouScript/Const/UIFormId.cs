@@ -13,6 +13,11 @@ public static class UIFormId
     /// 通知窗口
     /// </summary>
     public const int Dialog = 2;
+
+    /// <summary>
+    /// 摇杆
+    /// </summary>
+    public const int UI_Joystick = 3;
     
     /// <summary>
     /// 登录背景 界面

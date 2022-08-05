@@ -47,24 +47,27 @@ namespace YouYou
         /// </summary>
         public object UserData { get; private set; }
         
-
+        private BaseAction m_InitComplete;
+        
         private void Awake()
         {
             currCanvas = GetComponent<Canvas>();
         }
 
-        internal void Init(int uiFormId, byte groupId, bool disableUILayer, bool isLock, object userData)
+        internal void Init(int uiFormId, byte groupId, bool disableUILayer, bool isLock, object userData, BaseAction initComplete)
         {
             UIFormId = uiFormId;
             GroupId = groupId;
             DisableUILayer = disableUILayer;
             IsLock = isLock;
             UserData = userData;
+            m_InitComplete = initComplete;
         }
 
         private void Start()
         {
             OnInit(UserData);
+            m_InitComplete?.Invoke();
             Open(UserData,true);
         }
 

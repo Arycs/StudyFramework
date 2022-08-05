@@ -39,6 +39,7 @@ public partial class DTSys_UIFormDBModel : DataTableDBModelBase<DTSys_UIFormDBMo
             entity.AssetPath_English = ms.ReadUTF8String();
             entity.CanMulit = ms.ReadBool();
             entity.ShowMode = (byte)ms.ReadByte();
+            entity.FreezeMode = (byte)ms.ReadByte();
 
             m_List.Add(entity);
             m_Dic[entity.Id] = entity;

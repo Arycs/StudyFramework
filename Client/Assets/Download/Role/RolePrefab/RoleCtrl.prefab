@@ -83,3 +83,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SkinId: 0
+  MoveSpeed: 10

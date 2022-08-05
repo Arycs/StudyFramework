@@ -16,9 +16,15 @@ public class RoleDataManager : IDisposable
     /// </summary>
     public RoleCtrl CurrPlayer { get; private set; }
 
+    /// <summary>
+    /// 通过摇杆控制玩家移动时的一个辅助gameObject
+    /// </summary>
+    public GameObject CurrPlayerMoveHelper { get; }
+    
     public RoleDataManager()
     {
         m_RoleList = new LinkedList<RoleCtrl>();
+        CurrPlayerMoveHelper = new GameObject("CurrPlayerMoveHelper");
     }
 
     /// <summary>
