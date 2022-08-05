@@ -31,7 +31,7 @@ namespace YouYou
         /// 关闭时间
         /// </summary>
         public float CloseTime { get; private set; }
-        
+
         /// <summary>
         /// 禁用层级管理
         /// </summary>

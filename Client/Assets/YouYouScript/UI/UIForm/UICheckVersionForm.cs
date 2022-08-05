@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using YouYou;
@@ -14,7 +11,7 @@ public class UICheckVersionForm : UIFormBase
     [SerializeField] private Text txtResourceVersion;
 
     [SerializeField] private Scrollbar scrollbar;
-
+    
     protected override void OnInit(object userData)
     {
         base.OnInit(userData);
@@ -22,14 +19,14 @@ public class UICheckVersionForm : UIFormBase
         GameEntry.Event.CommonEvent.AddEventListener(SysEventId.CheckVersionDownloadUpdate,
             OnCheckVersionDownloadUpdate);
         GameEntry.Event.CommonEvent.AddEventListener(SysEventId.CheckVersionDownloadComplete,
-            OnCheckVersionDownloadComolete);
+            OnCheckVersionDownloadComplete);
 
         GameEntry.Event.CommonEvent.AddEventListener(SysEventId.PreloadBegin, OnPreloadBegin);
         GameEntry.Event.CommonEvent.AddEventListener(SysEventId.PreloadUpdate, OnPreloadUpdate);
         GameEntry.Event.CommonEvent.AddEventListener(SysEventId.PreloadComplete, OnPreloadComplete);
 
-        GameEntry.Event.CommonEvent.AddEventListener(SysEventId.CloseCheckVersionUI,OnCloseCheckVersionUI);
-        
+        GameEntry.Event.CommonEvent.AddEventListener(SysEventId.CloseCheckVersionUI, OnCloseCheckVersionUI);
+
         txtTip.gameObject.SetActive(false);
         txtSize.gameObject.SetActive(false);
         scrollbar.gameObject.SetActive(false);
@@ -43,7 +40,6 @@ public class UICheckVersionForm : UIFormBase
         txtSize.gameObject.SetActive(true);
         scrollbar.gameObject.SetActive(true);
 
-        Debug.Log("==============>>>>>>>>>>>>>检查版本 资源版本号  ");
         txtResourceVersion.text = $"资源版本号 {GameEntry.Resource.ResourceManager.CDNVersion}";
     }
 
@@ -55,13 +51,10 @@ public class UICheckVersionForm : UIFormBase
         scrollbar.size = (float) args.IntParam1 / args.IntParam2;
 
         txtSize.text = $"{(float) args.ULongParam1 / (1024 * 1024):f2}M/{(float) args.ULongParam2 / (1024 * 1024):f2}M";
-        Debug.Log("==============>>>>>>>>>>>>>检查版本 正在下载  ");
-
     }
 
-    private void OnCheckVersionDownloadComolete(object userData)
+    private void OnCheckVersionDownloadComplete(object userData)
     {
-        
     }
 
     #endregion
@@ -75,7 +68,6 @@ public class UICheckVersionForm : UIFormBase
         txtSize.gameObject.SetActive(false);
         txtResourceVersion.text = $"资源版本号 {GameEntry.Resource.ResourceManager.CDNVersion}";
         Debug.Log("==============>>>>>>>>>>>>>预加载 资源版本号  ");
-
     }
 
     private void OnPreloadUpdate(object userData)
@@ -84,19 +76,15 @@ public class UICheckVersionForm : UIFormBase
 
         txtTip.text = $"正在加载资源 {Mathf.Min(args.FloatParam1, 100):f0}%";
         scrollbar.size = args.FloatParam1 * 0.01f;
-        Debug.Log("==============>>>>>>>>>>>>>预加载 加载  ");
-
     }
 
     private void OnPreloadComplete(object userData)
     {
-
     }
 
     private void OnCloseCheckVersionUI(object userData)
     {
-        Destroy(gameObject); //临时
-
+        Destroy(gameObject);
     }
 
     #endregion
@@ -109,7 +97,7 @@ public class UICheckVersionForm : UIFormBase
         GameEntry.Event.CommonEvent.RemoveEventListener(SysEventId.CheckVersionDownloadUpdate,
             OnCheckVersionDownloadUpdate);
         GameEntry.Event.CommonEvent.RemoveEventListener(SysEventId.CheckVersionDownloadComplete,
-            OnCheckVersionDownloadComolete);
+            OnCheckVersionDownloadComplete);
 
         GameEntry.Event.CommonEvent.RemoveEventListener(SysEventId.PreloadBegin, OnPreloadBegin);
         GameEntry.Event.CommonEvent.RemoveEventListener(SysEventId.PreloadUpdate, OnPreloadUpdate);

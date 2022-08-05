@@ -37,16 +37,18 @@ namespace YouYou
       /// <param name="isAdd"></param>
       internal void SetSortingOrder(UIFormBase formBase,bool isAdd)
       {
-         if (isAdd)
+         if (m_UILayerDic.TryGetValue(formBase.GroupId,out var value))
          {
-            m_UILayerDic[formBase.GroupId] += 10;
+            if (isAdd)
+            {
+               m_UILayerDic[formBase.GroupId] += 10;
+            }
+            else
+            {
+               m_UILayerDic[formBase.GroupId] -= 10;
+            }
+            formBase.currCanvas.sortingOrder = m_UILayerDic[formBase.GroupId];
          }
-         else
-         {
-            m_UILayerDic[formBase.GroupId] -= 10;
-         }
-
-         formBase.currCanvas.sortingOrder = m_UILayerDic[formBase.GroupId];
       }
    }
 }
