@@ -292,35 +292,33 @@ namespace YouYouServer.Core
         /// <returns></returns>
         private byte[] MakeData(IProto proto)
         {
-            // 2021-7-22 注释掉，目前无用
-            return null;
-            //byte[] retBuffer = null;
+            byte[] retBuffer = null;
 
-            //byte[] data = proto.ToByteArray();
-            ////1.如果数据包的长度 大于了m_CompressLen 则进行压缩
-            //bool isCompress = data.Length > m_CompressLen ? true : false;
-            //if (isCompress)
-            //{
-            //    data = ZlibHelper.CompressBytes(data);
-            //}
+            byte[] data = proto.ToByteArray();
+            //1.如果数据包的长度 大于了m_CompressLen 则进行压缩
+            bool isCompress = data.Length > m_CompressLen ? true : false;
+            if (isCompress)
+            {
+                data = ZlibUtil.CompressBytes(data);
+            }
 
-            ////2.异或
-            //data = SecurityUtil.Xor(data);
+            //2.异或
+            data = SecurityUtil.Xor(data);
 
-            //MMO_MemoryStream ms = this.m_SocketSendMS;
-            //ms.SetLength(0);
+            MMO_MemoryStream ms = this.m_SocketSendMS;
+            ms.SetLength(0);
 
-            //ms.WriteUShort((ushort)(data.Length + 4)); //4=isCompress 1 + ProtoId 2 + Category 1
+            ms.WriteUShort((ushort)(data.Length + 4)); //4=isCompress 1 + ProtoId 2 + Category 1
 
-            //ms.WriteBool(isCompress);
+            ms.WriteBool(isCompress);
 
-            //ms.WriteUShort(proto.ProtoId);
-            //ms.WriteByte((byte)proto.Category);
+            ms.WriteUShort(proto.ProtoId);
+            ms.WriteByte((byte)proto.Category);
 
-            //ms.Write(data, 0, data.Length);
+            ms.Write(data, 0, data.Length);
 
-            //retBuffer = ms.ToArray();
-            //return retBuffer;
+            retBuffer = ms.ToArray();
+            return retBuffer;
         }
 
         /// <summary>

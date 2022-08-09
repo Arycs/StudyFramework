@@ -34,6 +34,11 @@ namespace YouYouServer.Model
         public static GameConnectWorldAgent ConnectWorldAgent;
 
         /// <summary>
+        /// 连接到寻路服务器代理
+        /// </summary>
+        public static GameConnectNavAgent ConnectNavAgent;
+
+        /// <summary>
         /// Soacket 监听
         /// </summary>
         private static Socket m_ListenSocket;
@@ -47,6 +52,10 @@ namespace YouYouServer.Model
             //实例化连接到中心服务器代理
             ConnectWorldAgent = new GameConnectWorldAgent();
             ConnectWorldAgent.RegisterToWorldServer();
+
+            //实例化连接到寻路服务器代理 
+            ConnectNavAgent = new GameConnectNavAgent();
+            ConnectNavAgent.RegisterToNavServer();
 
             StarListen();
         }

@@ -43,7 +43,12 @@
             /// <summary>
             /// 网关服务器
             /// </summary>
-            GatewayServer = 2
+            GatewayServer = 2,
+
+            /// <summary>
+            /// 寻路服务器
+            /// </summary>
+            NavServer = 3
         }
         #endregion
 
