@@ -22,11 +22,11 @@ public class RoleFsmBase : FsmState<RoleFsmManager>
 
     public override void OnUpdate()
     {
-        //让角色贴地面
-        if (IsGround && !CurrFsm.Owner.CurrRoleCtrl.CharacterController.isGrounded)
-        {
-            CurrFsm.Owner.CurrRoleCtrl.CharacterController.Move(m_MoveGroundDir);
-        }
+        // //让角色贴地面
+        // if (IsGround && !CurrFsm.Owner.CurrRoleCtrl.Agent.gr)
+        // {
+        //     CurrFsm.Owner.CurrRoleCtrl.Agent.Move(m_MoveGroundDir);
+        // }
     }
 
     public override void OnLeave()

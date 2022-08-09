@@ -92,10 +92,9 @@ namespace YouYou
             }
 
             Ray ray = GameEntry.CameraCtrl.MainCamera.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hitInfo;
-            if (Physics.Raycast(ray,out hitInfo, 1000f, 1 << LayerMask.NameToLayer("Ground")))
+            if (Physics.Raycast(ray,out var hitInfo, 1000f, 1 << LayerMask.NameToLayer("Ground")))
             {
-                GameEntry.Data.RoleDataManager.CurrPlayer.MoveTo(hitInfo.point);
+                GameEntry.Data.RoleDataManager.CurrPlayer.ClickMove(hitInfo.point);
             }
         }
 

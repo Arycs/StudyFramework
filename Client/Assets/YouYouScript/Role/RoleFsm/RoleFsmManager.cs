@@ -100,9 +100,20 @@ public class RoleFsmManager : ManagerBase
         return CurrFsm.GetData<TData>(key);
     }
 
+    public void ClickMove(Vector3 targetPos)
+    {
+        ChangeState(RoleFsmState.Run);
+        m_RoleFsmRun.ClickMove(targetPos);
+    }
+
     public void JoystickMove(Vector2 dir)
     {
         ChangeState(RoleFsmState.Run);
         m_RoleFsmRun.JoystickMove(dir);
+    }
+
+    public void JoystickStop()
+    {
+        m_RoleFsmRun.JoystickStop();
     }
 }

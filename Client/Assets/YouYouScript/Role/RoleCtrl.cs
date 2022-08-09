@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.Animations;
 using UnityEngine.Playables;
 using YouYou;
@@ -11,7 +12,7 @@ public class RoleCtrl : BaseSprite, IUpdateComponent
     /// <summary>
     /// 皮肤编号
     /// </summary>
-    [SerializeField] private int m_SkinId = 0;
+    private int m_SkinId = 0;
 
     /// <summary>
     /// 当前的皮肤
@@ -82,14 +83,15 @@ public class RoleCtrl : BaseSprite, IUpdateComponent
     /// </summary>
     public float MoveSpeed = 10f;
 
-    public CharacterController CharacterController { get; private set; }
+    public NavMeshAgent Agent { get; private set; }
 
     protected override void OnAwake()
     {
         base.OnAwake();
         m_AnimationClipDic = new Dictionary<string, AnimationClip>();
         m_CurrRoleFsmManager = new RoleFsmManager(this);
-        CharacterController = GetComponent<CharacterController>();
+        Agent = GetComponent<NavMeshAgent>();
+        Agent.enabled = false;
     }
 
     protected override void OnBeforDestroy()
@@ -280,6 +282,7 @@ public class RoleCtrl : BaseSprite, IUpdateComponent
         base.OnOpen();
         //注册更新组件
         GameEntry.RegisterUpdateComponent(this);
+        Agent.enabled = true;
         LoadSkin();
     }
 
@@ -439,6 +442,11 @@ public class RoleCtrl : BaseSprite, IUpdateComponent
         }
     }
 
+    public void ClickMove(Vector3 targetPos)
+    {
+        m_CurrRoleFsmManager.ClickMove(targetPos);
+    }
+
     public void JoystickMove(Vector2 dir)
     {
         m_CurrRoleFsmManager.JoystickMove(dir);
@@ -446,6 +454,6 @@ public class RoleCtrl : BaseSprite, IUpdateComponent
 
     public void JoystickStop(Vector2 dir)
     {
-        m_CurrRoleFsmManager.ChangeState(MyCommonEnum.RoleFsmState.Idle);
+        m_CurrRoleFsmManager.JoystickStop();
     }
 }

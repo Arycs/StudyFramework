@@ -9,33 +9,15 @@ EditorBuildSettings:
     path: Assets/Scenes/Scene_Launch.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
-    path: Assets/Download/Scenes/InitScene/GameScene_DaLi.unity
-    guid: 24e39dd99bc0cb745a5c7970102b5301
+    path: Assets/Download/Scenes/NormalScene/GameScene_DaLi.unity
+    guid: d938b771fd48cac41bbba4ccf7b2277b
   - enabled: 1
     path: Assets/Download/Scenes/InitScene/GameScene_HuPaoCun.unity
-    guid: e97802877b368c242b0925ae02902cff
+    guid: 452a065eac07ee346b40f641122a33c3
   - enabled: 1
     path: Assets/Download/Scenes/InitScene/GameScene_HuPaoCun_02.unity
     guid: 1f970f8fe82ce194889f671317919c3a
   - enabled: 1
     path: Assets/Download/Scenes/InitScene/GameScene_HuPaoCun_03.unity
     guid: 3b9bae63409fb9f4fbb3aa334eb00a9e
-  - enabled: 1
-    path: Assets/Download/Scenes/NormalScene/GameScene_ErHai.unity
-    guid: 76ab6463ed2856347b6ebe1170813a9d
-  - enabled: 1
-    path: Assets/Download/Scenes/NormalScene/GameScene_JingHu.unity
-    guid: d49fbfc7c37ed234f8613f5bdfd3c3e9
-  - enabled: 1
-    path: Assets/Download/Scenes/NormalScene/GameScene_LuoYang.unity
-    guid: 4ba3182e07a542849b6834d8d31ea233
-  - enabled: 1
-    path: Assets/Download/Scenes/NormalScene/GameScene_ShiLin.unity
-    guid: ab493c1d81bee0f43a49b72b603064fd
-  - enabled: 1
-    path: Assets/Download/Scenes/NormalScene/GameScene_Test.unity
-    guid: a0152975b5c61944c9186eefeb456ea8
-  - enabled: 1
-    path: Assets/Download/Scenes/NormalScene/GameScene_YuXi.unity
-    guid: 18da914eacdc123459abd998001cd4bc
   m_configObjects: {}
