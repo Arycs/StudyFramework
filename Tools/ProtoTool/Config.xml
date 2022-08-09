@@ -1,18 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Root>
   <ProtocPath>..\..\..\StudyFramework\Tools\ProtoTool</ProtocPath>
-
   
-  <ClientOutProtoPath>..\..\..\Client\Assets\YouYouScript\Data\ProtoData\Proto\</ClientOutProtoPath>
-  <ClientOutProtoHandlerPath>..\..\..\Client\Assets\YouYouScript\Data\ProtoData\ProtoHandler\</ClientOutProtoHandlerPath>
-  <ClientOutProtoIdDefinePath>..\..\..\Client\Assets\YouYouScript\Data\ProtoData\ProtoIdDefine.cs</ClientOutProtoIdDefinePath>
-  <ClientOutSocketProtoListenerPath>..\..\..\Client\Assets\YouYouScript\Data\ProtoData\SocketProtoListener.cs</ClientOutSocketProtoListenerPath>
+  <ClientOutProtoPath>..\..\..\StudyFramework\Client\Assets\YouYouScript\Data\ProtoData\Proto\</ClientOutProtoPath>
+  <ClientOutProtoHandlerPath>..\..\..\StudyFramework\Client\Assets\YouYouScript\Data\ProtoData\ProtoHandler\</ClientOutProtoHandlerPath>
+  <ClientOutProtoIdDefinePath>..\..\..\StudyFramework\Client\Assets\YouYouScript\Data\ProtoData\ProtoIdDefine.cs</ClientOutProtoIdDefinePath>
+  <ClientOutSocketProtoListenerPath>..\..\..\StudyFramework\Client\Assets\YouYouScript\Data\ProtoData\SocketProtoListener.cs</ClientOutSocketProtoListenerPath>
 
   <ClientOutLuaPBPath>..\..\..\StudyFramework\Tools\ProtoTool\Pb\PB\</ClientOutLuaPBPath>
   <ClientOutLuaProtoHandlerPath>..\..\..\StudyFramework\Tools\ProtoTool\ProtoHandler\</ClientOutLuaProtoHandlerPath>
   <ClientOutLuaProtoDefPath>..\..\..\StudyFramework\Tools\ProtoTool\ProtoDef.bytes</ClientOutLuaProtoDefPath>
   <ClientOutLuaProtoListenerPath>..\..\..\StudyFramework\Tools\ProtoTool\SocketProtoListenerForLua.bytes</ClientOutLuaProtoListenerPath>
 
-  <ServerOutProtoPath>..\..\..\Server\YouYouServer\YouYouServer.Common\ProtoData\Proto\</ServerOutProtoPath>
-  <ServerOutProtoIdDefinePath>..\..\..\Server\YouYouServer\YouYouServer.Common\ProtoData\ProtoIdDefine.cs</ServerOutProtoIdDefinePath>
+  <ServerOutProtoPath>..\..\..\StudyFramework\Server\YouYouServer\YouYouServer.Commmon\ProtoData\Proto\</ServerOutProtoPath>
+  <ServerOutProtoIdDefinePath>..\..\..\StudyFramework\Server\YouYouServer\YouYouServer.Commmon\ProtoData\ProtoIdDefine.cs</ServerOutProtoIdDefinePath>
 </Root>
