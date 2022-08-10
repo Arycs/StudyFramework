@@ -393,10 +393,8 @@ namespace ExcelTool
 
             StringBuilder sbr = new StringBuilder();
             sbr.Append("//===================================================\r\n");
-            sbr.Append("//作    者：边涯  http://www.u3dol.com\r\n");
             sbr.Append("//备    注：此代码为工具生成 请勿手工修改\r\n");
             sbr.Append("//===================================================\r\n");
-            sbr.Append("using YouYouServer.Core.DataTableBase;\r\n");
             sbr.Append("\r\n");
             sbr.Append("namespace YouYouServer.Model.DataTable\r\n");
             sbr.Append("{\r\n");
@@ -575,11 +573,9 @@ namespace ExcelTool
 
             StringBuilder sbr = new StringBuilder();
             sbr.Append("//===================================================\r\n");
-            sbr.Append("//作    者：边涯  http://www.u3dol.com\r\n");
             sbr.Append("//备    注：此代码为工具生成 请勿手工修改\r\n");
             sbr.Append("//===================================================\r\n");
-            sbr.Append("using YouYouServer.Core.DataTableBase;\r\n");
-            sbr.Append("using YouYouServer.Core.Common;\r\n");
+            sbr.Append("using YouYouServer.Common;\r\n");
             sbr.Append("\r\n");
             sbr.Append("namespace YouYouServer.Model.DataTable\r\n");
             sbr.Append("{\r\n");
@@ -592,7 +588,7 @@ namespace ExcelTool
             sbr.Append("        /// <summary>\r\n");
             sbr.Append("        /// 数据表完整路径\r\n");
             sbr.Append("        /// </summary>\r\n");
-            sbr.AppendFormat("        public override string DataTableFullPath => ServerConfig.DataTablePath + \"/{0}.bytes\";\r\n", fileName);
+            sbr.AppendFormat("        public override string DataTableName => \"{0}\";\r\n", fileName);
             sbr.Append("\r\n");
 
 

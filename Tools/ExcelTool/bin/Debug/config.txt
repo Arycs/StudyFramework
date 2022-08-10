@@ -2,5 +2,5 @@
 E:\StudyFramework\Client\Assets\Download\DataTable
 E:\StudyFramework\Client\Assets\YouYouScript\Data\DataTable\Create
 E:\StudyFramework\Tools\存放Lua与服务器的表
-E:\StudyFramework\Tools\存放Lua与服务器的表
-E:\StudyFramework\Tools\存放Lua与服务器的表
+E:\StudyFramework\Server\Release\DataTable
+E:\StudyFramework\Server\YouYouServer\YouYouServer.Commmon\DataTable\Create
