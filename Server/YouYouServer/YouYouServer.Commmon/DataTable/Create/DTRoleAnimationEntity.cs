@@ -1,8 +1,6 @@
 //===================================================
-//作    者：边涯  http://www.u3dol.com
 //备    注：此代码为工具生成 请勿手工修改
 //===================================================
-using YouYouServer.Core.DataTableBase;
 
 namespace YouYouServer.Model.DataTable
 {

@@ -1,9 +1,7 @@
 //===================================================
-//作    者：边涯  http://www.u3dol.com
 //备    注：此代码为工具生成 请勿手工修改
 //===================================================
-using YouYouServer.Core.DataTableBase;
-using YouYouServer.Core.Common;
+using YouYouServer.Common;
 
 namespace YouYouServer.Model.DataTable
 {
@@ -15,7 +13,7 @@ namespace YouYouServer.Model.DataTable
         /// <summary>
         /// 数据表完整路径
         /// </summary>
-        public override string DataTableFullPath => ServerConfig.DataTablePath + "/DTSys_Audio.bytes";
+        public override string DataTableName => "DTSys_Audio";
 
         /// <summary>
         /// 加载列表
