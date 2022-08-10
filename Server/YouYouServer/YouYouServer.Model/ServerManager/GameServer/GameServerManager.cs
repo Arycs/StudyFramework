@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
+using YouYouServer.Commmon;
 using YouYouServer.Common;
 using YouYouServer.Core;
 
@@ -47,7 +48,7 @@ namespace YouYouServer.Model
         {
             m_GatewayServerClientDic = new Dictionary<int, GatewayServerForGameClient>();
             m_PlayerForGameClient = new Dictionary<long, PlayerForGameClient>();
-            CurrServer = ServerConfig.GetCurrServer();
+            CurrServer = ServerConfig.GetCurrServer(); 
 
             //实例化连接到中心服务器代理
             ConnectWorldAgent = new GameConnectWorldAgent();
@@ -57,8 +58,26 @@ namespace YouYouServer.Model
             ConnectNavAgent = new GameConnectNavAgent();
             ConnectNavAgent.RegisterToNavServer();
 
+            TimerManager.Init();
+            ServerTimer time = new ServerTimer(ServerTimerRunType.FixedInterval, () =>
+            {
+                Console.WriteLine(DateTime.Now);
+            }, interval: 20);
+            TimerManager.RegisterServerTimer(time);
+
+            TimerManager.OnTick += TimerManager_OnTick;
+
             StarListen();
         }
+
+        /// <summary>
+        /// 相当于客户端Update, 进行监测
+        /// </summary>
+        private static void TimerManager_OnTick()
+        {
+            //Console.WriteLine(TimerManager.time);
+        }
+
         #region  StarListen启动监听
         /// <summary>
         /// 启动监听

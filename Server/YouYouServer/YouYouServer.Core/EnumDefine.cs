@@ -120,4 +120,35 @@ namespace YouYouServer.Core
         /// </summary>
         Delete = 1
     }
+
+    /// <summary>
+    /// 服务器定时器运行类型
+    /// </summary>
+    public enum ServerTimerRunType
+    {
+        /// <summary>
+        /// 一次性
+        /// </summary>
+        Once,
+        /// <summary>
+        /// 固定间隔
+        /// </summary>
+        FixedInterval,
+        /// <summary>
+        /// 每天
+        /// </summary>
+        EvertyDay,
+        /// <summary>
+        /// 每周
+        /// </summary>
+        EveryWeek,
+        /// <summary>
+        /// 每月
+        /// </summary>
+        EveryMonth,
+        /// <summary>
+        /// 每年
+        /// </summary>
+        EveryYear
+    }
 }

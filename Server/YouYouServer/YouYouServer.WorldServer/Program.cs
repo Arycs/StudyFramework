@@ -20,15 +20,15 @@ namespace YouYouServer.WorldServer
 
             WorldServerManager.Init();
 
-            //while (true)
-            //{
-            //    string key = Console.ReadLine();
-            //    if (key == "R")
-            //    {
-            //        HotFixConfig.Load();
-            //        HotFixHelper.LoadHotFixAssembly();
-            //    }
-            //}
+            while (true)
+            {
+                string key = Console.ReadLine();
+                if (key == "R")
+                {
+                    HotFixConfig.Load();
+                    HotFixHelper.LoadHotFixAssembly();
+                }
+            }
 
         }
     }
