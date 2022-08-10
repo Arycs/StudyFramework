@@ -19456,6 +19456,11 @@ MonoBehaviour:
   Agent: {fileID: 123969202}
   ServerIP: 192.168.1.7
   ServerPort: 29001
+  SceneSettings:
+  - SceneId: 2
+    AddY: 0
+  - SceneId: 3
+    AddY: 200
 --- !u!4 &1555632798
 Transform:
   m_ObjectHideFlags: 0

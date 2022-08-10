@@ -9,6 +9,13 @@ using UnityEngine.AI;
 
 public class NavManager : MonoBehaviour
 {
+    [Serializable]
+    public struct SceneSetting
+    {
+        public int SceneId;
+        public int AddY;
+    }
+
     /// <summary>
     /// 寻路代理
     /// </summary>
@@ -23,6 +30,13 @@ public class NavManager : MonoBehaviour
 
     public static NavManager Instance;
 
+    /// <summary>
+    /// 场景高度设置
+    /// </summary>
+    public SceneSetting[] SceneSettings;
+
+    private Dictionary<int, int> m_SceneSettingsDic;
+
     private void Awake()
     {
         Instance = this;
@@ -33,9 +47,17 @@ public class NavManager : MonoBehaviour
         m_ServerClientList = new LinkedList<ServerClient>();
         path = new NavMeshPath();
 
+        m_SceneSettingsDic = new Dictionary<int, int>();
+        int len = SceneSettings.Length;
+        for (int i = 0; i < len; i++)
+        {
+            SceneSetting sceneSetting = SceneSettings[i];
+            m_SceneSettingsDic[sceneSetting.SceneId] = sceneSetting.AddY;
+        }
+        
         StarListen();
     }
-    
+
     void Update()
     {
         LinkedListNode<ServerClient> curr = m_ServerClientList.First;
@@ -55,6 +77,10 @@ public class NavManager : MonoBehaviour
     /// <returns></returns>
     public NavMeshPath GetNavPath(int sceneId, Vector3 beginPos, Vector3 endPos)
     {
+        m_SceneSettingsDic.TryGetValue(sceneId, out var y);
+        beginPos = beginPos + new Vector3(0, y, 0);
+        endPos = endPos + new Vector3(0, y, 0);
+        
         Agent.Warp(beginPos);
         Agent.CalculatePath(endPos, path);
         return path;
@@ -73,11 +99,11 @@ public class NavManager : MonoBehaviour
     {
         //实例化Socket
         m_ListenSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-        
+
         //向操作系统申请一个可用的IP 和 端口用来通讯
-        m_ListenSocket.Bind(new IPEndPoint(IPAddress.Parse(ServerIP),ServerPort));
+        m_ListenSocket.Bind(new IPEndPoint(IPAddress.Parse(ServerIP), ServerPort));
         m_ListenSocket.Listen(20);
-        Debug.LogFormat("寻路服务器 启动监听{0}成功",m_ListenSocket.LocalEndPoint.ToString());
+        Debug.LogFormat("Nav Server Start Listen {0} Successful", m_ListenSocket.LocalEndPoint.ToString());
 
         Thread mThread = new Thread(ListenClientCallBack);
         mThread.Start();
@@ -99,24 +125,23 @@ public class NavManager : MonoBehaviour
             Socket socket = m_ListenSocket.Accept();
 
             IPEndPoint point = (IPEndPoint) socket.RemoteEndPoint;
-            Debug.LogFormat("游戏服{0}链接成功",point.ToString());
-            
+            Debug.LogFormat("Game Server {0} Connect Successful", point.ToString());
+
             //实例化一个服务器客户端
             AddServerClient(new ServerClient(socket));
         }
     }
-    
+
     #endregion
 
     public void AddServerClient(ServerClient serverClient)
     {
         m_ServerClientList.AddLast(serverClient);
     }
-    
+
     public void RemoveServerClient(ServerClient serverClient)
     {
-        Debug.Log("游戏服断开链接");
+        Debug.Log("Game Server Disconnect");
         m_ServerClientList.Remove(serverClient);
     }
-
 }
