@@ -40,6 +40,11 @@ namespace YouYouServer.Model
         public static GameConnectNavAgent ConnectNavAgent;
 
         /// <summary>
+        /// 游戏服务器的场景管理器
+        /// </summary>
+        public static ISceneManager CurrSceneManager { get; private set; }
+
+        /// <summary>
         /// Soacket 监听
         /// </summary>
         private static Socket m_ListenSocket;
@@ -48,7 +53,7 @@ namespace YouYouServer.Model
         {
             m_GatewayServerClientDic = new Dictionary<int, GatewayServerForGameClient>();
             m_PlayerForGameClient = new Dictionary<long, PlayerForGameClient>();
-            CurrServer = ServerConfig.GetCurrServer(); 
+            CurrServer = ServerConfig.GetCurrServer();
 
             //实例化连接到中心服务器代理
             ConnectWorldAgent = new GameConnectWorldAgent();
@@ -59,13 +64,17 @@ namespace YouYouServer.Model
             ConnectNavAgent.RegisterToNavServer();
 
             TimerManager.Init();
-            ServerTimer time = new ServerTimer(ServerTimerRunType.FixedInterval, () =>
-            {
-                Console.WriteLine(DateTime.Now);
-            }, interval: 20);
-            TimerManager.RegisterServerTimer(time);
 
-            TimerManager.OnTick += TimerManager_OnTick;
+            CurrSceneManager = Activator.CreateInstance(HotFixHelper.HandlerTypeDic[ConstDefine.SceneManager]) as ISceneManager;
+            CurrSceneManager.Init();
+
+            //ServerTimer time = new ServerTimer(ServerTimerRunType.FixedInterval, () =>
+            //{
+            //    Console.WriteLine(DateTime.Now);
+            //}, interval: 20);
+            //TimerManager.RegisterServerTimer(time);
+
+            //TimerManager.OnTick += TimerManager_OnTick;
 
             StarListen();
         }

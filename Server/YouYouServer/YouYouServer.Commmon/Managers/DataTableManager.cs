@@ -1,4 +1,5 @@
 ﻿using System;
+using YouYouServer.Model.DataTable;
 
 namespace YouYouServer.Common
 {
@@ -8,7 +9,9 @@ namespace YouYouServer.Common
     /// </summary>
     public sealed class DataTableManager
     {
-        public static Sys_CodeDBModel Sys_CodeDBModel { get; private set; }
+        public static DTSys_CodeDBModel Sys_CodeDBModel { get; private set; }
+
+        public static DTSys_SceneDBModel Sys_SceneList { get; private set; }
 
         /// <summary>
         /// 初始化
@@ -16,8 +19,11 @@ namespace YouYouServer.Common
         public static void Init()
         {
             //每个表都加载数据
-            Sys_CodeDBModel = new Sys_CodeDBModel();
+            Sys_CodeDBModel = new DTSys_CodeDBModel();
             Sys_CodeDBModel.LoadData();
+
+            Sys_SceneList = new DTSys_SceneDBModel();
+            Sys_SceneList.LoadData();
 
             Console.WriteLine("LoadDataTable Complete");
         }

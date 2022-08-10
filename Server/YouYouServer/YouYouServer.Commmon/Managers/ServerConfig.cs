@@ -42,6 +42,11 @@ namespace YouYouServer.Common
         public static List<Server> ServerList;
 
         /// <summary>
+        /// 场景和游戏服务器的对应字典
+        /// </summary>
+        public static Dictionary<int, int> SceneInServerDic;
+
+        /// <summary>
         /// 初始化
         /// </summary>
         public static void Init()
@@ -59,6 +64,9 @@ namespace YouYouServer.Common
             DataTablePath = doc.Root.Element("DataTablePath").Value;
 
             ServerList = new List<Server>();
+            SceneInServerDic = new Dictionary<int, int>();
+
+            //初始化服务器节点
             IEnumerable<XElement> lst = doc.Root.Elements("Servers").Elements("Item");
             foreach (XElement item in lst)
             {
@@ -69,6 +77,23 @@ namespace YouYouServer.Common
                     Ip = item.Attribute("Ip").Value,
                     Port = item.Attribute("Port").Value.ToInt()
                 });
+            }
+
+            //初始化游戏服务器节点中 配置的场景ID
+            IEnumerable<XElement> lstScenes = doc.Root.Element("Scenes").Elements("Item");
+            foreach (var item in lstScenes)
+            {
+                int sceneId = item.Attribute("SceneId").Value.ToInt();
+                int serverId = item.Attribute("ServerId").Value.ToInt();
+
+                SceneInServerDic[sceneId] = serverId;
+
+                //找到对应的服务器
+                Server server = GetServer(ConstDefine.ServerType.GameServer, serverId);
+                if (server != null)
+                {
+                    server.SceneIds.Add(sceneId);
+                }
             }
 
             Console.WriteLine("ServerConfig Init Complete");
@@ -140,6 +165,11 @@ namespace YouYouServer.Common
         /// </summary>
         public class Server
         {
+            public Server()
+            {
+                SceneIds = new List<int>(100);
+            }
+
             /// <summary>
             /// 服务器类型
             /// </summary>
@@ -159,6 +189,11 @@ namespace YouYouServer.Common
             /// 服务器端口号
             /// </summary>
             public int Port;
+
+            /// <summary>
+            /// 这个服务器需要开启的场景列表
+            /// </summary>
+            public List<int> SceneIds { get; }
         }
         #endregion
 

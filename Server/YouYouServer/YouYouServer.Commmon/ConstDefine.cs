@@ -67,6 +67,8 @@
             RegGameServerSuccess = 1
         }
 
+        public const string SceneManager = "SceneManager";
+
         public const string AccountControllerHandler = "AccountControllerHandler";
         public const string PlayerForWorldClientHandler = "PlayerForWorldClientHandler";
     }

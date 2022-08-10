@@ -19,6 +19,15 @@
     <Item ServerType="2" ServerId="2" Ip="192.168.1.7" Port="1305" />    <!--ServerType = 2 网关服务器2-->
 
     <Item ServerType="3" ServerId="1" Ip="192.168.1.7" Port="29001" />    <!--ServerType = 3 寻路服务器-->
-
   </Servers>
+  <Scenes>
+    <Item SceneId="1" ServerId="1"/>    <!--SceneId 场景ID,与客户端表格相关联 ServerId 游戏服-->
+    <Item SceneId="2" ServerId="1"/>
+    <Item SceneId="3" ServerId="2"/>
+    <Item SceneId="4" ServerId="2"/>
+    <Item SceneId="5" ServerId="2"/>
+    <Item SceneId="6" ServerId="2"/>
+    <Item SceneId="7" ServerId="2"/>
+    <Item SceneId="8" ServerId="2"/>
+  </Scenes>
 </Root>
