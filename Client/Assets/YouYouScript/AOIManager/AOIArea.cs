@@ -96,8 +96,8 @@ public class AOIArea : MonoBehaviour
         aoiAreaData.TopLeftPos_Z = this.TopLeftPos.z;
 
         aoiAreaData.BottomRightPos_X = this.BottomRightPos.x;
-        aoiAreaData.BottomRightPos_X = this.BottomRightPos.y;
-        aoiAreaData.BottomRightPos_X = this.BottomRightPos.z;
+        aoiAreaData.BottomRightPos_Y = this.BottomRightPos.y;
+        aoiAreaData.BottomRightPos_Z = this.BottomRightPos.z;
 
         aoiAreaData.ConnectAreaList = new List<int>();
         foreach (var item in ConnectAreaList)
