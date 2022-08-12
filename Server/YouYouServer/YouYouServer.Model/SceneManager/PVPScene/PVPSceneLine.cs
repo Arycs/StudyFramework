@@ -30,11 +30,17 @@ namespace YouYouServer.Model.ServerManager
         //这个场景线里面 要启动一个线程 用于pvp状态同步
         private Thread m_SyncThread;
 
+        /// <summary>
+        /// 角色列表
+        /// </summary>
+        public LinkedList<RoleClientBase> RoleList { get; }
+
         public PVPSceneLine(int pvpSceneLineId, PVPScene ownerPVPScene)
         {
             PVPSceneLineId = pvpSceneLineId;
             OwnerPVPScene = ownerPVPScene;
             AOIAreaDic = new Dictionary<int, PVPSceneAOIArea>();
+            RoleList = new LinkedList<RoleClientBase>();
 
             InitSceneAOIArea();
 

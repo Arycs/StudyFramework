@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Text;
 using YouYouServer.Core;
+using YouYouServer.Model.ServerManager;
 
 namespace YouYouServer.Model
 {
     /// <summary>
     /// 游戏服务器上的玩家客户端
     /// </summary>
-    public class PlayerClientBase : IDisposable
+    public class PlayerClientBase : RoleClientBase,IDisposable
     {
         /// <summary>
         /// 玩家账号

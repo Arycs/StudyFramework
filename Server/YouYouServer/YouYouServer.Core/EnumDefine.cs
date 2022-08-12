@@ -151,4 +151,35 @@ namespace YouYouServer.Core
         /// </summary>
         EveryYear
     }
+
+    /// <summary>
+    /// 角色状态 
+    /// </summary>
+    public enum RoleState : sbyte
+    {
+        /// <summary>
+        /// 未设置
+        /// </summary>
+        None,
+        /// <summary>
+        /// 待机
+        /// </summary>
+        Idle,
+        /// <summary>
+        /// 跑
+        /// </summary>
+        Run,
+        /// <summary>
+        /// 攻击
+        /// </summary>
+        Attack,
+        /// <summary>
+        /// 受伤
+        /// </summary>
+        Hurt,
+        /// <summary>
+        /// 死亡
+        /// </summary>
+        Die,
+    }
 }

@@ -70,5 +70,6 @@
         public const string AccountControllerHandler = "AccountControllerHandler";
         public const string PlayerForWorldClientHandler = "PlayerForWorldClientHandler";
         public const string PVPSceneLineSyncHandler = "PVPSceneLineSyncHandler";
+        public const string RoleClientHandler = "RoleClientHandler";
     }
 }

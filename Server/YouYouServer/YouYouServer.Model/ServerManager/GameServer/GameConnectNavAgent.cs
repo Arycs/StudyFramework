@@ -29,12 +29,11 @@ namespace YouYouServer.Model
         /// <summary>
         /// 注册到寻路服务器
         /// </summary>
-        public void RegisterToNavServer()
+        public void RegisterToNavServer(Action onComplete)
         {
             TargetServerConnect.Connect(onConnectSuccess: () =>
             {
-                GetNavPath(1, 1, new GS2NS_Vector3() { X = 171.9f, Y = 25.5F, Z = 345.6f },
-                    new GS2NS_Vector3() { X = 172.1f, Y = 25.5f, Z = 331.6f });
+                onComplete?.Invoke();
             });
         }
 

@@ -54,7 +54,10 @@ namespace YouYouServer.Model
         {
             m_GatewayServerClientDic = new Dictionary<int, GatewayServerForGameClient>();
             m_PlayerForGameClient = new Dictionary<long, PlayerForGameClient>();
+
             CurrServer = ServerConfig.GetCurrServer();
+
+            TimerManager.Init();
 
             //实例化连接到中心服务器代理
             ConnectWorldAgent = new GameConnectWorldAgent();
@@ -62,12 +65,11 @@ namespace YouYouServer.Model
 
             //实例化连接到寻路服务器代理 
             ConnectNavAgent = new GameConnectNavAgent();
-            ConnectNavAgent.RegisterToNavServer();
-
-            TimerManager.Init();
-
-            CurrSceneManager = new SceneManager();
-            CurrSceneManager.Init();
+            ConnectNavAgent.RegisterToNavServer(() =>
+            {
+                CurrSceneManager = new SceneManager();
+                CurrSceneManager.Init();
+            });
 
             StarListen();
         }
