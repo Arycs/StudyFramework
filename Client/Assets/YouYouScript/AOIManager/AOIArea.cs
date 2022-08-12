@@ -25,6 +25,16 @@ public class AOIArea : MonoBehaviour
     public List<AOIArea> ConnectAreaList = new List<AOIArea>();
 
     /// <summary>
+    /// 左上角坐标
+    /// </summary>
+    public Vector3 TopLeftPos;
+
+    /// <summary>
+    /// 右下角坐标
+    /// </summary>
+    public Vector3 BottomRightPos;
+
+    /// <summary>
     /// 设置关联区域
     /// </summary>
     public void SetConnectArea()
@@ -49,12 +59,52 @@ public class AOIArea : MonoBehaviour
             }
 
             if (aoiArea.CurrRow >= minRow &&
-                aoiArea.CurrRow <= maxRow && 
+                aoiArea.CurrRow <= maxRow &&
                 aoiArea.CurrColumn >= minColumn &&
                 aoiArea.CurrColumn <= maxColumn)
             {
                 ConnectAreaList.Add(aoiArea);
             }
         }
+
+        SetWorldPos();
+    }
+
+    /// <summary>
+    /// 设置左上角和右下角世界坐标
+    /// </summary>
+    public void SetWorldPos()
+    {
+        TopLeftPos = transform.TransformPoint(-0.5f, 0, 0.5f);
+        BottomRightPos = transform.TransformPoint(0.5f, 0, -0.5f);
+    }
+
+    /// <summary>
+    /// 创建AOI数据
+    /// </summary>
+    /// <returns></returns>
+    public AOIAreaData CreateAOIAreaData()
+    {
+        AOIAreaData aoiAreaData = new AOIAreaData();
+
+        aoiAreaData.AreaId = this.AreaId;
+        aoiAreaData.CurrRow = this.CurrRow;
+        aoiAreaData.CurrColumn = this.CurrColumn;
+
+        aoiAreaData.TopLeftPos_X = this.TopLeftPos.x;
+        aoiAreaData.TopLeftPos_Y = this.TopLeftPos.y;
+        aoiAreaData.TopLeftPos_Z = this.TopLeftPos.z;
+
+        aoiAreaData.BottomRightPos_X = this.BottomRightPos.x;
+        aoiAreaData.BottomRightPos_X = this.BottomRightPos.y;
+        aoiAreaData.BottomRightPos_X = this.BottomRightPos.z;
+
+        aoiAreaData.ConnectAreaList = new List<int>();
+        foreach (var item in ConnectAreaList)
+        {
+            aoiAreaData.ConnectAreaList.Add(item.AreaId);
+        }
+
+        return aoiAreaData;
     }
 }

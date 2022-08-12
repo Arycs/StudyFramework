@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class AOIManager : MonoBehaviour
 {
@@ -73,6 +75,25 @@ public class AOIManager : MonoBehaviour
         {
             item.Value.SetConnectArea();
         }
+    }
+
+    [Button("Create AOI Json Data")]
+    private void CreateAOIAreaData()
+    {
+        string path = $"{Application.dataPath}/SceneAOIJsonData/{SceneManager.GetActiveScene().name}.json";
+
+        List<AOIAreaData> lst = new List<AOIAreaData>();
+
+        foreach (var item in AOIAreaDic)
+        {
+            lst.Add(item.Value.CreateAOIAreaData());
+        }
+
+        string json = LitJson.JsonMapper.ToJson(lst);
+        IOUtil.CreateTextFile(path,json);
+        AssetDatabase.Refresh();
+        
+        Debug.Log("Create Scene AOI Area Data Successful");
     }
     
 
