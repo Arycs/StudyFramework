@@ -6,6 +6,7 @@ using System.Threading;
 using YouYouServer.Commmon;
 using YouYouServer.Common;
 using YouYouServer.Core;
+using YouYouServer.Model.ServerManager;
 
 namespace YouYouServer.Model
 {
@@ -42,7 +43,7 @@ namespace YouYouServer.Model
         /// <summary>
         /// 游戏服务器的场景管理器
         /// </summary>
-        public static ISceneManager CurrSceneManager { get; private set; }
+        public static SceneManager CurrSceneManager { get; private set; }
 
         /// <summary>
         /// Soacket 监听
@@ -65,26 +66,10 @@ namespace YouYouServer.Model
 
             TimerManager.Init();
 
-            CurrSceneManager = Activator.CreateInstance(HotFixHelper.HandlerTypeDic[ConstDefine.SceneManager]) as ISceneManager;
+            CurrSceneManager = new SceneManager();
             CurrSceneManager.Init();
 
-            //ServerTimer time = new ServerTimer(ServerTimerRunType.FixedInterval, () =>
-            //{
-            //    Console.WriteLine(DateTime.Now);
-            //}, interval: 20);
-            //TimerManager.RegisterServerTimer(time);
-
-            //TimerManager.OnTick += TimerManager_OnTick;
-
             StarListen();
-        }
-
-        /// <summary>
-        /// 相当于客户端Update, 进行监测
-        /// </summary>
-        private static void TimerManager_OnTick()
-        {
-            //Console.WriteLine(TimerManager.time);
         }
 
         #region  StarListen启动监听
