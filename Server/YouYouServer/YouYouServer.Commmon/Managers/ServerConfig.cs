@@ -44,7 +44,7 @@ namespace YouYouServer.Common
         /// <summary>
         /// 场景和游戏服务器的对应字典
         /// </summary>
-        public static Dictionary<int, int> SceneInServerDic;
+        public static Dictionary<int, SceneConfig> SceneInServerDic;
 
         /// <summary>
         /// 初始化
@@ -64,7 +64,7 @@ namespace YouYouServer.Common
             DataTablePath = doc.Root.Element("DataTablePath").Value;
 
             ServerList = new List<Server>();
-            SceneInServerDic = new Dictionary<int, int>();
+            SceneInServerDic = new Dictionary<int, SceneConfig>();
 
             //初始化服务器节点
             IEnumerable<XElement> lst = doc.Root.Elements("Servers").Elements("Item");
@@ -85,14 +85,22 @@ namespace YouYouServer.Common
             {
                 int sceneId = item.Attribute("SceneId").Value.ToInt();
                 int serverId = item.Attribute("ServerId").Value.ToInt();
+                string aoiJsonDataPath = item.Attribute("AOIJsonDataPath").Value;
 
-                SceneInServerDic[sceneId] = serverId;
+                SceneConfig configScene = new SceneConfig()
+                {
+                    SceneId = sceneId,
+                    ServerId = serverId,
+                    AOIJsonDataPath = aoiJsonDataPath,
+                };
+
+                SceneInServerDic[sceneId] = configScene;
 
                 //找到对应的服务器
                 Server server = GetServer(ConstDefine.ServerType.GameServer, serverId);
                 if (server != null)
                 {
-                    server.SceneIds.Add(sceneId);
+                    server.Sceneconfigs.Add(configScene);
                 }
             }
 
@@ -167,7 +175,7 @@ namespace YouYouServer.Common
         {
             public Server()
             {
-                SceneIds = new List<int>(100);
+                Sceneconfigs = new List<SceneConfig>(100);
             }
 
             /// <summary>
@@ -193,7 +201,7 @@ namespace YouYouServer.Common
             /// <summary>
             /// 这个服务器需要开启的场景列表
             /// </summary>
-            public List<int> SceneIds { get; }
+            public List<SceneConfig> Sceneconfigs { get; }
         }
         #endregion
 
@@ -249,5 +257,24 @@ namespace YouYouServer.Common
             return GetServer(CurrServerType, CurrServerId);
         }
         #endregion
+
+
+        public class SceneConfig
+        {
+            /// <summary>
+            /// 场景编号
+            /// </summary>
+            public int SceneId;
+
+            /// <summary>
+            /// 服务器编号
+            /// </summary>
+            public int ServerId;
+
+            /// <summary>
+            /// AOI区域数据
+            /// </summary>
+            public string AOIJsonDataPath;
+        }
     }
 }

@@ -5,6 +5,7 @@ using YouYouServer.Common;
 using YouYouServer.Core;
 using YouYouServer.HotFix.Logic.PVPScene;
 using YouYouServer.Model;
+using static YouYouServer.Common.ServerConfig;
 
 namespace YouYouServer.HotFix.Managers
 {
@@ -31,13 +32,13 @@ namespace YouYouServer.HotFix.Managers
             CurrServer = GameServerManager.CurrServer;
             if (CurrServer != null)
             {
-                List<int> lstScenedIds = CurrServer.SceneIds;
-                if (lstScenedIds != null)
+                List<SceneConfig> lstScenedConfigs = CurrServer.Sceneconfigs;
+                if (lstScenedConfigs != null)
                 {
-                    foreach (var sceneId in lstScenedIds)
+                    foreach (var sceneConfig in lstScenedConfigs)
                     {
-                        PVPScene pvpScene = new PVPScene(sceneId);
-                        PVPSceneDic[sceneId] = pvpScene;
+                        PVPScene pvpScene = new PVPScene(sceneConfig);
+                        PVPSceneDic[sceneConfig.SceneId] = pvpScene;
                     }
                 }
             }
