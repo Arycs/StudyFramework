@@ -9,4 +9,10 @@
     <ProjectReference Include="..\YouYouServer.Model\YouYouServer.Model.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="UnityEngine">
+      <HintPath>..\..\..\..\Unity\2019.4.34f1c1\Editor\Data\Managed\UnityEngine.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

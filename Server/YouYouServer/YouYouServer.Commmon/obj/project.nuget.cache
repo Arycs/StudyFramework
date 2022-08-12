@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "pQxMqe0IDnig3DVWEv7DUVisSVdcl3nmqc93jpeRDY6hkrnSZK2Tpiv2DbUK1XsQnnkGWZBfLEwB8kkdkGkEDg==",
+  "dgSpecHash": "3MX86o2Mk5a+4kcxnVnxtLyac5RmYI4TdmKWNrHoucql5W0QG+ndWJjf1+MkvpQvagCP6Voi4OYVUlIiyCIa/g==",
   "success": true,
   "projectFilePath": "E:\\StudyFramework\\Server\\YouYouServer\\YouYouServer.Commmon\\YouYouServer.Commmon.csproj",
   "expectedPackageFiles": [
@@ -14,7 +14,7 @@
     "C:\\Users\\78685\\.nuget\\packages\\mongodb.driver\\2.9.2\\mongodb.driver.2.9.2.nupkg.sha512",
     "C:\\Users\\78685\\.nuget\\packages\\mongodb.driver.core\\2.9.2\\mongodb.driver.core.2.9.2.nupkg.sha512",
     "C:\\Users\\78685\\.nuget\\packages\\netstandard.library\\1.6.1\\netstandard.library.1.6.1.nupkg.sha512",
-    "C:\\Users\\78685\\.nuget\\packages\\newtonsoft.json\\12.0.2\\newtonsoft.json.12.0.2.nupkg.sha512",
+    "C:\\Users\\78685\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
     "C:\\Users\\78685\\.nuget\\packages\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl\\4.3.2\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl.4.3.2.nupkg.sha512",
     "C:\\Users\\78685\\.nuget\\packages\\runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl\\4.3.2\\runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl.4.3.2.nupkg.sha512",
     "C:\\Users\\78685\\.nuget\\packages\\runtime.fedora.24-x64.runtime.native.system.security.cryptography.openssl\\4.3.2\\runtime.fedora.24-x64.runtime.native.system.security.cryptography.openssl.4.3.2.nupkg.sha512",

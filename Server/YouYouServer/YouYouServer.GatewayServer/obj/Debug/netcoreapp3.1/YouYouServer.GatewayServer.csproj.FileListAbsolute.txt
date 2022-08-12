@@ -51,3 +51,5 @@ E:\StudyFramework\Server\YouYouServer\YouYouServer.GatewayServer\obj\Debug\netco
 E:\StudyFramework\Server\YouYouServer\YouYouServer.GatewayServer\obj\Debug\netcoreapp3.1\YouYouServer.GatewayServer.dll
 E:\StudyFramework\Server\YouYouServer\YouYouServer.GatewayServer\obj\Debug\netcoreapp3.1\YouYouServer.GatewayServer.pdb
 E:\StudyFramework\Server\YouYouServer\YouYouServer.GatewayServer\obj\Debug\netcoreapp3.1\YouYouServer.GatewayServer.genruntimeconfig.cache
+E:\StudyFramework\Server\YouYouServer\YouYouServer.GatewayServer\bin\Debug\netcoreapp3.1\UnityEngine.dll
+E:\StudyFramework\Server\YouYouServer\YouYouServer.GatewayServer\bin\Debug\netcoreapp3.1\UnityEngine.xml

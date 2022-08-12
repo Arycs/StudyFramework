@@ -19,3 +19,5 @@ E:\StudyFramework\Server\YouYouServer\YouYouServer.HotFix\obj\Debug\netcoreapp3.
 E:\StudyFramework\Server\YouYouServer\YouYouServer.HotFix\obj\Debug\netcoreapp3.1\YouYouServer.HotFix.csproj.CopyComplete
 E:\StudyFramework\Server\YouYouServer\YouYouServer.HotFix\obj\Debug\netcoreapp3.1\YouYouServer.HotFix.dll
 E:\StudyFramework\Server\YouYouServer\YouYouServer.HotFix\obj\Debug\netcoreapp3.1\YouYouServer.HotFix.pdb
+E:\StudyFramework\Server\YouYouServer\YouYouServer.HotFix\bin\Debug\netcoreapp3.1\UnityEngine.dll
+E:\StudyFramework\Server\YouYouServer\YouYouServer.HotFix\bin\Debug\netcoreapp3.1\UnityEngine.xml

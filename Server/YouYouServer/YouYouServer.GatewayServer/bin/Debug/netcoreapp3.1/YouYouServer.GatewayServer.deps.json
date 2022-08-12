@@ -8,7 +8,8 @@
     ".NETCoreApp,Version=v3.1": {
       "YouYouServer.GatewayServer/1.0.0": {
         "dependencies": {
-          "YouYouServer.Model": "1.0.0"
+          "YouYouServer.Model": "1.0.0",
+          "UnityEngine": "0.0.0.0"
         },
         "runtime": {
           "YouYouServer.GatewayServer.dll": {}
@@ -16,7 +17,7 @@
       },
       "CSRedisCore/3.1.6": {
         "dependencies": {
-          "Newtonsoft.Json": "12.0.2",
+          "Newtonsoft.Json": "12.0.3",
           "SafeObjectPool": "2.1.1",
           "System.ValueTuple": "4.5.0"
         },
@@ -159,11 +160,11 @@
           "System.Xml.XDocument": "4.3.0"
         }
       },
-      "Newtonsoft.Json/12.0.2": {
+      "Newtonsoft.Json/12.0.3": {
         "runtime": {
           "lib/netstandard2.0/Newtonsoft.Json.dll": {
             "assemblyVersion": "12.0.0.0",
-            "fileVersion": "12.0.2.23222"
+            "fileVersion": "12.0.3.23909"
           }
         }
       },
@@ -1067,7 +1068,8 @@
           "CSRedisCore": "3.1.6",
           "MongoDB.Bson": "2.9.2",
           "MongoDB.Driver": "2.9.2",
-          "MongoDB.Driver.Core": "2.9.2"
+          "MongoDB.Driver.Core": "2.9.2",
+          "Newtonsoft.Json": "12.0.3"
         },
         "runtime": {
           "YouYouServer.Core.dll": {}
@@ -1080,6 +1082,14 @@
         },
         "runtime": {
           "YouYouServer.Model.dll": {}
+        }
+      },
+      "UnityEngine/0.0.0.0": {
+        "runtime": {
+          "UnityEngine.dll": {
+            "assemblyVersion": "0.0.0.0",
+            "fileVersion": "0.0.0.0"
+          }
         }
       },
       "Google.Protobuf/3.7.0.0": {
@@ -1176,12 +1186,12 @@
       "path": "netstandard.library/1.6.1",
       "hashPath": "netstandard.library.1.6.1.nupkg.sha512"
     },
-    "Newtonsoft.Json/12.0.2": {
+    "Newtonsoft.Json/12.0.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-rTK0s2EKlfHsQsH6Yx2smvcTCeyoDNgCW7FEYyV01drPlh2T243PR2DiDXqtC5N4GDm4Ma/lkxfW5a/4793vbA==",
-      "path": "newtonsoft.json/12.0.2",
-      "hashPath": "newtonsoft.json.12.0.2.nupkg.sha512"
+      "sha512": "sha512-6mgjfnRB4jKMlzHSl+VD+oUc1IebOZabkbyWj2RiTgWwYPPuaK1H97G1sHqGwPlS5npiF5Q0OrxN1wni2n5QWg==",
+      "path": "newtonsoft.json/12.0.3",
+      "hashPath": "newtonsoft.json.12.0.3.nupkg.sha512"
     },
     "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.2": {
       "type": "package",
@@ -1860,6 +1870,11 @@
     },
     "YouYouServer.Model/1.0.0": {
       "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "UnityEngine/0.0.0.0": {
+      "type": "reference",
       "serviceable": false,
       "sha512": ""
     },

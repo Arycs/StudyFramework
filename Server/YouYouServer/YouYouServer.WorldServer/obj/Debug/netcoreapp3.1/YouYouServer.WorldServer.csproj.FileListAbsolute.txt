@@ -59,3 +59,5 @@ E:\StudyFramework\Server\YouYouServer\YouYouServer.WorldServer\obj\Debug\netcore
 E:\StudyFramework\Server\YouYouServer\YouYouServer.WorldServer\obj\Debug\netcoreapp3.1\YouYouServer.WorldServer.dll
 E:\StudyFramework\Server\YouYouServer\YouYouServer.WorldServer\obj\Debug\netcoreapp3.1\YouYouServer.WorldServer.pdb
 E:\StudyFramework\Server\YouYouServer\YouYouServer.WorldServer\obj\Debug\netcoreapp3.1\YouYouServer.WorldServer.genruntimeconfig.cache
+E:\StudyFramework\Server\YouYouServer\YouYouServer.WorldServer\bin\Debug\netcoreapp3.1\UnityEngine.dll
+E:\StudyFramework\Server\YouYouServer\YouYouServer.WorldServer\bin\Debug\netcoreapp3.1\UnityEngine.xml
