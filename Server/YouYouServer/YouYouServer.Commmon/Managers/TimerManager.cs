@@ -12,9 +12,9 @@ namespace YouYouServer.Commmon
     public static class TimerManager
     {
         #region 同步定时器 (模拟客户端OnUpdate)
-        private static Timer m_TickTimer;
+        //private static Timer m_TickTimer;
 
-        public static event Action OnTick;
+        //public static event Action OnTick;
 
         /// <summary>
         /// 开始tick的时间
@@ -52,13 +52,20 @@ namespace YouYouServer.Commmon
             m_SecondTimer.Enabled = true;
 
             m_BeginTickTime = DateTime.UtcNow.Ticks;
-            m_TickTimer = new Timer();
-            m_TickTimer.Elapsed += (object sender, ElapsedEventArgs e) =>
-            {
-                OnTick?.Invoke();
-            }; 
-            m_TickTimer.Interval = 20; // 间隔模拟帧率, 实际根据游戏情况具体设置20-40
-            m_TickTimer.Enabled = true;
+
+
+            //定时器在工作时,其实也相当于开多线程的方式执行,即成勋在执行过程中,定时器是严格按照你定义的时间间隔来执行的
+            //在当前的任务中没有执行完时,定时器回重新开一个线程在执行任务,定时器不会负责检测前面一个任务是否执行完毕
+            //他是应该回检查当前的线程是否执行完毕,以备下一次任务执行
+
+            //取消tick定时器, 防止线程不可控
+            //m_TickTimer = new Timer();
+            //m_TickTimer.Elapsed += (object sender, ElapsedEventArgs e) =>
+            //{
+            //    OnTick?.Invoke();
+            //}; 
+            //m_TickTimer.Interval = 20; // 间隔模拟帧率, 实际根据游戏情况具体设置20-40
+            //m_TickTimer.Enabled = true;
         }
 
         /// <summary>
