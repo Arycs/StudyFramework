@@ -42,6 +42,11 @@ namespace YouYouServer.Model.ServerManager
         /// </summary>
         public Dictionary<int, PVPSceneSpawnMonsterPoint> SpawnMonsterPointDic;
 
+        /// <summary>
+        /// 到上一帧的时间
+        /// </summary>
+        public float Deltatime = 0;
+
         public PVPSceneLine(int pvpSceneLineId, PVPScene ownerPVPScene)
         {
             PVPSceneLineId = pvpSceneLineId;
