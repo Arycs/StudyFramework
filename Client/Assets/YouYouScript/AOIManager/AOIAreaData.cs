@@ -33,7 +33,6 @@ public class AOIAreaData
     /// 左上角坐标
     /// </summary>
     public double TopLeftPos_X;
-
     public double TopLeftPos_Y;
     public double TopLeftPos_Z;
 
@@ -41,7 +40,6 @@ public class AOIAreaData
     /// 右下角坐标
     /// </summary>
     public double BottomRightPos_X;
-
     public double BottomRightPos_Y;
     public double BottomRightPos_Z;
 }
