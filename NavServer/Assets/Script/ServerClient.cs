@@ -49,6 +49,11 @@ public class ServerClient
     {
         GS2NS_GetNavPath proto = GS2NS_GetNavPath.Parser.ParseFrom(buffer);
 
+        Debug.LogFormat($"Scene Id => {proto.SceneId}");
+        Debug.LogFormat($"Task Id => {proto.TaskId}");
+        Debug.LogFormat($"Begin Pos => {proto.BeginPos.X}, {proto.BeginPos.Y}, {proto.BeginPos.Z}");
+        Debug.LogFormat($"End Pos => {proto.EndPos.X}, {proto.EndPos.Y}, {proto.EndPos.Z}");
+
         NS2GS_ReturnNavPath retProto = new NS2GS_ReturnNavPath();
 
         NavMeshPath path = NavManager.Instance.GetNavPath(proto.SceneId,
