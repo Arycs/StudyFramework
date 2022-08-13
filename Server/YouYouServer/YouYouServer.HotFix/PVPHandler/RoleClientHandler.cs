@@ -1,17 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using UnityEngine;
+using YouYou.Proto;
+using YouYouServer.Commmon;
 using YouYouServer.Common;
 using YouYouServer.Core;
+using YouYouServer.Model;
 using YouYouServer.Model.IHandler;
 using YouYouServer.Model.ServerManager;
+using YouYouServer.Model.ServerManager.Client.MonsterClient;
 
 namespace YouYouServer.HotFix.PVPHandler
 {
     [Handler(ConstDefine.RoleClientHandler)]
-    public class RoleClientHandler :IRoleClientHandler
+    public class RoleClientHandler : IRoleClientHandler
     {
-        public void Init(RoleClientBase roleClientBase) { }
+        public float m_EnterIdleTime;
+
+        public MonsterClient m_MonsterClient;
+
+        public void Init(RoleClientBase roleClientBase)
+        {
+            m_MonsterClient = (MonsterClient)roleClientBase;
+        }
 
         public void Attack_OnEnter()
         {
@@ -56,6 +68,7 @@ namespace YouYouServer.HotFix.PVPHandler
         public void Idle_OnEnter()
         {
             Console.WriteLine("Idle_OnEnter");
+            m_EnterIdleTime = TimerManager.time;
         }
 
         public void Idle_OnLeave()
@@ -64,6 +77,23 @@ namespace YouYouServer.HotFix.PVPHandler
 
         public void Idle_OnUpdate()
         {
+            //待机 60 秒巡逻
+            if (TimerManager.time > m_EnterIdleTime + 10)
+            {
+                m_EnterIdleTime = TimerManager.time;
+                //随机找一个巡逻点
+                Vector3 targetPos = m_MonsterClient.CurrSpawnMonsterPoint.PatrolPosList[new System.Random().Next(0, m_MonsterClient.CurrSpawnMonsterPoint.PatrolPosList.Count)];
+
+                m_MonsterClient.TargetPos = targetPos;
+
+                GameServerManager.ConnectNavAgent.GetNavPath(m_MonsterClient.CurrSceneId, m_MonsterClient.CurrPos, m_MonsterClient.TargetPos, (NS2GS_ReturnNavPath proto) =>
+                 {
+                     Console.WriteLine(proto.TaskId);
+                     Console.WriteLine(proto.Valid);
+                     Console.WriteLine(proto.Path);
+
+                 });
+            }
         }
 
         public void OnUpdate()

@@ -71,5 +71,6 @@
         public const string PlayerForWorldClientHandler = "PlayerForWorldClientHandler";
         public const string PVPSceneLineSyncHandler = "PVPSceneLineSyncHandler";
         public const string RoleClientHandler = "RoleClientHandler";
+        public const string PVPSceneSpawnMonsterPointHandler = "PVPSceneSpawnMonsterPointHandler";
     }
 }

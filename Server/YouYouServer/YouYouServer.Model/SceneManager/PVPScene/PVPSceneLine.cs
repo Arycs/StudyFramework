@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using YouYouServer.Common;
+using YouYouServer.Model.DataTable;
 using YouYouServer.Model.IHandler;
+using YouYouServer.Model.SceneManager.PVPScene;
 
 namespace YouYouServer.Model.ServerManager
 {
@@ -35,14 +37,21 @@ namespace YouYouServer.Model.ServerManager
         /// </summary>
         public LinkedList<RoleClientBase> RoleList { get; }
 
+        /// <summary>
+        /// 刷怪点字典
+        /// </summary>
+        public Dictionary<int, PVPSceneSpawnMonsterPoint> SpawnMonsterPointDic;
+
         public PVPSceneLine(int pvpSceneLineId, PVPScene ownerPVPScene)
         {
             PVPSceneLineId = pvpSceneLineId;
             OwnerPVPScene = ownerPVPScene;
             AOIAreaDic = new Dictionary<int, PVPSceneAOIArea>();
             RoleList = new LinkedList<RoleClientBase>();
+            SpawnMonsterPointDic = new Dictionary<int, PVPSceneSpawnMonsterPoint>();
 
             InitSceneAOIArea();
+            InitSpawnMonsterPoint();
 
             HotFixHelper.OnLoadAssembly += InitPVPSceneLineSyncHandler;
             InitPVPSceneLineSyncHandler();
@@ -83,6 +92,35 @@ namespace YouYouServer.Model.ServerManager
 
             Console.WriteLine("InitPlayerForWorldClientHandler");
         }
+
+        /// <summary>
+        /// 初始化刷怪点
+        /// </summary>
+        public void InitSpawnMonsterPoint()
+        {
+            List<DTPVPSceneMonsterPointEntity> lst = DataTableManager.PVPSceneMonsterPointList.GetListBySceneId(OwnerPVPScene.CurrSysScene.Id);
+            foreach (var item in lst)
+            {
+                PVPSceneSpawnMonsterPoint pvpSceneSpawnMonsterPoint = new PVPSceneSpawnMonsterPoint(this);
+                pvpSceneSpawnMonsterPoint.Id = item.Id;
+                pvpSceneSpawnMonsterPoint.MonsterId = item.MonsterId;
+                pvpSceneSpawnMonsterPoint.IsFixTime = item.IsFixTime;
+                pvpSceneSpawnMonsterPoint.FixTime_Hour = item.FixTime_Hour;
+                pvpSceneSpawnMonsterPoint.FixTime_Minute = item.FixTime_Minute;
+                pvpSceneSpawnMonsterPoint.interval = item.Interval;
+                pvpSceneSpawnMonsterPoint.BornPos = new UnityEngine.Vector3(item.BornPos_1, item.BornPos_2, item.BornPos_3);
+
+                // 三个巡逻点 
+                pvpSceneSpawnMonsterPoint.PatrolPosList.Add(new UnityEngine.Vector3(item.PatrolX_1, item.PatrolY_1, item.PatrolZ_1));
+                pvpSceneSpawnMonsterPoint.PatrolPosList.Add(new UnityEngine.Vector3(item.PatrolX_2, item.PatrolY_2, item.PatrolZ_3));
+                pvpSceneSpawnMonsterPoint.PatrolPosList.Add(new UnityEngine.Vector3(item.PatrolX_3, item.PatrolY_3, item.PatrolZ_3));
+                //出生点也是一个巡逻点
+                pvpSceneSpawnMonsterPoint.PatrolPosList.Add(pvpSceneSpawnMonsterPoint.BornPos);
+
+                SpawnMonsterPointDic[pvpSceneSpawnMonsterPoint.Id] = pvpSceneSpawnMonsterPoint;
+            }
+        }
+
 
         /// <summary>
         /// 同步PVP状态

@@ -13,6 +13,8 @@ namespace YouYouServer.Common
 
         public static DTSys_SceneDBModel Sys_SceneList { get; private set; }
 
+        public static DTPVPSceneMonsterPointDBModel PVPSceneMonsterPointList { get; private set; }
+
         /// <summary>
         /// 初始化
         /// </summary>
@@ -24,6 +26,9 @@ namespace YouYouServer.Common
 
             Sys_SceneList = new DTSys_SceneDBModel();
             Sys_SceneList.LoadData();
+
+            PVPSceneMonsterPointList = new DTPVPSceneMonsterPointDBModel();
+            PVPSceneMonsterPointList.LoadData();
 
             Console.WriteLine("LoadDataTable Complete");
         }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using UnityEngine;
 using YouYou.Proto;
 using YouYouServer.Common;
 using YouYouServer.Core;
@@ -9,8 +10,15 @@ namespace YouYouServer.Model
 {
     public class GameConnectNavAgent : ConnectAgentBase
     {
+        /// <summary>
+        /// 寻路回调字典
+        /// </summary>
+        private Dictionary<long, Action<NS2GS_ReturnNavPath>> m_ReturnNavPathDic;
+
         public GameConnectNavAgent()
         {
+            m_ReturnNavPathDic = new Dictionary<long, Action<NS2GS_ReturnNavPath>>();
+
             List<ServerConfig.Server> servers = ServerConfig.GetServerByType(ConstDefine.ServerType.NavServer);
             if (servers != null && servers.Count == 1)
             {
@@ -20,7 +28,7 @@ namespace YouYouServer.Model
             }
             else
             {
-                LoggerMgr.Log(LoggerLevel.LogError, LogType.SysLog, "No NavServer");
+                LoggerMgr.Log(LoggerLevel.LogError, Common.LogType.SysLog, "No NavServer");
             }
         }
 
@@ -45,13 +53,18 @@ namespace YouYouServer.Model
             TargetServerConnect.EventDispatcher.AddEventListener(ProtoIdDefine.Proto_NS2GS_ReturnNavPath, OnNS2GS_ReturnNavPath);
         }
 
-        private void GetNavPath(int taskId, int sceneId, GS2NS_Vector3 beginPos, GS2NS_Vector3 endPos)
+        public void GetNavPath(int sceneId, Vector3 beginPos, Vector3 endPos, Action<NS2GS_ReturnNavPath> onComplete)
         {
             GS2NS_GetNavPath proto = new GS2NS_GetNavPath();
-            proto.TaskId = taskId;
+
+            proto.TaskId = GenerateTaskId();
             proto.SceneId = sceneId;
-            proto.BeginPos = beginPos;
-            proto.EndPos = endPos;
+
+
+            proto.BeginPos = new GS2NS_Vector3() { X = beginPos.x, Y = beginPos.y, Z = beginPos.z };
+            proto.EndPos = new GS2NS_Vector3() { X = endPos.x, Y = endPos.y, Z = endPos.z };
+
+            m_ReturnNavPathDic[proto.TaskId] = onComplete;
 
             TargetServerConnect.ClientSocket.SendMsg(proto);
         }
@@ -60,8 +73,17 @@ namespace YouYouServer.Model
         {
             NS2GS_ReturnNavPath proto = NS2GS_ReturnNavPath.Parser.ParseFrom(buffer);
 
-            Console.WriteLine(proto.Valid);
-            Console.WriteLine(proto.Path);
+            if (m_ReturnNavPathDic.TryGetValue(proto.TaskId, out Action<NS2GS_ReturnNavPath> onComplete))
+            {
+                onComplete?.Invoke(proto);
+                m_ReturnNavPathDic.Remove(proto.TaskId);
+            }
+        }
+
+        private long GenerateTaskId()
+        {
+            byte[] buffer = Guid.NewGuid().ToByteArray();
+            return BitConverter.ToInt64(buffer, 0);
         }
 
         public override void RemoveEventListener()

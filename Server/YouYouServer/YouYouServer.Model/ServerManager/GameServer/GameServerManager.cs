@@ -43,7 +43,7 @@ namespace YouYouServer.Model
         /// <summary>
         /// 游戏服务器的场景管理器
         /// </summary>
-        public static SceneManager CurrSceneManager { get; private set; }
+        public static ServerManager.SceneManager CurrSceneManager { get; private set; }
 
         /// <summary>
         /// Soacket 监听
@@ -67,7 +67,7 @@ namespace YouYouServer.Model
             ConnectNavAgent = new GameConnectNavAgent();
             ConnectNavAgent.RegisterToNavServer(() =>
             {
-                CurrSceneManager = new SceneManager();
+                CurrSceneManager = new ServerManager.SceneManager();
                 CurrSceneManager.Init();
             });
 

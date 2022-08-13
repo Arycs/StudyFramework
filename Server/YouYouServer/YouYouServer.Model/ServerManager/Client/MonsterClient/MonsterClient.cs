@@ -1,13 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using UnityEngine;
 using YouYouServer.Common;
 using YouYouServer.Model.IHandler;
+using YouYouServer.Model.SceneManager.PVPScene;
 
 namespace YouYouServer.Model.ServerManager.Client.MonsterClient
 {
-    public class MonsterClient :RoleClientBase,IDisposable
+    public class MonsterClient :RoleClientBase, IDisposable
     {
+        /// <summary>
+        /// 死亡委托
+        /// </summary>
+        public Action OnDie;
+
+        public PVPSceneSpawnMonsterPoint CurrSpawnMonsterPoint;
+
+        /// <summary>
+        /// 当前场景编号
+        /// </summary>
+        public int CurrSceneId => CurrSpawnMonsterPoint.OwnerPVPSceneLine.OwnerPVPScene.CurrSceneConfig.SceneId;
+
+        /// <summary>
+        /// 当前坐标
+        /// </summary>
+        public Vector3 CurrPos;
+
+        /// <summary>
+        /// 目标坐标
+        /// </summary>
+        public Vector3 TargetPos;
+
         public MonsterClient()
         {
             CurrFsmManager = new RoleFsm.RoleFsm(this);
