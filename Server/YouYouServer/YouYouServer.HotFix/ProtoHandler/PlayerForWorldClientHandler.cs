@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using YouYou.Proto;
 using YouYouServer.Common;
+using YouYouServer.Common.DBData;
 using YouYouServer.Core;
 using YouYouServer.Model;
 
@@ -25,6 +26,7 @@ namespace YouYouServer.HotFix
         }
 
         #region AddEventListener 添加消息包监听
+
         /// <summary>
         /// 添加消息包监听
         /// </summary>
@@ -47,7 +49,8 @@ namespace YouYouServer.HotFix
                     if (null != handlerMessage)
                     {
                         EventDispatcher.OnActionHandler actionHandler =
-                            (EventDispatcher.OnActionHandler)Delegate.CreateDelegate(typeof(EventDispatcher.OnActionHandler), this, methodInfo);
+                            (EventDispatcher.OnActionHandler) Delegate.CreateDelegate(
+                                typeof(EventDispatcher.OnActionHandler), this, methodInfo);
                         m_HandlerMessageDic[handlerMessage.ProtoId] = actionHandler;
                         m_PlayerForWorldClient.EventDispatcher.AddEventListener(handlerMessage.ProtoId, actionHandler);
                     }
@@ -56,9 +59,11 @@ namespace YouYouServer.HotFix
                 num++;
             }
         }
+
         #endregion
 
         #region RemoveEventListener 移除消息包监听
+
         /// <summary>
         /// 移除消息包监听
         /// </summary>
@@ -67,22 +72,48 @@ namespace YouYouServer.HotFix
             var enumerator = m_HandlerMessageDic.GetEnumerator();
             while (enumerator.MoveNext())
             {
-                m_PlayerForWorldClient.EventDispatcher.RemoveEventListener(enumerator.Current.Key, enumerator.Current.Value);
+                m_PlayerForWorldClient.EventDispatcher.RemoveEventListener(enumerator.Current.Key,
+                    enumerator.Current.Value);
             }
+
             m_HandlerMessageDic.Clear();
             m_HandlerMessageDic = null;
         }
+
         #endregion
 
-        [HandlerMessage(ProtoIdDefine.Proto_C2WS_CreateRole)]
+        [HandlerMessage(ProtoIdDefine.Proto_C2WS_GetRoleList)]
+        private async void OnGetRoleListAsync(byte[] buffer)
+        {
+            List<RoleBriefEntity> lst = await RoleManager.GetRoleListAsync(m_PlayerForWorldClient.AccountId);
+
+            WS2C_ReturnRoleList retProto = new WS2C_ReturnRoleList();
+            foreach (var item in lst)
+            {
+                retProto.RoleList.Add(new WS2C_ReturnRoleList.Types.WS2C_ReturnRoleList_Item()
+                {
+                    RoleId = item.RoleId,
+                    JobId = item.JobId,
+                    NickName = item.NickName,
+                    Sex = item.Sex,
+                    Level = item.Level
+                });
+            }
+
+            m_PlayerForWorldClient.SendCarryToClient(retProto);
+        }
+
+
         /// <summary>
         /// 客户端发送创建角色消息
         /// </summary>
         /// <param name="buffer"></param>
+        [HandlerMessage(ProtoIdDefine.Proto_C2WS_CreateRole)]
         private async void OnCreateRoleAsync(byte[] buffer)
         {
-            C2WS_CreateRole createRoleProto = (C2WS_CreateRole)C2WS_CreateRole.Descriptor.Parser.ParseFrom(buffer);
-            m_PlayerForWorldClient.CurrRole = await RoleManager.CreateRoleAsync(m_PlayerForWorldClient.AccountId, (byte)createRoleProto.JobId, (byte)createRoleProto.Sex, createRoleProto.NickName);
+            C2WS_CreateRole createRoleProto = (C2WS_CreateRole) C2WS_CreateRole.Descriptor.Parser.ParseFrom(buffer);
+            m_PlayerForWorldClient.CurrRole = await RoleManager.CreateRoleAsync(m_PlayerForWorldClient.AccountId,
+                (byte) createRoleProto.JobId, (byte) createRoleProto.Sex, createRoleProto.NickName);
 
             WS2C_ReturnCreateRole retProto = new WS2C_ReturnCreateRole();
             if (m_PlayerForWorldClient.CurrRole == null)

@@ -106,7 +106,7 @@ namespace YouYouServer.Model
         /// </summary>
         /// <param name="gameServerClient"></param>
         public static void RegisterGameServerClient(GameServerClient gameServerClient) {
-            LoggerMgr.Log(Core.LoggerLevel.Log, LogType.SysLog, "RegGameServer Success ServerId={1}", gameServerClient.ServerId);
+            LoggerMgr.Log(Core.LoggerLevel.Log, LogType.SysLog, "RegGameServer Success ServerId={0}", gameServerClient.ServerId);
             m_GameServerClientDic.Add(gameServerClient.ServerId, gameServerClient);
 
             CheckAllServerClientRegisterComplete();

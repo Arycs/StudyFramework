@@ -24,12 +24,12 @@ namespace YouYouServer.Common
         /// <summary>
         /// 职业编号
         /// </summary>
-        public int JobId;
+        public byte JobId;
 
         /// <summary>
         /// 性别
         /// </summary>
-        public int Sex;
+        public byte Sex;
 
         /// <summary>
         /// 昵称

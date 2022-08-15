@@ -1,7 +1,9 @@
 ﻿using MongoDB.Driver;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using YouYouServer.Common;
+using YouYouServer.Common.DBData;
 using YouYouServer.Core;
 using YouYouServer.Model;
 
@@ -9,6 +11,48 @@ namespace YouYouServer.HotFix
 {
     public sealed class RoleManager
     {
+        public static async Task<List<RoleBriefEntity>> GetRoleListAsync(long accountId)
+        {
+            string searchRoleKey = $"{ServerConfig.AreaServerId}_{accountId}_SearchRole";
+            List<RoleBriefEntity> retList = new List<RoleBriefEntity>();
+            long len = await YFRedisHelper.LLenAsync(searchRoleKey);
+            if (len > 0)
+            {
+                RoleBriefEntity[] retArr = await YFRedisHelper.LRangeAsync<RoleBriefEntity>(searchRoleKey, 0, -1);
+                foreach (var item in retArr)
+                {
+                    retList.Add(item);
+                }
+            }
+            else
+            {
+                //去Mongo查看
+                List<RoleEntity> lst =
+                    await DBModelMgr.RoleDBModel.GetListAsync(
+                        Builders<RoleEntity>.Filter.Eq(a => a.AccountId, accountId));
+                if (lst!=null && lst.Count > 0)
+                {
+                    foreach (var item in lst)
+                    {
+                        RoleBriefEntity roleBriefEntity = new RoleBriefEntity
+                        {
+                            RoleId = item.YFId,
+                            JobId = item.JobId,
+                            Sex = item.Sex,
+                            NickName = item.NickName,
+                            Level = item.Level
+                        };
+                        retList.Add(roleBriefEntity);
+                        
+                        //加入redis
+                        await YFRedisHelper.LPushAsync(searchRoleKey, roleBriefEntity);
+                    }
+                }
+            }
+
+            return retList;
+        }
+
         /// <summary>
         /// 异步创建角色
         /// </summary>
