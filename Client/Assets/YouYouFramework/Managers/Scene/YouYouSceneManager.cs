@@ -25,7 +25,7 @@ namespace YouYou
         /// 当前场景数据实体
         /// </summary>
         public DTSys_SceneEntity CurrSceneEntity { get; private set; }
-        
+
         /// <summary>
         /// 当前场景明细
         /// </summary>
@@ -66,7 +66,6 @@ namespace YouYou
         /// </summary>
         private BaseAction m_OnComplete = null;
 
-       
 
         public YouYouSceneManager()
         {
@@ -79,14 +78,13 @@ namespace YouYou
         /// </summary>
         public override void Init()
         {
-
         }
 
         /// <summary>
         /// 加载场景
         /// </summary>
         /// <param name="sceneId"></param>
-        public void LoadScene(int sceneId,bool showLoadingForm = false,BaseAction onComplete = null)
+        public void LoadScene(int sceneId, bool showLoadingForm = false, BaseAction onComplete = null)
         {
             if (m_CurrSceneIsLoading)
             {
@@ -99,6 +97,7 @@ namespace YouYou
                 GameEntry.LogError("正在重复加载场景{0}", sceneId);
                 return;
             }
+
             //停止BGM
             GameEntry.Audio.StopBGM();
 
@@ -108,7 +107,7 @@ namespace YouYou
             if (showLoadingForm)
             {
                 //加载Loading 
-                GameEntry.UI.OpenUIForm(UIFormId.Loading,onOpen: (UIFormBase form) => { DoLoadScene(sceneId); });
+                GameEntry.UI.OpenUIForm(UIFormId.Loading, onOpen: (UIFormBase form) => { DoLoadScene(sceneId); });
             }
             else
             {
@@ -167,7 +166,8 @@ namespace YouYou
                 m_SceneLoaderList.AddLast(routine);
 
                 DTSys_SceneDetailEntity entity = m_CurrSceneDetailList[i];
-                routine.LoadScene(entity.Id, entity.ScenePath, OnLoadSceneProgressUpdate, OnLoadSceneComplete);
+                routine.LoadScene(entity.Id, entity.SceneName, entity.ScenePath, OnLoadSceneProgressUpdate,
+                    OnLoadSceneComplete);
             }
         }
 
@@ -264,11 +264,10 @@ namespace YouYou
 
             return progress;
         }
-        
+
 
         public void Dispose()
         {
-
         }
     }
 }

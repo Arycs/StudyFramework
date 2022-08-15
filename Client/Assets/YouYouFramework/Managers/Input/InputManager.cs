@@ -51,11 +51,11 @@ namespace YouYou
             //此处判断平台
 #if UNITY_EDITOR
             m_InputCtrl = new StandalonInputCtrl(
-                t => OnClick(t),
-                t => OnBeginDrag(t),
-                t => OnEndDrag(t),
-                (t1, t2) => OnDrag(t1, t2),
-                t => OnZoom(t)
+                t => OnClick?.Invoke(t),
+                t => OnBeginDrag?.Invoke(t),
+                t => OnEndDrag?.Invoke(t),
+                (t1, t2) => OnDrag?.Invoke(t1, t2),
+                t => OnZoom?.Invoke(t)
             );
 #else
             //移动端

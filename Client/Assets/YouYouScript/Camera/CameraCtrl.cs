@@ -54,6 +54,11 @@ public class CameraCtrl : MonoBehaviour, IUpdateComponent
     /// </summary>
     [SerializeField] public Camera MainCamera;
 
+    /// <summary>
+    /// UI摄像机
+    /// </summary>
+    [SerializeField] public Camera UICamera;
+
     void Start()
     {
         GameEntry.CameraCtrl = this;
@@ -73,6 +78,22 @@ public class CameraCtrl : MonoBehaviour, IUpdateComponent
     public void SetCameraOpen(bool isOpen)
     {
         MainCamera.enabled = isOpen;
+    }
+
+    /// <summary>
+    /// 打开主摄像机
+    /// </summary>
+    public void Open()
+    {
+        MainCamera.enabled = true;
+    }
+
+    /// <summary>
+    /// 关闭主摄像机
+    /// </summary>
+    public void Close()
+    {
+        MainCamera.enabled = false;
     }
 
     /// <summary>

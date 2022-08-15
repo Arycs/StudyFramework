@@ -68,11 +68,6 @@ namespace YouYou
             SocketSendMS = new MMO_MemoryStream();
             SocketReceiveMS = new MMO_MemoryStream();
             m_MainSocket = CreateSocketTcpRoutine();
-            m_MainSocket.OnConnectOK = () =>
-            {
-                //已经建立了链接
-                m_IsConnectToMainSocket = true;
-            };
             SocketProtoListener.AddProtoListener();
         }
 
@@ -142,9 +137,13 @@ namespace YouYou
         /// </summary>
         /// <param name="ip"></param>
         /// <param name="port"></param>
-        public void ConnectToMainSocket(string ip, int port)
+        public void ConnectToMainSocket(string ip, int port, BaseAction<bool> onConnectComplete)
         {
-            m_MainSocket.Connect(ip, port);
+            m_MainSocket.Connect(ip, port, (bool result) =>
+            {
+                onConnectComplete?.Invoke(result);
+                m_IsConnectToMainSocket = true;
+            });
         }
 
         /// <summary>

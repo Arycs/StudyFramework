@@ -4315,8 +4315,8 @@ Transform:
   - {fileID: 1152177077}
   - {fileID: 8881984}
   - {fileID: 1537185376}
-  - {fileID: 639881737}
   - {fileID: 1881242337}
+  - {fileID: 639881737}
   - {fileID: 1982682727}
   - {fileID: 1566070931}
   - {fileID: 645167039}
@@ -16494,6 +16494,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1228074614}
+  - component: {fileID: 1228074613}
   m_Layer: 0
   m_Name: SelectRoleSceneCtrl
   m_TagString: Untagged
@@ -16501,6 +16502,20 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &1228074613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1228074612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fdc713553c7c554cb0e002c36ada09a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_CameraData: {fileID: 1288903665}
+  m_SkyboxMaterial: {fileID: 2100000, guid: cf6982790fd01d543be96e57a9c58386, type: 2}
 --- !u!4 &1228074614
 Transform:
   m_ObjectHideFlags: 0
@@ -36820,7 +36835,7 @@ Transform:
   m_LocalScale: {x: 5.008453, y: 5.008452, z: 5.008453}
   m_Children: []
   m_Father: {fileID: 398381853}
-  m_RootOrder: 174
+  m_RootOrder: 173
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1886404938
 Transform:

@@ -17,6 +17,11 @@ public partial class DTSys_SceneDetailEntity : DataTableEntityBase
     public int SceneId;
 
     /// <summary>
+    /// 场景名字
+    /// </summary>
+    public string SceneName;
+
+    /// <summary>
     /// 场景路径
     /// </summary>
     public string ScenePath;

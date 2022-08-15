@@ -39,7 +39,7 @@ namespace YouYou
         /// <param name="sceneName"></param>
         /// <param name="onProgressUpdate"></param>
         /// <param name="onLoadSceneComplete"></param>
-        public void LoadScene(int sceneDetailId, string sceneName, BaseAction<int, float> onProgressUpdate,
+        public void LoadScene(int sceneDetailId, string sceneName,string scenePath, BaseAction<int, float> onProgressUpdate,
             BaseAction<SceneLoaderRoutine> onLoadSceneComplete)
         {
             Reset();
@@ -59,7 +59,7 @@ namespace YouYou
             }
 #else
             GameEntry.Resource.ResourceLoaderManager.LoadAssetBundle(
-                GameEntry.Resource.GetSceneAssetBundlePath(sceneName), onComplete:
+                GameEntry.Resource.GetSceneAssetBundlePath(scenePath), onComplete:
                 (AssetBundle bundle2) =>
                 {
                     //加载场景的资源包

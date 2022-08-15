@@ -26,8 +26,10 @@ namespace YouYou
         private const int m_CompressLen = 200;
         #endregion
 
+        //是否进行连接
+        private bool m_IsDoConnected;
         //是否连接成功
-        private bool m_IsConnectedOk;
+        private bool m_IsConnectedSuccess;
 
         #region 发送接收消息所需变量
         //接收数据包的字节数组缓冲区
@@ -72,20 +74,26 @@ namespace YouYou
         /// </summary>
         private Socket m_Client;
 
-        public Action OnConnectOK;
+        public BaseAction<bool> m_OnConnectComplete;
 
         internal void OnUpdate()
         {
-            if (m_IsConnectedOk)
+            if (m_IsDoConnected)
             {
-                m_IsConnectedOk = false;
-                if (OnConnectOK != null)
+                m_IsDoConnected = false;
+                if (!m_IsConnectedSuccess)
                 {
-                    OnConnectOK();
+                    GameEntry.Socket.RemoveSocketTcpRoutine(this);
                 }
+                m_OnConnectComplete?.Invoke(m_IsConnectedSuccess);
                 //Debug.Log("连接成功");
             }
 
+            if (!m_IsConnectedSuccess)
+            {
+                return;
+            }
+            
             #region 从队列中获取数据
             while (true)
             {
@@ -159,11 +167,17 @@ namespace YouYou
         /// </summary>
         /// <param name="ip">ip</param>
         /// <param name="port">端口号</param>
-        public void Connect(string ip, int port)
+        public void Connect(string ip, int port,BaseAction<bool> onConnectComplete)
         {
+            m_OnConnectComplete = onConnectComplete;
             //如果socket已经存在 并且处于连接中状态 则直接返回
             if (m_Client != null && m_Client.Connected)
+            {
+                m_OnConnectComplete?.Invoke(false);
                 return;
+            }
+
+            m_IsConnectedSuccess = false;
 
             string newServerIp = ip;
             AddressFamily addressFamily = AddressFamily.InterNetwork;
@@ -176,24 +190,25 @@ namespace YouYou
 
             try
             {
+                GameEntry.Socket.RegisterSocketTcpRoutine(this);
                 m_Client.BeginConnect(new IPEndPoint(IPAddress.Parse(newServerIp), port), ConnectCallBack, m_Client);
 
             }
             catch (Exception ex)
             {
+                m_IsDoConnected = true;
                 GameEntry.LogError("连接失败=" + ex.Message);
             }
         }
 
         private void ConnectCallBack(IAsyncResult ar)
         {
+            m_IsDoConnected = true; //这里表示 进行了连接 不管是否成功
             if (m_Client.Connected)
             {
                 GameEntry.Log(LogCategory.Normal, "socket连接成功");
-                GameEntry.Socket.RegisterSocketTcpRoutine(this);
-
                 ReceiveMsg();
-                m_IsConnectedOk = true;
+                m_IsConnectedSuccess = true;
             }
             else
             {
