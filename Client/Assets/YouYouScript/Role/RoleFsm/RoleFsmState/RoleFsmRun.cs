@@ -26,10 +26,22 @@ public class RoleFsmRun : RoleFsmBase
     /// </summary>
     private bool m_IsPlayRunWithClick;
 
+    /// <summary>
+    /// 转身完毕 标志
+    /// </summary>
+    private bool m_TurnComplete = false;
+
+    private Vector3 endPos;
+    private Vector3 beginPos;
+    private Vector3 dir;
+    private Vector3 rotation;
+    private float dis;
 
     public override void OnEnter()
     {
         base.OnEnter();
+        m_TurnComplete = false;
+        GameEntry.Log(LogCategory.Normal, "RoleFsmRun Enter");
     }
 
     public override void OnUpdate()
@@ -81,29 +93,31 @@ public class RoleFsmRun : RoleFsmBase
             return;
         }
 
-        //方向
-        Vector3 direction = Vector3.zero;
-        //计算方向
-        var position = CurrFsm.Owner.CurrRoleCtrl.transform.position;
-        var temp = new Vector3(m_VectorPath[m_CurrPointIndex].x,
-            position.y,
-            m_VectorPath[m_CurrPointIndex].z);
-
-        direction = temp - position;
-        direction = direction.normalized; //归一化
-        direction = direction * Time.deltaTime * CurrFsm.Owner.CurrRoleCtrl.MoveSpeed;
-        direction.y = 0;
-
-        //立刻转身
-        CurrFsm.Owner.CurrRoleCtrl.transform.rotation = Quaternion.LookRotation(direction);
-        CurrFsm.Owner.CurrRoleCtrl.Agent.Move(direction);
-
-        //判断是否应该向下一个点移动
-        float dis = Vector3.Distance(position, temp);
-
-        //当到达目标点了
-        if (dis <= direction.magnitude + 0.1f)
+        if (!m_TurnComplete)
         {
+            endPos = m_VectorPath[m_CurrPointIndex];
+            beginPos = m_VectorPath[m_CurrPointIndex - 1];
+            dir = (endPos - beginPos).normalized;
+
+            rotation = dir;
+            //立刻转身
+            rotation.y = 0;
+            CurrFsm.Owner.CurrRoleCtrl.transform.rotation = Quaternion.LookRotation(rotation);
+            m_TurnComplete = true;
+        }
+
+        CurrFsm.Owner.CurrRoleCtrl.Agent.Move(dir * Time.deltaTime * 10);
+        //判断是否应该向下一个点移动
+        dis = Vector3.Distance(CurrFsm.Owner.CurrRoleCtrl.transform.position, beginPos);
+
+        //当到达临时目标点了
+        if (dis >= Vector3.Distance(endPos, beginPos))
+        {
+            CurrFsm.Owner.CurrRoleCtrl.Agent.enabled = false;
+            CurrFsm.Owner.CurrRoleCtrl.transform.position = endPos;
+            CurrFsm.Owner.CurrRoleCtrl.Agent.enabled = true;
+
+            m_TurnComplete = false;
             m_CurrPointIndex++;
         }
     }
