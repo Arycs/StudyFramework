@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+import "Proto_Common.proto";
+package YouYou.Proto;
+
+//玩家向服务器发送点击移动消息
+message C2GS_ClickMove
+{
+	Vector3 CurrPos = 1;//当前位置
+	Vector3 TargetPos = 2;//目标点
+}
+
+//玩家向服务器发送摇杆移动消息
+message C2GS_JoystickMove
+{
+	Vector3 CurrPos = 1;//当前位置
+	Vector3 MoveDir = 2;//移动方向
+}
+
+//玩家向服务器发送抬起摇杆消息
+message C2GS_JoystickStop
+{
+	Vector3 CurrPos = 1;//当前位置
+	float RotationY = 2;//旋转
+}
+
+//玩家向服务器发送进入AOI区域消息
+message C2GS_Enter_AOIArea
+{
+	int32 AreaId = 1;//场景编号
+}
