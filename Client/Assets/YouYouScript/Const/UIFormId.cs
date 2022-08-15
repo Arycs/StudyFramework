@@ -1,41 +1,58 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public static class UIFormId
+public class UIFormId
 {
     /// <summary>
-    /// Loading 界面
+    /// Loading
     /// </summary>
-    public const int Loading = 1;
+    public const int UI_Loading = 1;
 
     /// <summary>
-    /// 通知窗口
+    /// Dialog
     /// </summary>
-    public const int Dialog = 2;
+    public const int UI_Dialog = 2;
 
     /// <summary>
-    /// 摇杆
+    /// Joystick
     /// </summary>
     public const int UI_Joystick = 3;
-    
+
     /// <summary>
-    /// 登录背景 界面
+    /// 登录流程背景
     /// </summary>
     public const int UI_LogonBG = 101;
 
     /// <summary>
-    /// 注册 界面
+    /// 注册UI
     /// </summary>
     public const int UI_Reg = 102;
 
     /// <summary>
-    /// 登录 界面
+    /// 登录UI
     /// </summary>
     public const int UI_Login = 103;
 
     /// <summary>
+    /// 创建角色
+    /// </summary>
+    public const int UI_CreateRole = 104;
+
+    /// <summary>
+    /// 选择角色
+    /// </summary>
+    public const int UI_SelectRole = 105;
+
+    /// <summary>
     /// 任务列表
     /// </summary>
-    public const int UI_Task = 104;
+    public const int UI_Task = 106;
+
+    /// <summary>
+    /// 任务详情
+    /// </summary>
+    public const int UI_TaskDetail = 107;
+
+    /// <summary>
+    /// 主界面
+    /// </summary>
+    public const int UI_MainCity = 108;
+
 }

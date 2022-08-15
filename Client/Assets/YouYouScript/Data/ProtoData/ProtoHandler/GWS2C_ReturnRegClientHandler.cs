@@ -15,5 +15,10 @@ public class GWS2C_ReturnRegClientHandler
         GameEntry.Log(LogCategory.Proto, "<color=#00eaff>接收消息:</color><color=#00ff9c>" + proto.ProtoEnName + " " + proto.ProtoId + "</color>");
         GameEntry.Log(LogCategory.Proto, "<color=#c5e1dc>==>>" + proto.ToString() + "</color>");
 #endif
+        //派发注册客户端成功消息
+        VarBool varBool = GameEntry.Pool.DequeueClassObject<VarBool>();
+        varBool.Value = proto.Result;
+        GameEntry.Event.CommonEvent.Dispatch(CommonEventId.OnRegClientComplete,varBool);
+        GameEntry.Pool.EnqueueClassObject(varBool);
     }
 }

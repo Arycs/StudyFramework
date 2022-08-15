@@ -12,9 +12,11 @@ namespace YouYou
         public override void OnEnter()
         {
             base.OnEnter();
+            GameEntry.Event.CommonEvent.AddEventListener(CommonEventId.OnRegClientComplete,OnRegClientComplete);
             //TODO 打开区服列表,选区之类的,这里直连一个区服
             ConnectServer("192.168.1.7", 1304);
         }
+
 
         public override void OnUpdate()
         {
@@ -24,6 +26,7 @@ namespace YouYou
         public override void OnLeave()
         {
             base.OnLeave();
+            GameEntry.Event.CommonEvent.RemoveEventListener(CommonEventId.OnRegClientComplete,OnRegClientComplete);
         }
 
         public override void OnDestroy()
@@ -42,13 +45,7 @@ namespace YouYou
             {
                 if (result)
                 {
-                    //链接成功
-                    //加载选择角色场景
-                    GameEntry.Scene.LoadScene(SysScene.SelectRole,true,onComplete: () =>
-                    {
-                        GameEntry.UI.CloseUIForm(UIFormId.UI_LogonBG);
-                        SearchRole();
-                    });
+                    GameEntry.Data.UserDataManager.RegClient();
                 }
                 else
                 {
@@ -57,12 +54,19 @@ namespace YouYou
             });
         }
         
-        /// <summary>
-        /// 查询玩家玩家已有角色
-        /// </summary>
-        private void SearchRole()
+        private void OnRegClientComplete(object userData)
         {
-            
+            VarBool varBool = userData as VarBool;
+            if (varBool)
+            {
+                //链接成功
+                //加载选择角色场景
+                GameEntry.Scene.LoadScene(SysScene.SelectRole,true,onComplete: () =>
+                {
+                    GameEntry.UI.CloseUIForm(UIFormId.UI_LogonBG);
+                    GameEntry.Data.UserDataManager.GetRoleList();
+                });
+            }
         }
     }
 }
