@@ -8,7 +8,7 @@ using YouYouServer.Model.SceneManager.PVPScene;
 
 namespace YouYouServer.Model.ServerManager.Client.MonsterClient
 {
-    public class MonsterClient :RoleClientBase, IDisposable
+    public class MonsterClient : RoleClientBase, IDisposable
     {
         /// <summary>
         /// 死亡委托
@@ -21,6 +21,11 @@ namespace YouYouServer.Model.ServerManager.Client.MonsterClient
         /// 当前场景编号
         /// </summary>
         public int CurrSceneId => CurrSpawnMonsterPoint.OwnerPVPSceneLine.OwnerPVPScene.CurrSceneConfig.SceneId;
+
+        /// <summary>
+        /// 当前物体旋转
+        /// </summary>
+        public float CurrRotationY;
 
         /// <summary>
         /// 当前坐标
