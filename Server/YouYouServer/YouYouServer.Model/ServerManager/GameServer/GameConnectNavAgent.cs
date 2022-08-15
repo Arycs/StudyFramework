@@ -53,7 +53,7 @@ namespace YouYouServer.Model
             TargetServerConnect.EventDispatcher.AddEventListener(ProtoIdDefine.Proto_NS2GS_ReturnNavPath, OnNS2GS_ReturnNavPath);
         }
 
-        public void GetNavPath(int sceneId, Vector3 beginPos, Vector3 endPos, Action<NS2GS_ReturnNavPath> onComplete)
+        public void GetNavPath(int sceneId, UnityEngine.Vector3 beginPos, UnityEngine.Vector3 endPos, Action<NS2GS_ReturnNavPath> onComplete)
         {
             GS2NS_GetNavPath proto = new GS2NS_GetNavPath();
 

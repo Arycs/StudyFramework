@@ -46,7 +46,7 @@ namespace YouYouServer.HotFix.PVPHandler
                 m_MonsterClient.EnterIdleTime = TimerManager.time;
 
                 //随机找一个巡逻点
-                Vector3 targetPos = m_MonsterClient.CurrSpawnMonsterPoint.PatrolPosList[new System.Random().Next(0, m_MonsterClient.CurrSpawnMonsterPoint.PatrolPosList.Count)];
+                UnityEngine.Vector3 targetPos = m_MonsterClient.CurrSpawnMonsterPoint.PatrolPosList[new System.Random().Next(0, m_MonsterClient.CurrSpawnMonsterPoint.PatrolPosList.Count)];
 
                 m_MonsterClient.TargetPos = targetPos;
                 //进行寻路
@@ -61,7 +61,7 @@ namespace YouYouServer.HotFix.PVPHandler
                          m_MonsterClient.PathPoints.Clear();
                          foreach (var item in proto.Path)
                          {
-                             m_MonsterClient.PathPoints.Add(new Vector3(item.X, item.Y, item.Z));
+                             m_MonsterClient.PathPoints.Add(new UnityEngine.Vector3(item.X, item.Y, item.Z));
                          }
                          m_MonsterClient.CurrFsmManager.ChangeState(RoleState.Run);
                      }
@@ -109,7 +109,7 @@ namespace YouYouServer.HotFix.PVPHandler
             float dis = m_MonsterClient.RunTime * m_MonsterClient.RunSpeed;
             m_MonsterClient.CurrPos = m_MonsterClient.RunBeginPos + m_MonsterClient.RunDir * dis;
 
-            if (dis >= Vector3.Distance(m_MonsterClient.RunEndPos, m_MonsterClient.RunBeginPos))
+            if (dis >= UnityEngine.Vector3.Distance(m_MonsterClient.RunEndPos, m_MonsterClient.RunBeginPos))
             {
                 m_MonsterClient.CurrPos = m_MonsterClient.RunEndPos; //位置修正
                 m_MonsterClient.RunTime = 0;
