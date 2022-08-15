@@ -37,6 +37,51 @@ namespace YouYouServer.Model.ServerManager.Client.MonsterClient
         /// </summary>
         public Vector3 TargetPos;
 
+        /// <summary>
+        /// 进入待机时间
+        /// </summary>
+        public float EnterIdleTime = 0;
+
+        /// <summary>
+        /// 路径点
+        /// </summary>
+        public List<Vector3> PathPoints;
+
+        /// <summary>
+        /// 当前路径点索引
+        /// </summary>
+        public int CurrWayPointIndex = 0;
+
+        /// <summary>
+        /// 移动起始点
+        /// </summary>
+        public Vector3 RunBeginPos;
+
+        /// <summary>
+        /// 移动结束点
+        /// </summary>
+        public Vector3 RunEndPos;
+
+        /// <summary>
+        /// 移动方向
+        /// </summary>
+        public Vector3 RunDir;
+
+        /// <summary>
+        /// 移动速度
+        /// </summary>
+        public float RunSpeed = 10f;
+
+        /// <summary>
+        /// 移动时间
+        /// </summary>
+        public float RunTime = 0;
+
+        /// <summary>
+        /// 转身完毕标志
+        /// </summary>
+        public bool TurnComplete = false;
+
         public MonsterClient()
         {
             CurrFsmManager = new RoleFsm.RoleFsm(this);
