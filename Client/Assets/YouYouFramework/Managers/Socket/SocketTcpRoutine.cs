@@ -276,6 +276,10 @@ namespace YouYou
                         //Debug.LogError("拼凑了小包数量=" + smallCount);
                         Send(ms.ToArray());
                     }
+                    else
+                    {
+                        break; //防止发送队列里没有数据,导致死循环
+                    }
                 }
             }
         }

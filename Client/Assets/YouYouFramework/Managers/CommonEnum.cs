@@ -13,6 +13,11 @@ using UnityEngine;
 public enum ProtoCategory
 {
     /// <summary>
+    /// 未定义
+    /// </summary>
+    None = -1,
+
+    /// <summary>
     /// 客户端->网关服务器
     /// </summary>
     Client2GatewayServer = 0,
