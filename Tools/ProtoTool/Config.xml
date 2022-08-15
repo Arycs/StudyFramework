@@ -9,8 +9,8 @@
 
   <ClientOutLuaPBPath>..\..\..\StudyFramework\Tools\ProtoTool\Pb\PB\</ClientOutLuaPBPath>
   <ClientOutLuaProtoHandlerPath>..\..\..\StudyFramework\Tools\ProtoTool\ProtoHandler\</ClientOutLuaProtoHandlerPath>
-  <ClientOutLuaProtoDefPath>..\..\..\StudyFramework\Tools\ProtoTool\ProtoDef.bytes</ClientOutLuaProtoDefPath>
-  <ClientOutLuaProtoListenerPath>..\..\..\StudyFramework\Tools\ProtoTool\SocketProtoListenerForLua.bytes</ClientOutLuaProtoListenerPath>
+  <ClientOutLuaProtoDefPath>..\..\..\StudyFramework\Tools\ProtoTool\ProtoHandler\ProtoDef.bytes</ClientOutLuaProtoDefPath>
+  <ClientOutLuaProtoListenerPath>..\..\..\StudyFramework\Tools\ProtoTool\ProtoHandler\SocketProtoListenerForLua.bytes</ClientOutLuaProtoListenerPath>
 
   <ServerOutProtoPath>..\..\..\StudyFramework\Server\YouYouServer\YouYouServer.Commmon\ProtoData\Proto\</ServerOutProtoPath>
   <ServerOutProtoIdDefinePath>..\..\..\StudyFramework\Server\YouYouServer\YouYouServer.Commmon\ProtoData\ProtoIdDefine.cs</ServerOutProtoIdDefinePath>
