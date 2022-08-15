@@ -9,7 +9,7 @@ public enum ProtoCategory
 {
     /// <summary>
     /// 未定义
-    /// </summary>
+    /// </summary> 
     None = -1,
 
     /// <summary>
