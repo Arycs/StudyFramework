@@ -107,7 +107,7 @@ namespace YouYou
             if (showLoadingForm)
             {
                 //加载Loading 
-                GameEntry.UI.OpenUIForm(UIFormId.Loading, onOpen: (UIFormBase form) => { DoLoadScene(sceneId); });
+                GameEntry.UI.OpenUIForm(UIFormId.UI_Loading, onOpen: (UIFormBase form) => { DoLoadScene(sceneId); });
             }
             else
             {
@@ -237,7 +237,7 @@ namespace YouYou
                     m_NeedLoadOrUnLoadSceneDetailCount = 0;
                     m_CurrLoadOrUnLoadSceneDetailCount = 0;
                     m_CurrSceneIsLoading = false;
-                    GameEntry.UI.CloseUIForm(UIFormId.Loading);
+                    GameEntry.UI.CloseUIForm(UIFormId.UI_Loading);
                     m_CurrLoadingParam.Reset();
                     GameEntry.Pool.EnqueueClassObject(m_CurrLoadingParam);
 
