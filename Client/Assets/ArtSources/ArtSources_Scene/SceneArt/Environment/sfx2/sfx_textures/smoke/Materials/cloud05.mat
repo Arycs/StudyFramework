@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: cloud05
-  m_Shader: {fileID: 10721, guid: 0000000000000000f000000000000000, type: 0}
+  m_Shader: {fileID: 4800000, guid: 8caa9b0a4a7f5bc4dbfb1d91791c16db, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
   m_EnableInstancingVariants: 0
@@ -44,3 +44,4 @@ Material:
     - _SineFreqY2: 0
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []

@@ -5,7 +5,8 @@ Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_Name: beam_blu
   m_Shader: {fileID: 4800000, guid: 21c9c74448a6a0b40b61a7100dea9658, type: 3}
   m_ShaderKeywords: 
@@ -31,3 +32,4 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _CoreColor: {r: 0, g: 0.7931032, b: 1, a: 0.5019608}
     - _TintColor: {r: 1, g: 1, b: 1, a: 0.5019608}
+  m_BuildTextureStacks: []

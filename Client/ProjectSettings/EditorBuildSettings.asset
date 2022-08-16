@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Scene_Launch.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
+    path: Assets/Download/Scenes/InitScene/GameScene_SelectRole.unity
+    guid: 1b0da7a72f55c4d4eb64fb69040fbe9f
+  - enabled: 1
     path: Assets/Download/Scenes/NormalScene/GameScene_DaLi.unity
     guid: d938b771fd48cac41bbba4ccf7b2277b
   - enabled: 1

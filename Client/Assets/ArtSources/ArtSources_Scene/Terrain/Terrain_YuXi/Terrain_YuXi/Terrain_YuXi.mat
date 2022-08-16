@@ -8,8 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Terrain_YuXi
-  m_Shader: {fileID: -6465566751694194690, guid: 103cb40365081f6489ea74a9d0835195,
-    type: 3}
+  m_Shader: {fileID: 4800000, guid: 1ca35b94244a5754f919b6a73f8ab9ae, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -22,22 +21,6 @@ Material:
     m_TexEnvs:
     - _Control:
         m_Texture: {fileID: 2800000, guid: f3fa080f9443f9644a22fc5c355dacf8, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Layer1Tex:
-        m_Texture: {fileID: 2800000, guid: 1d77ec7a82b0c2f45b25343e3231c82d, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Layer2Tex:
-        m_Texture: {fileID: 2800000, guid: 75e7f04fbd8b31a4b9e89c61a29de4d3, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Layer3Tex:
-        m_Texture: {fileID: 2800000, guid: 3fa8fa92e90c31647b8da105071575ed, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Layer4Tex:
-        m_Texture: {fileID: 2800000, guid: 54eba9c28c282b14085b4fc36c66d497, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Normal0:
@@ -77,8 +60,6 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Vector1_AF437CF1: 0.12
-    - _Luminance: 2
     - _Metallic0: 0
     - _Metallic1: 0
     - _Metallic2: 0
@@ -87,8 +68,4 @@ Material:
     - _Smoothness1: 0.5
     - _Smoothness2: 0.5
     - _Smoothness3: 0.5
-    m_Colors:
-    - _Layer1Tiling: {r: 10, g: 10, b: 0, a: 0}
-    - _Layer2Tiling: {r: 0, g: 0, b: 0, a: 0}
-    - _Layer3Tiling: {r: 50, g: 50, b: 0, a: 0}
-    - _Layer4Tiling: {r: 0, g: 0, b: 0, a: 0}
+    m_Colors: []

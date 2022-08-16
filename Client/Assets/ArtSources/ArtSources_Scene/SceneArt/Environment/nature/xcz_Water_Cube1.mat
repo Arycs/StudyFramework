@@ -37,10 +37,11 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _BumpDepth: 1
-    - _Opacity: 0.316
+    - _Opacity: 0.84
     - _RefScale: 1
-    - _WaveScale: 0.78
-    - _difScale: 3.5
+    - _WaveScale: 0.05
+    - _difScale: 0.1
     m_Colors:
     - _Color1: {r: 0.84286624, g: 0.8369918, b: 1, a: 1}
     - _WaveOffset: {r: 2, g: 2, b: -2, a: -3}
+  m_BuildTextureStacks: []

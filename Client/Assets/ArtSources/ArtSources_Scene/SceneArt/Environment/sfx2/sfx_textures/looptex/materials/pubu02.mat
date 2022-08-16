@@ -5,7 +5,8 @@ Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_Name: pubu02
   m_Shader: {fileID: 4800000, guid: 00979f1754f43c14880fcd3e211573f9, type: 3}
   m_ShaderKeywords: 
@@ -72,3 +73,4 @@ Material:
     m_Colors:
     - _Color: {r: 0.9411765, g: 0.9634888, b: 1, a: 1}
     - _TintColor: {r: 1, g: 1, b: 1, a: 0}
+  m_BuildTextureStacks: []

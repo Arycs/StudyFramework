@@ -5,19 +5,25 @@ Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_Name: QHS_Water_Cube
-  m_Shader: {fileID: 4800000, guid: 29bbf7294901f764992eddab3d8bbeb7, type: 3}
+  m_Shader: {fileID: 4800000, guid: 650dd9526735d5b46b79224bc6e94025, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 2900
-  stringTagMap: {}
+  m_CustomRenderQueue: 2000
+  stringTagMap:
+    RenderType: Opaque
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _BaseMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BumpMap:
         m_Texture: {fileID: 2800000, guid: be9214cdf9fcbb44d8148d06c06d8fe4, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -59,23 +65,47 @@ Material:
         m_Scale: {x: 5, y: 5}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - _AlphaClip: 0
+    - _Blend: 0
     - _Bump1Speed: 0.2
     - _Bump2Speed: 0.03
     - _BumpDepth: 1.17
+    - _Cull: 2
     - _Cutoff: 0.5
     - _DistortionPower: 0.005
     - _DistortionSpeed: 0.2
+    - _DstBlend: 0
     - _Gloss: 0.81607145
     - _MainAlpha: 1
     - _MainTexSpeed: 0.24
     - _Opacity: 0.87
+    - _QueueOffset: 0
     - _RefScale: 1.5
     - _ReflectPower: 0.53
+    - _SampleGI: 0
     - _Specular: 2
+    - _SrcBlend: 1
+    - _Surface: 0
     - _Texture2Speed: 0.2
     - _WaveScale: 0.1
+    - _ZWrite: 1
     - _difScale: 4.3
     m_Colors:
+    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 0.22383219, g: 0.36023438, b: 0.44117647, a: 1}
     - _Color1: {r: 0.3800822, g: 0.5272268, b: 0.6985294, a: 1}
     - _WaveOffset: {r: 2, g: 2, b: -2, a: -2}
+  m_BuildTextureStacks: []
+--- !u!114 &3692727759761119575
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 4
