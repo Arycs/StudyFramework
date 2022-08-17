@@ -15,5 +15,7 @@ public class WS2C_ReturnCreateRoleHandler
         GameEntry.Log(LogCategory.Proto, "<color=#00eaff>接收消息:</color><color=#00ff9c>" + proto.ProtoEnName + " " + proto.ProtoId + "</color>");
         GameEntry.Log(LogCategory.Proto, "<color=#c5e1dc>==>>" + proto.ToString() + "</color>");
 #endif
+
+        GameEntry.Data.UserDataManager.OnCreateRole(proto);
     }
 }

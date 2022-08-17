@@ -77,8 +77,8 @@ public class UIRegister : UIFormBase
                 
                 Debug.Log("用户名 : " + UserName + " ==== 密码 :" + Password);
                 
-                GameEntry.UI.OpenUIForm(global::UIFormId.UI_Login);
                 this.Close();
+                GameEntry.Procedure.ChangeState(ProcedureState.SelectRole);
             }
             else
             {

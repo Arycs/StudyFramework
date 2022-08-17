@@ -22,9 +22,9 @@ public partial class DTJobEntity : DataTableEntityBase
     public string Name;
 
     /// <summary>
-    /// 关联角色Id
+    /// 角色编号
     /// </summary>
-    public int RoleId;
+    public int BaseRoleId;
 
     /// <summary>
     /// 头像

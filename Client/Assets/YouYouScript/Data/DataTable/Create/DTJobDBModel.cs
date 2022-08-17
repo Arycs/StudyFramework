@@ -32,7 +32,7 @@ public partial class DTJobDBModel : DataTableDBModelBase<DTJobDBModel, DTJobEnti
             entity.Id = ms.ReadInt();
             entity.Desc = ms.ReadUTF8String();
             entity.Name = ms.ReadUTF8String();
-            entity.RoleId = ms.ReadInt();
+            entity.BaseRoleId = ms.ReadInt();
             entity.HeadPic = ms.ReadUTF8String();
             entity.JobPic = ms.ReadUTF8String();
             entity.JobDesc = ms.ReadUTF8String();

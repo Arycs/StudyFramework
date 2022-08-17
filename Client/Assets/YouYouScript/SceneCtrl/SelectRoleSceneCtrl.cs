@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,7 +15,19 @@ public class SelectRoleSceneCtrl : MonoBehaviour
 
     [SerializeField]
     private Material m_SkyboxMaterial;
-    
+
+    /// <summary>
+    /// 角色容器
+    /// </summary>
+    public Transform RoleContainer;
+
+    public static SelectRoleSceneCtrl Instance;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     // Start is called before the first frame update
     void Start()
     {

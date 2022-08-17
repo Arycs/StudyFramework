@@ -9,14 +9,20 @@ namespace YouYou
     /// </summary>
     public class ProcedureSelectRole : ProcedureBase
     {
+        /// <summary>
+        /// 当前选择角色模型
+        /// </summary>
+        private Transform m_CurrSelectRole;
+        
         public override void OnEnter()
         {
             base.OnEnter();
             GameEntry.Event.CommonEvent.AddEventListener(CommonEventId.OnRegClientComplete,OnRegClientComplete);
+            GameEntry.Event.CommonEvent.AddEventListener(CommonEventId.OnSelectJobComplete,OnSelectJobComplete);
+
             //TODO 打开区服列表,选区之类的,这里直连一个区服
             ConnectServer("192.168.1.7", 1304);
         }
-
 
         public override void OnUpdate()
         {
@@ -27,6 +33,13 @@ namespace YouYou
         {
             base.OnLeave();
             GameEntry.Event.CommonEvent.RemoveEventListener(CommonEventId.OnRegClientComplete,OnRegClientComplete);
+            GameEntry.Event.CommonEvent.RemoveEventListener(CommonEventId.OnSelectJobComplete,OnSelectJobComplete);
+
+            if (m_CurrSelectRole != null)
+            {
+                GameEntry.Pool.GameObjectDeSpawn(m_CurrSelectRole);
+            }
+            GameEntry.UI.CloseUIForm(UIFormId.UI_CreateRole);
         }
 
         public override void OnDestroy()
@@ -67,6 +80,27 @@ namespace YouYou
                     GameEntry.Data.UserDataManager.GetRoleList();
                 });
             }
+        }
+        
+        private void OnSelectJobComplete(object userdata)
+        {
+            VarInt varInt = userdata as VarInt;
+            DTJobEntity dtJobEntity = GameEntry.DataTable.JobList.Get(varInt);
+            //回池旧的
+            if (m_CurrSelectRole != null)
+            {
+                GameEntry.Pool.GameObjectDeSpawn(m_CurrSelectRole);
+            }
+
+            DTRoleEntity dtRoleEntity = GameEntry.DataTable.RoleList.Get(dtJobEntity.BaseRoleId);
+            GameEntry.Pool.GameObjectSpawn(dtRoleEntity.PrefabId,((trans, isNewInstance) =>
+            {
+                trans.SetParent(SelectRoleSceneCtrl.Instance.RoleContainer);
+                trans.localPosition = Vector3.zero;
+                trans.localScale = Vector3.one;
+                trans.localEulerAngles = Vector3.zero;
+                m_CurrSelectRole = trans;
+            }));
         }
     }
 }

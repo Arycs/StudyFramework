@@ -149,7 +149,7 @@ namespace YouYou
         /// <summary>
         /// 发送消息
         /// </summary>
-        /// <param name="buffer"></param>
+        /// <param name="proto"></param>
         public void SendMainMsg(IProto proto)
         {
 #if DEBUG_LOG_PROTO

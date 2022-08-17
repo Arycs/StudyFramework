@@ -54,14 +54,15 @@ namespace YouYou
         #endregion
 
         #region Dispatch 派发
+
         /// <summary>
         /// 派发
         /// </summary>
         /// <param name="key"></param>
-        public void Dispatch(ushort key,byte[] buffer)
+        /// <param name="buffer"></param>
+        public void Dispatch(ushort key,byte[] buffer = null)
         {
-            LinkedList<OnActionHandler> lstHandler = null;
-            dic.TryGetValue(key, out lstHandler);
+            dic.TryGetValue(key, out var lstHandler);
 
             if (lstHandler != null)
             {
@@ -76,11 +77,6 @@ namespace YouYou
             }
         }
 
-        public void Dispatch(ushort key)
-        {
-            
-            Dispatch(key,null);
-        }
         #endregion
         
         public void Dispose()

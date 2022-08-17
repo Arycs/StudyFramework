@@ -35,7 +35,7 @@ public class RoleDataManager : IDisposable
     public void CreatePlayerByJobId(int jobId, BaseAction<RoleCtrl> onComplete = null)
     {
         //角色ID
-        int roleId = GameEntry.DataTable.JobList.Get(jobId).RoleId;
+        int roleId = GameEntry.DataTable.JobList.Get(jobId).BaseRoleId;
         //加载角色控制器
         GameEntry.Pool.GameObjectSpawn(SysPrefabId.RoleCtrl, (Transform trans, bool isNewInstance) =>
         {

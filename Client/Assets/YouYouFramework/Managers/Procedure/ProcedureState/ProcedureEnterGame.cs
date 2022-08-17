@@ -13,11 +13,11 @@ namespace YouYou
         {
             base.OnEnter();
             Debug.Log("OnEnter ProcedureEnterGame");
-            string name = GameEntry.Procedure.GetData<string>("Name");
-            int code = GameEntry.Procedure.GetData<int>("code");
-            Debug.Log("name : " + name);
-            Debug.Log("code : " + code);
-            
+            Debug.LogError("角色编号=" + GameEntry.Data.UserDataManager.CurrRoleId);
+            Debug.LogError("职业编号=" + GameEntry.Data.UserDataManager.CurrJobId);
+
+            //TODO 这里发送进入游戏消息 最后才切换世界地图
+            GameEntry.Procedure.ChangeState(ProcedureState.WorldMap);
         }
 
         public override void OnUpdate()
@@ -27,8 +27,9 @@ namespace YouYou
 
         public override void OnLeave()
         {
-            Debug.Log("OnLeave ProcedureEnterGame");
             base.OnLeave();
+            Debug.Log("OnLeave ProcedureEnterGame");
+            GameEntry.CameraCtrl.Open();
         }
 
         public override void OnDestroy()
