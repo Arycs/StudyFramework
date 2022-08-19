@@ -3,18 +3,21 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
+using System.Text;
 using System.Threading;
 using YouYou;
+using YouYouServer.Core.Common;
+using YouYouServer.Core.Utils;
 
-namespace YouYouServer.Core
+namespace YouYouServer.Core.Common
 {
     public class ClientSocket
     {
         //事件派发器
         private EventDispatcher m_EventDispatcher;
 
-        //客户端Socket
-        private Socket m_Socket;
+        //Socket
+        public Socket m_Socket;
 
         //作为服务器端监听客户端时候接收数据的线程
         private Thread m_ReceiveThread;
@@ -44,7 +47,7 @@ namespace YouYouServer.Core
         private Queue<byte[]> m_SendQueue = new Queue<byte[]>();
 
         //压缩数组的长度界限
-        private const int m_CompressLen = 200;
+        private const int m_CompressLen = 512;
         #endregion
 
         /// <summary>
@@ -61,7 +64,7 @@ namespace YouYouServer.Core
         /// 这个构造函数 是当做服务器端时候使用
         /// </summary>
         /// <param name="socket"></param>
-        /// <param name="role"></param>
+        /// <param name="eventDispatcher"></param>
         public ClientSocket(Socket socket, EventDispatcher eventDispatcher)
         {
             m_Socket = socket;
@@ -139,7 +142,7 @@ namespace YouYouServer.Core
                                 {
                                     //至少收到一个完整包
 
-                                    //定义包体的byte[]数组
+                                    //定义大包体的byte[]数组
                                     byte[] buffer = new byte[currMsgLen];
 
                                     //把数据流指针放到2的位置 也就是包体的位置
@@ -149,52 +152,48 @@ namespace YouYouServer.Core
                                     m_ReceiveMS.Read(buffer, 0, currMsgLen);
 
                                     //===================================================
-                                    byte[] bufferNew = new byte[buffer.Length - 1];
-                                    bool isCompress = false;
 
-                                    MMO_MemoryStream ms1 = this.m_ReceiveMS;
-                                    ms1.SetLength(0);
-                                    ms1.Write(buffer, 0, buffer.Length);
-                                    ms1.Position = 0;
+                                    MMO_MemoryStream ms = this.m_ReceiveMS;
+                                    ms.SetLength(0);
+                                    ms.Write(buffer, 0, buffer.Length);
+                                    ms.Position = 0;
+                                    
+                                    byte header = (byte) ms.ReadByte();
+                                    bool isCompress = BitUtil.GetBit(header, 0) == 1;
+                                    bool isEncrypt = BitUtil.GetBit(header, 1) == 1;
+                                    
+                                    //协议编号
+                                    ushort protoId = ms.ReadUShort();
+                                    ProtoCategory protoCategory = (ProtoCategory)ms.ReadByte();
 
-                                    isCompress = ms1.ReadBool();
-                                    ms1.Read(bufferNew, 0, bufferNew.Length);
+                                    //定义小包体 也就是真正的protobuf协议数据
+                                    byte[] protoData = new byte[buffer.Length - 4];
+                                    Array.Copy(buffer, 4, protoData, 0, protoData.Length);
+                                    if (isEncrypt)
+                                    {
+                                        //解密
+                                        protoData = XXTEAUtil.Decrypt(protoData);
+                                    }
 
                                     if (isCompress)
                                     {
-                                        bufferNew = ZlibUtil.DeCompressBytes(bufferNew);
+                                        //解压
+                                        protoData = ZlibUtil.DeCompressBytes(protoData);
                                     }
-
-                                    //协议编号
-                                    ushort protoId = 0;
-                                    //协议分类
-                                    ProtoCategory protoCategory;
-                                    byte[] protoContent = new byte[bufferNew.Length - 3];
-
-                                    MMO_MemoryStream ms2 = this.m_ReceiveMS;
-                                    ms2.SetLength(0);
-                                    ms2.Write(bufferNew, 0, bufferNew.Length);
-                                    ms2.Position = 0;
-
-                                    protoId = ms2.ReadUShort();
-                                    protoCategory = (ProtoCategory)ms2.ReadByte();
-                                    ms2.Read(protoContent, 0, protoContent.Length);
-
-                                    //异或 得到原始数据
-                                    protoContent = SecurityUtil.Xor(protoContent);
-
+                                    
                                     //这里判断 如果是玩家发给游戏服或者中心服务器的消息 进行二次封装
                                     if (protoCategory == ProtoCategory.Client2GameServer ||
                                         protoCategory == ProtoCategory.Client2WorldServer ||
                                         protoCategory == ProtoCategory.CarryProto
                                         )
                                     {
+
                                         //网关服务处理中转协议
-                                        OnCarryProto?.Invoke(protoId, protoCategory, protoContent);
+                                        OnCarryProto?.Invoke(protoId, protoCategory, protoData);
                                     }
                                     else
                                     {
-                                        m_EventDispatcher.Dispatch(protoId, protoContent);
+                                        m_EventDispatcher.Dispatch(protoId, protoData);
                                     }
                                 }
 
@@ -219,8 +218,6 @@ namespace YouYouServer.Core
 
                                     //把剩余字节数组重新写入数据流
                                     m_ReceiveMS.Write(remainBuffer, 0, remainBuffer.Length);
-
-                                    remainBuffer = null;
                                 }
                                 else
                                 {
@@ -242,14 +239,14 @@ namespace YouYouServer.Core
                     {
                         //客户端断开连接
                         OnDisConnect?.Invoke();
-                        LoggerMgr.Log(LoggerLevel.LogError, 0, "客户端{0}断开连接", m_Socket.RemoteEndPoint.ToString());
+                        LoggerMgr.Log(Core.LoggerLevel.LogError, 0, "客户端{0}断开连接", m_Socket.RemoteEndPoint.ToString());
                     }
                 }
                 else
                 {
                     //客户端断开连接
                     OnDisConnect?.Invoke();
-                    LoggerMgr.Log(LoggerLevel.LogError, 0, "客户端{0}断开连接", m_Socket.RemoteEndPoint.ToString());
+                    LoggerMgr.Log(Core.LoggerLevel.LogError, 0, "客户端{0}断开连接", m_Socket.RemoteEndPoint.ToString());
                 }
 
             // }
@@ -257,7 +254,7 @@ namespace YouYouServer.Core
             // {
             //     //客户端断开连接
             //     OnDisConnect?.Invoke();
-            //     LoggerMgr.Log(LoggerLevel.LogError, 0, "客户端{0}断开连接 原因{1}", m_Socket.RemoteEndPoint.ToString(), ex.Message);
+            //     LoggerMgr.Log(Core.LoggerLevel.LogError, 0, "客户端{0}断开连接 原因{1}", m_Socket.RemoteEndPoint.ToString(), ex.Message);
             // }
         }
         #endregion
@@ -292,32 +289,32 @@ namespace YouYouServer.Core
         /// <returns></returns>
         private byte[] MakeData(IProto proto)
         {
-            byte[] retBuffer = null;
-
-            byte[] data = proto.ToByteArray();
-            //1.如果数据包的长度 大于了m_CompressLen 则进行压缩
-            bool isCompress = data.Length > m_CompressLen ? true : false;
+            byte header = 0; //byte，1-2-3-4-5-6-7-8 |1-是否压缩|2-是否加密
+            
+            byte[] buffer = proto.ToByteArray();
+            bool isCompress = buffer.Length > m_CompressLen;
             if (isCompress)
             {
-                data = ZlibUtil.CompressBytes(data);
+                header = BitUtil.SetBit(header, 0);
+                ZlibUtil.CompressBytes(buffer);
             }
-
-            //2.异或
-            data = SecurityUtil.Xor(data);
+            
+            //2.加密
+            header = BitUtil.SetBit(header, 1);
+            buffer = XXTEAUtil.Encrypt(buffer);
 
             MMO_MemoryStream ms = this.m_SocketSendMS;
             ms.SetLength(0);
 
-            ms.WriteUShort((ushort)(data.Length + 4)); //4=isCompress 1 + ProtoId 2 + Category 1
+            ms.WriteUShort((ushort)(buffer.Length + 4)); //4=header 1 + ProtoId 2 + Category 1
 
-            ms.WriteBool(isCompress);
-
+            ms.WriteByte(header);
             ms.WriteUShort(proto.ProtoId);
             ms.WriteByte((byte)proto.Category);
 
-            ms.Write(data, 0, data.Length);
+            ms.Write(buffer, 0, buffer.Length);
 
-            retBuffer = ms.ToArray();
+            var retBuffer = ms.ToArray();
             return retBuffer;
         }
 
@@ -328,32 +325,32 @@ namespace YouYouServer.Core
         /// <returns></returns>
         private byte[] MakeData(CarryProto carryProto)
         {
-            byte[] retBuffer = null;
-
-            byte[] data = carryProto.ToArray();
-            //1.如果数据包的长度 大于了m_CompressLen 则进行压缩
-            bool isCompress = data.Length > m_CompressLen ? true : false;
+            byte header = 0; //byte，1-2-3-4-5-6-7-8 |1-是否压缩|2-是否加密
+            
+            byte[] buffer = carryProto.ToArray();
+            bool isCompress = buffer.Length > m_CompressLen;
             if (isCompress)
             {
-                data = ZlibUtil.CompressBytes(data);
+                header = BitUtil.SetBit(header, 0);
+                ZlibUtil.CompressBytes(buffer);
             }
+            
+            //2.加密
+            header = BitUtil.SetBit(header, 1);
+            buffer = XXTEAUtil.Encrypt(buffer);
 
-            //2.异或
-            data = SecurityUtil.Xor(data);
-
-            MMO_MemoryStream ms = m_SocketSendMS;
+            MMO_MemoryStream ms = this.m_SocketSendMS;
             ms.SetLength(0);
 
-            ms.WriteUShort((ushort)(data.Length + 4)); //4=isCompress 1 + ProtoId 2 + Category 1
+            ms.WriteUShort((ushort)(buffer.Length + 4)); //4=header 1 + ProtoId 2 + Category 1
 
-            ms.WriteBool(isCompress);
-
+            ms.WriteByte(header);
             ms.WriteUShort(0);
             ms.WriteByte((byte)carryProto.Category);
 
-            ms.Write(data, 0, data.Length);
+            ms.Write(buffer, 0, buffer.Length);
 
-            retBuffer = ms.ToArray();
+            var retBuffer = ms.ToArray();
             return retBuffer;
         }
 
@@ -366,32 +363,31 @@ namespace YouYouServer.Core
         /// <returns></returns>
         private byte[] MakeData(ushort protoId, byte category, byte[] buffer)
         {
-            byte[] retBuffer = null;
-
-            byte[] data = buffer;
-            //1.如果数据包的长度 大于了m_CompressLen 则进行压缩
-            bool isCompress = data.Length > m_CompressLen ? true : false;
+            byte header = 0; //byte，1-2-3-4-5-6-7-8 |1-是否压缩|2-是否加密
+            
+            bool isCompress = buffer.Length > m_CompressLen;
             if (isCompress)
             {
-                data = ZlibUtil.CompressBytes(data);
+                header = BitUtil.SetBit(header, 0);
+                ZlibUtil.CompressBytes(buffer);
             }
+            
+            //2.加密
+            header = BitUtil.SetBit(header, 1);
+            buffer = XXTEAUtil.Encrypt(buffer);
 
-            //2.异或
-            data = SecurityUtil.Xor(data);
-
-            MMO_MemoryStream ms = m_SocketSendMS;
+            MMO_MemoryStream ms = this.m_SocketSendMS;
             ms.SetLength(0);
 
-            ms.WriteUShort((ushort)(data.Length + 4)); //4=isCompress 1 + ProtoId 2 + Category 1
+            ms.WriteUShort((ushort)(buffer.Length + 4)); //4=header 1 + ProtoId 2 + Category 1
 
-            ms.WriteBool(isCompress);
-
+            ms.WriteByte(header);
             ms.WriteUShort(protoId);
             ms.WriteByte(category);
 
-            ms.Write(data, 0, data.Length);
+            ms.Write(buffer, 0, buffer.Length);
 
-            retBuffer = ms.ToArray();
+            var retBuffer = ms.ToArray();
             return retBuffer;
         }
         #endregion
@@ -410,18 +406,6 @@ namespace YouYouServer.Core
             {
                 //把数据包加入队列
                 m_SendQueue.Enqueue(sendBuffer);
-
-                //检查队列
-                OnCheckSendQueueCallBack();
-            }
-        }
-
-        public void SendMsg(byte[] protobuffer)
-        {
-            lock (protobuffer)
-            {
-                //把数据包加入队列
-                m_SendQueue.Enqueue(protobuffer);
 
                 //检查队列
                 OnCheckSendQueueCallBack();
@@ -477,7 +461,6 @@ namespace YouYouServer.Core
         /// <param name="ar"></param>
         private void SendCallBack(IAsyncResult ar)
         {
-            Console.WriteLine("发送结果" + ar.IsCompleted);
             m_Socket.EndSend(ar);
 
             //继续检查队列
@@ -527,7 +510,7 @@ namespace YouYouServer.Core
             }
             catch (Exception ex)
             {
-                LoggerMgr.Log(LoggerLevel.LogError, 0, "连接失败={0}", ex.Message);
+                LoggerMgr.Log(Core.LoggerLevel.LogError, 0, "连接失败={0}", ex.Message);
             }
         }
 
@@ -540,13 +523,13 @@ namespace YouYouServer.Core
             if (m_Socket.Connected)
             {
                 OnConnectSuccess?.Invoke();
-                LoggerMgr.Log(LoggerLevel.Log, 0, "socket连接成功");
+                LoggerMgr.Log(Core.LoggerLevel.Log, 0, "socket连接成功");
                 ReceiveMsg();
             }
             else
             {
                 OnConnectFail?.Invoke();
-                LoggerMgr.Log(LoggerLevel.LogError, 0, "socket连接失败");
+                LoggerMgr.Log(Core.LoggerLevel.LogError, 0, "socket连接失败");
             }
             m_Socket.EndConnect(ar);
         }

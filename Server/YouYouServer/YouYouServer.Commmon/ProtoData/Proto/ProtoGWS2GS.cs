@@ -25,21 +25,17 @@ namespace YouYou.Proto {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "ChJQcm90b19HV1MyR1MucHJvdG8SDFlvdVlvdS5Qcm90byIrChdHV1MyR1Nf",
-            "UmVnR2F0ZXdheVNlcnZlchIQCghTZXJ2ZXJJZBgBIAEoBSI0ChBHV1MyR1Nf",
-            "SGVhcnRiZWF0EhIKClNlcnZlclRpbWUYASABKAMSDAoEUGluZxgCIAEoBSJL",
-            "ChFHV1MyR1NfTGVhdmVTY2VuZRIOCgZSb2xlSWQYASABKAMSDwoHU2NlbmVJ",
-            "ZBgCIAEoBRIVCg1UYXJnZXRTY2VuZUlkGAMgASgFIiMKDkdXUzJHU19PZmZs",
-            "aW5lEhEKCUFjY291bnRJZBgBIAEoAyJPChdHV1MyR1NfRW50ZXJTY2VuZV9B",
-            "cHBseRIOCgZSb2xlSWQYASABKAMSEwoLUHJldlNjZW5lSWQYAiABKAUSDwoH",
-            "U2NlbmVJZBgDIAEoBSI0ChFHV1MyR1NfRW50ZXJTY2VuZRIOCgZSb2xlSWQY",
-            "ASABKAMSDwoHU2NlbmVJZBgCIAEoBWIGcHJvdG8z"));
+            "UmVnR2F0ZXdheVNlcnZlchIQCghTZXJ2ZXJJZBgBIAEoBSJLChFHV1MyR1Nf",
+            "TGVhdmVTY2VuZRIOCgZSb2xlSWQYASABKAMSDwoHU2NlbmVJZBgCIAEoBRIV",
+            "Cg1UYXJnZXRTY2VuZUlkGAMgASgFIk8KF0dXUzJHU19FbnRlclNjZW5lX0Fw",
+            "cGx5Eg4KBlJvbGVJZBgBIAEoAxITCgtQcmV2U2NlbmVJZBgCIAEoBRIPCgdT",
+            "Y2VuZUlkGAMgASgFIjQKEUdXUzJHU19FbnRlclNjZW5lEg4KBlJvbGVJZBgB",
+            "IAEoAxIPCgdTY2VuZUlkGAIgASgFYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::YouYou.Proto.GWS2GS_RegGatewayServer), global::YouYou.Proto.GWS2GS_RegGatewayServer.Parser, new[]{ "ServerId" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::YouYou.Proto.GWS2GS_Heartbeat), global::YouYou.Proto.GWS2GS_Heartbeat.Parser, new[]{ "ServerTime", "Ping" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::YouYou.Proto.GWS2GS_LeaveScene), global::YouYou.Proto.GWS2GS_LeaveScene.Parser, new[]{ "RoleId", "SceneId", "TargetSceneId" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::YouYou.Proto.GWS2GS_Offline), global::YouYou.Proto.GWS2GS_Offline.Parser, new[]{ "AccountId" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::YouYou.Proto.GWS2GS_EnterScene_Apply), global::YouYou.Proto.GWS2GS_EnterScene_Apply.Parser, new[]{ "RoleId", "PrevSceneId", "SceneId" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::YouYou.Proto.GWS2GS_EnterScene), global::YouYou.Proto.GWS2GS_EnterScene.Parser, new[]{ "RoleId", "SceneId" }, null, null, null)
           }));
@@ -187,174 +183,6 @@ namespace YouYou.Proto {
   }
 
   /// <summary>
-  ///网关服务器发送心跳到游戏服
-  /// </summary>
-  public sealed partial class GWS2GS_Heartbeat : YouYou.IProto, pb::IMessage<GWS2GS_Heartbeat> {
-    private static readonly pb::MessageParser<GWS2GS_Heartbeat> _parser = new pb::MessageParser<GWS2GS_Heartbeat>(() => new GWS2GS_Heartbeat());
-    public ushort ProtoId => ProtoIdDefine.Proto_GWS2GS_Heartbeat;
-    public string ProtoEnName => "GWS2GS_Heartbeat";
-    public ProtoCategory Category => ProtoCategory.GatewayServer2GameServer;
-    private pb::UnknownFieldSet _unknownFields;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<GWS2GS_Heartbeat> Parser { get { return _parser; } }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pbr::MessageDescriptor Descriptor {
-      get { return global::YouYou.Proto.ProtoGWS2GSReflection.Descriptor.MessageTypes[1]; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    pbr::MessageDescriptor pb::IMessage.Descriptor {
-      get { return Descriptor; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public GWS2GS_Heartbeat() {
-      OnConstruction();
-    }
-
-    partial void OnConstruction();
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public GWS2GS_Heartbeat(GWS2GS_Heartbeat other) : this() {
-      serverTime_ = other.serverTime_;
-      ping_ = other.ping_;
-      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public GWS2GS_Heartbeat Clone() {
-      return new GWS2GS_Heartbeat(this);
-    }
-
-    /// <summary>Field number for the "ServerTime" field.</summary>
-    public const int ServerTimeFieldNumber = 1;
-    private long serverTime_;
-    /// <summary>
-    ///服务器时间
-    /// </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public long ServerTime {
-      get { return serverTime_; }
-      set {
-        serverTime_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "Ping" field.</summary>
-    public const int PingFieldNumber = 2;
-    private int ping_;
-    /// <summary>
-    /// </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int Ping {
-      get { return ping_; }
-      set {
-        ping_ = value;
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override bool Equals(object other) {
-      return Equals(other as GWS2GS_Heartbeat);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(GWS2GS_Heartbeat other) {
-      if (ReferenceEquals(other, null)) {
-        return false;
-      }
-      if (ReferenceEquals(other, this)) {
-        return true;
-      }
-      if (ServerTime != other.ServerTime) return false;
-      if (Ping != other.Ping) return false;
-      return Equals(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override int GetHashCode() {
-      int hash = 1;
-      if (ServerTime != 0L) hash ^= ServerTime.GetHashCode();
-      if (Ping != 0) hash ^= Ping.GetHashCode();
-      if (_unknownFields != null) {
-        hash ^= _unknownFields.GetHashCode();
-      }
-      return hash;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override string ToString() {
-      return pb::JsonFormatter.ToDiagnosticString(this);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void WriteTo(pb::CodedOutputStream output) {
-      if (ServerTime != 0L) {
-        output.WriteRawTag(8);
-        output.WriteInt64(ServerTime);
-      }
-      if (Ping != 0) {
-        output.WriteRawTag(16);
-        output.WriteInt32(Ping);
-      }
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(output);
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int CalculateSize() {
-      int size = 0;
-      if (ServerTime != 0L) {
-        size += 1 + pb::CodedOutputStream.ComputeInt64Size(ServerTime);
-      }
-      if (Ping != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Ping);
-      }
-      if (_unknownFields != null) {
-        size += _unknownFields.CalculateSize();
-      }
-      return size;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(GWS2GS_Heartbeat other) {
-      if (other == null) {
-        return;
-      }
-      if (other.ServerTime != 0L) {
-        ServerTime = other.ServerTime;
-      }
-      if (other.Ping != 0) {
-        Ping = other.Ping;
-      }
-      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(pb::CodedInputStream input) {
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
-            break;
-          case 8: {
-            ServerTime = input.ReadInt64();
-            break;
-          }
-          case 16: {
-            Ping = input.ReadInt32();
-            break;
-          }
-        }
-      }
-    }
-
-  }
-
-  /// <summary>
   ///网关服务器向游戏服务器发送角色离开场景消息
   /// </summary>
   public sealed partial class GWS2GS_LeaveScene : YouYou.IProto, pb::IMessage<GWS2GS_LeaveScene> {
@@ -368,7 +196,7 @@ namespace YouYou.Proto {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::YouYou.Proto.ProtoGWS2GSReflection.Descriptor.MessageTypes[2]; }
+      get { return global::YouYou.Proto.ProtoGWS2GSReflection.Descriptor.MessageTypes[1]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -555,144 +383,6 @@ namespace YouYou.Proto {
   }
 
   /// <summary>
-  ///网关服务器向游戏服务器发送角色下线消息
-  /// </summary>
-  public sealed partial class GWS2GS_Offline : YouYou.IProto, pb::IMessage<GWS2GS_Offline> {
-    private static readonly pb::MessageParser<GWS2GS_Offline> _parser = new pb::MessageParser<GWS2GS_Offline>(() => new GWS2GS_Offline());
-    public ushort ProtoId => ProtoIdDefine.Proto_GWS2GS_Offline;
-    public string ProtoEnName => "GWS2GS_Offline";
-    public ProtoCategory Category => ProtoCategory.GatewayServer2GameServer;
-    private pb::UnknownFieldSet _unknownFields;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<GWS2GS_Offline> Parser { get { return _parser; } }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pbr::MessageDescriptor Descriptor {
-      get { return global::YouYou.Proto.ProtoGWS2GSReflection.Descriptor.MessageTypes[3]; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    pbr::MessageDescriptor pb::IMessage.Descriptor {
-      get { return Descriptor; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public GWS2GS_Offline() {
-      OnConstruction();
-    }
-
-    partial void OnConstruction();
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public GWS2GS_Offline(GWS2GS_Offline other) : this() {
-      accountId_ = other.accountId_;
-      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public GWS2GS_Offline Clone() {
-      return new GWS2GS_Offline(this);
-    }
-
-    /// <summary>Field number for the "AccountId" field.</summary>
-    public const int AccountIdFieldNumber = 1;
-    private long accountId_;
-    /// <summary>
-    ///玩家账号
-    /// </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public long AccountId {
-      get { return accountId_; }
-      set {
-        accountId_ = value;
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override bool Equals(object other) {
-      return Equals(other as GWS2GS_Offline);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(GWS2GS_Offline other) {
-      if (ReferenceEquals(other, null)) {
-        return false;
-      }
-      if (ReferenceEquals(other, this)) {
-        return true;
-      }
-      if (AccountId != other.AccountId) return false;
-      return Equals(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override int GetHashCode() {
-      int hash = 1;
-      if (AccountId != 0L) hash ^= AccountId.GetHashCode();
-      if (_unknownFields != null) {
-        hash ^= _unknownFields.GetHashCode();
-      }
-      return hash;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override string ToString() {
-      return pb::JsonFormatter.ToDiagnosticString(this);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void WriteTo(pb::CodedOutputStream output) {
-      if (AccountId != 0L) {
-        output.WriteRawTag(8);
-        output.WriteInt64(AccountId);
-      }
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(output);
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int CalculateSize() {
-      int size = 0;
-      if (AccountId != 0L) {
-        size += 1 + pb::CodedOutputStream.ComputeInt64Size(AccountId);
-      }
-      if (_unknownFields != null) {
-        size += _unknownFields.CalculateSize();
-      }
-      return size;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(GWS2GS_Offline other) {
-      if (other == null) {
-        return;
-      }
-      if (other.AccountId != 0L) {
-        AccountId = other.AccountId;
-      }
-      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(pb::CodedInputStream input) {
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
-            break;
-          case 8: {
-            AccountId = input.ReadInt64();
-            break;
-          }
-        }
-      }
-    }
-
-  }
-
-  /// <summary>
   ///网关服务器向游戏服务器发送角色进入场景申请消息
   /// </summary>
   public sealed partial class GWS2GS_EnterScene_Apply : YouYou.IProto, pb::IMessage<GWS2GS_EnterScene_Apply> {
@@ -706,7 +396,7 @@ namespace YouYou.Proto {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::YouYou.Proto.ProtoGWS2GSReflection.Descriptor.MessageTypes[4]; }
+      get { return global::YouYou.Proto.ProtoGWS2GSReflection.Descriptor.MessageTypes[2]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -906,7 +596,7 @@ namespace YouYou.Proto {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::YouYou.Proto.ProtoGWS2GSReflection.Descriptor.MessageTypes[5]; }
+      get { return global::YouYou.Proto.ProtoGWS2GSReflection.Descriptor.MessageTypes[3]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]

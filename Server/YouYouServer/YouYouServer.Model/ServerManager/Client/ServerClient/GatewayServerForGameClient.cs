@@ -1,4 +1,5 @@
-﻿using YouYouServer.Common;
+﻿using System;
+using YouYouServer.Common;
 using YouYouServer.Core;
 
 namespace YouYouServer.Model
@@ -25,7 +26,10 @@ namespace YouYouServer.Model
                     Dispose();
                     GameServerManager.RemoveGatewayServerClient(this);
                 };
+            //处理中转协议
             CurrServerClient.OnCarryProto = OnCarryProto;
+            
+            Console.WriteLine("作为游戏服务器的网关服务器客户端 初始化完毕");
             AddEventListener();
         }
 
@@ -40,21 +44,24 @@ namespace YouYouServer.Model
             //游戏服务器端收到的中转消息 都是经过中转的
             //所以这里直接解析中转协议
             CarryProto proto = CarryProto.GetProto(buffer);
-            if (proto.CarryProtoCategory == ProtoCategory.Client2GameServer)
+            if (proto.CarryProtoCategory == ProtoCategory.Client2GameServer ||
+                proto.CarryProtoCategory == ProtoCategory.GatewayServer2GameServer)
             {
                 long accountId = proto.AccountId;
-
-                //1. 找到在游戏服务器上的玩家的客户端
-                PlayerForGameClient playerForGameClient = GameServerManager.GetPlayerClient(accountId);
-                if (playerForGameClient == null)
+                if (accountId > 0)
                 {
-                    //如果找不到 进行注册
-                    playerForGameClient = new PlayerForGameClient(accountId, this);
-                    GameServerManager.RegisterPlayerForGameClient(playerForGameClient);
-                }
+                    //1. 找到在游戏服务器上的玩家的客户端
+                    PlayerForGameClient playerForGameClient = GameServerManager.GetPlayerClient(accountId);
+                    if (playerForGameClient == null)
+                    {
+                        //如果找不到 进行注册
+                        playerForGameClient = new PlayerForGameClient(accountId, this);
+                        GameServerManager.RegisterPlayerForGameClient(playerForGameClient);
+                    }
 
-                // 2. 给这个玩家客户端派发消息
-                playerForGameClient.EventDispatcher.Dispatch(proto.CarryProtoId, proto.Buffer);
+                    // 2. 给这个玩家客户端派发消息
+                    playerForGameClient.EventDispatcher.Dispatch(proto.CarryProtoId, proto.Buffer);
+                }
             }
         }
 

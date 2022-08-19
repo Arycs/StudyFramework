@@ -72,5 +72,6 @@
         public const string PVPSceneLineSyncHandler = "PVPSceneLineSyncHandler";
         public const string RoleClientHandler = "RoleClientHandler";
         public const string PVPSceneSpawnMonsterPointHandler = "PVPSceneSpawnMonsterPointHandler";
+        public const string PlayerForGameClientHandler = "PlayerForGameClientHandler";
     }
 }

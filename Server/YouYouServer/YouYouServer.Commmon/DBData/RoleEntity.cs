@@ -1,6 +1,7 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson.Serialization.Options;
 using System.Collections.Generic;
+using YouYou.Proto;
 using YouYouServer.Core;
 
 namespace YouYouServer.Common
@@ -41,6 +42,21 @@ namespace YouYouServer.Common
         /// </summary>
         public int Level;
 
+        /// <summary>
+        /// 所在场景编号
+        /// </summary>
+        public int CurrSceneId;
+
+        /// <summary>
+        /// 当前位置
+        /// </summary>
+        public Vector3 CurrPos;
+
+        /// <summary>
+        /// Y轴旋转
+        /// </summary>
+        public float RotationY;
+        
         /// <summary>
         /// 任务列表
         /// </summary>

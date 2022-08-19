@@ -5,6 +5,7 @@ using System.Text;
 using YouYou;
 using YouYouServer.Common;
 using YouYouServer.Core;
+using YouYouServer.Model.IHandler;
 
 namespace YouYouServer.Model
 {
@@ -16,10 +17,7 @@ namespace YouYouServer.Model
         /// <summary>
         /// 当前角色
         /// </summary>
-        public RoleEntity CurrRole
-        {
-            get; private set;
-        }
+        public RoleEntity CurrRole { get; private set; }
 
         /// <summary>
         /// 这个玩家所在的网关
@@ -30,18 +28,38 @@ namespace YouYouServer.Model
         {
             AccountId = accountId;
             m_GatewayServerForGameClient = gatewayServerForWorldClient;
+
+            HotFixHelper.OnLoadAssembly += InitPlayerForGameClientHandler;
+            InitPlayerForGameClientHandler();
+        }
+
+        private IPlayerForGameClientHandler m_CurrHandler;
+
+        private void InitPlayerForGameClientHandler()
+        {
+            if (m_CurrHandler != null)
+            {
+                //把旧的实例释放掉
+                m_CurrHandler.Dispose();
+                m_CurrHandler = null;
+            }
+
+            m_CurrHandler =
+                Activator.CreateInstance(HotFixHelper.HandlerTypeDic[ConstDefine.PlayerForGameClientHandler]) as
+                    IPlayerForGameClientHandler;
+            m_CurrHandler?.Init(this);
+
+            Console.WriteLine("InitPlayerForGameClientHandler");
         }
 
         /// <summary>
-        /// 发送中转协议到客户端
+        /// 发送中转消息
         /// </summary>
         /// <param name="proto"></param>
-        private void SendCarryToClient(IProto proto)
+        public void SendCarryToClient(IProto proto)
         {
             CarryProto carryProto = new CarryProto(AccountId, proto.ProtoId, proto.Category, proto.ToByteArray());
-            m_GatewayServerForGameClient.CurrServerClient.ClientSocket.SendMsg(
-               carryProto
-               );
+            m_GatewayServerForGameClient.CurrServerClient.ClientSocket.SendMsg(carryProto);
         }
     }
 }

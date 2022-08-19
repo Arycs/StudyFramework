@@ -25,21 +25,12 @@ namespace YouYou.Proto {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "ChBQcm90b19DMkdTLnByb3RvEgxZb3VZb3UuUHJvdG8aElByb3RvX0NvbW1v",
-            "bi5wcm90byJiCg5DMkdTX0NsaWNrTW92ZRImCgdDdXJyUG9zGAEgASgLMhUu",
-            "WW91WW91LlByb3RvLlZlY3RvcjMSKAoJVGFyZ2V0UG9zGAIgASgLMhUuWW91",
-            "WW91LlByb3RvLlZlY3RvcjMiYwoRQzJHU19Kb3lzdGlja01vdmUSJgoHQ3Vy",
-            "clBvcxgBIAEoCzIVLllvdVlvdS5Qcm90by5WZWN0b3IzEiYKB01vdmVEaXIY",
-            "AiABKAsyFS5Zb3VZb3UuUHJvdG8uVmVjdG9yMyJOChFDMkdTX0pveXN0aWNr",
-            "U3RvcBImCgdDdXJyUG9zGAEgASgLMhUuWW91WW91LlByb3RvLlZlY3RvcjMS",
-            "EQoJUm90YXRpb25ZGAIgASgCIiQKEkMyR1NfRW50ZXJfQU9JQXJlYRIOCgZB",
-            "cmVhSWQYASABKAViBnByb3RvMw=="));
+            "bi5wcm90byJFCghDMkdTX1J1bhImCgdDdXJyUG9zGAEgASgLMhUuWW91WW91",
+            "LlByb3RvLlZlY3RvcjMSEQoJUm90YXRpb25ZGAIgASgCYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::YouYou.Proto.ProtoCommonReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::YouYou.Proto.C2GS_ClickMove), global::YouYou.Proto.C2GS_ClickMove.Parser, new[]{ "CurrPos", "TargetPos" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::YouYou.Proto.C2GS_JoystickMove), global::YouYou.Proto.C2GS_JoystickMove.Parser, new[]{ "CurrPos", "MoveDir" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::YouYou.Proto.C2GS_JoystickStop), global::YouYou.Proto.C2GS_JoystickStop.Parser, new[]{ "CurrPos", "RotationY" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::YouYou.Proto.C2GS_Enter_AOIArea), global::YouYou.Proto.C2GS_Enter_AOIArea.Parser, new[]{ "AreaId" }, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::YouYou.Proto.C2GS_Run), global::YouYou.Proto.C2GS_Run.Parser, new[]{ "CurrPos", "RotationY" }, null, null, null)
           }));
     }
     #endregion
@@ -47,16 +38,16 @@ namespace YouYou.Proto {
   }
   #region Messages
   /// <summary>
-  ///玩家向服务器发送点击移动消息
+  ///玩家向服务器发送移动
   /// </summary>
-  public sealed partial class C2GS_ClickMove : YouYou.IProto, pb::IMessage<C2GS_ClickMove> {
-    private static readonly pb::MessageParser<C2GS_ClickMove> _parser = new pb::MessageParser<C2GS_ClickMove>(() => new C2GS_ClickMove());
-    public ushort ProtoId => ProtoIdDefine.Proto_C2GS_ClickMove;
-    public string ProtoEnName => "C2GS_ClickMove";
+  public sealed partial class C2GS_Run : YouYou.IProto, pb::IMessage<C2GS_Run> {
+    private static readonly pb::MessageParser<C2GS_Run> _parser = new pb::MessageParser<C2GS_Run>(() => new C2GS_Run());
+    public ushort ProtoId => ProtoIdDefine.Proto_C2GS_Run;
+    public string ProtoEnName => "C2GS_Run";
     public ProtoCategory Category => ProtoCategory.Client2GameServer;
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<C2GS_ClickMove> Parser { get { return _parser; } }
+    public static pb::MessageParser<C2GS_Run> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
@@ -69,391 +60,29 @@ namespace YouYou.Proto {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public C2GS_ClickMove() {
+    public C2GS_Run() {
       OnConstruction();
     }
 
     partial void OnConstruction();
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public C2GS_ClickMove(C2GS_ClickMove other) : this() {
-      currPos_ = other.currPos_ != null ? other.currPos_.Clone() : null;
-      targetPos_ = other.targetPos_ != null ? other.targetPos_.Clone() : null;
-      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public C2GS_ClickMove Clone() {
-      return new C2GS_ClickMove(this);
-    }
-
-    /// <summary>Field number for the "CurrPos" field.</summary>
-    public const int CurrPosFieldNumber = 1;
-    private global::YouYou.Proto.Vector3 currPos_;
-    /// <summary>
-    ///当前位置
-    /// </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::YouYou.Proto.Vector3 CurrPos {
-      get { return currPos_; }
-      set {
-        currPos_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "TargetPos" field.</summary>
-    public const int TargetPosFieldNumber = 2;
-    private global::YouYou.Proto.Vector3 targetPos_;
-    /// <summary>
-    ///目标点
-    /// </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::YouYou.Proto.Vector3 TargetPos {
-      get { return targetPos_; }
-      set {
-        targetPos_ = value;
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override bool Equals(object other) {
-      return Equals(other as C2GS_ClickMove);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(C2GS_ClickMove other) {
-      if (ReferenceEquals(other, null)) {
-        return false;
-      }
-      if (ReferenceEquals(other, this)) {
-        return true;
-      }
-      if (!object.Equals(CurrPos, other.CurrPos)) return false;
-      if (!object.Equals(TargetPos, other.TargetPos)) return false;
-      return Equals(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override int GetHashCode() {
-      int hash = 1;
-      if (currPos_ != null) hash ^= CurrPos.GetHashCode();
-      if (targetPos_ != null) hash ^= TargetPos.GetHashCode();
-      if (_unknownFields != null) {
-        hash ^= _unknownFields.GetHashCode();
-      }
-      return hash;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override string ToString() {
-      return pb::JsonFormatter.ToDiagnosticString(this);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void WriteTo(pb::CodedOutputStream output) {
-      if (currPos_ != null) {
-        output.WriteRawTag(10);
-        output.WriteMessage(CurrPos);
-      }
-      if (targetPos_ != null) {
-        output.WriteRawTag(18);
-        output.WriteMessage(TargetPos);
-      }
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(output);
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int CalculateSize() {
-      int size = 0;
-      if (currPos_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(CurrPos);
-      }
-      if (targetPos_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(TargetPos);
-      }
-      if (_unknownFields != null) {
-        size += _unknownFields.CalculateSize();
-      }
-      return size;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(C2GS_ClickMove other) {
-      if (other == null) {
-        return;
-      }
-      if (other.currPos_ != null) {
-        if (currPos_ == null) {
-          CurrPos = new global::YouYou.Proto.Vector3();
-        }
-        CurrPos.MergeFrom(other.CurrPos);
-      }
-      if (other.targetPos_ != null) {
-        if (targetPos_ == null) {
-          TargetPos = new global::YouYou.Proto.Vector3();
-        }
-        TargetPos.MergeFrom(other.TargetPos);
-      }
-      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(pb::CodedInputStream input) {
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
-            break;
-          case 10: {
-            if (currPos_ == null) {
-              CurrPos = new global::YouYou.Proto.Vector3();
-            }
-            input.ReadMessage(CurrPos);
-            break;
-          }
-          case 18: {
-            if (targetPos_ == null) {
-              TargetPos = new global::YouYou.Proto.Vector3();
-            }
-            input.ReadMessage(TargetPos);
-            break;
-          }
-        }
-      }
-    }
-
-  }
-
-  /// <summary>
-  ///玩家向服务器发送摇杆移动消息
-  /// </summary>
-  public sealed partial class C2GS_JoystickMove : YouYou.IProto, pb::IMessage<C2GS_JoystickMove> {
-    private static readonly pb::MessageParser<C2GS_JoystickMove> _parser = new pb::MessageParser<C2GS_JoystickMove>(() => new C2GS_JoystickMove());
-    public ushort ProtoId => ProtoIdDefine.Proto_C2GS_JoystickMove;
-    public string ProtoEnName => "C2GS_JoystickMove";
-    public ProtoCategory Category => ProtoCategory.Client2GameServer;
-    private pb::UnknownFieldSet _unknownFields;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<C2GS_JoystickMove> Parser { get { return _parser; } }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pbr::MessageDescriptor Descriptor {
-      get { return global::YouYou.Proto.ProtoC2GSReflection.Descriptor.MessageTypes[1]; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    pbr::MessageDescriptor pb::IMessage.Descriptor {
-      get { return Descriptor; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public C2GS_JoystickMove() {
-      OnConstruction();
-    }
-
-    partial void OnConstruction();
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public C2GS_JoystickMove(C2GS_JoystickMove other) : this() {
-      currPos_ = other.currPos_ != null ? other.currPos_.Clone() : null;
-      moveDir_ = other.moveDir_ != null ? other.moveDir_.Clone() : null;
-      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public C2GS_JoystickMove Clone() {
-      return new C2GS_JoystickMove(this);
-    }
-
-    /// <summary>Field number for the "CurrPos" field.</summary>
-    public const int CurrPosFieldNumber = 1;
-    private global::YouYou.Proto.Vector3 currPos_;
-    /// <summary>
-    ///当前位置
-    /// </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::YouYou.Proto.Vector3 CurrPos {
-      get { return currPos_; }
-      set {
-        currPos_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "MoveDir" field.</summary>
-    public const int MoveDirFieldNumber = 2;
-    private global::YouYou.Proto.Vector3 moveDir_;
-    /// <summary>
-    ///移动方向
-    /// </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::YouYou.Proto.Vector3 MoveDir {
-      get { return moveDir_; }
-      set {
-        moveDir_ = value;
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override bool Equals(object other) {
-      return Equals(other as C2GS_JoystickMove);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(C2GS_JoystickMove other) {
-      if (ReferenceEquals(other, null)) {
-        return false;
-      }
-      if (ReferenceEquals(other, this)) {
-        return true;
-      }
-      if (!object.Equals(CurrPos, other.CurrPos)) return false;
-      if (!object.Equals(MoveDir, other.MoveDir)) return false;
-      return Equals(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override int GetHashCode() {
-      int hash = 1;
-      if (currPos_ != null) hash ^= CurrPos.GetHashCode();
-      if (moveDir_ != null) hash ^= MoveDir.GetHashCode();
-      if (_unknownFields != null) {
-        hash ^= _unknownFields.GetHashCode();
-      }
-      return hash;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override string ToString() {
-      return pb::JsonFormatter.ToDiagnosticString(this);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void WriteTo(pb::CodedOutputStream output) {
-      if (currPos_ != null) {
-        output.WriteRawTag(10);
-        output.WriteMessage(CurrPos);
-      }
-      if (moveDir_ != null) {
-        output.WriteRawTag(18);
-        output.WriteMessage(MoveDir);
-      }
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(output);
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int CalculateSize() {
-      int size = 0;
-      if (currPos_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(CurrPos);
-      }
-      if (moveDir_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(MoveDir);
-      }
-      if (_unknownFields != null) {
-        size += _unknownFields.CalculateSize();
-      }
-      return size;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(C2GS_JoystickMove other) {
-      if (other == null) {
-        return;
-      }
-      if (other.currPos_ != null) {
-        if (currPos_ == null) {
-          CurrPos = new global::YouYou.Proto.Vector3();
-        }
-        CurrPos.MergeFrom(other.CurrPos);
-      }
-      if (other.moveDir_ != null) {
-        if (moveDir_ == null) {
-          MoveDir = new global::YouYou.Proto.Vector3();
-        }
-        MoveDir.MergeFrom(other.MoveDir);
-      }
-      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(pb::CodedInputStream input) {
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
-            break;
-          case 10: {
-            if (currPos_ == null) {
-              CurrPos = new global::YouYou.Proto.Vector3();
-            }
-            input.ReadMessage(CurrPos);
-            break;
-          }
-          case 18: {
-            if (moveDir_ == null) {
-              MoveDir = new global::YouYou.Proto.Vector3();
-            }
-            input.ReadMessage(MoveDir);
-            break;
-          }
-        }
-      }
-    }
-
-  }
-
-  /// <summary>
-  ///玩家向服务器发送抬起摇杆消息
-  /// </summary>
-  public sealed partial class C2GS_JoystickStop : YouYou.IProto, pb::IMessage<C2GS_JoystickStop> {
-    private static readonly pb::MessageParser<C2GS_JoystickStop> _parser = new pb::MessageParser<C2GS_JoystickStop>(() => new C2GS_JoystickStop());
-    public ushort ProtoId => ProtoIdDefine.Proto_C2GS_JoystickStop;
-    public string ProtoEnName => "C2GS_JoystickStop";
-    public ProtoCategory Category => ProtoCategory.Client2GameServer;
-    private pb::UnknownFieldSet _unknownFields;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<C2GS_JoystickStop> Parser { get { return _parser; } }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pbr::MessageDescriptor Descriptor {
-      get { return global::YouYou.Proto.ProtoC2GSReflection.Descriptor.MessageTypes[2]; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    pbr::MessageDescriptor pb::IMessage.Descriptor {
-      get { return Descriptor; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public C2GS_JoystickStop() {
-      OnConstruction();
-    }
-
-    partial void OnConstruction();
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public C2GS_JoystickStop(C2GS_JoystickStop other) : this() {
+    public C2GS_Run(C2GS_Run other) : this() {
       currPos_ = other.currPos_ != null ? other.currPos_.Clone() : null;
       rotationY_ = other.rotationY_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public C2GS_JoystickStop Clone() {
-      return new C2GS_JoystickStop(this);
+    public C2GS_Run Clone() {
+      return new C2GS_Run(this);
     }
 
     /// <summary>Field number for the "CurrPos" field.</summary>
     public const int CurrPosFieldNumber = 1;
     private global::YouYou.Proto.Vector3 currPos_;
     /// <summary>
-    ///当前位置
+    ///坐标
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public global::YouYou.Proto.Vector3 CurrPos {
@@ -479,11 +108,11 @@ namespace YouYou.Proto {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
-      return Equals(other as C2GS_JoystickStop);
+      return Equals(other as C2GS_Run);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(C2GS_JoystickStop other) {
+    public bool Equals(C2GS_Run other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -542,7 +171,7 @@ namespace YouYou.Proto {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(C2GS_JoystickStop other) {
+    public void MergeFrom(C2GS_Run other) {
       if (other == null) {
         return;
       }
@@ -575,144 +204,6 @@ namespace YouYou.Proto {
           }
           case 21: {
             RotationY = input.ReadFloat();
-            break;
-          }
-        }
-      }
-    }
-
-  }
-
-  /// <summary>
-  ///玩家向服务器发送进入AOI区域消息
-  /// </summary>
-  public sealed partial class C2GS_Enter_AOIArea : YouYou.IProto, pb::IMessage<C2GS_Enter_AOIArea> {
-    private static readonly pb::MessageParser<C2GS_Enter_AOIArea> _parser = new pb::MessageParser<C2GS_Enter_AOIArea>(() => new C2GS_Enter_AOIArea());
-    public ushort ProtoId => ProtoIdDefine.Proto_C2GS_Enter_AOIArea;
-    public string ProtoEnName => "C2GS_Enter_AOIArea";
-    public ProtoCategory Category => ProtoCategory.Client2GameServer;
-    private pb::UnknownFieldSet _unknownFields;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<C2GS_Enter_AOIArea> Parser { get { return _parser; } }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pbr::MessageDescriptor Descriptor {
-      get { return global::YouYou.Proto.ProtoC2GSReflection.Descriptor.MessageTypes[3]; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    pbr::MessageDescriptor pb::IMessage.Descriptor {
-      get { return Descriptor; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public C2GS_Enter_AOIArea() {
-      OnConstruction();
-    }
-
-    partial void OnConstruction();
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public C2GS_Enter_AOIArea(C2GS_Enter_AOIArea other) : this() {
-      areaId_ = other.areaId_;
-      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public C2GS_Enter_AOIArea Clone() {
-      return new C2GS_Enter_AOIArea(this);
-    }
-
-    /// <summary>Field number for the "AreaId" field.</summary>
-    public const int AreaIdFieldNumber = 1;
-    private int areaId_;
-    /// <summary>
-    ///场景编号
-    /// </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int AreaId {
-      get { return areaId_; }
-      set {
-        areaId_ = value;
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override bool Equals(object other) {
-      return Equals(other as C2GS_Enter_AOIArea);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(C2GS_Enter_AOIArea other) {
-      if (ReferenceEquals(other, null)) {
-        return false;
-      }
-      if (ReferenceEquals(other, this)) {
-        return true;
-      }
-      if (AreaId != other.AreaId) return false;
-      return Equals(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override int GetHashCode() {
-      int hash = 1;
-      if (AreaId != 0) hash ^= AreaId.GetHashCode();
-      if (_unknownFields != null) {
-        hash ^= _unknownFields.GetHashCode();
-      }
-      return hash;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override string ToString() {
-      return pb::JsonFormatter.ToDiagnosticString(this);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void WriteTo(pb::CodedOutputStream output) {
-      if (AreaId != 0) {
-        output.WriteRawTag(8);
-        output.WriteInt32(AreaId);
-      }
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(output);
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int CalculateSize() {
-      int size = 0;
-      if (AreaId != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(AreaId);
-      }
-      if (_unknownFields != null) {
-        size += _unknownFields.CalculateSize();
-      }
-      return size;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(C2GS_Enter_AOIArea other) {
-      if (other == null) {
-        return;
-      }
-      if (other.AreaId != 0) {
-        AreaId = other.AreaId;
-      }
-      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(pb::CodedInputStream input) {
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
-            break;
-          case 8: {
-            AreaId = input.ReadInt32();
             break;
           }
         }

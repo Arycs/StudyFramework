@@ -1,5 +1,8 @@
 ﻿using Google.Protobuf;
 using System;
+using System.Diagnostics;
+using System.Net;
+using System.Reflection;
 using YouYou;
 using YouYouServer.Common;
 using YouYouServer.Core;
@@ -46,7 +49,7 @@ namespace YouYouServer.Model
             }
 
             m_CurrHandler = Activator.CreateInstance(HotFixHelper.HandlerTypeDic[ConstDefine.PlayerForWorldClientHandler]) as IPlayerForWorldClientHandler;
-            m_CurrHandler.Init(this);
+            m_CurrHandler?.Init(this);
 
             Console.WriteLine("InitPlayerForWorldClientHandler");
         }
@@ -58,9 +61,10 @@ namespace YouYouServer.Model
         public void SendCarryToClient(IProto proto)
         {
             CarryProto carryProto = new CarryProto(AccountId, proto.ProtoId, proto.Category, proto.ToByteArray());
-            m_GatewayServerForWorldClient.CurrServerClient.ClientSocket.SendMsg(
-                carryProto
-                );
+            Console.WriteLine($"发送的Proto Id = >{proto.ProtoId}");
+            var a = m_GatewayServerForWorldClient.CurrServerClient.ClientSocket.m_Socket.RemoteEndPoint;
+            Console.WriteLine($"要发送给ip {a}");
+            m_GatewayServerForWorldClient.CurrServerClient.ClientSocket.SendMsg(carryProto);
         }
     }
 }

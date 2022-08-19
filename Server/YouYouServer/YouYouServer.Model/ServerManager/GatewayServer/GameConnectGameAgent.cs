@@ -17,6 +17,7 @@ namespace YouYouServer.Model
             {
                 //连接到游戏服务器
                 TargetServerConnect = new ServerConnect(TargetServerConfig);
+                TargetServerConnect.OnCarryProto = OnCarryProto;
                 AddEventListener();
             }
             else

@@ -25,17 +25,15 @@ namespace YouYou.Proto {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "ChFQcm90b19OUzJHUy5wcm90bxIMWW91WW91LlByb3RvIjAKDU5TMkdTX1Zl",
-            "Y3RvcjMSCQoBeBgBIAEoAhIJCgF5GAIgASgCEgkKAXoYAyABKAIicwoTTlMy",
-            "R1NfUmV0dXJuTmF2UGF0aBIOCgZUYXNrSWQYASABKAMSEgoKU2VydmVyVGlt",
-            "ZRgCIAEoAxINCgVWYWxpZBgDIAEoCBIpCgRQYXRoGAQgAygLMhsuWW91WW91",
-            "LlByb3RvLk5TMkdTX1ZlY3RvcjMiJQoPTlMyR1NfSGVhcnRiZWF0EhIKClNl",
-            "cnZlclRpbWUYASABKANiBnByb3RvMw=="));
+            "Y3RvcjMSCQoBeBgBIAEoAhIJCgF5GAIgASgCEgkKAXoYAyABKAIiXwoTTlMy",
+            "R1NfUmV0dXJuTmF2UGF0aBIOCgZUYXNrSWQYASABKAMSDQoFVmFsaWQYAiAB",
+            "KAgSKQoEUGF0aBgDIAMoCzIbLllvdVlvdS5Qcm90by5OUzJHU19WZWN0b3Iz",
+            "YgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::YouYou.Proto.NS2GS_Vector3), global::YouYou.Proto.NS2GS_Vector3.Parser, new[]{ "X", "Y", "Z" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::YouYou.Proto.NS2GS_ReturnNavPath), global::YouYou.Proto.NS2GS_ReturnNavPath.Parser, new[]{ "TaskId", "ServerTime", "Valid", "Path" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::YouYou.Proto.NS2GS_Heartbeat), global::YouYou.Proto.NS2GS_Heartbeat.Parser, new[]{ "ServerTime" }, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::YouYou.Proto.NS2GS_ReturnNavPath), global::YouYou.Proto.NS2GS_ReturnNavPath.Parser, new[]{ "TaskId", "Valid", "Path" }, null, null, null)
           }));
     }
     #endregion
@@ -271,7 +269,6 @@ namespace YouYou.Proto {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public NS2GS_ReturnNavPath(NS2GS_ReturnNavPath other) : this() {
       taskId_ = other.taskId_;
-      serverTime_ = other.serverTime_;
       valid_ = other.valid_;
       path_ = other.path_.Clone();
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
@@ -296,22 +293,8 @@ namespace YouYou.Proto {
       }
     }
 
-    /// <summary>Field number for the "ServerTime" field.</summary>
-    public const int ServerTimeFieldNumber = 2;
-    private long serverTime_;
-    /// <summary>
-    ///服务器时间(透传)
-    /// </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public long ServerTime {
-      get { return serverTime_; }
-      set {
-        serverTime_ = value;
-      }
-    }
-
     /// <summary>Field number for the "Valid" field.</summary>
-    public const int ValidFieldNumber = 3;
+    public const int ValidFieldNumber = 2;
     private bool valid_;
     /// <summary>
     ///有效
@@ -325,9 +308,9 @@ namespace YouYou.Proto {
     }
 
     /// <summary>Field number for the "Path" field.</summary>
-    public const int PathFieldNumber = 4;
+    public const int PathFieldNumber = 3;
     private static readonly pb::FieldCodec<global::YouYou.Proto.NS2GS_Vector3> _repeated_path_codec
-        = pb::FieldCodec.ForMessage(34, global::YouYou.Proto.NS2GS_Vector3.Parser);
+        = pb::FieldCodec.ForMessage(26, global::YouYou.Proto.NS2GS_Vector3.Parser);
     private readonly pbc::RepeatedField<global::YouYou.Proto.NS2GS_Vector3> path_ = new pbc::RepeatedField<global::YouYou.Proto.NS2GS_Vector3>();
     /// <summary>
     ///路径
@@ -351,7 +334,6 @@ namespace YouYou.Proto {
         return true;
       }
       if (TaskId != other.TaskId) return false;
-      if (ServerTime != other.ServerTime) return false;
       if (Valid != other.Valid) return false;
       if(!path_.Equals(other.path_)) return false;
       return Equals(_unknownFields, other._unknownFields);
@@ -361,7 +343,6 @@ namespace YouYou.Proto {
     public override int GetHashCode() {
       int hash = 1;
       if (TaskId != 0L) hash ^= TaskId.GetHashCode();
-      if (ServerTime != 0L) hash ^= ServerTime.GetHashCode();
       if (Valid != false) hash ^= Valid.GetHashCode();
       hash ^= path_.GetHashCode();
       if (_unknownFields != null) {
@@ -381,12 +362,8 @@ namespace YouYou.Proto {
         output.WriteRawTag(8);
         output.WriteInt64(TaskId);
       }
-      if (ServerTime != 0L) {
-        output.WriteRawTag(16);
-        output.WriteInt64(ServerTime);
-      }
       if (Valid != false) {
-        output.WriteRawTag(24);
+        output.WriteRawTag(16);
         output.WriteBool(Valid);
       }
       path_.WriteTo(output, _repeated_path_codec);
@@ -400,9 +377,6 @@ namespace YouYou.Proto {
       int size = 0;
       if (TaskId != 0L) {
         size += 1 + pb::CodedOutputStream.ComputeInt64Size(TaskId);
-      }
-      if (ServerTime != 0L) {
-        size += 1 + pb::CodedOutputStream.ComputeInt64Size(ServerTime);
       }
       if (Valid != false) {
         size += 1 + 1;
@@ -421,9 +395,6 @@ namespace YouYou.Proto {
       }
       if (other.TaskId != 0L) {
         TaskId = other.TaskId;
-      }
-      if (other.ServerTime != 0L) {
-        ServerTime = other.ServerTime;
       }
       if (other.Valid != false) {
         Valid = other.Valid;
@@ -445,153 +416,11 @@ namespace YouYou.Proto {
             break;
           }
           case 16: {
-            ServerTime = input.ReadInt64();
-            break;
-          }
-          case 24: {
             Valid = input.ReadBool();
             break;
           }
-          case 34: {
+          case 26: {
             path_.AddEntriesFrom(input, _repeated_path_codec);
-            break;
-          }
-        }
-      }
-    }
-
-  }
-
-  /// <summary>
-  ///寻路服务器返回心跳消息
-  /// </summary>
-  public sealed partial class NS2GS_Heartbeat : YouYou.IProto, pb::IMessage<NS2GS_Heartbeat> {
-    private static readonly pb::MessageParser<NS2GS_Heartbeat> _parser = new pb::MessageParser<NS2GS_Heartbeat>(() => new NS2GS_Heartbeat());
-    public ushort ProtoId => ProtoIdDefine.Proto_NS2GS_Heartbeat;
-    public string ProtoEnName => "NS2GS_Heartbeat";
-    public ProtoCategory Category => ProtoCategory.NavServer2GameServer;
-    private pb::UnknownFieldSet _unknownFields;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<NS2GS_Heartbeat> Parser { get { return _parser; } }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pbr::MessageDescriptor Descriptor {
-      get { return global::YouYou.Proto.ProtoNS2GSReflection.Descriptor.MessageTypes[2]; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    pbr::MessageDescriptor pb::IMessage.Descriptor {
-      get { return Descriptor; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public NS2GS_Heartbeat() {
-      OnConstruction();
-    }
-
-    partial void OnConstruction();
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public NS2GS_Heartbeat(NS2GS_Heartbeat other) : this() {
-      serverTime_ = other.serverTime_;
-      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public NS2GS_Heartbeat Clone() {
-      return new NS2GS_Heartbeat(this);
-    }
-
-    /// <summary>Field number for the "ServerTime" field.</summary>
-    public const int ServerTimeFieldNumber = 1;
-    private long serverTime_;
-    /// <summary>
-    ///服务器时间
-    /// </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public long ServerTime {
-      get { return serverTime_; }
-      set {
-        serverTime_ = value;
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override bool Equals(object other) {
-      return Equals(other as NS2GS_Heartbeat);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(NS2GS_Heartbeat other) {
-      if (ReferenceEquals(other, null)) {
-        return false;
-      }
-      if (ReferenceEquals(other, this)) {
-        return true;
-      }
-      if (ServerTime != other.ServerTime) return false;
-      return Equals(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override int GetHashCode() {
-      int hash = 1;
-      if (ServerTime != 0L) hash ^= ServerTime.GetHashCode();
-      if (_unknownFields != null) {
-        hash ^= _unknownFields.GetHashCode();
-      }
-      return hash;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override string ToString() {
-      return pb::JsonFormatter.ToDiagnosticString(this);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void WriteTo(pb::CodedOutputStream output) {
-      if (ServerTime != 0L) {
-        output.WriteRawTag(8);
-        output.WriteInt64(ServerTime);
-      }
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(output);
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int CalculateSize() {
-      int size = 0;
-      if (ServerTime != 0L) {
-        size += 1 + pb::CodedOutputStream.ComputeInt64Size(ServerTime);
-      }
-      if (_unknownFields != null) {
-        size += _unknownFields.CalculateSize();
-      }
-      return size;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(NS2GS_Heartbeat other) {
-      if (other == null) {
-        return;
-      }
-      if (other.ServerTime != 0L) {
-        ServerTime = other.ServerTime;
-      }
-      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(pb::CodedInputStream input) {
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
-            break;
-          case 8: {
-            ServerTime = input.ReadInt64();
             break;
           }
         }

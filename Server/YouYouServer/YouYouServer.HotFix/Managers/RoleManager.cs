@@ -2,10 +2,12 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using YouYou.Proto;
 using YouYouServer.Common;
 using YouYouServer.Common.DBData;
 using YouYouServer.Core;
 using YouYouServer.Model;
+using YouYouServer.Model.DataTable;
 
 namespace YouYouServer.HotFix
 {
@@ -52,7 +54,7 @@ namespace YouYouServer.HotFix
 
             return retList;
         }
-
+        
         /// <summary>
         /// 异步创建角色
         /// </summary>
@@ -93,11 +95,53 @@ namespace YouYouServer.HotFix
             roleEntity.Level = 1;
             roleEntity.CreateTime = DateTime.UtcNow;
             roleEntity.UpdateTime = DateTime.UtcNow;
+            roleEntity.CurrSceneId = SysConfig.NewRole_InitSceneId;
 
+            //根据初始场景位置 查询出生点坐标
+            Vector3 currPos = new Vector3();
+            DTSys_SceneEntity dtSysSceneEntity = DataTableManager.Sys_SceneList.GetDic(roleEntity.CurrSceneId);
+            currPos.X = dtSysSceneEntity.PlayerBornPos_1;
+            currPos.Y = dtSysSceneEntity.PlayerBornPos_2;
+            currPos.Z = dtSysSceneEntity.PlayerBornPos_3;
+            roleEntity.CurrPos = currPos;
+            
             await DBModelMgr.RoleDBModel.AddAsync(roleEntity);
-
             LoggerMgr.Log(Core.LoggerLevel.Log, LogType.RoleLog, "CreateRoleAsync Success RoleId={0}", roleEntity.YFId);
+            
+            //加入 Redis
+            RoleBriefEntity roleBriefEntity = new RoleBriefEntity()
+            {
+                RoleId = roleEntity.YFId,
+                JobId = roleEntity.JobId,
+                Sex = roleEntity.Sex,
+                NickName = roleEntity.NickName,
+                Level = roleEntity.Level
+            };
+            string searchRoleKey = $"{ServerConfig.AreaServerId}_{accountId}_SearchRole";
+            await YFRedisHelper.LPushAsync(searchRoleKey, roleBriefEntity);
             return roleEntity;
+        }
+
+        /// <summary>
+        /// 异步获取角色信息
+        /// </summary>
+        /// <param name="roleId"></param>
+        /// <returns></returns>
+        public static async Task<RoleEntity> GetRoleEntityAsync(long roleId)
+        {
+            RoleEntity roleEntity = await YFRedisHelper.YFCacheShellAsync($"GetRoleEntity_{ServerConfig.AreaServerId}",roleId.ToString(),GetRoleEntityAsync);
+            return roleEntity;
+        }
+        
+        /// <summary>
+        /// 异步获取角色信息
+        /// </summary>
+        /// <param name="roleId"></param>
+        /// <returns></returns>
+        public static async Task<RoleEntity> GetRoleEntityAsync(string roleId)
+        {
+            return await DBModelMgr.RoleDBModel.GetEntityAsync(
+                Builders<RoleEntity>.Filter.Eq(a => a.YFId, long.Parse(roleId)));
         }
     }
 }

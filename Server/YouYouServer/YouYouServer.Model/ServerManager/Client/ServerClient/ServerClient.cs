@@ -3,6 +3,7 @@ using System.Net.Sockets;
 using YouYou.Proto;
 using YouYouServer.Common;
 using YouYouServer.Core;
+using YouYouServer.Core.Common;
 
 namespace YouYouServer.Model
 {
@@ -107,7 +108,6 @@ namespace YouYouServer.Model
             if (server != null)
             {
                 ServerId = proto.ServerId;
-
                 WorldServerManager.RegisterGameServerClient(new GameServerClient(this));
             }
             else
@@ -149,7 +149,6 @@ namespace YouYouServer.Model
             if (server != null)
             {
                 ServerId = proto.ServerId;
-
                 GameServerManager.RegisterGatewayServerClient(new GatewayServerForGameClient(this));
             }
             else

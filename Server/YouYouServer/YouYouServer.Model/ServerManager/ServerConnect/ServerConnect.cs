@@ -1,6 +1,7 @@
 ﻿using System;
 using YouYouServer.Common;
 using YouYouServer.Core;
+using YouYouServer.Core.Common;
 
 namespace YouYouServer.Model
 {

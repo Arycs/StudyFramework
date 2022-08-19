@@ -25,18 +25,16 @@ namespace YouYou.Proto {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "ChFQcm90b19HUzJOUy5wcm90bxIMWW91WW91LlByb3RvIjAKDUdTMk5TX1Zl",
-            "Y3RvcjMSCQoBeBgBIAEoAhIJCgF5GAIgASgCEgkKAXoYAyABKAIiowEKEEdT",
+            "Y3RvcjMSCQoBeBgBIAEoAhIJCgF5GAIgASgCEgkKAXoYAyABKAIijwEKEEdT",
             "Mk5TX0dldE5hdlBhdGgSDgoGVGFza0lkGAEgASgDEg8KB1NjZW5lSWQYAiAB",
             "KAUSLQoIQmVnaW5Qb3MYAyABKAsyGy5Zb3VZb3UuUHJvdG8uR1MyTlNfVmVj",
             "dG9yMxIrCgZFbmRQb3MYBCABKAsyGy5Zb3VZb3UuUHJvdG8uR1MyTlNfVmVj",
-            "dG9yMxISCgpTZXJ2ZXJUaW1lGAUgASgDIjMKD0dTMk5TX0hlYXJ0YmVhdBIS",
-            "CgpTZXJ2ZXJUaW1lGAEgASgDEgwKBFBpbmcYAiABKAViBnByb3RvMw=="));
+            "dG9yM2IGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::YouYou.Proto.GS2NS_Vector3), global::YouYou.Proto.GS2NS_Vector3.Parser, new[]{ "X", "Y", "Z" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::YouYou.Proto.GS2NS_GetNavPath), global::YouYou.Proto.GS2NS_GetNavPath.Parser, new[]{ "TaskId", "SceneId", "BeginPos", "EndPos", "ServerTime" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::YouYou.Proto.GS2NS_Heartbeat), global::YouYou.Proto.GS2NS_Heartbeat.Parser, new[]{ "ServerTime", "Ping" }, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::YouYou.Proto.GS2NS_GetNavPath), global::YouYou.Proto.GS2NS_GetNavPath.Parser, new[]{ "TaskId", "SceneId", "BeginPos", "EndPos" }, null, null, null)
           }));
     }
     #endregion
@@ -275,7 +273,6 @@ namespace YouYou.Proto {
       sceneId_ = other.sceneId_;
       beginPos_ = other.beginPos_ != null ? other.beginPos_.Clone() : null;
       endPos_ = other.endPos_ != null ? other.endPos_.Clone() : null;
-      serverTime_ = other.serverTime_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -340,20 +337,6 @@ namespace YouYou.Proto {
       }
     }
 
-    /// <summary>Field number for the "ServerTime" field.</summary>
-    public const int ServerTimeFieldNumber = 5;
-    private long serverTime_;
-    /// <summary>
-    ///服务器时间(透传)
-    /// </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public long ServerTime {
-      get { return serverTime_; }
-      set {
-        serverTime_ = value;
-      }
-    }
-
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as GS2NS_GetNavPath);
@@ -371,7 +354,6 @@ namespace YouYou.Proto {
       if (SceneId != other.SceneId) return false;
       if (!object.Equals(BeginPos, other.BeginPos)) return false;
       if (!object.Equals(EndPos, other.EndPos)) return false;
-      if (ServerTime != other.ServerTime) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -382,7 +364,6 @@ namespace YouYou.Proto {
       if (SceneId != 0) hash ^= SceneId.GetHashCode();
       if (beginPos_ != null) hash ^= BeginPos.GetHashCode();
       if (endPos_ != null) hash ^= EndPos.GetHashCode();
-      if (ServerTime != 0L) hash ^= ServerTime.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -412,10 +393,6 @@ namespace YouYou.Proto {
         output.WriteRawTag(34);
         output.WriteMessage(EndPos);
       }
-      if (ServerTime != 0L) {
-        output.WriteRawTag(40);
-        output.WriteInt64(ServerTime);
-      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -435,9 +412,6 @@ namespace YouYou.Proto {
       }
       if (endPos_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(EndPos);
-      }
-      if (ServerTime != 0L) {
-        size += 1 + pb::CodedOutputStream.ComputeInt64Size(ServerTime);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -467,9 +441,6 @@ namespace YouYou.Proto {
           EndPos = new global::YouYou.Proto.GS2NS_Vector3();
         }
         EndPos.MergeFrom(other.EndPos);
-      }
-      if (other.ServerTime != 0L) {
-        ServerTime = other.ServerTime;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -502,178 +473,6 @@ namespace YouYou.Proto {
               EndPos = new global::YouYou.Proto.GS2NS_Vector3();
             }
             input.ReadMessage(EndPos);
-            break;
-          }
-          case 40: {
-            ServerTime = input.ReadInt64();
-            break;
-          }
-        }
-      }
-    }
-
-  }
-
-  /// <summary>
-  ///游戏服务器向寻路服务器发送心跳消息
-  /// </summary>
-  public sealed partial class GS2NS_Heartbeat : YouYou.IProto, pb::IMessage<GS2NS_Heartbeat> {
-    private static readonly pb::MessageParser<GS2NS_Heartbeat> _parser = new pb::MessageParser<GS2NS_Heartbeat>(() => new GS2NS_Heartbeat());
-    public ushort ProtoId => ProtoIdDefine.Proto_GS2NS_Heartbeat;
-    public string ProtoEnName => "GS2NS_Heartbeat";
-    public ProtoCategory Category => ProtoCategory.GameServer2NavServer;
-    private pb::UnknownFieldSet _unknownFields;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<GS2NS_Heartbeat> Parser { get { return _parser; } }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pbr::MessageDescriptor Descriptor {
-      get { return global::YouYou.Proto.ProtoGS2NSReflection.Descriptor.MessageTypes[2]; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    pbr::MessageDescriptor pb::IMessage.Descriptor {
-      get { return Descriptor; }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public GS2NS_Heartbeat() {
-      OnConstruction();
-    }
-
-    partial void OnConstruction();
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public GS2NS_Heartbeat(GS2NS_Heartbeat other) : this() {
-      serverTime_ = other.serverTime_;
-      ping_ = other.ping_;
-      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public GS2NS_Heartbeat Clone() {
-      return new GS2NS_Heartbeat(this);
-    }
-
-    /// <summary>Field number for the "ServerTime" field.</summary>
-    public const int ServerTimeFieldNumber = 1;
-    private long serverTime_;
-    /// <summary>
-    ///服务器时间
-    /// </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public long ServerTime {
-      get { return serverTime_; }
-      set {
-        serverTime_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "Ping" field.</summary>
-    public const int PingFieldNumber = 2;
-    private int ping_;
-    /// <summary>
-    /// </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int Ping {
-      get { return ping_; }
-      set {
-        ping_ = value;
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override bool Equals(object other) {
-      return Equals(other as GS2NS_Heartbeat);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(GS2NS_Heartbeat other) {
-      if (ReferenceEquals(other, null)) {
-        return false;
-      }
-      if (ReferenceEquals(other, this)) {
-        return true;
-      }
-      if (ServerTime != other.ServerTime) return false;
-      if (Ping != other.Ping) return false;
-      return Equals(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override int GetHashCode() {
-      int hash = 1;
-      if (ServerTime != 0L) hash ^= ServerTime.GetHashCode();
-      if (Ping != 0) hash ^= Ping.GetHashCode();
-      if (_unknownFields != null) {
-        hash ^= _unknownFields.GetHashCode();
-      }
-      return hash;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public override string ToString() {
-      return pb::JsonFormatter.ToDiagnosticString(this);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void WriteTo(pb::CodedOutputStream output) {
-      if (ServerTime != 0L) {
-        output.WriteRawTag(8);
-        output.WriteInt64(ServerTime);
-      }
-      if (Ping != 0) {
-        output.WriteRawTag(16);
-        output.WriteInt32(Ping);
-      }
-      if (_unknownFields != null) {
-        _unknownFields.WriteTo(output);
-      }
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public int CalculateSize() {
-      int size = 0;
-      if (ServerTime != 0L) {
-        size += 1 + pb::CodedOutputStream.ComputeInt64Size(ServerTime);
-      }
-      if (Ping != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Ping);
-      }
-      if (_unknownFields != null) {
-        size += _unknownFields.CalculateSize();
-      }
-      return size;
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(GS2NS_Heartbeat other) {
-      if (other == null) {
-        return;
-      }
-      if (other.ServerTime != 0L) {
-        ServerTime = other.ServerTime;
-      }
-      if (other.Ping != 0) {
-        Ping = other.Ping;
-      }
-      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
-    }
-
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(pb::CodedInputStream input) {
-      uint tag;
-      while ((tag = input.ReadTag()) != 0) {
-        switch(tag) {
-          default:
-            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
-            break;
-          case 8: {
-            ServerTime = input.ReadInt64();
-            break;
-          }
-          case 16: {
-            Ping = input.ReadInt32();
             break;
           }
         }

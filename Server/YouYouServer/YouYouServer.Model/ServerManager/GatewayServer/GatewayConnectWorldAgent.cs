@@ -18,6 +18,7 @@ namespace YouYouServer.Model
             {
                 TargetServerConfig = servers[0];
                 TargetServerConnect = new ServerConnect(TargetServerConfig);
+                TargetServerConnect.OnCarryProto = OnCarryProto;
                 AddEventListener();
             }
             else
@@ -63,7 +64,7 @@ namespace YouYouServer.Model
                 if (playerForGatewayClient != null)
                 {
                     //2. 给玩家发送消息
-                    playerForGatewayClient.ClientSocket.SendMsg(proto.Buffer);
+                    playerForGatewayClient.ClientSocket.SendMsg(proto.CarryProtoId, (byte)proto.CarryProtoCategory, proto.Buffer);
                 }
             }
         }

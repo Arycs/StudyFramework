@@ -13,8 +13,8 @@
     <Reference Include="Google.Protobuf">
       <HintPath>..\..\..\Tools\ServerNeedDll\Google.Protobuf.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine">
-      <HintPath>..\..\..\..\Unity\2019.4.34f1c1\Editor\Data\Managed\UnityEngine.dll</HintPath>
+    <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\..\..\..\Unity\2019.4.40f1c1\Editor\Data\Managed\UnityEngine.dll</HintPath>
     </Reference>
   </ItemGroup>
 

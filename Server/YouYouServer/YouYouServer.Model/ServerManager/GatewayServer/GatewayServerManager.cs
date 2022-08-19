@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
@@ -65,6 +66,8 @@ namespace YouYouServer.Model
         /// </summary>
         public static void ToRegGameServer()
         {
+            Console.WriteLine("ToRegGameServer 注册到游戏服");
+            
             //拿到要目标游戏服列表
             int len = LstGameServer.Count;
             for (int i = 0; i < len; i++)
@@ -89,8 +92,7 @@ namespace YouYouServer.Model
         /// <returns></returns>
         public static GatewayConnectGameAgent GetGameServerAgent(int gameServerId)
         {
-            GatewayConnectGameAgent agent = null;
-            m_GatewayConnectGameAgentDic.TryGetValue(gameServerId, out agent);
+            m_GatewayConnectGameAgentDic.TryGetValue(gameServerId, out var agent);
             return agent;
         }
 
@@ -153,8 +155,7 @@ namespace YouYouServer.Model
         /// <returns></returns>
         public static PlayerForGatewayClient GetPlayerClient(long accountId)
         {
-            PlayerForGatewayClient playerForGatewayClient = null;
-            m_PlayerClientDic.TryGetValue(accountId, out playerForGatewayClient);
+            m_PlayerClientDic.TryGetValue(accountId, out var playerForGatewayClient);
             return playerForGatewayClient;
         }
 

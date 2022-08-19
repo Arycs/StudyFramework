@@ -86,7 +86,7 @@ namespace YouYouServer.Model
             //所以这里直接解析中转协议
             CarryProto proto = CarryProto.GetProto(buffer);
 
-            if (proto.CarryProtoCategory == ProtoCategory.Client2WorldServer)
+            if (proto.CarryProtoCategory == ProtoCategory.Client2WorldServer  || proto.CarryProtoCategory == ProtoCategory.GameServer2WorldServer)
             {
                 long accountId = proto.AccountId;
 

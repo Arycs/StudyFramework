@@ -120,10 +120,10 @@ namespace YouYouServer.Model
         /// 注册网关服务器客户端
         /// </summary>
         /// <param name="gatewayServerClient"></param>
-        public static void RegisterGatewayServerClient(GatewayServerForGameClient gatewayServerClient)
+        public static void RegisterGatewayServerClient(GatewayServerForGameClient gatewayServerForGameClient)
         {
-            LoggerMgr.Log(Core.LoggerLevel.Log, LogType.SysLog, "RegisterGatewayServerClient Success ServerId = {0}", gatewayServerClient.ServerId);
-            m_GatewayServerClientDic.Add(gatewayServerClient.ServerId, gatewayServerClient);
+            LoggerMgr.Log(Core.LoggerLevel.Log, LogType.SysLog, "RegisterGatewayServerClient Success ServerId = {0}", gatewayServerForGameClient.ServerId);
+            m_GatewayServerClientDic.Add(gatewayServerForGameClient.ServerId, gatewayServerForGameClient);
         }
         #endregion
 
@@ -151,6 +151,18 @@ namespace YouYouServer.Model
         }
         #endregion
 
+        #region GetPlayerClient 获取游戏服务器上的玩家客户端
+        /// <summary>
+        /// 获取游戏服务器上的玩家客户端
+        /// </summary>
+        /// <param name="playerForGameClient"></param>
+        public static PlayerForGameClient GetPlayerClient(long accountId)
+        {
+            m_PlayerForGameClient.TryGetValue(accountId, out var playerForGameClient);
+            return playerForGameClient;
+        }
+        #endregion
+        
         #region RemoveGatewayServerClient 移除游戏服务器上的玩家客户端
         /// <summary>
         /// 移除游戏服务器上的玩家客户端
@@ -160,19 +172,6 @@ namespace YouYouServer.Model
         {
             LoggerMgr.Log(Core.LoggerLevel.Log, LogType.SysLog, "RemovePlayerForGameClient Success AccountId = {0}", playerForGameClient.AccountId);
             m_PlayerForGameClient.Remove(playerForGameClient.AccountId);
-        }
-        #endregion
-
-        #region GetPlayerClient 获取游戏服务器上的玩家客户端
-        /// <summary>
-        /// 获取游戏服务器上的玩家客户端
-        /// </summary>
-        /// <param name="playerForGameClient"></param>
-        public static PlayerForGameClient GetPlayerClient(long accountId)
-        {
-            PlayerForGameClient playerForGameClient = null;
-            m_PlayerForGameClient.TryGetValue(accountId, out playerForGameClient);
-            return playerForGameClient;
         }
         #endregion
     }

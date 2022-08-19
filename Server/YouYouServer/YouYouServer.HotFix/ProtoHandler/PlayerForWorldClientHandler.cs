@@ -37,15 +37,15 @@ namespace YouYouServer.HotFix
             //获取这个类上的所有方法
             MethodInfo[] methods = GetType().GetMethods(BindingFlags.NonPublic | BindingFlags.Instance);
             int num = 0;
-            while (methods != null && num < methods.Length)
+            while (num < methods.Length)
             {
                 MethodInfo methodInfo = methods[num];
                 string str = methodInfo.Name;
                 object[] customAttributes = methodInfo.GetCustomAttributes(typeof(HandlerMessageAttribute), true);
-                for (int i = 0; i < customAttributes.Length; i++)
+                foreach (var t in customAttributes)
                 {
                     //找到带HandlerMessageAttribute属性标记的类 进行监听
-                    HandlerMessageAttribute handlerMessage = customAttributes[i] as HandlerMessageAttribute;
+                    HandlerMessageAttribute handlerMessage = t as HandlerMessageAttribute;
                     if (null != handlerMessage)
                     {
                         EventDispatcher.OnActionHandler actionHandler =
@@ -67,9 +67,9 @@ namespace YouYouServer.HotFix
         /// <summary>
         /// 移除消息包监听
         /// </summary>
-        public void RemoveEventListener()
+        private void RemoveEventListener()
         {
-            var enumerator = m_HandlerMessageDic.GetEnumerator();
+            using var enumerator = m_HandlerMessageDic.GetEnumerator();
             while (enumerator.MoveNext())
             {
                 m_PlayerForWorldClient.EventDispatcher.RemoveEventListener(enumerator.Current.Key,
@@ -99,7 +99,6 @@ namespace YouYouServer.HotFix
                     Level = item.Level
                 });
             }
-
             m_PlayerForWorldClient.SendCarryToClient(retProto);
         }
 
@@ -131,6 +130,31 @@ namespace YouYouServer.HotFix
 
             m_PlayerForWorldClient.SendCarryToClient(retProto);
         }
+
+        [HandlerMessage(ProtoIdDefine.Proto_C2WS_EnterGame)]
+        private async void OnEnterGameAsync(byte[] buffer)
+        {
+            C2WS_EnterGame proto =  C2WS_EnterGame.Descriptor.Parser.ParseFrom(buffer) as C2WS_EnterGame;
+            //拿到这个角色的信息
+            RoleEntity roleEntity = await RoleManager.GetRoleEntityAsync(proto.RoleId);
+            
+            //给客户端发送角色xinxi 
+            WS2C_ReturnRoleInfo retRoleInfoProto = new WS2C_ReturnRoleInfo();
+            retRoleInfoProto.RoleId = roleEntity.YFId;
+            retRoleInfoProto.JobId = roleEntity.JobId;
+            retRoleInfoProto.Sex = roleEntity.Sex;
+            retRoleInfoProto.NickName = roleEntity.NickName;
+            retRoleInfoProto.Level = roleEntity.Level;
+            retRoleInfoProto.CurrSceneId = roleEntity.CurrSceneId;
+            retRoleInfoProto.CurrPos = roleEntity.CurrPos;
+            retRoleInfoProto.RotationY = roleEntity.RotationY;
+            m_PlayerForWorldClient.SendCarryToClient(retRoleInfoProto);
+            
+            //告诉客户端 进入游戏完毕
+            WS2C_ReturnEnterGameComplete retEnterGameComplete = new WS2C_ReturnEnterGameComplete();
+            m_PlayerForWorldClient.SendCarryToClient(retEnterGameComplete);
+        }
+
 
         public void Dispose()
         {

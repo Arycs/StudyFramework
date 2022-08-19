@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using YouYou.Proto;
 using YouYouServer.Core;
 using YouYouServer.Model.ServerManager;
 
@@ -27,11 +28,13 @@ namespace YouYouServer.Model
         public PlayerClientBase()
         {
             EventDispatcher = new EventDispatcher();
+            CurrFsmManager = new RoleFsm.RoleFsm(this);
         }
 
         public void Dispose()
         {
 
         }
+
     }
 }
