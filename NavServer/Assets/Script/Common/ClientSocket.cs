@@ -47,7 +47,7 @@ namespace YouYouServer.Core
         private Queue<byte[]> m_SendQueue = new Queue<byte[]>();
 
         //压缩数组的长度界限
-        private const int m_CompressLen = 200;
+        private const int m_CompressLen = 512;
         #endregion
 
         /// <summary>
@@ -225,6 +225,7 @@ namespace YouYouServer.Core
         public void OnUpdate()
         {
             #region 从队列中获取数据
+
             while (true)
             {
                 if (m_ReceiveCount <= 50)
@@ -237,42 +238,35 @@ namespace YouYouServer.Core
                             //得到队列中的数据包
                             byte[] buffer = m_ReceiveQueue.Dequeue();
 
-                            //异或之后的数组
-                            byte[] bufferNew = new byte[buffer.Length - 1];
+                            MMO_MemoryStream ms = m_SocketReceiveMS;
+                            ms.SetLength(0);
+                            ms.Write(buffer, 0, buffer.Length);
+                            ms.Position = 0;
 
-                            bool isCompress = false;
-                            MMO_MemoryStream ms1 = m_SocketReceiveMS;
-                            ms1.SetLength(0);
-                            ms1.Write(buffer, 0, buffer.Length);
-                            ms1.Position = 0;
+                            byte header = (byte) ms.ReadByte();
+                            bool isCompress = BitUtil.GetBit(header, 0) == 1;
+                            bool isEncrypt = BitUtil.GetBit(header, 1) == 1;
 
-                            isCompress = ms1.ReadBool();
-                            ms1.Read(bufferNew, 0, bufferNew.Length);
+                            //协议编号
+                            ushort protoId = ms.ReadUShort();
+                            ProtoCategory protoCategory = (ProtoCategory) ms.ReadByte();
+
+                            //定义小包体 也就是真正的protobuf协议数据
+                            byte[] protoData = new byte[buffer.Length - 4];
+                            Array.Copy(buffer, 4, protoData, 0, protoData.Length);
+                            if (isEncrypt)
+                            {
+                                //解密
+                                protoData = XXTEAUtil.Decrypt(protoData);
+                            }
 
                             if (isCompress)
                             {
-                                bufferNew = ZlibUtil.DeCompressBytes(bufferNew);
+                                //解压
+                                protoData = ZlibUtil.DeCompressBytes(protoData);
                             }
 
-                            ushort protoCode = 0;
-                            ProtoCategory protoCategory;
-                            byte[] protoContent = new byte[bufferNew.Length - 3]; // 这里-3 是减去 protoCode长度+protoCategory长度
-
-                            MMO_MemoryStream ms2 = m_SocketReceiveMS;
-                            ms2.SetLength(0);
-                            ms2.Write(bufferNew, 0, bufferNew.Length);
-                            ms2.Position = 0;
-
-                            //协议编号
-                            protoCode = ms2.ReadUShort();
-                            protoCategory = (ProtoCategory)ms2.ReadByte();
-
-                            ms2.Read(protoContent, 0, protoContent.Length);
-
-                            //异或 得到原始数据
-                            protoContent = SecurityUtil.Xor(protoContent);
-                            //派发数据
-                            m_EventDispatcher.Dispatch(protoCode, protoContent);
+                            m_EventDispatcher.Dispatch(protoId, protoData);
                         }
                         else
                         {
@@ -280,7 +274,8 @@ namespace YouYouServer.Core
                         }
                     }
                 }
-                else {
+                else
+                {
                     m_ReceiveCount = 0;
                     break;
                 }
@@ -311,6 +306,7 @@ namespace YouYouServer.Core
         #endregion
 
         #region MakeData 封装数据包
+
         /// <summary>
         /// 封装数据包
         /// </summary>
@@ -318,32 +314,32 @@ namespace YouYouServer.Core
         /// <returns></returns>
         private byte[] MakeData(IProto proto)
         {
-            byte[] retBuffer = null;
+            byte header = 0; //byte，1-2-3-4-5-6-7-8 |1-是否压缩|2-是否加密
 
-            byte[] data = proto.ToByteArray();
-            //1.如果数据包的长度 大于了m_CompressLen 则进行压缩
-            bool isCompress = data.Length > m_CompressLen ? true : false;
+            byte[] buffer = proto.ToByteArray();
+            bool isCompress = buffer.Length > m_CompressLen;
             if (isCompress)
             {
-                data = ZlibUtil.CompressBytes(data);
+                header = BitUtil.SetBit(header, 0);
+                ZlibUtil.CompressBytes(buffer);
             }
 
-            //2.异或
-            data = SecurityUtil.Xor(data);
+            //2.加密
+            header = BitUtil.SetBit(header, 1);
+            buffer = XXTEAUtil.Encrypt(buffer);
 
             MMO_MemoryStream ms = this.m_SocketSendMS;
             ms.SetLength(0);
 
-            ms.WriteUShort((ushort)(data.Length + 4)); //4=isCompress 1 + ProtoId 2 + Category 1
+            ms.WriteUShort((ushort) (buffer.Length + 4)); //4=header 1 + ProtoId 2 + Category 1
 
-            ms.WriteBool(isCompress);
-
+            ms.WriteByte(header);
             ms.WriteUShort(proto.ProtoId);
-            ms.WriteByte((byte)proto.Category);
+            ms.WriteByte((byte) proto.Category);
 
-            ms.Write(data, 0, data.Length);
+            ms.Write(buffer, 0, buffer.Length);
 
-            retBuffer = ms.ToArray();
+            var retBuffer = ms.ToArray();
             return retBuffer;
         }
 
@@ -356,34 +352,34 @@ namespace YouYouServer.Core
         /// <returns></returns>
         private byte[] MakeData(ushort protoId, byte category, byte[] buffer)
         {
-            byte[] retBuffer = null;
+            byte header = 0; //byte，1-2-3-4-5-6-7-8 |1-是否压缩|2-是否加密
 
-            byte[] data = buffer;
-            //1.如果数据包的长度 大于了m_CompressLen 则进行压缩
-            bool isCompress = data.Length > m_CompressLen ? true : false;
+            bool isCompress = buffer.Length > m_CompressLen;
             if (isCompress)
             {
-                data = ZlibUtil.CompressBytes(data);
+                header = BitUtil.SetBit(header, 0);
+                ZlibUtil.CompressBytes(buffer);
             }
 
-            //2.异或
-            data = SecurityUtil.Xor(data);
+            //2.加密
+            header = BitUtil.SetBit(header, 1);
+            buffer = XXTEAUtil.Encrypt(buffer);
 
-            MMO_MemoryStream ms = m_SocketSendMS;
+            MMO_MemoryStream ms = this.m_SocketSendMS;
             ms.SetLength(0);
 
-            ms.WriteUShort((ushort)(data.Length + 4)); //4=isCompress 1 + ProtoId 2 + Category 1
+            ms.WriteUShort((ushort) (buffer.Length + 4)); //4=header 1 + ProtoId 2 + Category 1
 
-            ms.WriteBool(isCompress);
-
+            ms.WriteByte(header);
             ms.WriteUShort(protoId);
             ms.WriteByte(category);
 
-            ms.Write(data, 0, data.Length);
+            ms.Write(buffer, 0, buffer.Length);
 
-            retBuffer = ms.ToArray();
+            var retBuffer = ms.ToArray();
             return retBuffer;
         }
+
         #endregion
 
         #region SendMsg 发送消息 把消息加入队列
