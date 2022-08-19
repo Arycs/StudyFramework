@@ -76,12 +76,23 @@ namespace YouYou
                 //加载选择角色场景
                 GameEntry.Scene.LoadScene(SysScene.SelectRole,true,onComplete: () =>
                 {
-                    GameEntry.UI.CloseUIForm(UIFormId.UI_LogonBG);
-                    GameEntry.Data.UserDataManager.GetRoleList();
+                    GameEntry.Instance.StartCoroutine(LoadSceneComplete());
                 });
             }
         }
-        
+
+        /// <summary>
+        /// 加载场景完毕
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerator LoadSceneComplete()
+        {
+            yield return new WaitUntil(() => SelectRoleSceneCtrl.Instance != null);
+            GameEntry.UI.CloseUIForm(UIFormId.UI_LogonBG);
+            GameEntry.Data.UserDataManager.GetRoleList();
+            GameEntry.UI.OpenUIForm(UIFormId.UI_CreateRole, 0);
+        }
+
         private void OnSelectJobComplete(object userdata)
         {
             VarInt varInt = userdata as VarInt;
@@ -93,14 +104,16 @@ namespace YouYou
             }
 
             DTRoleEntity dtRoleEntity = GameEntry.DataTable.RoleList.Get(dtJobEntity.BaseRoleId);
-            GameEntry.Pool.GameObjectSpawn(dtRoleEntity.PrefabId,((trans, isNewInstance) =>
-            {
-                trans.SetParent(SelectRoleSceneCtrl.Instance.RoleContainer);
-                trans.localPosition = Vector3.zero;
-                trans.localScale = Vector3.one;
-                trans.localEulerAngles = Vector3.zero;
-                m_CurrSelectRole = trans;
-            }));
+            //TODO 显示角色模型
+            // GameEntry.Pool.GameObjectSpawn(dtRoleEntity.PrefabId,((trans, isNewInstance) =>
+            // {
+            //     trans.SetParent(SelectRoleSceneCtrl.Instance.RoleContainer);
+            //     trans.localPosition = Vector3.zero;
+            //     trans.localScale = Vector3.one;
+            //     trans.localEulerAngles = Vector3.zero;
+            //     
+            //     m_CurrSelectRole = trans;
+            // }));
         }
     }
 }

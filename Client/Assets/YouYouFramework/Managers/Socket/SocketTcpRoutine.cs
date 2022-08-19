@@ -25,14 +25,12 @@ namespace YouYou
         private Queue<byte[]> m_SendQueue = new Queue<byte[]>();
 
         //压缩数组的长度界限
-        private const int m_CompressLen = 200;
+        private const int m_CompressLen = 512;
 
         #endregion
 
-        //是否进行连接
-        private bool m_IsDoConnected;
-
         //是否连接成功
+        private bool m_IsDoConnected;
         private bool m_IsConnectedSuccess;
 
         #region 发送接收消息所需变量
@@ -87,6 +85,7 @@ namespace YouYou
             if (m_IsDoConnected)
             {
                 m_IsDoConnected = false;
+                //Debug.LogError("m_IsConnectedSuccess=" + m_IsConnectedSuccess);
                 if (!m_IsConnectedSuccess)
                 {
                     GameEntry.Socket.RemoveSocketTcpRoutine(this);
@@ -115,43 +114,35 @@ namespace YouYou
                             //得到队列中的数据包
                             byte[] buffer = m_ReceiveQueue.Dequeue();
 
-                            //异或之后的数组
-                            byte[] bufferNew = new byte[buffer.Length - 1];
+                            MMO_MemoryStream ms = m_SocketReceiveMS;
+                            ms.SetLength(0);
+                            ms.Write(buffer, 0, buffer.Length);
+                            ms.Position = 0;
 
-                            bool isCompress = false;
+                            byte header = (byte) ms.ReadByte();
+                            bool isCompress = BitUtil.GetBit(header, 0) == 1;
+                            bool isEncrypt = BitUtil.GetBit(header, 1) == 1;
 
-                            MMO_MemoryStream ms1 = m_SocketReceiveMS;
-                            ms1.SetLength(0);
-                            ms1.Write(buffer, 0, buffer.Length);
-                            ms1.Position = 0;
+                            //协议编号
+                            ushort protoId = ms.ReadUShort();
+                            ProtoCategory protoCategory = (ProtoCategory) ms.ReadByte();
 
-                            isCompress = ms1.ReadBool();
-                            ms1.Read(bufferNew, 0, bufferNew.Length);
+                            //定义小包体 也就是真正的protobuf协议数据
+                            byte[] protoData = new byte[buffer.Length - 4];
+                            Array.Copy(buffer, 4, protoData, 0, protoData.Length);
+                            if (isEncrypt)
+                            {
+                                //解密
+                                protoData = XXTEAUtil.Decrypt(protoData);
+                            }
 
                             if (isCompress)
                             {
-                                bufferNew = ZlibHelper.DeCompressBytes(bufferNew);
+                                //解压
+                                protoData = ZlibHelper.DeCompressBytes(protoData);
                             }
 
-                            ushort protoCode = 0;
-                            ProtoCategory protoCategory;
-                            byte[] protoContent = new byte[bufferNew.Length - 3]; //这里-3 是减去 protoCode长度+protoCategory长度
-
-                            MMO_MemoryStream ms2 = m_SocketReceiveMS;
-                            ms2.SetLength(0);
-                            ms2.Write(bufferNew, 0, bufferNew.Length);
-                            ms2.Position = 0;
-
-                            //协议编号
-                            protoCode = ms2.ReadUShort();
-                            protoCategory = (ProtoCategory) ms2.ReadByte();
-
-                            ms2.Read(protoContent, 0, protoContent.Length);
-
-                            //异或 得到原始数据
-                            protoContent = SecurityUtil.Xor(protoContent);
-                            GameEntry.LogError($"ProtoId = >>>>>>{protoCode}");
-                            GameEntry.Event.SocketEvent.Dispatch(protoCode, protoContent);
+                            GameEntry.Event.SocketEvent.Dispatch(protoId, protoData);
                         }
                         else
                         {
@@ -180,10 +171,12 @@ namespace YouYou
         /// <param name="port">端口号</param>
         public void Connect(string ip, int port, BaseAction<bool> onConnectComplete)
         {
+            //Debug.LogError("Connect ip=" + ip + " port=" + port);
             m_OnConnectComplete = onConnectComplete;
             //如果socket已经存在 并且处于连接中状态 则直接返回
             if (m_Client != null && m_Client.Connected)
             {
+                Debug.LogError("001");
                 m_OnConnectComplete?.Invoke(false);
                 return;
             }
@@ -217,8 +210,8 @@ namespace YouYou
             if (m_Client.Connected)
             {
                 GameEntry.Log(LogCategory.Normal, "socket连接成功");
-                ReceiveMsg();
                 m_IsConnectedSuccess = true;
+                ReceiveMsg();
             }
             else
             {
@@ -306,7 +299,8 @@ namespace YouYou
                     }
                     else
                     {
-                        break; //防止发送队列里没有数据,导致死循环
+                        //不加这个会死循环
+                        break;
                     }
                 }
             }
@@ -323,32 +317,32 @@ namespace YouYou
         /// <returns></returns>
         private byte[] MakeData(IProto proto)
         {
-            byte[] retBuffer = null;
+            byte header = 0; //byte，1-2-3-4-5-6-7-8 |1-是否压缩|2-是否加密
 
-            byte[] data = proto.ToByteArray();
-            //1.如果数据包的长度 大于了m_CompressLen 则进行压缩
-            bool isCompress = data.Length > m_CompressLen ? true : false;
+            byte[] buffer = proto.ToByteArray();
+            bool isCompress = buffer.Length > m_CompressLen;
             if (isCompress)
             {
-                data = ZlibHelper.CompressBytes(data);
+                header = BitUtil.SetBit(header, 0);
+                ZlibHelper.CompressBytes(buffer);
             }
 
-            //2.异或
-            data = SecurityUtil.Xor(data);
+            //2.加密
+            header = BitUtil.SetBit(header, 1);
+            buffer = XXTEAUtil.Encrypt(buffer);
 
-            MMO_MemoryStream ms = m_SocketSendMS;
+            MMO_MemoryStream ms = this.m_SocketSendMS;
             ms.SetLength(0);
 
-            ms.WriteUShort((ushort) (data.Length + 4)); //4=isCompress 1 + ProtoId 2 + Category 1
+            ms.WriteUShort((ushort) (buffer.Length + 4)); //4=header 1 + ProtoId 2 + Category 1
 
-            ms.WriteBool(isCompress);
-
+            ms.WriteByte(header);
             ms.WriteUShort(proto.ProtoId);
             ms.WriteByte((byte) proto.Category);
 
-            ms.Write(data, 0, data.Length);
+            ms.Write(buffer, 0, buffer.Length);
 
-            retBuffer = ms.ToArray();
+            var retBuffer = ms.ToArray();
             return retBuffer;
         }
 
@@ -361,32 +355,31 @@ namespace YouYou
         /// <returns></returns>
         private byte[] MakeData(ushort protoId, byte category, byte[] buffer)
         {
-            byte[] retBuffer = null;
+            byte header = 0; //byte，1-2-3-4-5-6-7-8 |1-是否压缩|2-是否加密
 
-            byte[] data = buffer;
-            //1.如果数据包的长度 大于了m_CompressLen 则进行压缩
-            bool isCompress = data.Length > m_CompressLen ? true : false;
+            bool isCompress = buffer.Length > m_CompressLen;
             if (isCompress)
             {
-                data = ZlibHelper.CompressBytes(data);
+                header = BitUtil.SetBit(header, 0);
+                ZlibHelper.CompressBytes(buffer);
             }
 
-            //2.异或
-            data = SecurityUtil.Xor(data);
+            //2.加密
+            header = BitUtil.SetBit(header, 1);
+            buffer = XXTEAUtil.Encrypt(buffer);
 
-            MMO_MemoryStream ms = m_SocketSendMS;
+            MMO_MemoryStream ms = this.m_SocketSendMS;
             ms.SetLength(0);
 
-            ms.WriteUShort((ushort) (data.Length + 4)); //4=isCompress 1 + ProtoId 2 + Category 1
+            ms.WriteUShort((ushort) (buffer.Length + 4)); //4=header 1 + ProtoId 2 + Category 1
 
-            ms.WriteBool(isCompress);
-
+            ms.WriteByte(header);
             ms.WriteUShort(protoId);
             ms.WriteByte(category);
 
-            ms.Write(data, 0, data.Length);
+            ms.Write(buffer, 0, buffer.Length);
 
-            retBuffer = ms.ToArray();
+            var retBuffer = ms.ToArray();
             return retBuffer;
         }
 
@@ -445,8 +438,7 @@ namespace YouYou
         /// <param name="ar"></param>
         private void SendCallBack(IAsyncResult ar)
         {
-            if (!ar.CompletedSynchronously)
-                return;
+            if (!ar.CompletedSynchronously) return;
             m_Client.EndSend(ar);
         }
 
@@ -456,14 +448,11 @@ namespace YouYou
 
         #region ReceiveMsg 接收数据
 
-        private int receiveNum = 0; 
-        
         /// <summary>
         /// 接收数据
         /// </summary>
         private void ReceiveMsg()
         {
-            GameEntry.LogError($"Arycs : 开始接收数据 第{receiveNum}次");
             //异步接收数据
             m_Client.BeginReceive(m_ReceiveBuffer, 0, m_ReceiveBuffer.Length, SocketFlags.None, ReceiveCallBack,
                 m_Client);
@@ -493,10 +482,8 @@ namespace YouYou
         /// <param name="ar"></param>
         private void ReceiveCallBack(IAsyncResult ar)
         {
-            // try
-            // {
-            GameEntry.LogError($"Arycs : 接收到数据 第{receiveNum}次, 连接状态{IsSocketConnected(m_Client)}");
-            receiveNum++;
+            //try
+            //{
             if (IsSocketConnected(m_Client))
             {
                 int len = m_Client.EndReceive(ar);
@@ -504,7 +491,6 @@ namespace YouYou
                 if (len > 0)
                 {
                     //已经接收到数据
-
                     //把接收到数据 写入缓冲数据流的尾部
                     m_ReceiveMS.Position = m_ReceiveMS.Length;
 
@@ -596,12 +582,12 @@ namespace YouYou
                     GameEntry.Log(LogCategory.Normal, "服务器{0}断开连接", m_Client.RemoteEndPoint.ToString());
                 }
             }
-            // }
-            // catch (Exception ex)
-            // {
-            //     //客户端断开连接
-            //     GameEntry.LogError("服务器{0}断开连接 {1}", m_Client.RemoteEndPoint.ToString(), ex.Message);
-            // }
+            //}
+            //catch (Exception ex)
+            //{
+            //    //客户端断开连接
+            //    GameEntry.LogError("服务器{0}断开连接 {1}", m_Client.RemoteEndPoint.ToString(), ex.Message);
+            //}
         }
 
         #endregion

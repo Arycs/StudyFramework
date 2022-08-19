@@ -39,4 +39,17 @@ public class MyCommonEnum
         /// </summary>
         Attack,
     }
+    
+    public enum Sex
+    {
+        /// <summary>
+        /// 女
+        /// </summary>
+        Woman = 0,
+
+        /// <summary>
+        /// 男
+        /// </summary>
+        Male = 1
+    }
 }

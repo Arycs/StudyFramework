@@ -61,7 +61,9 @@ public class UISelectRole : UIFormBase
             currSelectJobId = item.JobId;
             break;
         }
-        GameEntry.Event.CommonEvent.Dispatch(CommonEventId.OnSelectJobComplete,currSelectJobId);
+        VarInt varInt = GameEntry.Pool.DequeueClassObject<VarInt>();
+        varInt.Value = currSelectJobId;
+        GameEntry.Event.CommonEvent.Dispatch(CommonEventId.OnSelectJobComplete,varInt);
     }
     
     

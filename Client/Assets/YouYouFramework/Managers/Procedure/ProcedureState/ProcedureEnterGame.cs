@@ -12,12 +12,8 @@ namespace YouYou
         public override void OnEnter()
         {
             base.OnEnter();
-            Debug.Log("OnEnter ProcedureEnterGame");
-            Debug.LogError("角色编号=" + GameEntry.Data.UserDataManager.CurrRoleId);
-            Debug.LogError("职业编号=" + GameEntry.Data.UserDataManager.CurrJobId);
-
-            //TODO 这里发送进入游戏消息 最后才切换世界地图
-            GameEntry.Procedure.ChangeState(ProcedureState.WorldMap);
+            GameEntry.UI.OpenUIForm(UIFormId.UI_Loading);
+            GameEntry.Data.UserDataManager.EnterGame();
         }
 
         public override void OnUpdate()

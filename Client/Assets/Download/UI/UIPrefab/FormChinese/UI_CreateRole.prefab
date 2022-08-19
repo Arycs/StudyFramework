@@ -791,7 +791,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0795576bf0804d27babc723aaede07e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  youyouIconImange: {fileID: 3371903930165399336}
+  youyouIconImage: {fileID: 3371903930165399336}
   textName: {fileID: 4070432652523109312}
   btnSelectClick: {fileID: 8570501901348680078}
 --- !u!1 &4070432652523109374

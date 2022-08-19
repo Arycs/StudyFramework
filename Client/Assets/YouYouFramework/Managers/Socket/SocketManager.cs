@@ -67,6 +67,10 @@ namespace YouYou
             m_SocketTcpRoutineList = new LinkedList<SocketTcpRoutine>();
             SocketSendMS = new MMO_MemoryStream();
             SocketReceiveMS = new MMO_MemoryStream();
+        }
+
+        public override void Init()
+        {
             m_MainSocket = CreateSocketTcpRoutine();
             SocketProtoListener.AddProtoListener();
         }
@@ -176,18 +180,16 @@ namespace YouYou
             m_SocketTcpRoutineList.Clear();
 
             m_IsConnectToMainSocket = false;
+            
+            m_MainSocket.DisConnect();
             GameEntry.Pool.EnqueueClassObject(m_MainSocket);
             SocketProtoListener.RemoveProtoListener();
 
             SocketSendMS.Dispose();
             SocketSendMS.Close();
+            
             SocketReceiveMS.Dispose();
             SocketReceiveMS.Close();
-        }
-
-        public override void Init()
-        {
-
         }
     }
 }
