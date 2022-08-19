@@ -12,9 +12,3 @@ message GWS2WS_RegGameServerSuccess
 {
 
 }
-
-//网关服务器向中心服务器发送角色下线消息
-message GWS2WS_Offline
-{
-	int64 AccountId = 1;//玩家账号
-}

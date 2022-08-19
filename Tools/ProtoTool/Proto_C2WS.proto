@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-import "Proto_Common.proto";
 package YouYou.Proto;
 
 //玩家向服务器发送创建角色消息
