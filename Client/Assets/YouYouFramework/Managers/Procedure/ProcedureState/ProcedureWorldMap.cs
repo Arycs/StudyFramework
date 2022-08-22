@@ -15,7 +15,7 @@ namespace YouYou
             base.OnEnter();
             GameEntry.Log(LogCategory.Procedure, "OnEnter ProcedureWorldMap");
             //加载场景
-            GameEntry.Scene.LoadScene(SysScene.DaLi, false, (() =>
+            GameEntry.Scene.LoadScene(GameEntry.Data.UserDataManager.CurrSceneId, false, (() =>
             {
                 GameEntry.Event.CommonEvent.Dispatch(SysEventId.CloseCheckVersionUI);
 
@@ -48,13 +48,14 @@ namespace YouYou
         /// </summary>
         private void LoadWorldMapComplete()
         {
-            GameEntry.Data.RoleDataManager.CreatePlayerByJobId(JobId.CiKe, (roleCtrl =>
+            GameEntry.Data.RoleDataManager.CreatePlayerByJobId(GameEntry.Data.UserDataManager.CurrJobId, (roleCtrl =>
             {
+                GameEntry.Data.UserDataManager.EnterScene(GameEntry.Data.UserDataManager.CurrSceneId);
+                
                 //打开摄像机
                 var position = roleCtrl.transform.position;
                 GameEntry.CameraCtrl.transform.position = position;
                 GameEntry.CameraCtrl.AutoLookAt(position);
-                GameEntry.CameraCtrl.SetCameraOpen(true);
             }));
         }
 
