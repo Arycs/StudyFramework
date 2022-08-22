@@ -146,7 +146,7 @@ namespace ExcelTool
 
             File.Delete(newPath);
 
-            if (fileName.Equals("Sys_Localization", StringComparison.CurrentCultureIgnoreCase))
+            if (fileName.Equals("DTSys_Localization", StringComparison.CurrentCultureIgnoreCase))
             {
                 CreateLocalization(fileName, dt);
             }
