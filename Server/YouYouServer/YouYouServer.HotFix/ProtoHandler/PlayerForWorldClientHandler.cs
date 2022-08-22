@@ -138,7 +138,7 @@ namespace YouYouServer.HotFix
             //拿到这个角色的信息
             RoleEntity roleEntity = await RoleManager.GetRoleEntityAsync(proto.RoleId);
             
-            //给客户端发送角色xinxi 
+            //给客户端发送角色信息 
             WS2C_ReturnRoleInfo retRoleInfoProto = new WS2C_ReturnRoleInfo();
             retRoleInfoProto.RoleId = roleEntity.YFId;
             retRoleInfoProto.JobId = roleEntity.JobId;

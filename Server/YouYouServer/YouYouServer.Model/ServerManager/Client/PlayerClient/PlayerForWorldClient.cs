@@ -61,9 +61,6 @@ namespace YouYouServer.Model
         public void SendCarryToClient(IProto proto)
         {
             CarryProto carryProto = new CarryProto(AccountId, proto.ProtoId, proto.Category, proto.ToByteArray());
-            Console.WriteLine($"发送的Proto Id = >{proto.ProtoId}");
-            var a = m_GatewayServerForWorldClient.CurrServerClient.ClientSocket.m_Socket.RemoteEndPoint;
-            Console.WriteLine($"要发送给ip {a}");
             m_GatewayServerForWorldClient.CurrServerClient.ClientSocket.SendMsg(carryProto);
         }
     }
