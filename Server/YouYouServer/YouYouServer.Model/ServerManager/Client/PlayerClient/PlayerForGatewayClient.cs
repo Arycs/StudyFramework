@@ -55,8 +55,10 @@ namespace YouYouServer.Model
         public void AddEventListener()
         {
             EventDispatcher.AddEventListener(ProtoIdDefine.Proto_C2GWS_RegClient, OnC2GWS_RegClient);
+            EventDispatcher.AddEventListener(ProtoIdDefine.Proto_C2GWS_EnterScene_Apply, OnC2GWS_EnterScene_Apply);
             EventDispatcher.AddEventListener(ProtoIdDefine.Proto_C2GWS_EnterScene, OnC2GWS_EnterScene);
         }
+
 
         /// <summary>
         /// 移除玩家客户端的消息
@@ -64,6 +66,7 @@ namespace YouYouServer.Model
         public void RemoveEventListener()
         {
             EventDispatcher.RemoveEventListener(ProtoIdDefine.Proto_C2GWS_RegClient, OnC2GWS_RegClient);
+            EventDispatcher.RemoveEventListener(ProtoIdDefine.Proto_C2GWS_EnterScene_Apply, OnC2GWS_EnterScene_Apply);
             EventDispatcher.RemoveEventListener(ProtoIdDefine.Proto_C2GWS_EnterScene, OnC2GWS_EnterScene);
         }
 
@@ -96,6 +99,44 @@ namespace YouYouServer.Model
 
         #endregion
 
+        #region OnC2GWS_EnterScene_Apply
+
+        /// <summary>
+        /// 进入场景申请
+        /// </summary>
+        /// <param name="buffer"></param>
+        private void OnC2GWS_EnterScene_Apply(byte[] buffer)
+        {
+            C2GWS_EnterScene_Apply proto =
+                (C2GWS_EnterScene_Apply) C2GWS_EnterScene_Apply.Descriptor.Parser.ParseFrom(buffer);
+
+            //不能进入同一个场景
+            if (m_CurrSceneId == proto.SceneId)
+            {
+                return;
+            }
+
+            //根据要进入的场景编号 算出玩家在哪个服务器
+            if (ServerConfig.SceneInServerDic.TryGetValue(proto.SceneId, out var sceneConfig))
+            {
+                GWS2GS_EnterScene_Apply enterSceneApplyProto = new GWS2GS_EnterScene_Apply
+                {
+                    RoleId = m_RoleId,
+                    PrevSceneId = m_CurrSceneId,
+                    SceneId = proto.SceneId
+                };
+                CarrySendToGameServer(sceneConfig.ServerId, enterSceneApplyProto.ProtoId,
+                    ProtoCategory.GatewayServer2GameServer, enterSceneApplyProto.ToByteArray());
+            }
+            else
+            {
+                LoggerMgr.Log(LoggerLevel.LogError, Common.LogType.RoleLog,
+                    $"EnterSceneApply Error CurrSceneId {proto.SceneId}");
+            }
+        }
+
+        #endregion
+
         #region OnC2GWS_EnterScene
 
         /// <summary>
@@ -121,7 +162,9 @@ namespace YouYouServer.Model
                 {
                     GWS2GS_LeaveScene leaveSceneProto = new GWS2GS_LeaveScene
                     {
-                        RoleId = m_RoleId, SceneId = m_CurrSceneId, TargetSceneId = proto.SceneId
+                        RoleId = m_RoleId,
+                        SceneId = m_CurrSceneId,
+                        TargetSceneId = proto.SceneId
                     };
                     CarrySendToGameServer(m_CurrInGameServerId, leaveSceneProto.ProtoId,
                         ProtoCategory.GatewayServer2GameServer, leaveSceneProto.ToByteArray());
@@ -130,9 +173,11 @@ namespace YouYouServer.Model
                 m_CurrInGameServerId = sceneConfig.ServerId;
                 m_CurrSceneId = proto.SceneId;
 
-                GWS2GS_EnterScene enterSceneProto = new GWS2GS_EnterScene();
-                enterSceneProto.RoleId = m_RoleId;
-                enterSceneProto.SceneId = proto.SceneId;
+                GWS2GS_EnterScene enterSceneProto = new GWS2GS_EnterScene
+                {
+                    RoleId = m_RoleId, 
+                    SceneId = proto.SceneId
+                };
                 CarrySendToGameServer(m_CurrInGameServerId, enterSceneProto.ProtoId,
                     ProtoCategory.GatewayServer2GameServer, enterSceneProto.ToByteArray());
             }

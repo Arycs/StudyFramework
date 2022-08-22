@@ -22,7 +22,7 @@ namespace YouYouServer.Model.RoleFsm
         /// <summary>
         /// 当前角色状态枚举
         /// </summary>
-        private RoleState CurrStateType;
+        public RoleState CurrStateType;
 
         /// <summary>
         /// 状态字典
