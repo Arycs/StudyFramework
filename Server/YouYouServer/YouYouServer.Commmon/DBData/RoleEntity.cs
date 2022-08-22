@@ -50,7 +50,7 @@ namespace YouYouServer.Common
         /// <summary>
         /// 当前位置
         /// </summary>
-        public Vector3 CurrPos;
+        public Vector3 PosData;
 
         /// <summary>
         /// Y轴旋转

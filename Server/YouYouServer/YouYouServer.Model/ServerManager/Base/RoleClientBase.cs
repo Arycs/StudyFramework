@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using YouYou.Proto;
 using YouYouServer.Model.IHandler;
 
 namespace YouYouServer.Model.ServerManager
@@ -13,6 +14,16 @@ namespace YouYouServer.Model.ServerManager
         public RoleClientBase() { }
 
         /// <summary>
+        /// 角色编号
+        /// </summary>
+        public long RoleId;
+
+        /// <summary>
+        /// 当前所在区域编号
+        /// </summary>
+        public int CurrAreaId;
+        
+        /// <summary>
         /// 当前角色客户端处理句柄
         /// </summary>
         public IRoleClientHandler CurrRoleClientHandler;
@@ -21,6 +32,11 @@ namespace YouYouServer.Model.ServerManager
         /// 当前的状态机管理器
         /// </summary>
         public RoleFsm.RoleFsm CurrFsmManager;
+
+        /// <summary>
+        /// 当前角色类型
+        /// </summary>
+        public abstract RoleType CurrRoleType { get; }
 
         public void OnUpdate()
         {

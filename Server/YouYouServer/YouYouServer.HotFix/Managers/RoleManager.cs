@@ -103,7 +103,7 @@ namespace YouYouServer.HotFix
             currPos.X = dtSysSceneEntity.PlayerBornPos_1;
             currPos.Y = dtSysSceneEntity.PlayerBornPos_2;
             currPos.Z = dtSysSceneEntity.PlayerBornPos_3;
-            roleEntity.CurrPos = currPos;
+            roleEntity.PosData = currPos;
             
             await DBModelMgr.RoleDBModel.AddAsync(roleEntity);
             LoggerMgr.Log(Core.LoggerLevel.Log, LogType.RoleLog, "CreateRoleAsync Success RoleId={0}", roleEntity.YFId);

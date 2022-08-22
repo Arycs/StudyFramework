@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using UnityEngine;
 using YouYou;
 using YouYouServer.Common;
 using YouYouServer.Core;
@@ -15,15 +16,15 @@ namespace YouYouServer.Model
     public class PlayerForGameClient : PlayerClientBase
     {
         /// <summary>
-        /// 当前角色
-        /// </summary>
-        public RoleEntity CurrRole { get; private set; }
-
-        /// <summary>
         /// 这个玩家所在的网关
         /// </summary>
         private GatewayServerForGameClient m_GatewayServerForGameClient;
 
+        /// <summary>
+        /// 当前位置
+        /// </summary>
+        public Vector3 CurrPos;
+        
         public PlayerForGameClient(long accountId, GatewayServerForGameClient gatewayServerForWorldClient) : base()
         {
             AccountId = accountId;

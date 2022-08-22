@@ -19,7 +19,7 @@
     <Item ServerType="3" ServerId="1" Ip="192.168.1.7" Port="29001" />    <!--ServerType = 3 寻路服务器-->
   </Servers>
   <Scenes>
-    <Item SceneId="2" ServerId="1" AOIJsonDataPath="E:\StudyFramework\Server\Release\SceneAOIJsonData\GameScene_DaLi.json"/>    <!--SceneId 场景ID,与客户端表格相关联 ServerId 游戏服-->
+    <Item SceneId="3" ServerId="1" AOIJsonDataPath="E:\StudyFramework\Server\Release\SceneAOIJsonData\GameScene_DaLi.json"/>    <!--SceneId 场景ID,与客户端表格相关联 ServerId 游戏服-->
     <!--<Item SceneId="2" ServerId="1" AOIJsonDataPath="E:\StudyFramework\Server\Release\SceneAOIJsonData\GameScene_DaLi.json"/>
     <Item SceneId="3" ServerId="2" AOIJsonDataPath="E:\StudyFramework\Server\Release\SceneAOIJsonData\GameScene_DaLi.json"/>
     <Item SceneId="4" ServerId="2" AOIJsonDataPath="E:\StudyFramework\Server\Release\SceneAOIJsonData\GameScene_DaLi.json"/>

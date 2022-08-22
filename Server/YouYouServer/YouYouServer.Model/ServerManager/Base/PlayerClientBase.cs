@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using YouYou.Proto;
+using YouYouServer.Common;
 using YouYouServer.Core;
 using YouYouServer.Model.ServerManager;
 
@@ -36,5 +37,11 @@ namespace YouYouServer.Model
 
         }
 
+        public override RoleType CurrRoleType => RoleType.Player;
+        
+        /// <summary>
+        /// 当前角色
+        /// </summary>
+        public RoleEntity CurrRole { get; set; }
     }
 }

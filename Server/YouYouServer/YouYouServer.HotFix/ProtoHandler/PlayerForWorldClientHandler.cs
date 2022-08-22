@@ -146,7 +146,7 @@ namespace YouYouServer.HotFix
             retRoleInfoProto.NickName = roleEntity.NickName;
             retRoleInfoProto.Level = roleEntity.Level;
             retRoleInfoProto.CurrSceneId = roleEntity.CurrSceneId;
-            retRoleInfoProto.CurrPos = roleEntity.CurrPos;
+            retRoleInfoProto.CurrPos = roleEntity.PosData;
             retRoleInfoProto.RotationY = roleEntity.RotationY;
             m_PlayerForWorldClient.SendCarryToClient(retRoleInfoProto);
             

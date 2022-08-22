@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using UnityEngine;
+using YouYou.Proto;
 using YouYouServer.Common;
 using YouYouServer.Model.IHandler;
 using YouYouServer.Model.SceneManager.PVPScene;
+using Vector3 = UnityEngine.Vector3;
 
 namespace YouYouServer.Model.ServerManager.Client.MonsterClient
 {
@@ -107,5 +108,6 @@ namespace YouYouServer.Model.ServerManager.Client.MonsterClient
         {
         }
 
+        public override RoleType CurrRoleType => RoleType.Monster;
     }
 }

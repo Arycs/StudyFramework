@@ -50,17 +50,48 @@ namespace YouYouServer.Model.ServerManager
         }
 
         /// <summary>
+        /// 获取默认场景线
+        /// </summary>
+        public PVPSceneLine DefaultSceneLine => PVPSceneLineDic[1];
+        
+        /// <summary>
         /// 加载AOI数据
         /// </summary>
         private void LoadAOIAreaData()
         {
             if (!File.Exists(CurrSceneConfig.AOIJsonDataPath))
             {
-                Console.WriteLine("读取AOI区域数据失败{0}",CurrSceneConfig.AOIJsonDataPath);
+                Console.WriteLine("读取AOI区域数据失败{0}", CurrSceneConfig.AOIJsonDataPath);
                 return;
             }
+
             string json = File.ReadAllText(CurrSceneConfig.AOIJsonDataPath, Encoding.UTF8);
             CurrSceneAreaDataList = Newtonsoft.Json.JsonConvert.DeserializeObject<List<AOIAreaData>>(json);
+            foreach (var item in CurrSceneAreaDataList)
+            {
+                item.Init();
+            }
+        }
+
+        
+        /// <summary>
+        /// 通过位置获取所在区域
+        /// </summary>
+        /// <param name="currPos"></param>
+        /// <returns></returns>
+        public int GetAOIAreaIdByPos(UnityEngine.Vector3 currPos)
+        {
+            foreach (var item in CurrSceneAreaDataList)
+            {
+                if (currPos.x >= item.TopLeftPos.x && currPos.z <= item.TopLeftPos.z
+                                                   && currPos.x <= item.BottomRightPos.x &&
+                                                   currPos.z >= item.BottomRightPos.z)
+                {
+                    return item.AreaId;
+                }
+            }
+
+            return -1;
         }
     }
 }
