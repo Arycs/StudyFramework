@@ -71,7 +71,7 @@ public class UILogin : UIFormBase
                 JsonData config = LitJson.JsonMapper.ToObject(data["Value"].ToString());
                 GameEntry.Data.UserDataManager.AccountId = config["YFId"].ToString().ToLong();
 
-                Debug.Log("用户名 : " + GameEntry.Data.UserDataManager.AccountId );
+                Debug.Log("用户名 : " + GameEntry.Data.UserDataManager.AccountId);
                 this.Close();
                 GameEntry.Procedure.ChangeState(ProcedureState.SelectRole);
             }

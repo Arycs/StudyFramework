@@ -90,7 +90,6 @@ namespace YouYou
             yield return new WaitUntil(() => SelectRoleSceneCtrl.Instance != null);
             GameEntry.UI.CloseUIForm(UIFormId.UI_LogonBG);
             GameEntry.Data.UserDataManager.GetRoleList();
-            GameEntry.UI.OpenUIForm(UIFormId.UI_CreateRole, 0);
         }
 
         private void OnSelectJobComplete(object userdata)
@@ -104,16 +103,15 @@ namespace YouYou
             }
 
             DTRoleEntity dtRoleEntity = GameEntry.DataTable.RoleList.Get(dtJobEntity.BaseRoleId);
-            //TODO 显示角色模型
-            // GameEntry.Pool.GameObjectSpawn(dtRoleEntity.PrefabId,((trans, isNewInstance) =>
-            // {
-            //     trans.SetParent(SelectRoleSceneCtrl.Instance.RoleContainer);
-            //     trans.localPosition = Vector3.zero;
-            //     trans.localScale = Vector3.one;
-            //     trans.localEulerAngles = Vector3.zero;
-            //     
-            //     m_CurrSelectRole = trans;
-            // }));
+            GameEntry.Pool.GameObjectSpawn(dtRoleEntity.PrefabId,((trans, isNewInstance) =>
+            {
+                trans.SetParent(SelectRoleSceneCtrl.Instance.RoleContainer);
+                trans.localPosition = Vector3.zero;
+                trans.localScale = Vector3.one;
+                trans.localEulerAngles = Vector3.zero;
+                
+                m_CurrSelectRole = trans;
+            }));
         }
     }
 }

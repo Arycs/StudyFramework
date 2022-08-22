@@ -59,8 +59,7 @@ namespace YouYou
         /// <returns></returns>
         public string GetString(string key,params object[] args)
         {
-            string value = null;
-            if (GameEntry.DataTable.LocalizationDBModel.LocalizationDic.TryGetValue(key,out value))
+            if (GameEntry.DataTable.LocalizationDBModel.LocalizationDic.TryGetValue(key,out var value))
             {
                 return string.Format(value,args);
             }

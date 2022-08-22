@@ -31,6 +31,9 @@ namespace YouYou
         public override void OnLeave()
         {
             base.OnLeave();
+            GameEntry.UI.CloseUIForm(UIFormId.UI_Login);
+            GameEntry.UI.CloseUIForm(UIFormId.UI_LogonBG);
+
             GameEntry.Log(LogCategory.Procedure, "OnLeave ProcedureLogOn");
         }
 

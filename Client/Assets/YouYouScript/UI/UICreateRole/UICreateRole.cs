@@ -21,6 +21,8 @@ public class UICreateRole : UIFormBase
         base.OnInit(userData);
         loopItemPool = new List<LoopListViewItem2>();
         btnCreateRole.onClick.AddListener(CreateRole);
+        btnClose.onClick.AddListener(GoToSelectRole);
+        loopListView.InitListView(0,OnGetItemByIndex);
     }
 
     protected override void OnOpen(object userData)
@@ -31,9 +33,10 @@ public class UICreateRole : UIFormBase
         {
             btnClose.gameObject.SetActive(false);
         }
+
         jobList = GameEntry.DataTable.JobList.GetList();
         currSelectJobId = 0;
-        loopListView.InitListView(jobList.Count,OnGetItemByIndex);
+        loopListView.SetListItemCount(jobList.Count);
         OnSelectJobHandler(1);
     }
 
@@ -58,6 +61,12 @@ public class UICreateRole : UIFormBase
         GameEntry.Socket.SendMainMsg(proto);
     }
 
+    private void GoToSelectRole()
+    {
+        GameEntry.UI.OpenUIForm(global::UIFormId.UI_SelectRole);
+        this.Close();
+    }
+
     private void OnSelectJobHandler(int jobId)
     {
         currSelectJobId = jobId;
@@ -68,7 +77,7 @@ public class UICreateRole : UIFormBase
     }
 
     /// <summary>
-    /// 第一种官方写法
+    /// 初始化滑动列表
     /// </summary>
     /// <param name="listView"></param>
     /// <param name="index"></param>

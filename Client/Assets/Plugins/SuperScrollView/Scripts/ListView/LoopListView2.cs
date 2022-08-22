@@ -306,26 +306,26 @@ namespace SuperScrollView
             mListViewInited = true;
             ResetListView();
             //SetListItemCount(itemTotalCount, true);
-            mCurSnapData.Clear();
-            mItemTotalCount = itemTotalCount;
-            if (mItemTotalCount < 0)
-            {
-                mSupportScrollBar = false;
-            }
-            if (mSupportScrollBar)
-            {
-                mItemPosMgr.SetItemMaxCount(mItemTotalCount);
-            }
-            else
-            {
-                mItemPosMgr.SetItemMaxCount(0);
-            }
-            mCurReadyMaxItemIndex = 0;
-            mCurReadyMinItemIndex = 0;
-            mLeftSnapUpdateExtraCount = 1;
-            mNeedCheckNextMaxItem = true;
-            mNeedCheckNextMinItem = true;
-            UpdateContentSize();
+            // mCurSnapData.Clear();
+            // mItemTotalCount = itemTotalCount;
+            // if (mItemTotalCount < 0)
+            // {
+            //     mSupportScrollBar = false;
+            // }
+            // if (mSupportScrollBar)
+            // {
+            //     mItemPosMgr.SetItemMaxCount(mItemTotalCount);
+            // }
+            // else
+            // {
+            //     mItemPosMgr.SetItemMaxCount(0);
+            // }
+            // mCurReadyMaxItemIndex = 0;
+            // mCurReadyMinItemIndex = 0;
+            // mLeftSnapUpdateExtraCount = 1;
+            // mNeedCheckNextMaxItem = true;
+            // mNeedCheckNextMinItem = true;
+            // UpdateContentSize();
         }
 
         void SetScrollbarListener()

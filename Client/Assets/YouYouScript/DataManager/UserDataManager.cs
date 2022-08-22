@@ -142,7 +142,6 @@ public class UserDataManager : IDisposable
     /// </summary>
     public void OnEnterGameComplete()
     {
-        // GameEntry.Procedure.ChangeState(ProcedureState.WorldMap);
         EnterScene(CurrSceneId);
     }
 

@@ -22,6 +22,7 @@ public class UISelectRole : UIFormBase
         base.OnInit(userData);
         btnEnterGame.onClick.AddListener(EnterGame);
         btnCreateRole.onClick.AddListener(GoToCreateRole);
+        loopListView.InitListView(0, OnGetItemByIndex);
     }
 
     protected override void OnOpen(object userData)
@@ -31,8 +32,7 @@ public class UISelectRole : UIFormBase
         
         currSelectRoleId = 0;
         currSelectJobId = 0;
-        
-        loopListView.InitListView(roleList.Count, OnGetItemByIndex);
+        loopListView.SetListItemCount(roleList.Count);
         OnSelectRoleHandler(roleList[1].RoleId);
     }
 
