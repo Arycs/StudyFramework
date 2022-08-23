@@ -169,6 +169,7 @@ namespace YouYouServer.HotFix
                 //TODO 1.找到场景线 课程里只有一个场景线 实际项目 自己做场景线逻辑 动态选择场景线 比如一个线20人
                 //2.把玩家客户端加入场景线
                 pvpScene.DefaultSceneLine.RoleList.AddLast(m_PlayerForGameClient);
+                m_PlayerForGameClient.CurrSceneId = sceneId;
 
                 //3.找到玩家所在区域
                 int areaId = pvpScene.GetAOIAreaIdByPos(m_PlayerForGameClient.CurrPos);
@@ -177,31 +178,8 @@ namespace YouYouServer.HotFix
                     Console.WriteLine("角色 RoleId=" + roleId + " 进入区域 areaId=" + areaId);
                     PVPSceneAOIArea pvpSceneAoiArea = pvpScene.DefaultSceneLine.AOIAreaDic[areaId];
 
-                    //4.把自己加入区域列表
-                    pvpSceneAoiArea.RoleClientList.AddLast(m_PlayerForGameClient);
-                    m_PlayerForGameClient.CurrAreaId = areaId; //设置当前区域编号
-                    m_PlayerForGameClient.CurrFsmManager.ChangeState(RoleState.Idle);
-
-                    List<RoleClientBase> retLst = new List<RoleClientBase>();
-                    //5.同步AOI 角色数据到客户端 告诉玩家 有哪些人已经在这个场景里
-                    foreach (var role in pvpSceneAoiArea.RoleClientList)
-                    {
-                        if (role.RoleId != roleId)
-                        {
-                            //不要把自己加入进入
-                            retLst.Add(role);
-                        }
-                    }
-
-                    //循环关联区域
-                    foreach (var item in pvpSceneAoiArea.CurrAOIData.ConnectAreaList)
-                    {
-                        PVPSceneAOIArea area = pvpScene.DefaultSceneLine.AOIAreaDic[item];
-                        foreach (var role in area.RoleClientList)
-                        {
-                            retLst.Add(role);
-                        }
-                    }
+                    //4. 同步区域角色信息到客户端
+                    List<RoleClientBase> retLst = pvpSceneAoiArea.GetAllRole(SearchRoleType.All);
 
                     GS2C_ReturnSceneLineRoleList sceneLineRoleListProto = new GS2C_ReturnSceneLineRoleList();
                     foreach (var role in retLst)
@@ -222,49 +200,21 @@ namespace YouYouServer.HotFix
                         }
 
                         sceneLineRoleListProto.RoleList.Add(item);
-
-                        //6.如果这个角色是玩家,那么告诉他,我来了,这里可能会有很多其他玩家
-                        if (role.CurrRoleType == RoleType.Player)
-                        {
-                            RoleEnterSceneLine(m_PlayerForGameClient, (PlayerForGameClient) role);
-                        }
                     }
-
                     m_PlayerForGameClient.SendCarryToClient(sceneLineRoleListProto);
+
+                    //5.把自己加入区域列表
+                    pvpSceneAoiArea.AddRole(m_PlayerForGameClient);
+                    
+                    m_PlayerForGameClient.CurrAreaId = areaId; //设置当前区域编号
+                    m_PlayerForGameClient.CurrFsmManager.ChangeState(RoleState.Idle);
+
                 }
             }
             else
             {
                 LoggerMgr.Log(LoggerLevel.LogError, 0, $"找不到场景{sceneId}");
             }
-        }
-
-        /// <summary>
-        /// 告诉其他玩家 我来了
-        /// </summary>
-        /// <param name="currPlayer"></param>
-        /// <param name="otherPlayer"></param>
-        private void RoleEnterSceneLine(PlayerForGameClient currPlayer, PlayerForGameClient otherPlayer)
-        {
-            GS2C_ReturnRoleEnterSceneLine proto = new GS2C_ReturnRoleEnterSceneLine();
-            WS2C_SceneLineRole_DATA item = new WS2C_SceneLineRole_DATA();
-
-            item.RoleType = currPlayer.CurrRoleType;
-            item.RoleId = currPlayer.RoleId;
-            item.BaseRoleId = currPlayer.BaseRoleId;
-            item.Sex = currPlayer.Sex;
-            item.NickName = currPlayer.NickName ?? "";
-
-            var pos = new Vector3 {X = currPlayer.CurrPos.x, Y = currPlayer.CurrPos.y, Z = currPlayer.CurrPos.z};
-            item.CurrPos = pos;
-            item.RotationY = currPlayer.CurrRotationY;
-            if (currPlayer.CurrFsmManager != null)
-            {
-                item.Status = (int) currPlayer.CurrFsmManager.CurrStateType;
-            }
-
-            proto.RoleList.Add(item);
-            otherPlayer.SendCarryToClient(proto);
         }
     }
 }

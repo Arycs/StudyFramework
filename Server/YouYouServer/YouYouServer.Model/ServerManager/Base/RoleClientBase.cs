@@ -47,6 +47,11 @@ namespace YouYouServer.Model.ServerManager
         /// 当前旋转
         /// </summary>
         public float CurrRotationY;
+
+        /// <summary>
+        /// 当前所在场景编号
+        /// </summary>
+        public int CurrSceneId;
         
         /// <summary>
         /// 当前所在区域编号

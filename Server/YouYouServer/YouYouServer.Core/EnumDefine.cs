@@ -186,4 +186,20 @@ namespace YouYouServer.Core
         /// </summary>
         Die,
     }
+
+    public enum SearchRoleType : byte
+    {
+        /// <summary>
+        /// 所有角色
+        /// </summary>
+        All = 0,
+        /// <summary>
+        /// 玩家
+        /// </summary>
+        Player = 1,
+        /// <summary>
+        /// 怪
+        /// </summary>
+        Monster = 2,
+    }
 }

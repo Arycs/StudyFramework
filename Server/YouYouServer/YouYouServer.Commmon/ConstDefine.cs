@@ -79,5 +79,6 @@
         public const string PlayerClientFsmHandler = "PlayerClientFsmHandler";
         
         public const string PVPSceneSpawnMonsterPointHandler = "PVPSceneSpawnMonsterPointHandler";
+        public const string PVPSceneAOIAreaHandler = "PVPSceneAOIAreaHandler";
     }
 }

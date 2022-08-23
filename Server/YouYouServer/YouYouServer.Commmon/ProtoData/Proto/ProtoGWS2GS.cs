@@ -27,15 +27,17 @@ namespace YouYou.Proto {
             "ChJQcm90b19HV1MyR1MucHJvdG8SDFlvdVlvdS5Qcm90byIrChdHV1MyR1Nf",
             "UmVnR2F0ZXdheVNlcnZlchIQCghTZXJ2ZXJJZBgBIAEoBSJLChFHV1MyR1Nf",
             "TGVhdmVTY2VuZRIOCgZSb2xlSWQYASABKAMSDwoHU2NlbmVJZBgCIAEoBRIV",
-            "Cg1UYXJnZXRTY2VuZUlkGAMgASgFIk8KF0dXUzJHU19FbnRlclNjZW5lX0Fw",
-            "cGx5Eg4KBlJvbGVJZBgBIAEoAxITCgtQcmV2U2NlbmVJZBgCIAEoBRIPCgdT",
-            "Y2VuZUlkGAMgASgFIjQKEUdXUzJHU19FbnRlclNjZW5lEg4KBlJvbGVJZBgB",
-            "IAEoAxIPCgdTY2VuZUlkGAIgASgFYgZwcm90bzM="));
+            "Cg1UYXJnZXRTY2VuZUlkGAMgASgFIiAKDkdXUzJHU19PZmZsaW5lEg4KBlJv",
+            "bGVJZBgBIAEoAyJPChdHV1MyR1NfRW50ZXJTY2VuZV9BcHBseRIOCgZSb2xl",
+            "SWQYASABKAMSEwoLUHJldlNjZW5lSWQYAiABKAUSDwoHU2NlbmVJZBgDIAEo",
+            "BSI0ChFHV1MyR1NfRW50ZXJTY2VuZRIOCgZSb2xlSWQYASABKAMSDwoHU2Nl",
+            "bmVJZBgCIAEoBWIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::YouYou.Proto.GWS2GS_RegGatewayServer), global::YouYou.Proto.GWS2GS_RegGatewayServer.Parser, new[]{ "ServerId" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::YouYou.Proto.GWS2GS_LeaveScene), global::YouYou.Proto.GWS2GS_LeaveScene.Parser, new[]{ "RoleId", "SceneId", "TargetSceneId" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::YouYou.Proto.GWS2GS_Offline), global::YouYou.Proto.GWS2GS_Offline.Parser, new[]{ "RoleId" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::YouYou.Proto.GWS2GS_EnterScene_Apply), global::YouYou.Proto.GWS2GS_EnterScene_Apply.Parser, new[]{ "RoleId", "PrevSceneId", "SceneId" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::YouYou.Proto.GWS2GS_EnterScene), global::YouYou.Proto.GWS2GS_EnterScene.Parser, new[]{ "RoleId", "SceneId" }, null, null, null)
           }));
@@ -383,6 +385,144 @@ namespace YouYou.Proto {
   }
 
   /// <summary>
+  ///网关服务器向游戏服务器发送角色下线消息
+  /// </summary>
+  public sealed partial class GWS2GS_Offline : YouYou.IProto, pb::IMessage<GWS2GS_Offline> {
+    private static readonly pb::MessageParser<GWS2GS_Offline> _parser = new pb::MessageParser<GWS2GS_Offline>(() => new GWS2GS_Offline());
+    public ushort ProtoId => ProtoIdDefine.Proto_GWS2GS_Offline;
+    public string ProtoEnName => "GWS2GS_Offline";
+    public ProtoCategory Category => ProtoCategory.GatewayServer2GameServer;
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<GWS2GS_Offline> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::YouYou.Proto.ProtoGWS2GSReflection.Descriptor.MessageTypes[2]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public GWS2GS_Offline() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public GWS2GS_Offline(GWS2GS_Offline other) : this() {
+      roleId_ = other.roleId_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public GWS2GS_Offline Clone() {
+      return new GWS2GS_Offline(this);
+    }
+
+    /// <summary>Field number for the "RoleId" field.</summary>
+    public const int RoleIdFieldNumber = 1;
+    private long roleId_;
+    /// <summary>
+    ///角色编号
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public long RoleId {
+      get { return roleId_; }
+      set {
+        roleId_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as GWS2GS_Offline);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(GWS2GS_Offline other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (RoleId != other.RoleId) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (RoleId != 0L) hash ^= RoleId.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (RoleId != 0L) {
+        output.WriteRawTag(8);
+        output.WriteInt64(RoleId);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (RoleId != 0L) {
+        size += 1 + pb::CodedOutputStream.ComputeInt64Size(RoleId);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(GWS2GS_Offline other) {
+      if (other == null) {
+        return;
+      }
+      if (other.RoleId != 0L) {
+        RoleId = other.RoleId;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
+            RoleId = input.ReadInt64();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  /// <summary>
   ///网关服务器向游戏服务器发送角色进入场景申请消息
   /// </summary>
   public sealed partial class GWS2GS_EnterScene_Apply : YouYou.IProto, pb::IMessage<GWS2GS_EnterScene_Apply> {
@@ -396,7 +536,7 @@ namespace YouYou.Proto {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::YouYou.Proto.ProtoGWS2GSReflection.Descriptor.MessageTypes[2]; }
+      get { return global::YouYou.Proto.ProtoGWS2GSReflection.Descriptor.MessageTypes[3]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -596,7 +736,7 @@ namespace YouYou.Proto {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::YouYou.Proto.ProtoGWS2GSReflection.Descriptor.MessageTypes[3]; }
+      get { return global::YouYou.Proto.ProtoGWS2GSReflection.Descriptor.MessageTypes[4]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]

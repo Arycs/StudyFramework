@@ -72,7 +72,7 @@ namespace YouYouServer.Model.ServerManager
         {
             foreach (var item in OwnerPVPScene.CurrSceneAreaDataList)
             {
-                PVPSceneAOIArea pvpSceneAOIArea = new PVPSceneAOIArea(item);
+                PVPSceneAOIArea pvpSceneAOIArea = new PVPSceneAOIArea(item,this);
                 AOIAreaDic[pvpSceneAOIArea.CurrAOIData.AreaId] = pvpSceneAOIArea;
             }
             Console.WriteLine("初始化场景 {0} AOI区域", OwnerPVPScene.CurrSysScene.SceneName);
