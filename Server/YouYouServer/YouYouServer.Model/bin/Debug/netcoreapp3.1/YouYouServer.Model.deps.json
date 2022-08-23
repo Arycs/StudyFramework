@@ -10,7 +10,8 @@
         "dependencies": {
           "YouYouServer.Commmon": "1.0.0",
           "YouYouServer.Core": "1.0.0",
-          "Google.Protobuf": "3.7.0.0"
+          "Google.Protobuf": "3.7.0.0",
+          "UnityEngine": "0.0.0.0"
         },
         "runtime": {
           "YouYouServer.Model.dll": {}
@@ -1084,6 +1085,14 @@
           }
         }
       },
+      "UnityEngine/0.0.0.0": {
+        "runtime": {
+          "UnityEngine.dll": {
+            "assemblyVersion": "0.0.0.0",
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
       "zlib.net/1.0.3.0": {
         "runtime": {
           "zlib.net.dll": {
@@ -1853,6 +1862,11 @@
       "sha512": ""
     },
     "Google.Protobuf/3.7.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "UnityEngine/0.0.0.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""
