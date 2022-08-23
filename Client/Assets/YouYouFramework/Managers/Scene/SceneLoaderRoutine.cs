@@ -86,7 +86,7 @@ namespace YouYou
         {
             Reset();
             OnUnLoadSceneComplete = onUnLoadSceneComplete;
-            m_CurrAsync = UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync(sceneName);
+            m_CurrAsync = SceneManager.UnloadSceneAsync(sceneName);
             if (m_CurrAsync == null)
             {
                 if (OnUnLoadSceneComplete != null)

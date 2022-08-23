@@ -311,13 +311,23 @@ public class RoleCtrl : BaseSprite, IUpdateComponent
         base.OnOpen();
         //注册更新组件
         GameEntry.RegisterUpdateComponent(this);
-        Agent.enabled = true;
+        
         LoadSkin();
+    }
+
+    /// <summary>
+    /// 打开寻路代理
+    /// </summary>
+    public void OpenAgent()
+    {
+        Agent.enabled = true;
     }
 
     public override void OnClose()
     {
         base.OnClose();
+        IsPlayer = false;
+        Agent.enabled = false;
         GameEntry.RemoveUpdateComponent(this);
         DeSpawn();
     }
@@ -415,6 +425,8 @@ public class RoleCtrl : BaseSprite, IUpdateComponent
     public void DeSpawn()
     {
         UnLoadSkin();
+        //角色控制器回池
+        GameEntry.Pool.GameObjectDeSpawn(transform);
     }
 
     /// <summary>

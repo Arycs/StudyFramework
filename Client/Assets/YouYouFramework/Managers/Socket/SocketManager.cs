@@ -159,7 +159,7 @@ namespace YouYou
 #if DEBUG_LOG_PROTO
             Debug.Log("<color=#ffa200>发送消息:</color><color=#FFFB80>" + proto.ProtoEnName + "" + proto.ProtoId +
                       "</color>");
-            Debug.Log("<color=#ffdeb3>==>>" + JsonUtility.ToJson(proto) + "</color>");
+            Debug.Log("<color=#ffdeb3>==>>" + proto.ToString() + "</color>");
 #endif
             m_MainSocket.SendMsg(proto);
         }

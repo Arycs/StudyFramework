@@ -57,6 +57,7 @@ namespace YouYou
                 //设置角色位置
                 roleCtrl.transform.position = GameEntry.Data.UserDataManager.CurrPos;
                 roleCtrl.transform.rotation = Quaternion.Euler(0, GameEntry.Data.UserDataManager.RotationY, 0);
+                roleCtrl.OpenAgent();
                 
                 GameEntry.Data.RoleDataManager.EnterScene(GameEntry.Data.UserDataManager.CurrSceneId);
                 
@@ -103,6 +104,7 @@ namespace YouYou
             Ray ray = GameEntry.CameraCtrl.MainCamera.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray,out var hitInfo, 1000f, 1 << LayerMask.NameToLayer("Ground")))
             {
+                GameEntry.Data.RoleDataManager.ClickMove(hitInfo.point);
                 GameEntry.Data.RoleDataManager.CurrPlayer.ClickMove(hitInfo.point);
             }
         }

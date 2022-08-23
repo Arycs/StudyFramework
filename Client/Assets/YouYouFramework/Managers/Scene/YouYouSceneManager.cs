@@ -142,7 +142,7 @@ namespace YouYou
                 {
                     SceneLoaderRoutine routine = GameEntry.Pool.DequeueClassObject<SceneLoaderRoutine>();
                     m_SceneLoaderList.AddLast(routine);
-                    routine.UnLoadScene(m_CurrSceneDetailList[i].ScenePath, OnUnLoadSceneComplete);
+                    routine.UnLoadScene(m_CurrSceneDetailList[i].SceneName, OnUnLoadSceneComplete);
                 }
             }
             else

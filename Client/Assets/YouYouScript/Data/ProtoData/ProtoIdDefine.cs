@@ -5,9 +5,9 @@
 public class ProtoIdDefine
 {
     /// <summary>
-    /// 玩家向服务器发送移动
+    /// 玩家向服务器发送点击移动消息
     /// </summary>
-    public const ushort Proto_C2GS_Run = 14001;
+    public const ushort Proto_C2GS_ClickMove = 14001;
 
     /// <summary>
     /// 玩家向网关服务器注册客户端

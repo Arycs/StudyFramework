@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using YouYou;
 using YouYou.Proto;
+using Vector3 = UnityEngine.Vector3;
 
 public class RoleDataManager : IDisposable
 {
@@ -16,7 +17,7 @@ public class RoleDataManager : IDisposable
     /// 当前PVP场景中的角色字典
     /// </summary>
     private Dictionary<long, RoleCtrl> m_CurrPVPSceneRoleDic;
-    
+
     /// <summary>
     /// 当前玩家
     /// </summary>
@@ -26,7 +27,7 @@ public class RoleDataManager : IDisposable
     /// 通过摇杆控制玩家移动时的一个辅助gameObject
     /// </summary>
     public GameObject CurrPlayerMoveHelper { get; }
-    
+
     public RoleDataManager()
     {
         m_RoleList = new LinkedList<RoleCtrl>();
@@ -128,7 +129,7 @@ public class RoleDataManager : IDisposable
             curr = next;
         }
     }
-    
+
     /// <summary>
     /// /服务器返回进入游戏消息
     /// </summary>
@@ -157,7 +158,8 @@ public class RoleDataManager : IDisposable
         if (proto.Result)
         {
             GameEntry.Data.UserDataManager.CurrSceneId = proto.SceneId;
-            GameEntry.Data.UserDataManager.CurrPos = new UnityEngine.Vector3(proto.CurrPos.X, proto.CurrPos.Y, proto.CurrPos.Z);
+            GameEntry.Data.UserDataManager.CurrPos =
+                new UnityEngine.Vector3(proto.CurrPos.X, proto.CurrPos.Y, proto.CurrPos.Z);
             GameEntry.Procedure.ChangeState(ProcedureState.WorldMap);
         }
         else
@@ -165,7 +167,7 @@ public class RoleDataManager : IDisposable
             //TODO 弹出提示
         }
     }
-    
+
     /// <summary>
     /// 进入场景
     /// </summary>
@@ -179,8 +181,8 @@ public class RoleDataManager : IDisposable
         m_CurrPVPSceneRoleDic[GameEntry.Data.RoleDataManager.CurrPlayer.ServerRoleId] =
             GameEntry.Data.RoleDataManager.CurrPlayer;
     }
-    
-    
+
+
     /// <summary>
     /// 服务器返回场景中已有角色消息
     /// </summary>
@@ -191,12 +193,13 @@ public class RoleDataManager : IDisposable
         for (int i = 0; i < len; i++)
         {
             WS2C_SceneLineRole_DATA data = proto.RoleList[i];
-            
-            this.CreateSprite(data.BaseRoleId,(roleCtrl =>
+
+            this.CreateSprite(data.BaseRoleId, (roleCtrl =>
             {
                 roleCtrl.ServerRoleId = data.RoleId;
                 roleCtrl.transform.position = new UnityEngine.Vector3(data.CurrPos.X, data.CurrPos.Y, data.CurrPos.Z);
-                roleCtrl.transform.rotation = Quaternion.Euler(0,data.RotationY,0);
+                roleCtrl.transform.rotation = Quaternion.Euler(0, data.RotationY, 0);
+                roleCtrl.OpenAgent();
                 m_CurrPVPSceneRoleDic[roleCtrl.ServerRoleId] = roleCtrl;
             }));
         }
@@ -208,7 +211,7 @@ public class RoleDataManager : IDisposable
     /// <param name="proto"></param>
     public void OnReturnRoleLeaveSceneLine(GS2C_ReturnRoleLeaveSceneLine proto)
     {
-        if (m_CurrPVPSceneRoleDic.TryGetValue(proto.RoleId,out var roleCtrl))
+        if (m_CurrPVPSceneRoleDic.TryGetValue(proto.RoleId, out var roleCtrl))
         {
             //卸载角色
             roleCtrl.OnClose();
@@ -226,13 +229,24 @@ public class RoleDataManager : IDisposable
         for (int i = 0; i < len; i++)
         {
             WS2C_SceneLineRole_DATA data = proto.RoleList[i];
-            this.CreateSprite(data.BaseRoleId,(roleCtrl =>
+            this.CreateSprite(data.BaseRoleId, (roleCtrl =>
             {
                 roleCtrl.ServerRoleId = data.RoleId;
                 roleCtrl.transform.position = new UnityEngine.Vector3(data.CurrPos.X, data.CurrPos.Y, data.CurrPos.Z);
-                roleCtrl.transform.rotation = Quaternion.Euler(0,data.RotationY,0);
+                roleCtrl.transform.rotation = Quaternion.Euler(0, data.RotationY, 0);
                 m_CurrPVPSceneRoleDic[roleCtrl.ServerRoleId] = roleCtrl;
             }));
         }
+    }
+
+    /// <summary>
+    /// 点击移动 发送给服务器消息
+    /// </summary>
+    /// <param name="targetPos"></param>
+    public void ClickMove(Vector3 targetPos)
+    {
+        C2GS_ClickMove proto = new C2GS_ClickMove();
+        proto.TargetPos = new YouYou.Proto.Vector3() {X = targetPos.x, Y = targetPos.y, Z = targetPos.z};
+        GameEntry.Socket.SendMainMsg(proto);
     }
 }

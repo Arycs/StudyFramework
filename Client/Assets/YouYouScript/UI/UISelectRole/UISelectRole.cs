@@ -33,7 +33,7 @@ public class UISelectRole : UIFormBase
         currSelectRoleId = 0;
         currSelectJobId = 0;
         loopListView.SetListItemCount(roleList.Count);
-        OnSelectRoleHandler(roleList[1].RoleId);
+        OnSelectRoleHandler(roleList[0].RoleId);
     }
 
 
