@@ -1,0 +1,161 @@
+﻿using System;
+using YouYouServer.Commmon;
+using YouYouServer.Common;
+using YouYouServer.Core;
+using YouYouServer.Model.IHandler;
+using YouYouServer.Model.ServerManager;
+using YouYouServer.Model.ServerManager.Client.MonsterClient;
+
+namespace YouYouServer.HotFix.PVPHandler
+{
+    [Handler(ConstDefine.MonsterClientFsmHandler)]
+    public class MonsterClientFsmHandler : IRoleClientFsmHandler
+    {
+        private MonsterClient m_MonsterClient;
+
+        public void Init(RoleClientBase roleClientBase)
+        {
+            m_MonsterClient = roleClientBase as MonsterClient;
+        }
+
+        public void OnUpdate()
+        {
+        }
+
+        public void Idle_OnEnter()
+        {
+            Console.WriteLine("Idle_OnEnter");
+            m_MonsterClient.EnterIdleTime = TimerManager.time;
+        }
+
+        public void Idle_OnLeave()
+        {
+        }
+
+        public void Idle_OnUpdate()
+        {
+            //待机 60 秒巡逻
+            if (TimerManager.time > m_MonsterClient.EnterIdleTime + 10)
+            {
+                m_MonsterClient.EnterIdleTime = TimerManager.time;
+
+                //随机找一个巡逻点
+                UnityEngine.Vector3 targetPos = m_MonsterClient.CurrSpawnMonsterPoint.PatrolPosList[
+                    new System.Random().Next(0, m_MonsterClient.CurrSpawnMonsterPoint.PatrolPosList.Count)];
+
+                m_MonsterClient.TargetPos = targetPos;
+                //进行寻路
+                // GameServerManager.ConnectNavAgent.GetNavPath(m_MonsterClient.CurrSceneId, m_MonsterClient.CurrPos, m_MonsterClient.TargetPos, (NS2GS_ReturnNavPath proto) =>
+                //  {
+                //      Console.WriteLine(proto.TaskId);
+                //      Console.WriteLine(proto.Valid);
+                //      Console.WriteLine(proto.Path);
+                //
+                //      if (proto.Path.Count > 1)
+                //      {
+                //          m_MonsterClient.PathPoints.Clear();
+                //          foreach (var item in proto.Path)
+                //          {
+                //              m_MonsterClient.PathPoints.Add(new UnityEngine.Vector3(item.X, item.Y, item.Z));
+                //          }
+                //          m_MonsterClient.CurrFsmManager.ChangeState(RoleState.Run);
+                //      }
+                //  });
+
+                m_MonsterClient.CurrFsmManager.ChangeState(Core.RoleState.Die);
+            }
+        }
+
+        public void Run_OnEnter()
+        {
+            Console.WriteLine("Run_OnEnter");
+            m_MonsterClient.RunTime = 0;
+            m_MonsterClient.CurrWayPointIndex = 1;
+            m_MonsterClient.CurrPos = m_MonsterClient.PathPoints[0];
+            m_MonsterClient.TurnComplete = false;
+        }
+
+        public void Run_OnLeave()
+        {
+        }
+
+        public void Run_OnUpdate()
+        {
+            m_MonsterClient.RunTime += m_MonsterClient.CurrSpawnMonsterPoint.OwnerPVPSceneLine.Deltatime;
+            if (m_MonsterClient.CurrWayPointIndex == m_MonsterClient.PathPoints.Count)
+            {
+                m_MonsterClient.CurrFsmManager.ChangeState(RoleState.Idle);
+                return;
+            }
+
+            if (!m_MonsterClient.TurnComplete)
+            {
+                m_MonsterClient.RunEndPos = m_MonsterClient.PathPoints[m_MonsterClient.CurrWayPointIndex];
+                m_MonsterClient.RunBeginPos = m_MonsterClient.PathPoints[m_MonsterClient.CurrWayPointIndex - 1];
+                m_MonsterClient.RunDir = (m_MonsterClient.RunEndPos - m_MonsterClient.RunBeginPos).normalized;
+
+                float y = (float) Math.Atan2((m_MonsterClient.RunEndPos.x - m_MonsterClient.RunBeginPos.x),
+                    (m_MonsterClient.RunEndPos.z - m_MonsterClient.RunBeginPos.z)) * 180 / (float) Math.PI;
+                m_MonsterClient.CurrRotationY = y;
+                m_MonsterClient.TurnComplete = true;
+
+                Console.WriteLine(
+                    $"Role Turn RunBeginPos = {m_MonsterClient.RunBeginPos} RunEndPos= {m_MonsterClient.RunEndPos}");
+            }
+
+            //时间 * 速度 = 距离
+            float dis = m_MonsterClient.RunTime * m_MonsterClient.RunSpeed;
+            m_MonsterClient.CurrPos = m_MonsterClient.RunBeginPos + m_MonsterClient.RunDir * dis;
+
+            if (dis >= UnityEngine.Vector3.Distance(m_MonsterClient.RunEndPos, m_MonsterClient.RunBeginPos))
+            {
+                m_MonsterClient.CurrPos = m_MonsterClient.RunEndPos; //位置修正
+                m_MonsterClient.RunTime = 0;
+                m_MonsterClient.TurnComplete = false;
+                m_MonsterClient.CurrWayPointIndex++;
+            }
+        }
+
+        public void Attack_OnEnter()
+        {
+        }
+
+        public void Attack_OnLeave()
+        {
+        }
+
+        public void Attack_OnUpdate()
+        {
+        }
+
+        public void Die_OnEnter()
+        {
+            Console.WriteLine("Die_OnEnter" + DateTime.Now);
+            m_MonsterClient.OnDie?.Invoke();
+        }
+
+        public void Die_OnLeave()
+        {
+        }
+
+        public void Die_OnUpdate()
+        {
+        }
+
+        public void Dispose()
+        {
+        }
+
+        public void Hurt_OnEnter()
+        {
+        }
+
+        public void Hurt_OnLeave()
+        {
+        }
+
+        public void Hurt_OnUpdate()
+        {
+        }
+    }
+}

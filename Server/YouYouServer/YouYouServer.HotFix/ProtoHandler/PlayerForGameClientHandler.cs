@@ -180,6 +180,7 @@ namespace YouYouServer.HotFix
                     //4.把自己加入区域列表
                     pvpSceneAoiArea.RoleClientList.AddLast(m_PlayerForGameClient);
                     m_PlayerForGameClient.CurrAreaId = areaId; //设置当前区域编号
+                    m_PlayerForGameClient.CurrFsmManager.ChangeState(RoleState.Idle);
 
                     List<RoleClientBase> retLst = new List<RoleClientBase>();
                     //5.同步AOI 角色数据到客户端 告诉玩家 有哪些人已经在这个场景里

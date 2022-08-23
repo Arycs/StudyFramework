@@ -19,7 +19,7 @@ namespace YouYouServer.Model.ServerManager
         public long RoleId;
 
         /// <summary>
-        /// 职业ID 或者是角色ID ,用来给客户端获取配置中的信息
+        /// 职业ID 
         /// </summary>
         public byte JobId;
 
@@ -47,11 +47,6 @@ namespace YouYouServer.Model.ServerManager
         /// 当前旋转
         /// </summary>
         public float CurrRotationY;
-
-        /// <summary>
-        /// 当前所在场景编号
-        /// </summary>
-        public int CurrSceneId;
         
         /// <summary>
         /// 当前所在区域编号
@@ -59,9 +54,9 @@ namespace YouYouServer.Model.ServerManager
         public int CurrAreaId;
         
         /// <summary>
-        /// 当前角色客户端处理句柄
+        /// 当前角色客户端状态机处理句柄
         /// </summary>
-        public IRoleClientHandler CurrRoleClientHandler;
+        public IRoleClientFsmHandler currRoleClientFsmHandler;
 
         /// <summary>
         /// 当前的状态机管理器
@@ -77,9 +72,10 @@ namespace YouYouServer.Model.ServerManager
         /// 基础角色编号
         /// </summary>
         public int BaseRoleId => CurrRoleType == RoleType.Player ? JobId : MonsterId;
+        
         public void OnUpdate()
         {
-            CurrRoleClientHandler?.OnUpdate();
+            currRoleClientFsmHandler?.OnUpdate();
             CurrFsmManager?.OnUpdate();
         }
     }

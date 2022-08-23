@@ -29,7 +29,8 @@ namespace YouYouServer.Model
         {
             AccountId = accountId;
             m_GatewayServerForGameClient = gatewayServerForWorldClient;
-
+            CurrFsmManager = new RoleFsm.RoleFsm(this);
+            
             HotFixHelper.OnLoadAssembly += InitPlayerForGameClientHandler;
             InitPlayerForGameClientHandler();
         }
@@ -38,6 +39,8 @@ namespace YouYouServer.Model
 
         private void InitPlayerForGameClientHandler()
         {
+            InitFsmHandler();
+            
             if (m_CurrHandler != null)
             {
                 //把旧的实例释放掉
@@ -51,6 +54,22 @@ namespace YouYouServer.Model
             m_CurrHandler?.Init(this);
 
             Console.WriteLine("InitPlayerForGameClientHandler");
+        }
+
+        /// <summary>
+        /// 初始化状态机处理句柄
+        /// </summary>
+        private void InitFsmHandler()
+        {
+            if (currRoleClientFsmHandler != null)
+            {
+                //把旧的实例释放掉
+                currRoleClientFsmHandler.Dispose();
+                currRoleClientFsmHandler = null;
+            }
+            
+            currRoleClientFsmHandler = Activator.CreateInstance(HotFixHelper.HandlerTypeDic[ConstDefine.PlayerClientFsmHandler]) as IRoleClientFsmHandler;
+            currRoleClientFsmHandler?.Init(this);
         }
 
         /// <summary>

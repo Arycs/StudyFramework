@@ -94,14 +94,14 @@ namespace YouYouServer.Model.ServerManager.Client.MonsterClient
 
         private void InitHandler()
         {
-            if (CurrRoleClientHandler != null)
+            if (currRoleClientFsmHandler != null)
             {
                 //把旧的实例释放
-                CurrRoleClientHandler.Dispose();
-                CurrRoleClientHandler = null;
+                currRoleClientFsmHandler.Dispose();
+                currRoleClientFsmHandler = null;
             }
-            CurrRoleClientHandler = Activator.CreateInstance(HotFixHelper.HandlerTypeDic[ConstDefine.RoleClientHandler]) as IRoleClientHandler;
-            CurrRoleClientHandler.Init(this);
+            currRoleClientFsmHandler = Activator.CreateInstance(HotFixHelper.HandlerTypeDic[ConstDefine.MonsterClientFsmHandler]) as IRoleClientFsmHandler;
+            currRoleClientFsmHandler?.Init(this);
         }
 
         public void Dispose()

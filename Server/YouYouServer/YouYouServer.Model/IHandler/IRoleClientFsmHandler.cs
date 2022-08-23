@@ -8,7 +8,7 @@ namespace YouYouServer.Model.IHandler
     /// <summary>
     /// 角色客户端处理接口 
     /// </summary>
-    public interface IRoleClientHandler
+    public interface IRoleClientFsmHandler
     {
         void Init(RoleClientBase roleClientBase);
 

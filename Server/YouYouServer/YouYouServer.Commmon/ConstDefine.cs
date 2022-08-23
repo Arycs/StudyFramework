@@ -68,10 +68,16 @@
         }
 
         public const string AccountControllerHandler = "AccountControllerHandler";
+        
         public const string PlayerForWorldClientHandler = "PlayerForWorldClientHandler";
-        public const string PVPSceneLineSyncHandler = "PVPSceneLineSyncHandler";
-        public const string RoleClientHandler = "RoleClientHandler";
-        public const string PVPSceneSpawnMonsterPointHandler = "PVPSceneSpawnMonsterPointHandler";
         public const string PlayerForGameClientHandler = "PlayerForGameClientHandler";
+        public const string PlayerForGatewayClientHandler = "PlayerForGatewayClientHandler";
+        
+        public const string PVPSceneLineSyncHandler = "PVPSceneLineSyncHandler";
+
+        public const string MonsterClientFsmHandler = "MonsterClientFsmHandler";
+        public const string PlayerClientFsmHandler = "PlayerClientFsmHandler";
+        
+        public const string PVPSceneSpawnMonsterPointHandler = "PVPSceneSpawnMonsterPointHandler";
     }
 }
