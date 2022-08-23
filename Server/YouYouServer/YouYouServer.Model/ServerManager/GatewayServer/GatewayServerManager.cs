@@ -149,7 +149,7 @@ namespace YouYouServer.Model
         }
 
         /// <summary>
-        /// 通过ID 获取玩家客户端
+        /// 通过ID 获取网关服务器上的玩家客户端
         /// </summary>
         /// <param name="accountId"></param>
         /// <returns></returns>
@@ -162,11 +162,11 @@ namespace YouYouServer.Model
         /// <summary>
         /// 移除玩家客户端
         /// </summary>
-        /// <param name="playerForGatewayClient"></param>
-        public static void RemovePlayerClient(PlayerForGatewayClient playerForGatewayClient)
+        /// <param name="playerClient"></param>
+        public static void RemovePlayerClient(PlayerForGatewayClient playerClient)
         {
-            LoggerMgr.Log(Core.LoggerLevel.Log, LogType.SysLog, "RemovePlayerClient Success AccountId = {0}", playerForGatewayClient.AccountId);
-            m_PlayerClientDic.Remove(playerForGatewayClient.AccountId);
+            LoggerMgr.Log(Core.LoggerLevel.Log, LogType.SysLog, "RemovePlayerClient Success AccountId = {0}", playerClient.AccountId);
+            m_PlayerClientDic.Remove(playerClient.AccountId);
         }
 
         

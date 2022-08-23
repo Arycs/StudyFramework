@@ -15,10 +15,7 @@ namespace YouYouServer.Model
         /// <summary>
         /// 当前网关服务器客户端状态
         /// </summary>
-        public ConstDefine.GatewayServerStatus CurrServerStatus
-        {
-            get; private set;
-        }
+        public ConstDefine.GatewayServerStatus CurrServerStatus { get; private set; }
 
         public GatewayServerForWorldClient(ServerClient serverClient) : base(serverClient)
         {
@@ -34,13 +31,16 @@ namespace YouYouServer.Model
 
             AddEventListener();
         }
-        
+
         public override void AddEventListener()
         {
             base.AddEventListener();
 
             #region 作为中心服务器客户端 收到的消息
-            CurrServerClient.EventDispatcher.AddEventListener(ProtoIdDefine.Proto_GWS2WS_RegGameServerSuccess, OnGWS2WS_RegGameServerSuccess);
+
+            CurrServerClient.EventDispatcher.AddEventListener(ProtoIdDefine.Proto_GWS2WS_RegGameServerSuccess,
+                OnGWS2WS_RegGameServerSuccess);
+
             #endregion
         }
 
@@ -50,8 +50,12 @@ namespace YouYouServer.Model
         public override void RemoveEventListener()
         {
             base.RemoveEventListener();
+
             #region 作为中心服务器客户端 收到的消息
-            CurrServerClient.EventDispatcher.RemoveEventListener(ProtoIdDefine.Proto_GWS2WS_RegGameServerSuccess, OnGWS2WS_RegGameServerSuccess);
+
+            CurrServerClient.EventDispatcher.RemoveEventListener(ProtoIdDefine.Proto_GWS2WS_RegGameServerSuccess,
+                OnGWS2WS_RegGameServerSuccess);
+
             #endregion
         }
 
@@ -86,7 +90,8 @@ namespace YouYouServer.Model
             //所以这里直接解析中转协议
             CarryProto proto = CarryProto.GetProto(buffer);
 
-            if (proto.CarryProtoCategory == ProtoCategory.Client2WorldServer  || proto.CarryProtoCategory == ProtoCategory.GameServer2WorldServer)
+            if (proto.CarryProtoCategory == ProtoCategory.Client2WorldServer ||
+                proto.CarryProtoCategory == ProtoCategory.GameServer2WorldServer)
             {
                 long accountId = proto.AccountId;
 
@@ -98,10 +103,10 @@ namespace YouYouServer.Model
                     playerForWorldClient = new PlayerForWorldClient(accountId, this);
                     WorldServerManager.RegisterPlayerForWorldClient(playerForWorldClient);
                 }
+
                 // 2.给这个玩家客户端派发消息
                 playerForWorldClient.EventDispatcher.Dispatch(proto.CarryProtoId, proto.Buffer);
             }
         }
-
     }
 }

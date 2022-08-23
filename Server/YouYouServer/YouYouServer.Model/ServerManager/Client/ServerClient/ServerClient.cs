@@ -39,22 +39,6 @@ namespace YouYouServer.Model
         }
 
         /// <summary>
-        /// 发送协议时的MS缓存
-        /// </summary>
-        public MMO_MemoryStream SendProtoMS
-        {
-            get; private set;
-        }
-
-        /// <summary>
-        /// 解析协议时的MS缓存
-        /// </summary>
-        public MMO_MemoryStream GetProtoMS
-        {
-            get; private set;
-        }
-
-        /// <summary>
         /// 断开连接
         /// </summary>
         public Action OnDisConnect;
@@ -67,8 +51,6 @@ namespace YouYouServer.Model
         public ServerClient(Socket socket)
         {
             EventDispatcher = new EventDispatcher();
-            SendProtoMS = new MMO_MemoryStream();
-            GetProtoMS = new MMO_MemoryStream();
 
             ClientSocket = new ClientSocket(socket, EventDispatcher);
             ClientSocket.OnDisConnect = () => { OnDisConnect?.Invoke(); };
@@ -89,7 +71,9 @@ namespace YouYouServer.Model
             EventDispatcher.AddEventListener(ProtoIdDefine.Proto_GWS2GS_RegGatewayServer, OnGWS2GS_RegGatewayServer);
         }
 
-
+        /// <summary>
+        /// 移除监听
+        /// </summary>
         private void RemoveEventListener()
         {
             EventDispatcher.RemoveEventListener(ProtoIdDefine.Proto_GS2WS_RegGameServer, OnGS2WS_RegGameServer);

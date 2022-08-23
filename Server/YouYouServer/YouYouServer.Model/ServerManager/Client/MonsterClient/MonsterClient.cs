@@ -24,21 +24,6 @@ namespace YouYouServer.Model.ServerManager.Client.MonsterClient
         public int CurrSceneId => CurrSpawnMonsterPoint.OwnerPVPSceneLine.OwnerPVPScene.CurrSceneConfig.SceneId;
 
         /// <summary>
-        /// 当前物体旋转
-        /// </summary>
-        public float CurrRotationY;
-
-        /// <summary>
-        /// 当前坐标
-        /// </summary>
-        public Vector3 CurrPos;
-
-        /// <summary>
-        /// 目标坐标
-        /// </summary>
-        public Vector3 TargetPos;
-
-        /// <summary>
         /// 进入待机时间
         /// </summary>
         public float EnterIdleTime = 0;
@@ -94,14 +79,14 @@ namespace YouYouServer.Model.ServerManager.Client.MonsterClient
 
         private void InitHandler()
         {
-            if (currRoleClientFsmHandler != null)
+            if (CurrRoleClientFsmHandler != null)
             {
                 //把旧的实例释放
-                currRoleClientFsmHandler.Dispose();
-                currRoleClientFsmHandler = null;
+                CurrRoleClientFsmHandler.Dispose();
+                CurrRoleClientFsmHandler = null;
             }
-            currRoleClientFsmHandler = Activator.CreateInstance(HotFixHelper.HandlerTypeDic[ConstDefine.MonsterClientFsmHandler]) as IRoleClientFsmHandler;
-            currRoleClientFsmHandler?.Init(this);
+            CurrRoleClientFsmHandler = Activator.CreateInstance(HotFixHelper.HandlerTypeDic[ConstDefine.MonsterClientFsmHandler]) as IRoleClientFsmHandler;
+            CurrRoleClientFsmHandler?.Init(this);
         }
 
         public void Dispose()

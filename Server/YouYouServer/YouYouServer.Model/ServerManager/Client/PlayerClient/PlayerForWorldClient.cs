@@ -15,15 +15,6 @@ namespace YouYouServer.Model
     public class PlayerForWorldClient : PlayerClientBase
     {
         /// <summary>
-        /// 当前角色
-        /// </summary>
-        public RoleEntity CurrRole
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
         /// 这个玩家所在的网关
         /// </summary>
         private GatewayServerForWorldClient m_GatewayServerForWorldClient;

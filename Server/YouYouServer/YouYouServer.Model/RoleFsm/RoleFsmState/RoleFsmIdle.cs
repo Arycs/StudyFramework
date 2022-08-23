@@ -11,19 +11,19 @@ namespace YouYouServer.Model.RoleFsm.RoleFsmState
         public override void OnEnter()
         {
             base.OnEnter();
-            CurrFsm.CurrRoleClient.currRoleClientFsmHandler.Idle_OnEnter();
+            CurrFsm.CurrRoleClient.CurrRoleClientFsmHandler.Idle_OnEnter();
         }
 
         public override void OnLeave()
         {
             base.OnLeave();
-            CurrFsm.CurrRoleClient.currRoleClientFsmHandler.Idle_OnLeave();
+            CurrFsm.CurrRoleClient.CurrRoleClientFsmHandler.Idle_OnLeave();
         }
 
         public override void OnUpdate()
         {
             base.OnUpdate();
-            CurrFsm.CurrRoleClient.currRoleClientFsmHandler.Idle_OnUpdate();
+            CurrFsm.CurrRoleClient.CurrRoleClientFsmHandler.Idle_OnUpdate();
         }
     }
 }

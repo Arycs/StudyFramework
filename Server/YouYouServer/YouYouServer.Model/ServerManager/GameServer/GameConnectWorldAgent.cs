@@ -17,7 +17,6 @@ namespace YouYouServer.Model
             if (servers != null && servers.Count == 1)
             {
                 TargetServerConfig = servers[0];
-
                 //连接到中心服务器
                 TargetServerConnect = new ServerConnect(TargetServerConfig);
                 AddEventListener();

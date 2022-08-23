@@ -27,17 +27,17 @@ namespace YouYou.Proto {
             "ChJQcm90b19HV1MyR1MucHJvdG8SDFlvdVlvdS5Qcm90byIrChdHV1MyR1Nf",
             "UmVnR2F0ZXdheVNlcnZlchIQCghTZXJ2ZXJJZBgBIAEoBSJLChFHV1MyR1Nf",
             "TGVhdmVTY2VuZRIOCgZSb2xlSWQYASABKAMSDwoHU2NlbmVJZBgCIAEoBRIV",
-            "Cg1UYXJnZXRTY2VuZUlkGAMgASgFIiAKDkdXUzJHU19PZmZsaW5lEg4KBlJv",
-            "bGVJZBgBIAEoAyJPChdHV1MyR1NfRW50ZXJTY2VuZV9BcHBseRIOCgZSb2xl",
-            "SWQYASABKAMSEwoLUHJldlNjZW5lSWQYAiABKAUSDwoHU2NlbmVJZBgDIAEo",
-            "BSI0ChFHV1MyR1NfRW50ZXJTY2VuZRIOCgZSb2xlSWQYASABKAMSDwoHU2Nl",
-            "bmVJZBgCIAEoBWIGcHJvdG8z"));
+            "Cg1UYXJnZXRTY2VuZUlkGAMgASgFIiMKDkdXUzJHU19PZmZsaW5lEhEKCUFj",
+            "Y291bnRJZBgBIAEoAyJPChdHV1MyR1NfRW50ZXJTY2VuZV9BcHBseRIOCgZS",
+            "b2xlSWQYASABKAMSEwoLUHJldlNjZW5lSWQYAiABKAUSDwoHU2NlbmVJZBgD",
+            "IAEoBSI0ChFHV1MyR1NfRW50ZXJTY2VuZRIOCgZSb2xlSWQYASABKAMSDwoH",
+            "U2NlbmVJZBgCIAEoBWIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::YouYou.Proto.GWS2GS_RegGatewayServer), global::YouYou.Proto.GWS2GS_RegGatewayServer.Parser, new[]{ "ServerId" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::YouYou.Proto.GWS2GS_LeaveScene), global::YouYou.Proto.GWS2GS_LeaveScene.Parser, new[]{ "RoleId", "SceneId", "TargetSceneId" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::YouYou.Proto.GWS2GS_Offline), global::YouYou.Proto.GWS2GS_Offline.Parser, new[]{ "RoleId" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::YouYou.Proto.GWS2GS_Offline), global::YouYou.Proto.GWS2GS_Offline.Parser, new[]{ "AccountId" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::YouYou.Proto.GWS2GS_EnterScene_Apply), global::YouYou.Proto.GWS2GS_EnterScene_Apply.Parser, new[]{ "RoleId", "PrevSceneId", "SceneId" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::YouYou.Proto.GWS2GS_EnterScene), global::YouYou.Proto.GWS2GS_EnterScene.Parser, new[]{ "RoleId", "SceneId" }, null, null, null)
           }));
@@ -415,7 +415,7 @@ namespace YouYou.Proto {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GWS2GS_Offline(GWS2GS_Offline other) : this() {
-      roleId_ = other.roleId_;
+      accountId_ = other.accountId_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -424,17 +424,17 @@ namespace YouYou.Proto {
       return new GWS2GS_Offline(this);
     }
 
-    /// <summary>Field number for the "RoleId" field.</summary>
-    public const int RoleIdFieldNumber = 1;
-    private long roleId_;
+    /// <summary>Field number for the "AccountId" field.</summary>
+    public const int AccountIdFieldNumber = 1;
+    private long accountId_;
     /// <summary>
-    ///角色编号
+    ///玩家账号
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public long RoleId {
-      get { return roleId_; }
+    public long AccountId {
+      get { return accountId_; }
       set {
-        roleId_ = value;
+        accountId_ = value;
       }
     }
 
@@ -451,14 +451,14 @@ namespace YouYou.Proto {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (RoleId != other.RoleId) return false;
+      if (AccountId != other.AccountId) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
-      if (RoleId != 0L) hash ^= RoleId.GetHashCode();
+      if (AccountId != 0L) hash ^= AccountId.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -472,9 +472,9 @@ namespace YouYou.Proto {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
-      if (RoleId != 0L) {
+      if (AccountId != 0L) {
         output.WriteRawTag(8);
-        output.WriteInt64(RoleId);
+        output.WriteInt64(AccountId);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -484,8 +484,8 @@ namespace YouYou.Proto {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
-      if (RoleId != 0L) {
-        size += 1 + pb::CodedOutputStream.ComputeInt64Size(RoleId);
+      if (AccountId != 0L) {
+        size += 1 + pb::CodedOutputStream.ComputeInt64Size(AccountId);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -498,8 +498,8 @@ namespace YouYou.Proto {
       if (other == null) {
         return;
       }
-      if (other.RoleId != 0L) {
-        RoleId = other.RoleId;
+      if (other.AccountId != 0L) {
+        AccountId = other.AccountId;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -513,7 +513,7 @@ namespace YouYou.Proto {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 8: {
-            RoleId = input.ReadInt64();
+            AccountId = input.ReadInt64();
             break;
           }
         }

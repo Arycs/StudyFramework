@@ -61,13 +61,16 @@ namespace YouYouServer.Model.ServerManager
         /// <summary>
         /// 当前角色客户端状态机处理句柄
         /// </summary>
-        public IRoleClientFsmHandler currRoleClientFsmHandler;
+        public IRoleClientFsmHandler CurrRoleClientFsmHandler;
 
         /// <summary>
         /// 当前的状态机管理器
         /// </summary>
         public RoleFsm.RoleFsm CurrFsmManager;
 
+        //移动目标点
+        public UnityEngine.Vector3 TargetPos;
+        
         /// <summary>
         /// 当前角色类型
         /// </summary>
@@ -80,7 +83,7 @@ namespace YouYouServer.Model.ServerManager
         
         public void OnUpdate()
         {
-            currRoleClientFsmHandler?.OnUpdate();
+            CurrRoleClientFsmHandler?.OnUpdate();
             CurrFsmManager?.OnUpdate();
         }
     }

@@ -191,8 +191,8 @@ namespace YouYouServer.HotFix
             {
                 case ProtoCategory.Client2GameServer:
                 {
-                    // CarrySendToGameServer(m_PlayerForGatewayClient.CurrInGameServerId, protoCode,
-                    //     ProtoCategory.GatewayServer2GameServer, buffer);
+                    CarrySendToGameServer(m_PlayerForGatewayClient.CurrInGameServerId, protoCode,
+                        ProtoCategory.GatewayServer2GameServer, buffer);
                 }
                     break;
                 case ProtoCategory.Client2WorldServer:
@@ -228,11 +228,11 @@ namespace YouYouServer.HotFix
         /// </summary>
         /// <param name="serverId"></param>
         /// <param name="protoCode"></param>
+        /// <param name="protoCategory"></param>
         /// <param name="buffer"></param>
         public void CarrySendToGameServer(int serverId, ushort protoCode, ProtoCategory protoCategory, byte[] buffer)
         {
             CarryProto carryProto = new CarryProto(m_PlayerForGatewayClient.AccountId, protoCode, protoCategory, buffer);
-
             //根据服务器编号 通过代理发送中转消息
             GatewayServerManager.GetGameServerAgent(serverId).TargetServerConnect.ClientSocket.SendMsg(carryProto);
         }

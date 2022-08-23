@@ -1,5 +1,6 @@
 ﻿using System;
 using YouYou.Proto;
+using YouYouServer.Commmon;
 using YouYouServer.Common;
 using YouYouServer.Core;
 
@@ -47,7 +48,8 @@ namespace YouYouServer.Model
                 if (playerForGatewayClient != null)
                 {
                     //2.给玩家发消息
-                    playerForGatewayClient.ClientSocket.SendMsg(proto);
+                    playerForGatewayClient.ClientSocket.SendMsg(proto.CarryProtoId, (byte) proto.CarryProtoCategory,
+                        proto.Buffer);
                 }
             }
         }
@@ -74,13 +76,17 @@ namespace YouYouServer.Model
         /// </summary>
         public void RegisterToGameServer()
         {
-            TargetServerConnect.Connect(onConnectSuccess: (() =>
+            TargetServerConnect.Connect(onConnectSuccess: () =>
             {
                 //告诉游戏服务器 我是谁
                 GWS2GS_RegGatewayServer proto = new GWS2GS_RegGatewayServer();
                 proto.ServerId = GatewayServerManager.CurrServer.ServerId;
                 TargetServerConnect.ClientSocket.SendMsg(proto);
-            }));
+            });
+            TargetServerConnect.ClientSocket.OnDisConnect = () =>
+            {
+                
+            };
         }
         #endregion
     }

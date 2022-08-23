@@ -32,6 +32,7 @@ namespace YouYouServer.HotFix.PVPHandler
                 {
                     RoleId = UniqueIdUtil.GetUniqueId(),
                     CurrSpawnMonsterPoint = m_PVPSceneSpawnMonsterPoint,
+                    MonsterId = m_PVPSceneSpawnMonsterPoint.MonsterId,
                     CurrPos = m_PVPSceneSpawnMonsterPoint.BornPos
                 };
 

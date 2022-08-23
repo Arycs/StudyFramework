@@ -46,7 +46,7 @@ namespace YouYouServer.Model
         public static ServerManager.SceneManager CurrSceneManager { get; private set; }
 
         /// <summary>
-        /// Soacket 监听
+        /// Socket监听
         /// </summary>
         private static Socket m_ListenSocket;
 
@@ -119,7 +119,7 @@ namespace YouYouServer.Model
         /// <summary>
         /// 注册网关服务器客户端
         /// </summary>
-        /// <param name="gatewayServerClient"></param>
+        /// <param name="gatewayServerForGameClient"></param>
         public static void RegisterGatewayServerClient(GatewayServerForGameClient gatewayServerForGameClient)
         {
             LoggerMgr.Log(Core.LoggerLevel.Log, LogType.SysLog, "RegisterGatewayServerClient Success ServerId = {0}", gatewayServerForGameClient.ServerId);
@@ -155,7 +155,7 @@ namespace YouYouServer.Model
         /// <summary>
         /// 获取游戏服务器上的玩家客户端
         /// </summary>
-        /// <param name="playerForGameClient"></param>
+        /// <param name="accountId"></param>
         public static PlayerForGameClient GetPlayerClient(long accountId)
         {
             m_PlayerForGameClient.TryGetValue(accountId, out var playerForGameClient);

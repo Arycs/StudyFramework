@@ -44,10 +44,21 @@ namespace YouYouServer.Model
             ClientSocket = new ClientSocket(socket, EventDispatcher);
             ClientSocket.OnDisConnect = () =>
             {
-                Dispose();
                 GatewayServerManager.RemovePlayerClient(this);
 
-                //TODO 通知中心服务器和 游戏服 玩家下线了
+                if (CurrInGameServerId > 0)
+                {
+                    //告诉网关 角色下线了
+                    GWS2GS_Offline protoOffLineGs = new GWS2GS_Offline() {AccountId = AccountId};
+                    m_CurrHandler.CarrySendToGameServer(CurrInGameServerId, protoOffLineGs.ProtoId,
+                        ProtoCategory.GatewayServer2GameServer, protoOffLineGs.ToByteArray());
+                }
+                
+                //通知中心服务器 角色下线了
+                GWS2WS_Offline protoOffLineWs = new GWS2WS_Offline() {AccountId = AccountId};
+                m_CurrHandler.CarrySendToWorldServer(protoOffLineWs.ProtoId, protoOffLineWs.ToByteArray());
+                
+                Dispose();
             };
 
             HotFixHelper.OnLoadAssembly += InitPlayerForGatewayClientHandler;

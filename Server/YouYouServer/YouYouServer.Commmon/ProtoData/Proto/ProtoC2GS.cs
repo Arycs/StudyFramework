@@ -25,12 +25,12 @@ namespace YouYou.Proto {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "ChBQcm90b19DMkdTLnByb3RvEgxZb3VZb3UuUHJvdG8aElByb3RvX0NvbW1v",
-            "bi5wcm90byJFCghDMkdTX1J1bhImCgdDdXJyUG9zGAEgASgLMhUuWW91WW91",
-            "LlByb3RvLlZlY3RvcjMSEQoJUm90YXRpb25ZGAIgASgCYgZwcm90bzM="));
+            "bi5wcm90byI6Cg5DMkdTX0NsaWNrTW92ZRIoCglUYXJnZXRQb3MYASABKAsy",
+            "FS5Zb3VZb3UuUHJvdG8uVmVjdG9yM2IGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::YouYou.Proto.ProtoCommonReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::YouYou.Proto.C2GS_Run), global::YouYou.Proto.C2GS_Run.Parser, new[]{ "CurrPos", "RotationY" }, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::YouYou.Proto.C2GS_ClickMove), global::YouYou.Proto.C2GS_ClickMove.Parser, new[]{ "TargetPos" }, null, null, null)
           }));
     }
     #endregion
@@ -38,16 +38,16 @@ namespace YouYou.Proto {
   }
   #region Messages
   /// <summary>
-  ///玩家向服务器发送移动
+  ///玩家向服务器发送点击移动消息
   /// </summary>
-  public sealed partial class C2GS_Run : YouYou.IProto, pb::IMessage<C2GS_Run> {
-    private static readonly pb::MessageParser<C2GS_Run> _parser = new pb::MessageParser<C2GS_Run>(() => new C2GS_Run());
-    public ushort ProtoId => ProtoIdDefine.Proto_C2GS_Run;
-    public string ProtoEnName => "C2GS_Run";
+  public sealed partial class C2GS_ClickMove : YouYou.IProto, pb::IMessage<C2GS_ClickMove> {
+    private static readonly pb::MessageParser<C2GS_ClickMove> _parser = new pb::MessageParser<C2GS_ClickMove>(() => new C2GS_ClickMove());
+    public ushort ProtoId => ProtoIdDefine.Proto_C2GS_ClickMove;
+    public string ProtoEnName => "C2GS_ClickMove";
     public ProtoCategory Category => ProtoCategory.Client2GameServer;
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<C2GS_Run> Parser { get { return _parser; } }
+    public static pb::MessageParser<C2GS_ClickMove> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
@@ -60,75 +60,58 @@ namespace YouYou.Proto {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public C2GS_Run() {
+    public C2GS_ClickMove() {
       OnConstruction();
     }
 
     partial void OnConstruction();
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public C2GS_Run(C2GS_Run other) : this() {
-      currPos_ = other.currPos_ != null ? other.currPos_.Clone() : null;
-      rotationY_ = other.rotationY_;
+    public C2GS_ClickMove(C2GS_ClickMove other) : this() {
+      targetPos_ = other.targetPos_ != null ? other.targetPos_.Clone() : null;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public C2GS_Run Clone() {
-      return new C2GS_Run(this);
+    public C2GS_ClickMove Clone() {
+      return new C2GS_ClickMove(this);
     }
 
-    /// <summary>Field number for the "CurrPos" field.</summary>
-    public const int CurrPosFieldNumber = 1;
-    private global::YouYou.Proto.Vector3 currPos_;
+    /// <summary>Field number for the "TargetPos" field.</summary>
+    public const int TargetPosFieldNumber = 1;
+    private global::YouYou.Proto.Vector3 targetPos_;
     /// <summary>
-    ///坐标
+    ///目标点
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public global::YouYou.Proto.Vector3 CurrPos {
-      get { return currPos_; }
+    public global::YouYou.Proto.Vector3 TargetPos {
+      get { return targetPos_; }
       set {
-        currPos_ = value;
-      }
-    }
-
-    /// <summary>Field number for the "RotationY" field.</summary>
-    public const int RotationYFieldNumber = 2;
-    private float rotationY_;
-    /// <summary>
-    ///旋转
-    /// </summary>
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public float RotationY {
-      get { return rotationY_; }
-      set {
-        rotationY_ = value;
+        targetPos_ = value;
       }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
-      return Equals(other as C2GS_Run);
+      return Equals(other as C2GS_ClickMove);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(C2GS_Run other) {
+    public bool Equals(C2GS_ClickMove other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (!object.Equals(CurrPos, other.CurrPos)) return false;
-      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(RotationY, other.RotationY)) return false;
+      if (!object.Equals(TargetPos, other.TargetPos)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
-      if (currPos_ != null) hash ^= CurrPos.GetHashCode();
-      if (RotationY != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(RotationY);
+      if (targetPos_ != null) hash ^= TargetPos.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -142,13 +125,9 @@ namespace YouYou.Proto {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
-      if (currPos_ != null) {
+      if (targetPos_ != null) {
         output.WriteRawTag(10);
-        output.WriteMessage(CurrPos);
-      }
-      if (RotationY != 0F) {
-        output.WriteRawTag(21);
-        output.WriteFloat(RotationY);
+        output.WriteMessage(TargetPos);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -158,11 +137,8 @@ namespace YouYou.Proto {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
-      if (currPos_ != null) {
-        size += 1 + pb::CodedOutputStream.ComputeMessageSize(CurrPos);
-      }
-      if (RotationY != 0F) {
-        size += 1 + 4;
+      if (targetPos_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(TargetPos);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -171,18 +147,15 @@ namespace YouYou.Proto {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(C2GS_Run other) {
+    public void MergeFrom(C2GS_ClickMove other) {
       if (other == null) {
         return;
       }
-      if (other.currPos_ != null) {
-        if (currPos_ == null) {
-          CurrPos = new global::YouYou.Proto.Vector3();
+      if (other.targetPos_ != null) {
+        if (targetPos_ == null) {
+          TargetPos = new global::YouYou.Proto.Vector3();
         }
-        CurrPos.MergeFrom(other.CurrPos);
-      }
-      if (other.RotationY != 0F) {
-        RotationY = other.RotationY;
+        TargetPos.MergeFrom(other.TargetPos);
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -196,14 +169,10 @@ namespace YouYou.Proto {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 10: {
-            if (currPos_ == null) {
-              CurrPos = new global::YouYou.Proto.Vector3();
+            if (targetPos_ == null) {
+              TargetPos = new global::YouYou.Proto.Vector3();
             }
-            input.ReadMessage(CurrPos);
-            break;
-          }
-          case 21: {
-            RotationY = input.ReadFloat();
+            input.ReadMessage(TargetPos);
             break;
           }
         }

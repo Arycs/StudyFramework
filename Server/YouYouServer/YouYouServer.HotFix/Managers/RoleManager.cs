@@ -143,5 +143,18 @@ namespace YouYouServer.HotFix
             return await DBModelMgr.RoleDBModel.GetEntityAsync(
                 Builders<RoleEntity>.Filter.Eq(a => a.YFId, long.Parse(roleId)));
         }
+
+        /// <summary>
+        /// 异步保存角色信息
+        /// </summary>
+        /// <param name="roleEntity"></param>
+        public static async Task SaveRoleEntity(RoleEntity roleEntity)
+        {
+            roleEntity.UpdateTime = DateTime.Now;
+
+            await YFRedisHelper.HSetAsync($"GetRoleEntity_{ServerConfig.AreaServerId}", roleEntity.YFId.ToString(),
+                roleEntity);
+            await DBModelMgr.RoleDBModel.UpdateAsync(roleEntity);
+        }
     }
 }

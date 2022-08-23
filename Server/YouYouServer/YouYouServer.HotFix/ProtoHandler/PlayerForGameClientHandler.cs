@@ -95,6 +95,32 @@ namespace YouYouServer.HotFix
         }
 
         /// <summary>
+        /// 下线
+        /// </summary>
+        /// <param name="buffer"></param>
+        [HandlerMessage(ProtoIdDefine.Proto_GWS2GS_Offline)]
+        private async void OnOffline(byte[] buffer)
+        {
+            GWS2GS_Offline proto = (GWS2GS_Offline) GWS2GS_Offline.Descriptor.Parser.ParseFrom(buffer);
+
+            if (GameServerManager.CurrSceneManager.PVPSceneDic.TryGetValue(m_PlayerForGameClient.CurrSceneId,out var pvpScene))
+            {
+                pvpScene.DefaultSceneLine.AOIAreaDic[m_PlayerForGameClient.CurrAreaId]
+                    .RemoveRole(m_PlayerForGameClient, LeaveSceneLineType.Normal);
+                
+                //把自己从场景线中移除
+                pvpScene.DefaultSceneLine.RoleList.Remove(m_PlayerForGameClient);
+                
+                //从游戏服上移除
+                GameServerManager.RemovePlayerForGameClient(m_PlayerForGameClient);
+                
+                //保存角色信息
+                await RoleManager.SaveRoleEntity(m_PlayerForGameClient.CurrRole);
+            }
+        }
+
+
+        /// <summary>
         /// 申请进入场景
         /// </summary>
         /// <param name="buffer"></param>
@@ -128,6 +154,7 @@ namespace YouYouServer.HotFix
             {
                 m_PlayerForGameClient.CurrPos = new UnityEngine.Vector3(m_PlayerForGameClient.CurrRole.PosData.X,
                     m_PlayerForGameClient.CurrRole.PosData.Y, m_PlayerForGameClient.CurrRole.PosData.Z);
+                m_PlayerForGameClient.CurrRotationY = m_PlayerForGameClient.CurrRole.RotationY;
             }
             else
             {
@@ -150,11 +177,11 @@ namespace YouYouServer.HotFix
         /// </summary>
         /// <param name="buffer"></param>
         [HandlerMessage(ProtoIdDefine.Proto_GWS2GS_EnterScene)]
-        private async void OnEnterSceneAsync(byte[] buffer)
+        private void OnEnterSceneAsync(byte[] buffer)
         {
             GWS2GS_EnterScene proto = (GWS2GS_EnterScene) GWS2GS_EnterScene.Descriptor.Parser.ParseFrom(buffer);
             Console.WriteLine($"进入场景 RoleId => {proto.RoleId}, SceneId=>{proto.SceneId}");
-            await EnterScene(proto.SceneId, proto.RoleId);
+            EnterScene(proto.SceneId, proto.RoleId);
         }
 
         /// <summary>
@@ -162,7 +189,7 @@ namespace YouYouServer.HotFix
         /// </summary>
         /// <param name="sceneId"></param>
         /// <param name="roleId"></param>
-        private async Task EnterScene(int sceneId, long roleId)
+        private void EnterScene(int sceneId, long roleId)
         {
             if (GameServerManager.CurrSceneManager.PVPSceneDic.TryGetValue(sceneId, out var pvpScene))
             {
@@ -215,6 +242,22 @@ namespace YouYouServer.HotFix
             {
                 LoggerMgr.Log(LoggerLevel.LogError, 0, $"找不到场景{sceneId}");
             }
+        }
+
+        /// <summary>
+        /// 点击移动消息
+        /// </summary>
+        /// <param name="buffer"></param>
+        [HandlerMessage(ProtoIdDefine.Proto_C2GS_ClickMove)]
+        private void ClickMove(byte[] buffer)
+        {
+            C2GS_ClickMove proto = (C2GS_ClickMove) C2GS_ClickMove.Descriptor.Parser.ParseFrom(buffer);
+            
+            //TODO 临时写法, 此处要进行寻路验证 让服务器上的玩家通过服务器来移动
+            m_PlayerForGameClient.CurrRole.PosData = proto.TargetPos;
+
+            m_PlayerForGameClient.CurrPos =
+                new UnityEngine.Vector3(proto.TargetPos.X, proto.TargetPos.Y, proto.TargetPos.Z);
         }
     }
 }

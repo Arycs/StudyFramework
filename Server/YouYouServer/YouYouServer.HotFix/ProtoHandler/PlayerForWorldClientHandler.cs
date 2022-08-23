@@ -6,6 +6,7 @@ using YouYouServer.Common;
 using YouYouServer.Common.DBData;
 using YouYouServer.Core;
 using YouYouServer.Model;
+using YouYouServer.Model.DataTable;
 
 namespace YouYouServer.HotFix
 {
@@ -82,6 +83,18 @@ namespace YouYouServer.HotFix
 
         #endregion
 
+        /// <summary>
+        /// 下线
+        /// </summary>
+        /// <param name="buffer"></param>
+        [HandlerMessage(ProtoIdDefine.Proto_GWS2WS_Offline)]
+        private void OnOffline(byte[] buffer)
+        {
+            GWS2WS_Offline proto = (GWS2WS_Offline) GWS2WS_Offline.Descriptor.Parser.ParseFrom(buffer);
+            WorldServerManager.RemovePlayerClient(proto.AccountId);
+        }
+
+
         [HandlerMessage(ProtoIdDefine.Proto_C2WS_GetRoleList)]
         private async void OnGetRoleListAsync(byte[] buffer)
         {
@@ -134,7 +147,7 @@ namespace YouYouServer.HotFix
         [HandlerMessage(ProtoIdDefine.Proto_C2WS_EnterGame)]
         private async void OnEnterGameAsync(byte[] buffer)
         {
-            C2WS_EnterGame proto =  C2WS_EnterGame.Descriptor.Parser.ParseFrom(buffer) as C2WS_EnterGame;
+            C2WS_EnterGame proto =(C2WS_EnterGame) C2WS_EnterGame.Descriptor.Parser.ParseFrom(buffer) as C2WS_EnterGame;
             //拿到这个角色的信息
             RoleEntity roleEntity = await RoleManager.GetRoleEntityAsync(proto.RoleId);
             
@@ -146,7 +159,17 @@ namespace YouYouServer.HotFix
             retRoleInfoProto.NickName = roleEntity.NickName;
             retRoleInfoProto.Level = roleEntity.Level;
             retRoleInfoProto.CurrSceneId = roleEntity.CurrSceneId;
+            if (roleEntity.PosData == null)
+            {
+                //读取第一个场景的玩家出生点
+                DTSys_SceneEntity dtSysScene = DataTableManager.Sys_SceneList.GetDic(3);
+                roleEntity.PosData = new Vector3
+                {
+                    X = dtSysScene.PlayerBornPos_1, Y = dtSysScene.PlayerBornPos_2, Z = dtSysScene.PlayerBornPos_3
+                };
+            }
             retRoleInfoProto.CurrPos = roleEntity.PosData;
+            retRoleInfoProto.Level = roleEntity.Level;
             retRoleInfoProto.RotationY = roleEntity.RotationY;
             m_PlayerForWorldClient.SendCarryToClient(retRoleInfoProto);
             

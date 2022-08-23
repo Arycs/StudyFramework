@@ -24,23 +24,26 @@ namespace YouYouServer.Model
         /// 当前位置
         /// </summary>
         public Vector3 CurrPos;
-        
+
         public PlayerForGameClient(long accountId, GatewayServerForGameClient gatewayServerForWorldClient) : base()
         {
             AccountId = accountId;
             m_GatewayServerForGameClient = gatewayServerForWorldClient;
             CurrFsmManager = new RoleFsm.RoleFsm(this);
-            
+
             HotFixHelper.OnLoadAssembly += InitPlayerForGameClientHandler;
             InitPlayerForGameClientHandler();
         }
 
+        /// <summary>
+        /// 这个句柄主要是处理玩家收发消息 业务逻辑等
+        /// </summary>
         private IPlayerForGameClientHandler m_CurrHandler;
 
         private void InitPlayerForGameClientHandler()
         {
             InitFsmHandler();
-            
+
             if (m_CurrHandler != null)
             {
                 //把旧的实例释放掉
@@ -61,15 +64,17 @@ namespace YouYouServer.Model
         /// </summary>
         private void InitFsmHandler()
         {
-            if (currRoleClientFsmHandler != null)
+            if (CurrRoleClientFsmHandler != null)
             {
                 //把旧的实例释放掉
-                currRoleClientFsmHandler.Dispose();
-                currRoleClientFsmHandler = null;
+                CurrRoleClientFsmHandler.Dispose();
+                CurrRoleClientFsmHandler = null;
             }
-            
-            currRoleClientFsmHandler = Activator.CreateInstance(HotFixHelper.HandlerTypeDic[ConstDefine.PlayerClientFsmHandler]) as IRoleClientFsmHandler;
-            currRoleClientFsmHandler?.Init(this);
+
+            CurrRoleClientFsmHandler =
+                Activator.CreateInstance(HotFixHelper.HandlerTypeDic[ConstDefine.PlayerClientFsmHandler]) as
+                    IRoleClientFsmHandler;
+            CurrRoleClientFsmHandler?.Init(this);
         }
 
         /// <summary>
@@ -79,6 +84,9 @@ namespace YouYouServer.Model
         public void SendCarryToClient(IProto proto)
         {
             CarryProto carryProto = new CarryProto(AccountId, proto.ProtoId, proto.Category, proto.ToByteArray());
+            var a = m_GatewayServerForGameClient.CurrServerClient.ClientSocket.m_Socket.RemoteEndPoint.AddressFamily
+                .ToString();
+            Console.WriteLine($"发送给 IP {a}");
             m_GatewayServerForGameClient.CurrServerClient.ClientSocket.SendMsg(carryProto);
         }
     }
