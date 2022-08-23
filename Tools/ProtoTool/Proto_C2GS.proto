@@ -3,9 +3,8 @@ syntax = "proto3";
 import "Proto_Common.proto";
 package YouYou.Proto;
 
-//玩家向服务器发送移动
-message C2GS_Run
+//玩家向服务器发送点击移动消息
+message C2GS_ClickMove
 {
-	Vector3 CurrPos = 1;//坐标
-	float RotationY = 2;//旋转
+	Vector3 TargetPos = 1;//目标点
 }
