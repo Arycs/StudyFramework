@@ -7,9 +7,9 @@ using System.Collections;
 using YouYou;
 
 /// <summary>
-/// DTRole实体
+/// DTBaseRole实体
 /// </summary>
-public partial class DTRoleEntity : DataTableEntityBase
+public partial class DTBaseRoleEntity : DataTableEntityBase
 {
     /// <summary>
     /// 描述

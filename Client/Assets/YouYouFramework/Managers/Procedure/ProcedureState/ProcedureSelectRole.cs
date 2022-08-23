@@ -102,8 +102,8 @@ namespace YouYou
                 GameEntry.Pool.GameObjectDeSpawn(m_CurrSelectRole);
             }
 
-            DTRoleEntity dtRoleEntity = GameEntry.DataTable.RoleList.Get(dtJobEntity.BaseRoleId);
-            GameEntry.Pool.GameObjectSpawn(dtRoleEntity.PrefabId,((trans, isNewInstance) =>
+            DTBaseRoleEntity dtBaseRoleEntity = GameEntry.DataTable.BaseRoleList.Get(dtJobEntity.BaseRoleId);
+            GameEntry.Pool.GameObjectSpawn(dtBaseRoleEntity.PrefabId,((trans, isNewInstance) =>
             {
                 trans.SetParent(SelectRoleSceneCtrl.Instance.RoleContainer);
                 trans.localPosition = Vector3.zero;

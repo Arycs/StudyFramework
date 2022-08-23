@@ -20,7 +20,7 @@ public class TestPool : MonoBehaviour
             GameEntry.Pool.GameObjectSpawn(1,((trans, isNewInstance) =>
             {
                 m_RoleObjList.Enqueue(trans);
-                trans.GetComponent<RoleCtrl>().Init(100001);
+                trans.GetComponent<RoleCtrl>().InitPlayerData(100001);
             }));
         }
         if (Input.GetKeyUp(KeyCode.C))

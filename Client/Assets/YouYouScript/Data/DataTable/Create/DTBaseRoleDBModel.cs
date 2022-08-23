@@ -9,14 +9,14 @@ using System;
 using YouYou;
 
 /// <summary>
-/// DTRole数据管理
+/// DTBaseRole数据管理
 /// </summary>
-public partial class DTRoleDBModel : DataTableDBModelBase<DTRoleDBModel, DTRoleEntity>
+public partial class DTBaseRoleDBModel : DataTableDBModelBase<DTBaseRoleDBModel, DTBaseRoleEntity>
 {
     /// <summary>
     /// 文件名称
     /// </summary>
-    public override string DataTableName { get { return "DTRole"; } }
+    public override string DataTableName { get { return "DTBaseRole"; } }
 
     /// <summary>
     /// 加载列表
@@ -28,7 +28,7 @@ public partial class DTRoleDBModel : DataTableDBModelBase<DTRoleDBModel, DTRoleE
 
         for (int i = 0; i < rows; i++)
         {
-            DTRoleEntity entity = new DTRoleEntity();
+            DTBaseRoleEntity entity = new DTBaseRoleEntity();
             entity.Id = ms.ReadInt();
             entity.Desc = ms.ReadUTF8String();
             entity.PrefabId = ms.ReadInt();

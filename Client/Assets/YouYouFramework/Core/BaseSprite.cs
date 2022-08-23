@@ -7,6 +7,11 @@ namespace YouYou
 {
     public class BaseSprite : MonoBehaviour
     {
+        /// <summary>
+        /// 服务器角色编号
+        /// </summary>
+        public long ServerRoleId;
+        
         private void Awake()
         {
             OnAwake();

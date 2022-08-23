@@ -24,6 +24,7 @@ public class UserDataManager : IDisposable
     public int Level;
     public int CurrSceneId;
     public Vector3 CurrPos;
+    public float RotationY;    
     
     /// <summary>
     /// 服务器返回角色列表数据
@@ -134,63 +135,6 @@ public class UserDataManager : IDisposable
         Level = proto.Level;
         CurrSceneId = proto.CurrSceneId;
         CurrPos = new UnityEngine.Vector3(proto.CurrPos.X, proto.CurrPos.Y, proto.CurrPos.Z);
+        RotationY = proto.RotationY;
     }
-
-    /// <summary>
-    /// /服务器返回进入游戏消息
-    /// </summary>
-    public void OnEnterGameComplete()
-    {
-        EnterSceneApply(CurrSceneId);
-    }
-
-    /// <summary>
-    /// 进入场景申请
-    /// </summary>
-    /// <param name="sceneId"></param>
-    private void EnterSceneApply(int sceneId)
-    {
-        C2GWS_EnterScene_Apply proto = new C2GWS_EnterScene_Apply();
-        proto.SceneId = sceneId;
-        GameEntry.Socket.SendMainMsg(proto);
-    }
-
-    /// <summary>
-    /// 服务器返回进入场景申请消息
-    /// </summary>
-    /// <param name="proto"></param>
-    public void OnReturnEnterSceneApply(GS2C_ReturnEnterScene_Apply proto)
-    {
-        if (proto.Result)
-        {
-            CurrSceneId = proto.SceneId;
-            CurrPos = new Vector3(proto.CurrPos.X, proto.CurrPos.Y, proto.CurrPos.Z);
-            GameEntry.Procedure.ChangeState(ProcedureState.WorldMap);
-        }
-        else
-        {
-            //TODO 弹出提示
-        }
-    }
-
-    /// <summary>
-    /// 进入场景
-    /// </summary>
-    /// <param name="sceneId"></param>
-    public void EnterScene(int sceneId)
-    {
-        C2GWS_EnterScene proto = new C2GWS_EnterScene();
-        proto.SceneId = sceneId;
-        GameEntry.Socket.SendMainMsg(proto);
-    }
-
-    /// <summary>
-    /// 服务器返回场景中已有角色消息
-    /// </summary>
-    /// <param name="prot"></param>
-    public void OnReturnSceneLineRoleList(GS2C_ReturnSceneLineRoleList prot)
-    {
-        
-    }
-
 }

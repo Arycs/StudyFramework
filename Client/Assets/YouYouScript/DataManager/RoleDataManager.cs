@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using YouYou;
+using YouYou.Proto;
 
 public class RoleDataManager : IDisposable
 {
@@ -12,9 +13,14 @@ public class RoleDataManager : IDisposable
     private LinkedList<RoleCtrl> m_RoleList;
 
     /// <summary>
+    /// 当前PVP场景中的角色字典
+    /// </summary>
+    private Dictionary<long, RoleCtrl> m_CurrPVPSceneRoleDic;
+    
+    /// <summary>
     /// 当前玩家
     /// </summary>
-    public RoleCtrl CurrPlayer { get; private set; }
+    public RoleCtrl CurrPlayer { get; set; }
 
     /// <summary>
     /// 通过摇杆控制玩家移动时的一个辅助gameObject
@@ -24,6 +30,7 @@ public class RoleDataManager : IDisposable
     public RoleDataManager()
     {
         m_RoleList = new LinkedList<RoleCtrl>();
+        m_CurrPVPSceneRoleDic = new Dictionary<long, RoleCtrl>();
         CurrPlayerMoveHelper = new GameObject("CurrPlayerMoveHelper");
     }
 
@@ -35,18 +42,12 @@ public class RoleDataManager : IDisposable
     public void CreatePlayerByJobId(int jobId, BaseAction<RoleCtrl> onComplete = null)
     {
         //角色ID
-        int roleId = GameEntry.DataTable.JobList.Get(jobId).BaseRoleId;
+        int baseRoleId = GameEntry.DataTable.JobList.Get(jobId).BaseRoleId;
         //加载角色控制器
         GameEntry.Pool.GameObjectSpawn(SysPrefabId.RoleCtrl, (Transform trans, bool isNewInstance) =>
         {
             RoleCtrl roleCtrl = trans.GetComponent<RoleCtrl>();
-            roleCtrl.Init(roleId);
-
-            //设置角色坐标位置
-            roleCtrl.transform.position = new Vector3(
-                GameEntry.Scene.CurrSceneEntity.PlayerBornPos_1,
-                GameEntry.Scene.CurrSceneEntity.PlayerBornPos_2,
-                GameEntry.Scene.CurrSceneEntity.PlayerBornPos_3);
+            roleCtrl.InitPlayerData(baseRoleId);
 
             if (!isNewInstance)
             {
@@ -54,13 +55,35 @@ public class RoleDataManager : IDisposable
                 roleCtrl.OnOpen();
             }
 
-            //TODO 临时写  当前玩家即为生成的玩家
-            CurrPlayer = roleCtrl;
-            
             m_RoleList.AddLast(roleCtrl);
             onComplete?.Invoke(roleCtrl);
         });
     }
+
+    /// <summary>
+    /// 创建怪
+    /// </summary>
+    /// <param name="spriteId"></param>
+    /// <param name="onComplete"></param>
+    public void CreateSprite(int spriteId, BaseAction<RoleCtrl> onComplete = null)
+    {
+        //加载角色控制器
+        GameEntry.Pool.GameObjectSpawn(SysPrefabId.RoleCtrl, (Transform trans, bool isNewInstance) =>
+        {
+            RoleCtrl roleCtrl = trans.GetComponent<RoleCtrl>();
+            roleCtrl.InitSpriteData(spriteId);
+
+            if (!isNewInstance)
+            {
+                //如果不是新实例,在这里执行OnOpen方法
+                roleCtrl.OnOpen();
+            }
+
+            m_RoleList.AddLast(roleCtrl);
+            onComplete?.Invoke(roleCtrl);
+        });
+    }
+
 
     /// <summary>
     /// 角色回池
@@ -103,6 +126,113 @@ public class RoleDataManager : IDisposable
             var next = curr.Next;
             curr.Value.CheckUnLoadRoleAnimation();
             curr = next;
+        }
+    }
+    
+    /// <summary>
+    /// /服务器返回进入游戏消息
+    /// </summary>
+    public void OnEnterGameComplete()
+    {
+        EnterSceneApply(GameEntry.Data.UserDataManager.CurrSceneId);
+    }
+
+    /// <summary>
+    /// 进入场景申请
+    /// </summary>
+    /// <param name="sceneId"></param>
+    private void EnterSceneApply(int sceneId)
+    {
+        C2GWS_EnterScene_Apply proto = new C2GWS_EnterScene_Apply();
+        proto.SceneId = sceneId;
+        GameEntry.Socket.SendMainMsg(proto);
+    }
+
+    /// <summary>
+    /// 服务器返回进入场景申请消息
+    /// </summary>
+    /// <param name="proto"></param>
+    public void OnReturnEnterSceneApply(GS2C_ReturnEnterScene_Apply proto)
+    {
+        if (proto.Result)
+        {
+            GameEntry.Data.UserDataManager.CurrSceneId = proto.SceneId;
+            GameEntry.Data.UserDataManager.CurrPos = new UnityEngine.Vector3(proto.CurrPos.X, proto.CurrPos.Y, proto.CurrPos.Z);
+            GameEntry.Procedure.ChangeState(ProcedureState.WorldMap);
+        }
+        else
+        {
+            //TODO 弹出提示
+        }
+    }
+    
+    /// <summary>
+    /// 进入场景
+    /// </summary>
+    /// <param name="sceneId"></param>
+    public void EnterScene(int sceneId)
+    {
+        C2GWS_EnterScene proto = new C2GWS_EnterScene();
+        proto.SceneId = sceneId;
+        GameEntry.Socket.SendMainMsg(proto);
+
+        m_CurrPVPSceneRoleDic[GameEntry.Data.RoleDataManager.CurrPlayer.ServerRoleId] =
+            GameEntry.Data.RoleDataManager.CurrPlayer;
+    }
+    
+    
+    /// <summary>
+    /// 服务器返回场景中已有角色消息
+    /// </summary>
+    /// <param name="proto"></param>
+    public void OnReturnSceneLineRoleList(GS2C_ReturnSceneLineRoleList proto)
+    {
+        int len = proto.RoleList.Count;
+        for (int i = 0; i < len; i++)
+        {
+            WS2C_SceneLineRole_DATA data = proto.RoleList[i];
+            
+            this.CreateSprite(data.BaseRoleId,(roleCtrl =>
+            {
+                roleCtrl.ServerRoleId = data.RoleId;
+                roleCtrl.transform.position = new UnityEngine.Vector3(data.CurrPos.X, data.CurrPos.Y, data.CurrPos.Z);
+                roleCtrl.transform.rotation = Quaternion.Euler(0,data.RotationY,0);
+                m_CurrPVPSceneRoleDic[roleCtrl.ServerRoleId] = roleCtrl;
+            }));
+        }
+    }
+
+    /// <summary>
+    /// 服务器返回角色离开场景线
+    /// </summary>
+    /// <param name="proto"></param>
+    public void OnReturnRoleLeaveSceneLine(GS2C_ReturnRoleLeaveSceneLine proto)
+    {
+        if (m_CurrPVPSceneRoleDic.TryGetValue(proto.RoleId,out var roleCtrl))
+        {
+            //卸载角色
+            roleCtrl.OnClose();
+            m_CurrPVPSceneRoleDic.Remove(proto.RoleId);
+        }
+    }
+
+    /// <summary>
+    /// 服务器返回角色进入场景线
+    /// </summary>
+    /// <param name="proto"></param>
+    public void OnReturnRoleEnterSceneLine(GS2C_ReturnRoleEnterSceneLine proto)
+    {
+        int len = proto.RoleList.Count;
+        for (int i = 0; i < len; i++)
+        {
+            WS2C_SceneLineRole_DATA data = proto.RoleList[i];
+            this.CreateSprite(data.BaseRoleId,(roleCtrl =>
+            {
+                roleCtrl.ServerRoleId = data.RoleId;
+                roleCtrl.transform.position = new UnityEngine.Vector3(data.CurrPos.X, data.CurrPos.Y, data.CurrPos.Z);
+                roleCtrl.transform.rotation = Quaternion.Euler(0,data.RotationY,0);
+                m_CurrPVPSceneRoleDic[roleCtrl.ServerRoleId] = roleCtrl;
+            }));
         }
     }
 }

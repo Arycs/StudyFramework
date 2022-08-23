@@ -9,6 +9,8 @@ using YouYou;
 
 public class RoleCtrl : BaseSprite, IUpdateComponent
 {
+    public bool IsPlayer = false;
+    
     /// <summary>
     /// 皮肤编号
     /// </summary>
@@ -60,19 +62,26 @@ public class RoleCtrl : BaseSprite, IUpdateComponent
     /// 动画剪辑Playable字典
     /// </summary>
     private Dictionary<int, RoleAnimInfo> m_RoleAnimInfoDic = new Dictionary<int, RoleAnimInfo>(100);
-
+    
+    /// <summary>
+    /// 当前角色动画分类数据
+    /// </summary>
+    private DTRoleAnimCategoryEntity m_CurrDTRoleAnimCategory;
+    
     #endregion
 
     /// <summary>
     /// 当前角色对应表格数据
     /// </summary>
-    private DTRoleEntity m_CurrDTRole;
+    private DTBaseRoleEntity m_CurrDTBaseRole;
+    
+    private DTSpriteEntity m_CurrDTSprite;
 
     /// <summary>
-    /// 当前角色动画分类数据
+    /// 动画组编号
     /// </summary>
-    private DTRoleAnimCategoryEntity m_CurrDTRoleAnimCategory;
-
+    private int m_AnimGroupId;
+    
     /// <summary>
     /// 当前角色状态机管理器
     /// </summary>
@@ -119,16 +128,36 @@ public class RoleCtrl : BaseSprite, IUpdateComponent
         LoadSkin();
     }
 
-
-    public void Init(int roleId)
+    /// <summary>
+    /// 初始化玩家数据
+    /// </summary>
+    /// <param name="baseRoleId"></param>
+    public void InitPlayerData(int baseRoleId)
     {
-        m_CurrDTRole = GameEntry.DataTable.RoleList.Get(roleId);
-        m_CurrDTRoleAnimCategory = GameEntry.DataTable.RoleAnimCategoryList.Get(roleId);
-        m_SkinId = m_CurrDTRole.PrefabId;
-
+        m_CurrDTBaseRole = GameEntry.DataTable.BaseRoleList.Get(baseRoleId);
+        m_CurrDTRoleAnimCategory = GameEntry.DataTable.RoleAnimCategoryList.Get(baseRoleId);
+        m_SkinId = m_CurrDTBaseRole.PrefabId;
+        m_AnimGroupId = m_CurrDTBaseRole.AnimGroupId;
+        
         //初始化状态机
         m_CurrRoleFsmManager.Init();
     }
+
+    /// <summary>
+    /// 初始化怪物数据
+    /// </summary>
+    /// <param name="spriteId"></param>
+    public void InitSpriteData(int spriteId)
+    {
+        m_CurrDTSprite = GameEntry.DataTable.SpriteList.Get(spriteId);
+        m_CurrDTRoleAnimCategory = GameEntry.DataTable.RoleAnimCategoryList.Get(spriteId);
+        m_SkinId = m_CurrDTSprite.PrefabId;
+        m_AnimGroupId = m_CurrDTSprite.AnimGroupId;
+        
+        //初始化状态机
+        m_CurrRoleFsmManager.Init();
+    }
+
 
     /// <summary>
     /// 加载初始角色动画
@@ -325,7 +354,7 @@ public class RoleCtrl : BaseSprite, IUpdateComponent
                 m_CurrSkinnedMeshRenderer = m_CurrSkinTransform.GetComponentInChildren<SkinnedMeshRenderer>();
             }
 
-            LoadInitRoleAnimations(m_CurrDTRole.AnimGroupId);
+            LoadInitRoleAnimations(m_AnimGroupId);
 
             //默认进入待机状态
             m_CurrRoleFsmManager.ChangeState(MyCommonEnum.RoleFsmState.Idle);

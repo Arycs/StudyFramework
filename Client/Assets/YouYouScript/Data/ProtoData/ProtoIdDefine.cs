@@ -70,6 +70,11 @@ public class ProtoIdDefine
     public const ushort Proto_GS2C_ReturnRoleLeaveSceneLine = 15004;
 
     /// <summary>
+    /// 服务器返回角色状态修改消息
+    /// </summary>
+    public const ushort Proto_GS2C_ReturnRoleChangeState = 15005;
+
+    /// <summary>
     /// 游戏服务器向网关服务器返回心跳消息
     /// </summary>
     public const ushort Proto_GS2GWS_Heartbeat = 21001;
@@ -105,14 +110,19 @@ public class ProtoIdDefine
     public const ushort Proto_GWS2GS_LeaveScene = 20004;
 
     /// <summary>
+    /// 网关服务器向游戏服务器发送角色下线消息
+    /// </summary>
+    public const ushort Proto_GWS2GS_Offline = 20005;
+
+    /// <summary>
     /// 网关服务器向游戏服务器发送角色进入场景申请消息
     /// </summary>
-    public const ushort Proto_GWS2GS_EnterScene_Apply = 20005;
+    public const ushort Proto_GWS2GS_EnterScene_Apply = 20006;
 
     /// <summary>
     /// 网关服务器向游戏服务器发送角色进入场景消息
     /// </summary>
-    public const ushort Proto_GWS2GS_EnterScene = 20006;
+    public const ushort Proto_GWS2GS_EnterScene = 20007;
 
     /// <summary>
     /// 网关服务器注册到中心服务器
@@ -123,6 +133,11 @@ public class ProtoIdDefine
     /// 网关服务器通知中心服务器注册到游戏服完毕
     /// </summary>
     public const ushort Proto_GWS2WS_RegGameServerSuccess = 18002;
+
+    /// <summary>
+    /// 网关服务器向中心服务器发送角色下线消息
+    /// </summary>
+    public const ushort Proto_GWS2WS_Offline = 18003;
 
     /// <summary>
     /// 获取路径点

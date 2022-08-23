@@ -26,10 +26,11 @@ namespace YouYou.Proto {
           string.Concat(
             "ChJQcm90b19Db21tb24ucHJvdG8SDFlvdVlvdS5Qcm90byIqCgdWZWN0b3Iz",
             "EgkKAXgYASABKAISCQoBeRgCIAEoAhIJCgF6GAMgASgCKiMKCFJvbGVUeXBl",
-            "EgoKBlBsYXllchAAEgsKB01vbnN0ZXIQAWIGcHJvdG8z"));
+            "EgoKBlBsYXllchAAEgsKB01vbnN0ZXIQASopChJMZWF2ZVNjZW5lTGluZVR5",
+            "cGUSCgoGTm9ybWFsEAASBwoDRGllEAFiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
-          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::YouYou.Proto.RoleType), }, new pbr::GeneratedClrTypeInfo[] {
+          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::YouYou.Proto.RoleType), typeof(global::YouYou.Proto.LeaveSceneLineType), }, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::YouYou.Proto.Vector3), global::YouYou.Proto.Vector3.Parser, new[]{ "X", "Y", "Z" }, null, null, null)
           }));
     }
@@ -49,6 +50,17 @@ namespace YouYou.Proto {
     ///怪
     /// </summary>
     [pbr::OriginalName("Monster")] Monster = 1,
+  }
+
+  public enum LeaveSceneLineType {
+    /// <summary>
+    ///普通
+    /// </summary>
+    [pbr::OriginalName("Normal")] Normal = 0,
+    /// <summary>
+    ///死亡
+    /// </summary>
+    [pbr::OriginalName("Die")] Die = 1,
   }
 
   #endregion

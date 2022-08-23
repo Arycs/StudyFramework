@@ -50,7 +50,15 @@ namespace YouYou
         {
             GameEntry.Data.RoleDataManager.CreatePlayerByJobId(GameEntry.Data.UserDataManager.CurrJobId, (roleCtrl =>
             {
-                GameEntry.Data.UserDataManager.EnterScene(GameEntry.Data.UserDataManager.CurrSceneId);
+                GameEntry.Data.RoleDataManager.CurrPlayer = roleCtrl;
+                GameEntry.Data.RoleDataManager.CurrPlayer.IsPlayer = true;
+                GameEntry.Data.RoleDataManager.CurrPlayer.ServerRoleId = GameEntry.Data.UserDataManager.CurrRoleId;
+                
+                //设置角色位置
+                roleCtrl.transform.position = GameEntry.Data.UserDataManager.CurrPos;
+                roleCtrl.transform.rotation = Quaternion.Euler(0, GameEntry.Data.UserDataManager.RotationY, 0);
+                
+                GameEntry.Data.RoleDataManager.EnterScene(GameEntry.Data.UserDataManager.CurrSceneId);
                 
                 //打开摄像机
                 var position = roleCtrl.transform.position;

@@ -86,8 +86,9 @@ namespace YouYou
         /// <summary>
         /// 角色列表
         /// </summary>
-        public DTRoleDBModel RoleList { get; private set; }
+        public DTBaseRoleDBModel BaseRoleList { get; private set; }
 
+        public DTSpriteDBModel SpriteList { get; private set; }
         /// <summary>
         /// 角色对应动画列表
         /// </summary>
@@ -112,7 +113,8 @@ namespace YouYou
 
             JobList = new DTJobDBModel();
             RoleAnimationList = new DTRoleAnimationDBModel();
-            RoleList = new DTRoleDBModel();
+            BaseRoleList = new DTBaseRoleDBModel();
+            SpriteList = new DTSpriteDBModel();
             RoleAnimCategoryList = new DTRoleAnimCategoryDBModel();
         }
 
@@ -136,7 +138,7 @@ namespace YouYou
             
             JobList.LoadData();
             RoleAnimationList.LoadData();
-            RoleList.LoadData();
+            BaseRoleList.LoadData();
             RoleAnimCategoryList.LoadData();
         }
 
@@ -208,7 +210,7 @@ namespace YouYou
             
             JobList.Clear();
             RoleAnimationList.Clear();
-            RoleList.Clear();
+            BaseRoleList.Clear();
             RoleAnimCategoryList.Clear();
         }
 
