@@ -15,6 +15,12 @@ message GWS2GS_LeaveScene
     int32 TargetSceneId = 3;//目标场景编号
 }
 
+//网关服务器向游戏服务器发送角色下线消息
+message GWS2GS_Offline
+{
+	int64 RoleId = 1;//角色编号
+}
+
 //网关服务器向游戏服务器发送角色进入场景申请消息
 message GWS2GS_EnterScene_Apply
 {

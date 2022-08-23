@@ -15,3 +15,9 @@ enum RoleType
 	Player = 0; //玩家
 	Monster = 1; //怪
 }
+
+enum LeaveSceneLineType
+{
+	Normal = 0; //普通
+	Die = 1; //死亡
+}

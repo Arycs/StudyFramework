@@ -23,11 +23,12 @@ message WS2C_SceneLineRole_DATA
 	int32 Level = 6;//等级
 	Vector3 CurrPos = 7;//坐标
 	float RotationY = 8;//旋转
-	int32 Status = 9;//状态
-	int32 CurrHP = 10;//当前HP
-	int32 MaxHP = 11;//最大HP
-	int32 CurrMP = 12;//当前MP
-	int32 MaxMP = 13;//最大MP
+	Vector3 TargetPos = 9;//移动目标点
+	int32 Status = 10;//状态
+	int32 CurrHP = 11;//当前HP
+	int32 MaxHP = 12;//最大HP
+	int32 CurrMP = 13;//当前MP
+	int32 MaxMP = 14;//最大MP
 }
 	
 //服务器返回场景线中角色列表消息[c#]
@@ -45,5 +46,18 @@ message GS2C_ReturnRoleEnterSceneLine
 //服务器返回角色离开场景线消息[c#]
 message GS2C_ReturnRoleLeaveSceneLine
 {
-	repeated int64 RoleIdList = 1;//角色编号列表
+	int64 RoleId = 1;//角色编号
+	LeaveSceneLineType leaveSceneLineType = 2;//离开原因
+}
+
+//服务器返回角色状态修改消息[c#]
+message GS2C_ReturnRoleChangeState
+{
+	int64 RoleIdList = 1;//角色编号
+	int32 Status = 2;//状态
+	int32 SkillId = 3;//技能编号
+	Vector3 CurrPos = 4;//坐标
+	float RotationY = 5;//旋转
+	Vector3 TargetPos = 6;//移动目标点
+	
 }
