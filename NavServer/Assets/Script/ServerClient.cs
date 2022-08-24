@@ -49,11 +49,6 @@ public class ServerClient
     {
         GS2NS_GetNavPath proto = GS2NS_GetNavPath.Parser.ParseFrom(buffer);
 
-        Debug.LogFormat($"Scene Id => {proto.SceneId}");
-        Debug.LogFormat($"Task Id => {proto.TaskId}");
-        Debug.LogFormat($"Begin Pos => {proto.BeginPos.X}, {proto.BeginPos.Y}, {proto.BeginPos.Z}");
-        Debug.LogFormat($"End Pos => {proto.EndPos.X}, {proto.EndPos.Y}, {proto.EndPos.Z}");
-
         NS2GS_ReturnNavPath retProto = new NS2GS_ReturnNavPath();
 
         NavMeshPath path = NavManager.Instance.GetNavPath(proto.SceneId,
@@ -64,12 +59,14 @@ public class ServerClient
         if (path.status == NavMeshPathStatus.PathComplete)
         {
             retProto.Valid = true;
+            NavManager.Instance.SceneSettingsDic.TryGetValue(proto.SceneId, out var y);
+            
             Vector3[] vector3s = path.corners;
             int len = vector3s.Length;
             for (int i = 0; i < len; i++)
             {
                 Vector3 vector = vector3s[i];
-                retProto.Path.Add(new NS2GS_Vector3() {X = vector.x, Y = vector.y, Z = vector.z});
+                retProto.Path.Add(new NS2GS_Vector3() {X = vector.x, Y = vector.y - y, Z = vector.z});
             }
         }
         

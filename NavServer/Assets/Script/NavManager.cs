@@ -35,7 +35,7 @@ public class NavManager : MonoBehaviour
     /// </summary>
     public SceneSetting[] SceneSettings;
 
-    private Dictionary<int, int> m_SceneSettingsDic;
+    public Dictionary<int, int> SceneSettingsDic;
 
     private void Awake()
     {
@@ -47,12 +47,12 @@ public class NavManager : MonoBehaviour
         m_ServerClientList = new LinkedList<ServerClient>();
         path = new NavMeshPath();
 
-        m_SceneSettingsDic = new Dictionary<int, int>();
+        SceneSettingsDic = new Dictionary<int, int>();
         int len = SceneSettings.Length;
         for (int i = 0; i < len; i++)
         {
             SceneSetting sceneSetting = SceneSettings[i];
-            m_SceneSettingsDic[sceneSetting.SceneId] = sceneSetting.AddY;
+            SceneSettingsDic[sceneSetting.SceneId] = sceneSetting.AddY;
         }
         
         StarListen();
@@ -77,7 +77,7 @@ public class NavManager : MonoBehaviour
     /// <returns></returns>
     public NavMeshPath GetNavPath(int sceneId, Vector3 beginPos, Vector3 endPos)
     {
-        m_SceneSettingsDic.TryGetValue(sceneId, out var y);
+        SceneSettingsDic.TryGetValue(sceneId, out var y);
         beginPos = beginPos + new Vector3(0, y, 0);
         endPos = endPos + new Vector3(0, y, 0);
         
