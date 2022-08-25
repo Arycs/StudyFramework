@@ -53,7 +53,7 @@ message GS2C_ReturnRoleLeaveSceneLine
 //服务器返回角色状态修改消息[c#]
 message GS2C_ReturnRoleChangeState
 {
-	int64 RoleIdList = 1;//角色编号
+	int64 RoleId = 1;//角色编号
 	int32 Status = 2;//状态
 	int32 SkillId = 3;//技能编号
 	Vector3 CurrPos = 4;//坐标
