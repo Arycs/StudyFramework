@@ -24,12 +24,16 @@ namespace YouYou.Proto {
     static ProtoC2GWSReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChFQcm90b19DMkdXUy5wcm90bxIMWW91WW91LlByb3RvIiQKD0MyR1dTX1Jl",
-            "Z0NsaWVudBIRCglBY2NvdW50SWQYASABKANiBnByb3RvMw=="));
+            "ChFQcm90b19DMkdXUy5wcm90bxIMWW91WW91LlByb3RvGhJQcm90b19Db21t",
+            "b24ucHJvdG8iJAoPQzJHV1NfUmVnQ2xpZW50EhEKCUFjY291bnRJZBgBIAEo",
+            "AyIpChZDMkdXU19FbnRlclNjZW5lX0FwcGx5Eg8KB1NjZW5lSWQYASABKAUi",
+            "IwoQQzJHV1NfRW50ZXJTY2VuZRIPCgdTY2VuZUlkGAEgASgFYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { },
+          new pbr::FileDescriptor[] { global::YouYou.Proto.ProtoCommonReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::YouYou.Proto.C2GWS_RegClient), global::YouYou.Proto.C2GWS_RegClient.Parser, new[]{ "AccountId" }, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::YouYou.Proto.C2GWS_RegClient), global::YouYou.Proto.C2GWS_RegClient.Parser, new[]{ "AccountId" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::YouYou.Proto.C2GWS_EnterScene_Apply), global::YouYou.Proto.C2GWS_EnterScene_Apply.Parser, new[]{ "SceneId" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::YouYou.Proto.C2GWS_EnterScene), global::YouYou.Proto.C2GWS_EnterScene.Parser, new[]{ "SceneId" }, null, null, null)
           }));
     }
     #endregion
@@ -37,7 +41,7 @@ namespace YouYou.Proto {
   }
   #region Messages
   /// <summary>
-  ///玩家向网关服务器注册客户端
+  ///玩家向网关服务器注册客户端[c#]
   /// </summary>
   public sealed partial class C2GWS_RegClient : YouYou.IProto, pb::IMessage<C2GWS_RegClient> {
     private static readonly pb::MessageParser<C2GWS_RegClient> _parser = new pb::MessageParser<C2GWS_RegClient>(() => new C2GWS_RegClient());
@@ -166,6 +170,282 @@ namespace YouYou.Proto {
             break;
           case 8: {
             AccountId = input.ReadInt64();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  /// <summary>
+  ///玩家向网关服务器发送进入场景申请消息
+  /// </summary>
+  public sealed partial class C2GWS_EnterScene_Apply : YouYou.IProto, pb::IMessage<C2GWS_EnterScene_Apply> {
+    private static readonly pb::MessageParser<C2GWS_EnterScene_Apply> _parser = new pb::MessageParser<C2GWS_EnterScene_Apply>(() => new C2GWS_EnterScene_Apply());
+    public ushort ProtoId => ProtoIdDefine.Proto_C2GWS_EnterScene_Apply;
+    public string ProtoEnName => "C2GWS_EnterScene_Apply";
+    public ProtoCategory Category => ProtoCategory.Client2GatewayServer;
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<C2GWS_EnterScene_Apply> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::YouYou.Proto.ProtoC2GWSReflection.Descriptor.MessageTypes[1]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public C2GWS_EnterScene_Apply() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public C2GWS_EnterScene_Apply(C2GWS_EnterScene_Apply other) : this() {
+      sceneId_ = other.sceneId_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public C2GWS_EnterScene_Apply Clone() {
+      return new C2GWS_EnterScene_Apply(this);
+    }
+
+    /// <summary>Field number for the "SceneId" field.</summary>
+    public const int SceneIdFieldNumber = 1;
+    private int sceneId_;
+    /// <summary>
+    ///场景编号
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int SceneId {
+      get { return sceneId_; }
+      set {
+        sceneId_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as C2GWS_EnterScene_Apply);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(C2GWS_EnterScene_Apply other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (SceneId != other.SceneId) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (SceneId != 0) hash ^= SceneId.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (SceneId != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(SceneId);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (SceneId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(SceneId);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(C2GWS_EnterScene_Apply other) {
+      if (other == null) {
+        return;
+      }
+      if (other.SceneId != 0) {
+        SceneId = other.SceneId;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
+            SceneId = input.ReadInt32();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  /// <summary>
+  ///玩家向网关服务器发送进入场景消息
+  /// </summary>
+  public sealed partial class C2GWS_EnterScene : YouYou.IProto, pb::IMessage<C2GWS_EnterScene> {
+    private static readonly pb::MessageParser<C2GWS_EnterScene> _parser = new pb::MessageParser<C2GWS_EnterScene>(() => new C2GWS_EnterScene());
+    public ushort ProtoId => ProtoIdDefine.Proto_C2GWS_EnterScene;
+    public string ProtoEnName => "C2GWS_EnterScene";
+    public ProtoCategory Category => ProtoCategory.Client2GatewayServer;
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<C2GWS_EnterScene> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::YouYou.Proto.ProtoC2GWSReflection.Descriptor.MessageTypes[2]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public C2GWS_EnterScene() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public C2GWS_EnterScene(C2GWS_EnterScene other) : this() {
+      sceneId_ = other.sceneId_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public C2GWS_EnterScene Clone() {
+      return new C2GWS_EnterScene(this);
+    }
+
+    /// <summary>Field number for the "SceneId" field.</summary>
+    public const int SceneIdFieldNumber = 1;
+    private int sceneId_;
+    /// <summary>
+    ///场景编号
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int SceneId {
+      get { return sceneId_; }
+      set {
+        sceneId_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as C2GWS_EnterScene);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(C2GWS_EnterScene other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (SceneId != other.SceneId) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (SceneId != 0) hash ^= SceneId.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (SceneId != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(SceneId);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (SceneId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(SceneId);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(C2GWS_EnterScene other) {
+      if (other == null) {
+        return;
+      }
+      if (other.SceneId != 0) {
+        SceneId = other.SceneId;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
+            SceneId = input.ReadInt32();
             break;
           }
         }

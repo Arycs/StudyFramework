@@ -24,13 +24,25 @@ namespace YouYou.Proto {
     static ProtoWS2CReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChBQcm90b19XUzJDLnByb3RvEgxZb3VZb3UuUHJvdG8iNwoVV1MyQ19SZXR1",
-            "cm5DcmVhdGVSb2xlEg4KBlJlc3VsdBgBIAEoCBIOCgZSb2xlSWQYAiABKANi",
-            "BnByb3RvMw=="));
+            "ChBQcm90b19XUzJDLnByb3RvEgxZb3VZb3UuUHJvdG8aElByb3RvX0NvbW1v",
+            "bi5wcm90byI3ChVXUzJDX1JldHVybkNyZWF0ZVJvbGUSDgoGUmVzdWx0GAEg",
+            "ASgIEg4KBlJvbGVJZBgCIAEoAyLMAQoTV1MyQ19SZXR1cm5Sb2xlTGlzdBJM",
+            "CghSb2xlTGlzdBgBIAMoCzI6LllvdVlvdS5Qcm90by5XUzJDX1JldHVyblJv",
+            "bGVMaXN0LldTMkNfUmV0dXJuUm9sZUxpc3RfSXRlbRpnChhXUzJDX1JldHVy",
+            "blJvbGVMaXN0X0l0ZW0SDgoGUm9sZUlkGAEgASgDEg0KBUpvYklkGAIgASgF",
+            "EgsKA1NleBgDIAEoBRIQCghOaWNrTmFtZRgEIAEoCRINCgVMZXZlbBgFIAEo",
+            "BSKyAQoTV1MyQ19SZXR1cm5Sb2xlSW5mbxIOCgZSb2xlSWQYASABKAMSDQoF",
+            "Sm9iSWQYAiABKAUSCwoDU2V4GAMgASgFEhAKCE5pY2tOYW1lGAQgASgJEg0K",
+            "BUxldmVsGAUgASgFEhMKC0N1cnJTY2VuZUlkGAYgASgFEiYKB0N1cnJQb3MY",
+            "ByABKAsyFS5Zb3VZb3UuUHJvdG8uVmVjdG9yMxIRCglSb3RhdGlvblkYCCAB",
+            "KAIiHgocV1MyQ19SZXR1cm5FbnRlckdhbWVDb21wbGV0ZWIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { },
+          new pbr::FileDescriptor[] { global::YouYou.Proto.ProtoCommonReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::YouYou.Proto.WS2C_ReturnCreateRole), global::YouYou.Proto.WS2C_ReturnCreateRole.Parser, new[]{ "Result", "RoleId" }, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::YouYou.Proto.WS2C_ReturnCreateRole), global::YouYou.Proto.WS2C_ReturnCreateRole.Parser, new[]{ "Result", "RoleId" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::YouYou.Proto.WS2C_ReturnRoleList), global::YouYou.Proto.WS2C_ReturnRoleList.Parser, new[]{ "RoleList" }, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::YouYou.Proto.WS2C_ReturnRoleList.Types.WS2C_ReturnRoleList_Item), global::YouYou.Proto.WS2C_ReturnRoleList.Types.WS2C_ReturnRoleList_Item.Parser, new[]{ "RoleId", "JobId", "Sex", "NickName", "Level" }, null, null, null)}),
+            new pbr::GeneratedClrTypeInfo(typeof(global::YouYou.Proto.WS2C_ReturnRoleInfo), global::YouYou.Proto.WS2C_ReturnRoleInfo.Parser, new[]{ "RoleId", "JobId", "Sex", "NickName", "Level", "CurrSceneId", "CurrPos", "RotationY" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::YouYou.Proto.WS2C_ReturnEnterGameComplete), global::YouYou.Proto.WS2C_ReturnEnterGameComplete.Parser, null, null, null, null)
           }));
     }
     #endregion
@@ -38,7 +50,7 @@ namespace YouYou.Proto {
   }
   #region Messages
   /// <summary>
-  ///服务器返回创建角色消息
+  ///服务器返回创建角色消息[c#]
   /// </summary>
   public sealed partial class WS2C_ReturnCreateRole : YouYou.IProto, pb::IMessage<WS2C_ReturnCreateRole> {
     private static readonly pb::MessageParser<WS2C_ReturnCreateRole> _parser = new pb::MessageParser<WS2C_ReturnCreateRole>(() => new WS2C_ReturnCreateRole());
@@ -200,6 +212,870 @@ namespace YouYou.Proto {
             RoleId = input.ReadInt64();
             break;
           }
+        }
+      }
+    }
+
+  }
+
+  /// <summary>
+  ///服务器返回已有角色消息[c#]
+  /// </summary>
+  public sealed partial class WS2C_ReturnRoleList : YouYou.IProto, pb::IMessage<WS2C_ReturnRoleList> {
+    private static readonly pb::MessageParser<WS2C_ReturnRoleList> _parser = new pb::MessageParser<WS2C_ReturnRoleList>(() => new WS2C_ReturnRoleList());
+    public ushort ProtoId => ProtoIdDefine.Proto_WS2C_ReturnRoleList;
+    public string ProtoEnName => "WS2C_ReturnRoleList";
+    public ProtoCategory Category => ProtoCategory.WorldServer2Client;
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<WS2C_ReturnRoleList> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::YouYou.Proto.ProtoWS2CReflection.Descriptor.MessageTypes[1]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public WS2C_ReturnRoleList() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public WS2C_ReturnRoleList(WS2C_ReturnRoleList other) : this() {
+      roleList_ = other.roleList_.Clone();
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public WS2C_ReturnRoleList Clone() {
+      return new WS2C_ReturnRoleList(this);
+    }
+
+    /// <summary>Field number for the "RoleList" field.</summary>
+    public const int RoleListFieldNumber = 1;
+    private static readonly pb::FieldCodec<global::YouYou.Proto.WS2C_ReturnRoleList.Types.WS2C_ReturnRoleList_Item> _repeated_roleList_codec
+        = pb::FieldCodec.ForMessage(10, global::YouYou.Proto.WS2C_ReturnRoleList.Types.WS2C_ReturnRoleList_Item.Parser);
+    private readonly pbc::RepeatedField<global::YouYou.Proto.WS2C_ReturnRoleList.Types.WS2C_ReturnRoleList_Item> roleList_ = new pbc::RepeatedField<global::YouYou.Proto.WS2C_ReturnRoleList.Types.WS2C_ReturnRoleList_Item>();
+    /// <summary>
+    ///角色列表
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public pbc::RepeatedField<global::YouYou.Proto.WS2C_ReturnRoleList.Types.WS2C_ReturnRoleList_Item> RoleList {
+      get { return roleList_; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as WS2C_ReturnRoleList);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(WS2C_ReturnRoleList other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if(!roleList_.Equals(other.roleList_)) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      hash ^= roleList_.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      roleList_.WriteTo(output, _repeated_roleList_codec);
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      size += roleList_.CalculateSize(_repeated_roleList_codec);
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(WS2C_ReturnRoleList other) {
+      if (other == null) {
+        return;
+      }
+      roleList_.Add(other.roleList_);
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            roleList_.AddEntriesFrom(input, _repeated_roleList_codec);
+            break;
+          }
+        }
+      }
+    }
+
+    #region Nested types
+    /// <summary>Container for nested types declared in the WS2C_ReturnRoleList message type.</summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static partial class Types {
+      public sealed partial class WS2C_ReturnRoleList_Item : YouYou.IProto, pb::IMessage<WS2C_ReturnRoleList_Item> {
+        private static readonly pb::MessageParser<WS2C_ReturnRoleList_Item> _parser = new pb::MessageParser<WS2C_ReturnRoleList_Item>(() => new WS2C_ReturnRoleList_Item());
+        public ushort ProtoId => ProtoIdDefine.Proto_WS2C_ReturnRoleList_Item;
+        public string ProtoEnName => "WS2C_ReturnRoleList_Item";
+        public ProtoCategory Category => ProtoCategory.WorldServer2Client;
+        private pb::UnknownFieldSet _unknownFields;
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public static pb::MessageParser<WS2C_ReturnRoleList_Item> Parser { get { return _parser; } }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public static pbr::MessageDescriptor Descriptor {
+          get { return global::YouYou.Proto.WS2C_ReturnRoleList.Descriptor.NestedTypes[0]; }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        pbr::MessageDescriptor pb::IMessage.Descriptor {
+          get { return Descriptor; }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public WS2C_ReturnRoleList_Item() {
+          OnConstruction();
+        }
+
+        partial void OnConstruction();
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public WS2C_ReturnRoleList_Item(WS2C_ReturnRoleList_Item other) : this() {
+          roleId_ = other.roleId_;
+          jobId_ = other.jobId_;
+          sex_ = other.sex_;
+          nickName_ = other.nickName_;
+          level_ = other.level_;
+          _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public WS2C_ReturnRoleList_Item Clone() {
+          return new WS2C_ReturnRoleList_Item(this);
+        }
+
+        /// <summary>Field number for the "RoleId" field.</summary>
+        public const int RoleIdFieldNumber = 1;
+        private long roleId_;
+        /// <summary>
+        ///角色编号
+        /// </summary>
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public long RoleId {
+          get { return roleId_; }
+          set {
+            roleId_ = value;
+          }
+        }
+
+        /// <summary>Field number for the "JobId" field.</summary>
+        public const int JobIdFieldNumber = 2;
+        private int jobId_;
+        /// <summary>
+        ///职业编号
+        /// </summary>
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public int JobId {
+          get { return jobId_; }
+          set {
+            jobId_ = value;
+          }
+        }
+
+        /// <summary>Field number for the "Sex" field.</summary>
+        public const int SexFieldNumber = 3;
+        private int sex_;
+        /// <summary>
+        ///性别
+        /// </summary>
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public int Sex {
+          get { return sex_; }
+          set {
+            sex_ = value;
+          }
+        }
+
+        /// <summary>Field number for the "NickName" field.</summary>
+        public const int NickNameFieldNumber = 4;
+        private string nickName_ = "";
+        /// <summary>
+        ///昵称
+        /// </summary>
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public string NickName {
+          get { return nickName_; }
+          set {
+            nickName_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+          }
+        }
+
+        /// <summary>Field number for the "Level" field.</summary>
+        public const int LevelFieldNumber = 5;
+        private int level_;
+        /// <summary>
+        ///等级
+        /// </summary>
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public int Level {
+          get { return level_; }
+          set {
+            level_ = value;
+          }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override bool Equals(object other) {
+          return Equals(other as WS2C_ReturnRoleList_Item);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public bool Equals(WS2C_ReturnRoleList_Item other) {
+          if (ReferenceEquals(other, null)) {
+            return false;
+          }
+          if (ReferenceEquals(other, this)) {
+            return true;
+          }
+          if (RoleId != other.RoleId) return false;
+          if (JobId != other.JobId) return false;
+          if (Sex != other.Sex) return false;
+          if (NickName != other.NickName) return false;
+          if (Level != other.Level) return false;
+          return Equals(_unknownFields, other._unknownFields);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override int GetHashCode() {
+          int hash = 1;
+          if (RoleId != 0L) hash ^= RoleId.GetHashCode();
+          if (JobId != 0) hash ^= JobId.GetHashCode();
+          if (Sex != 0) hash ^= Sex.GetHashCode();
+          if (NickName.Length != 0) hash ^= NickName.GetHashCode();
+          if (Level != 0) hash ^= Level.GetHashCode();
+          if (_unknownFields != null) {
+            hash ^= _unknownFields.GetHashCode();
+          }
+          return hash;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override string ToString() {
+          return pb::JsonFormatter.ToDiagnosticString(this);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void WriteTo(pb::CodedOutputStream output) {
+          if (RoleId != 0L) {
+            output.WriteRawTag(8);
+            output.WriteInt64(RoleId);
+          }
+          if (JobId != 0) {
+            output.WriteRawTag(16);
+            output.WriteInt32(JobId);
+          }
+          if (Sex != 0) {
+            output.WriteRawTag(24);
+            output.WriteInt32(Sex);
+          }
+          if (NickName.Length != 0) {
+            output.WriteRawTag(34);
+            output.WriteString(NickName);
+          }
+          if (Level != 0) {
+            output.WriteRawTag(40);
+            output.WriteInt32(Level);
+          }
+          if (_unknownFields != null) {
+            _unknownFields.WriteTo(output);
+          }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public int CalculateSize() {
+          int size = 0;
+          if (RoleId != 0L) {
+            size += 1 + pb::CodedOutputStream.ComputeInt64Size(RoleId);
+          }
+          if (JobId != 0) {
+            size += 1 + pb::CodedOutputStream.ComputeInt32Size(JobId);
+          }
+          if (Sex != 0) {
+            size += 1 + pb::CodedOutputStream.ComputeInt32Size(Sex);
+          }
+          if (NickName.Length != 0) {
+            size += 1 + pb::CodedOutputStream.ComputeStringSize(NickName);
+          }
+          if (Level != 0) {
+            size += 1 + pb::CodedOutputStream.ComputeInt32Size(Level);
+          }
+          if (_unknownFields != null) {
+            size += _unknownFields.CalculateSize();
+          }
+          return size;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void MergeFrom(WS2C_ReturnRoleList_Item other) {
+          if (other == null) {
+            return;
+          }
+          if (other.RoleId != 0L) {
+            RoleId = other.RoleId;
+          }
+          if (other.JobId != 0) {
+            JobId = other.JobId;
+          }
+          if (other.Sex != 0) {
+            Sex = other.Sex;
+          }
+          if (other.NickName.Length != 0) {
+            NickName = other.NickName;
+          }
+          if (other.Level != 0) {
+            Level = other.Level;
+          }
+          _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void MergeFrom(pb::CodedInputStream input) {
+          uint tag;
+          while ((tag = input.ReadTag()) != 0) {
+            switch(tag) {
+              default:
+                _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+                break;
+              case 8: {
+                RoleId = input.ReadInt64();
+                break;
+              }
+              case 16: {
+                JobId = input.ReadInt32();
+                break;
+              }
+              case 24: {
+                Sex = input.ReadInt32();
+                break;
+              }
+              case 34: {
+                NickName = input.ReadString();
+                break;
+              }
+              case 40: {
+                Level = input.ReadInt32();
+                break;
+              }
+            }
+          }
+        }
+
+      }
+
+    }
+    #endregion
+
+  }
+
+  /// <summary>
+  ///服务器返回角色信息[c#]
+  /// </summary>
+  public sealed partial class WS2C_ReturnRoleInfo : YouYou.IProto, pb::IMessage<WS2C_ReturnRoleInfo> {
+    private static readonly pb::MessageParser<WS2C_ReturnRoleInfo> _parser = new pb::MessageParser<WS2C_ReturnRoleInfo>(() => new WS2C_ReturnRoleInfo());
+    public ushort ProtoId => ProtoIdDefine.Proto_WS2C_ReturnRoleInfo;
+    public string ProtoEnName => "WS2C_ReturnRoleInfo";
+    public ProtoCategory Category => ProtoCategory.WorldServer2Client;
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<WS2C_ReturnRoleInfo> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::YouYou.Proto.ProtoWS2CReflection.Descriptor.MessageTypes[2]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public WS2C_ReturnRoleInfo() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public WS2C_ReturnRoleInfo(WS2C_ReturnRoleInfo other) : this() {
+      roleId_ = other.roleId_;
+      jobId_ = other.jobId_;
+      sex_ = other.sex_;
+      nickName_ = other.nickName_;
+      level_ = other.level_;
+      currSceneId_ = other.currSceneId_;
+      currPos_ = other.currPos_ != null ? other.currPos_.Clone() : null;
+      rotationY_ = other.rotationY_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public WS2C_ReturnRoleInfo Clone() {
+      return new WS2C_ReturnRoleInfo(this);
+    }
+
+    /// <summary>Field number for the "RoleId" field.</summary>
+    public const int RoleIdFieldNumber = 1;
+    private long roleId_;
+    /// <summary>
+    ///角色编号
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public long RoleId {
+      get { return roleId_; }
+      set {
+        roleId_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "JobId" field.</summary>
+    public const int JobIdFieldNumber = 2;
+    private int jobId_;
+    /// <summary>
+    ///职业
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int JobId {
+      get { return jobId_; }
+      set {
+        jobId_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "Sex" field.</summary>
+    public const int SexFieldNumber = 3;
+    private int sex_;
+    /// <summary>
+    ///性别
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int Sex {
+      get { return sex_; }
+      set {
+        sex_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "NickName" field.</summary>
+    public const int NickNameFieldNumber = 4;
+    private string nickName_ = "";
+    /// <summary>
+    ///昵称
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public string NickName {
+      get { return nickName_; }
+      set {
+        nickName_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+      }
+    }
+
+    /// <summary>Field number for the "Level" field.</summary>
+    public const int LevelFieldNumber = 5;
+    private int level_;
+    /// <summary>
+    ///等级
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int Level {
+      get { return level_; }
+      set {
+        level_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "CurrSceneId" field.</summary>
+    public const int CurrSceneIdFieldNumber = 6;
+    private int currSceneId_;
+    /// <summary>
+    ///所在场景编号
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CurrSceneId {
+      get { return currSceneId_; }
+      set {
+        currSceneId_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "CurrPos" field.</summary>
+    public const int CurrPosFieldNumber = 7;
+    private global::YouYou.Proto.Vector3 currPos_;
+    /// <summary>
+    ///坐标
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::YouYou.Proto.Vector3 CurrPos {
+      get { return currPos_; }
+      set {
+        currPos_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "RotationY" field.</summary>
+    public const int RotationYFieldNumber = 8;
+    private float rotationY_;
+    /// <summary>
+    ///旋转
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public float RotationY {
+      get { return rotationY_; }
+      set {
+        rotationY_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as WS2C_ReturnRoleInfo);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(WS2C_ReturnRoleInfo other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (RoleId != other.RoleId) return false;
+      if (JobId != other.JobId) return false;
+      if (Sex != other.Sex) return false;
+      if (NickName != other.NickName) return false;
+      if (Level != other.Level) return false;
+      if (CurrSceneId != other.CurrSceneId) return false;
+      if (!object.Equals(CurrPos, other.CurrPos)) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(RotationY, other.RotationY)) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (RoleId != 0L) hash ^= RoleId.GetHashCode();
+      if (JobId != 0) hash ^= JobId.GetHashCode();
+      if (Sex != 0) hash ^= Sex.GetHashCode();
+      if (NickName.Length != 0) hash ^= NickName.GetHashCode();
+      if (Level != 0) hash ^= Level.GetHashCode();
+      if (CurrSceneId != 0) hash ^= CurrSceneId.GetHashCode();
+      if (currPos_ != null) hash ^= CurrPos.GetHashCode();
+      if (RotationY != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(RotationY);
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (RoleId != 0L) {
+        output.WriteRawTag(8);
+        output.WriteInt64(RoleId);
+      }
+      if (JobId != 0) {
+        output.WriteRawTag(16);
+        output.WriteInt32(JobId);
+      }
+      if (Sex != 0) {
+        output.WriteRawTag(24);
+        output.WriteInt32(Sex);
+      }
+      if (NickName.Length != 0) {
+        output.WriteRawTag(34);
+        output.WriteString(NickName);
+      }
+      if (Level != 0) {
+        output.WriteRawTag(40);
+        output.WriteInt32(Level);
+      }
+      if (CurrSceneId != 0) {
+        output.WriteRawTag(48);
+        output.WriteInt32(CurrSceneId);
+      }
+      if (currPos_ != null) {
+        output.WriteRawTag(58);
+        output.WriteMessage(CurrPos);
+      }
+      if (RotationY != 0F) {
+        output.WriteRawTag(69);
+        output.WriteFloat(RotationY);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (RoleId != 0L) {
+        size += 1 + pb::CodedOutputStream.ComputeInt64Size(RoleId);
+      }
+      if (JobId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(JobId);
+      }
+      if (Sex != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Sex);
+      }
+      if (NickName.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(NickName);
+      }
+      if (Level != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Level);
+      }
+      if (CurrSceneId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(CurrSceneId);
+      }
+      if (currPos_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(CurrPos);
+      }
+      if (RotationY != 0F) {
+        size += 1 + 4;
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(WS2C_ReturnRoleInfo other) {
+      if (other == null) {
+        return;
+      }
+      if (other.RoleId != 0L) {
+        RoleId = other.RoleId;
+      }
+      if (other.JobId != 0) {
+        JobId = other.JobId;
+      }
+      if (other.Sex != 0) {
+        Sex = other.Sex;
+      }
+      if (other.NickName.Length != 0) {
+        NickName = other.NickName;
+      }
+      if (other.Level != 0) {
+        Level = other.Level;
+      }
+      if (other.CurrSceneId != 0) {
+        CurrSceneId = other.CurrSceneId;
+      }
+      if (other.currPos_ != null) {
+        if (currPos_ == null) {
+          CurrPos = new global::YouYou.Proto.Vector3();
+        }
+        CurrPos.MergeFrom(other.CurrPos);
+      }
+      if (other.RotationY != 0F) {
+        RotationY = other.RotationY;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
+            RoleId = input.ReadInt64();
+            break;
+          }
+          case 16: {
+            JobId = input.ReadInt32();
+            break;
+          }
+          case 24: {
+            Sex = input.ReadInt32();
+            break;
+          }
+          case 34: {
+            NickName = input.ReadString();
+            break;
+          }
+          case 40: {
+            Level = input.ReadInt32();
+            break;
+          }
+          case 48: {
+            CurrSceneId = input.ReadInt32();
+            break;
+          }
+          case 58: {
+            if (currPos_ == null) {
+              CurrPos = new global::YouYou.Proto.Vector3();
+            }
+            input.ReadMessage(CurrPos);
+            break;
+          }
+          case 69: {
+            RotationY = input.ReadFloat();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  /// <summary>
+  ///服务器返回进入游戏完毕消息[c#]
+  /// </summary>
+  public sealed partial class WS2C_ReturnEnterGameComplete : YouYou.IProto, pb::IMessage<WS2C_ReturnEnterGameComplete> {
+    private static readonly pb::MessageParser<WS2C_ReturnEnterGameComplete> _parser = new pb::MessageParser<WS2C_ReturnEnterGameComplete>(() => new WS2C_ReturnEnterGameComplete());
+    public ushort ProtoId => ProtoIdDefine.Proto_WS2C_ReturnEnterGameComplete;
+    public string ProtoEnName => "WS2C_ReturnEnterGameComplete";
+    public ProtoCategory Category => ProtoCategory.WorldServer2Client;
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<WS2C_ReturnEnterGameComplete> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::YouYou.Proto.ProtoWS2CReflection.Descriptor.MessageTypes[3]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public WS2C_ReturnEnterGameComplete() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public WS2C_ReturnEnterGameComplete(WS2C_ReturnEnterGameComplete other) : this() {
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public WS2C_ReturnEnterGameComplete Clone() {
+      return new WS2C_ReturnEnterGameComplete(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as WS2C_ReturnEnterGameComplete);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(WS2C_ReturnEnterGameComplete other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(WS2C_ReturnEnterGameComplete other) {
+      if (other == null) {
+        return;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
         }
       }
     }

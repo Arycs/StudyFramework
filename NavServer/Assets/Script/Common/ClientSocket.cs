@@ -14,7 +14,7 @@ namespace YouYouServer.Core
         private EventDispatcher m_EventDispatcher;
 
         //客户端Socket
-        private Socket m_Socket;
+        public Socket m_Socket;
 
         //作为服务器端监听客户端时候接收数据的线程
         private Thread m_ReceiveThread;

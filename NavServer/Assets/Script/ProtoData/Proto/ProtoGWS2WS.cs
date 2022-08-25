@@ -26,12 +26,14 @@ namespace YouYou.Proto {
           string.Concat(
             "ChJQcm90b19HV1MyV1MucHJvdG8SDFlvdVlvdS5Qcm90byIrChdHV1MyV1Nf",
             "UmVnR2F0ZXdheVNlcnZlchIQCghTZXJ2ZXJJZBgBIAEoBSIdChtHV1MyV1Nf",
-            "UmVnR2FtZVNlcnZlclN1Y2Nlc3NiBnByb3RvMw=="));
+            "UmVnR2FtZVNlcnZlclN1Y2Nlc3MiIwoOR1dTMldTX09mZmxpbmUSEQoJQWNj",
+            "b3VudElkGAEgASgDYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::YouYou.Proto.GWS2WS_RegGatewayServer), global::YouYou.Proto.GWS2WS_RegGatewayServer.Parser, new[]{ "ServerId" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::YouYou.Proto.GWS2WS_RegGameServerSuccess), global::YouYou.Proto.GWS2WS_RegGameServerSuccess.Parser, null, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::YouYou.Proto.GWS2WS_RegGameServerSuccess), global::YouYou.Proto.GWS2WS_RegGameServerSuccess.Parser, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::YouYou.Proto.GWS2WS_Offline), global::YouYou.Proto.GWS2WS_Offline.Parser, new[]{ "AccountId" }, null, null, null)
           }));
     }
     #endregion
@@ -277,6 +279,144 @@ namespace YouYou.Proto {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
+        }
+      }
+    }
+
+  }
+
+  /// <summary>
+  ///网关服务器向中心服务器发送角色下线消息
+  /// </summary>
+  public sealed partial class GWS2WS_Offline : YouYou.IProto, pb::IMessage<GWS2WS_Offline> {
+    private static readonly pb::MessageParser<GWS2WS_Offline> _parser = new pb::MessageParser<GWS2WS_Offline>(() => new GWS2WS_Offline());
+    public ushort ProtoId => ProtoIdDefine.Proto_GWS2WS_Offline;
+    public string ProtoEnName => "GWS2WS_Offline";
+    public ProtoCategory Category => ProtoCategory.GatewayServer2WorldServer;
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<GWS2WS_Offline> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::YouYou.Proto.ProtoGWS2WSReflection.Descriptor.MessageTypes[2]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public GWS2WS_Offline() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public GWS2WS_Offline(GWS2WS_Offline other) : this() {
+      accountId_ = other.accountId_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public GWS2WS_Offline Clone() {
+      return new GWS2WS_Offline(this);
+    }
+
+    /// <summary>Field number for the "AccountId" field.</summary>
+    public const int AccountIdFieldNumber = 1;
+    private long accountId_;
+    /// <summary>
+    ///角色账号
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public long AccountId {
+      get { return accountId_; }
+      set {
+        accountId_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as GWS2WS_Offline);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(GWS2WS_Offline other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (AccountId != other.AccountId) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (AccountId != 0L) hash ^= AccountId.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (AccountId != 0L) {
+        output.WriteRawTag(8);
+        output.WriteInt64(AccountId);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (AccountId != 0L) {
+        size += 1 + pb::CodedOutputStream.ComputeInt64Size(AccountId);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(GWS2WS_Offline other) {
+      if (other == null) {
+        return;
+      }
+      if (other.AccountId != 0L) {
+        AccountId = other.AccountId;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
+            AccountId = input.ReadInt64();
+            break;
+          }
         }
       }
     }

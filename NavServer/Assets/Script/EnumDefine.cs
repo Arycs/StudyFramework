@@ -8,6 +8,11 @@ using System.Text;
 public enum ProtoCategory
 {
     /// <summary>
+    /// 未定义
+    /// </summary>
+    None = -1,
+
+    /// <summary>
     /// 客户端->网关服务器
     /// </summary>
     Client2GatewayServer = 0,
@@ -66,7 +71,7 @@ public enum ProtoCategory
     /// 游戏服务器->网关服务器
     /// </summary>
     GameServer2GatewayServer = 11,
-
+    
     /// <summary>
     /// 游戏服务器->寻路服务器
     /// </summary>
@@ -76,9 +81,4 @@ public enum ProtoCategory
     /// 寻路服务器->游戏服务器
     /// </summary>
     NavServer2GameServer = 13,
-    
-    /// <summary>
-    /// 中转协议
-    /// </summary>
-    CarryProto = 255
 }

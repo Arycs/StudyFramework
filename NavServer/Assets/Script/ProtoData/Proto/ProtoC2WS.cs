@@ -26,11 +26,14 @@ namespace YouYou.Proto {
           string.Concat(
             "ChBQcm90b19DMldTLnByb3RvEgxZb3VZb3UuUHJvdG8iPwoPQzJXU19DcmVh",
             "dGVSb2xlEg0KBUpvYklkGAEgASgFEgsKA1NleBgCIAEoBRIQCghOaWNrTmFt",
-            "ZRgDIAEoCWIGcHJvdG8z"));
+            "ZRgDIAEoCSISChBDMldTX0dldFJvbGVMaXN0IiAKDkMyV1NfRW50ZXJHYW1l",
+            "Eg4KBlJvbGVJZBgBIAEoA2IGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::YouYou.Proto.C2WS_CreateRole), global::YouYou.Proto.C2WS_CreateRole.Parser, new[]{ "JobId", "Sex", "NickName" }, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::YouYou.Proto.C2WS_CreateRole), global::YouYou.Proto.C2WS_CreateRole.Parser, new[]{ "JobId", "Sex", "NickName" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::YouYou.Proto.C2WS_GetRoleList), global::YouYou.Proto.C2WS_GetRoleList.Parser, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::YouYou.Proto.C2WS_EnterGame), global::YouYou.Proto.C2WS_EnterGame.Parser, new[]{ "RoleId" }, null, null, null)
           }));
     }
     #endregion
@@ -229,6 +232,251 @@ namespace YouYou.Proto {
           }
           case 26: {
             NickName = input.ReadString();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  /// <summary>
+  ///玩家向服务器发送查询已有角色消息
+  /// </summary>
+  public sealed partial class C2WS_GetRoleList : YouYou.IProto, pb::IMessage<C2WS_GetRoleList> {
+    private static readonly pb::MessageParser<C2WS_GetRoleList> _parser = new pb::MessageParser<C2WS_GetRoleList>(() => new C2WS_GetRoleList());
+    public ushort ProtoId => ProtoIdDefine.Proto_C2WS_GetRoleList;
+    public string ProtoEnName => "C2WS_GetRoleList";
+    public ProtoCategory Category => ProtoCategory.Client2WorldServer;
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<C2WS_GetRoleList> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::YouYou.Proto.ProtoC2WSReflection.Descriptor.MessageTypes[1]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public C2WS_GetRoleList() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public C2WS_GetRoleList(C2WS_GetRoleList other) : this() {
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public C2WS_GetRoleList Clone() {
+      return new C2WS_GetRoleList(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as C2WS_GetRoleList);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(C2WS_GetRoleList other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(C2WS_GetRoleList other) {
+      if (other == null) {
+        return;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+        }
+      }
+    }
+
+  }
+
+  /// <summary>
+  ///玩家向服务器发送进入游戏消息
+  /// </summary>
+  public sealed partial class C2WS_EnterGame : YouYou.IProto, pb::IMessage<C2WS_EnterGame> {
+    private static readonly pb::MessageParser<C2WS_EnterGame> _parser = new pb::MessageParser<C2WS_EnterGame>(() => new C2WS_EnterGame());
+    public ushort ProtoId => ProtoIdDefine.Proto_C2WS_EnterGame;
+    public string ProtoEnName => "C2WS_EnterGame";
+    public ProtoCategory Category => ProtoCategory.Client2WorldServer;
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<C2WS_EnterGame> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::YouYou.Proto.ProtoC2WSReflection.Descriptor.MessageTypes[2]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public C2WS_EnterGame() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public C2WS_EnterGame(C2WS_EnterGame other) : this() {
+      roleId_ = other.roleId_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public C2WS_EnterGame Clone() {
+      return new C2WS_EnterGame(this);
+    }
+
+    /// <summary>Field number for the "RoleId" field.</summary>
+    public const int RoleIdFieldNumber = 1;
+    private long roleId_;
+    /// <summary>
+    ///角色编号
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public long RoleId {
+      get { return roleId_; }
+      set {
+        roleId_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as C2WS_EnterGame);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(C2WS_EnterGame other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (RoleId != other.RoleId) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (RoleId != 0L) hash ^= RoleId.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (RoleId != 0L) {
+        output.WriteRawTag(8);
+        output.WriteInt64(RoleId);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (RoleId != 0L) {
+        size += 1 + pb::CodedOutputStream.ComputeInt64Size(RoleId);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(C2WS_EnterGame other) {
+      if (other == null) {
+        return;
+      }
+      if (other.RoleId != 0L) {
+        RoleId = other.RoleId;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
+            RoleId = input.ReadInt64();
             break;
           }
         }

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using YouYou.Proto;
 using YouYouServer.Core;
+using Vector3 = UnityEngine.Vector3;
 
 /// <summary>
 /// 服务器客户端,
@@ -69,7 +70,8 @@ public class ServerClient
                 retProto.Path.Add(new NS2GS_Vector3() {X = vector.x, Y = vector.y - y, Z = vector.z});
             }
         }
-        
+
+        var a = ClientSocket.m_Socket.RemoteEndPoint.AddressFamily;
         ClientSocket.SendMsg(retProto);
     }
 }

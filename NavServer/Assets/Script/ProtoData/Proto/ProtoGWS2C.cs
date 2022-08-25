@@ -24,10 +24,11 @@ namespace YouYou.Proto {
     static ProtoGWS2CReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChFQcm90b19HV1MyQy5wcm90bxIMWW91WW91LlByb3RvIicKFUdXUzJDX1Jl",
-            "dHVyblJlZ0NsaWVudBIOCgZSZXN1bHQYASABKAhiBnByb3RvMw=="));
+            "ChFQcm90b19HV1MyQy5wcm90bxIMWW91WW91LlByb3RvGhJQcm90b19Db21t",
+            "b24ucHJvdG8iJwoVR1dTMkNfUmV0dXJuUmVnQ2xpZW50Eg4KBlJlc3VsdBgB",
+            "IAEoCGIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { },
+          new pbr::FileDescriptor[] { global::YouYou.Proto.ProtoCommonReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::YouYou.Proto.GWS2C_ReturnRegClient), global::YouYou.Proto.GWS2C_ReturnRegClient.Parser, new[]{ "Result" }, null, null, null)
           }));
@@ -37,7 +38,7 @@ namespace YouYou.Proto {
   }
   #region Messages
   /// <summary>
-  ///网关服务器返回注册客户端结果
+  ///网关服务器返回注册客户端结果[c#]
   /// </summary>
   public sealed partial class GWS2C_ReturnRegClient : YouYou.IProto, pb::IMessage<GWS2C_ReturnRegClient> {
     private static readonly pb::MessageParser<GWS2C_ReturnRegClient> _parser = new pb::MessageParser<GWS2C_ReturnRegClient>(() => new GWS2C_ReturnRegClient());
