@@ -41,6 +41,7 @@ public class RoleFsmRun : RoleFsmBase
     {
         base.OnEnter();
         m_TurnComplete = false;
+        m_IsPlayRunWithClick = false;
         GameEntry.Log(LogCategory.Normal, "RoleFsmRun Enter");
     }
 

@@ -47,7 +47,10 @@ namespace YouYou
             for (int i = 0; i < len; i++)
             {
                 FsmState<T> state = states[i];
-                state.CurrFsm = this;
+                if (state != null)
+                {
+                    state.CurrFsm = this;
+                }
                 m_StateDic[(sbyte) i] = state;
             }
 
@@ -157,7 +160,7 @@ namespace YouYou
 
             foreach (KeyValuePair<sbyte, FsmState<T>> state in m_StateDic)
             {
-                state.Value.OnDestroy();
+                state.Value?.OnDestroy();
             }
 
             m_StateDic.Clear();

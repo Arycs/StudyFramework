@@ -222,6 +222,11 @@ namespace YouYou
         /// </summary>
         public static InputManager Input { get; private set; }
 
+        /// <summary>
+        /// 任务管理器
+        /// </summary>
+        public static  TaskManager Task { get; private set; }
+        
         #endregion
 
         #region 更新组件管理
@@ -293,7 +298,8 @@ namespace YouYou
             Audio = new AudioManager();
             Logger = new LoggerManager();
             Input = new InputManager();
-
+            Task = new TaskManager();
+            
             Logger.Init();
             Event.Init();
             Time.Init();
@@ -311,6 +317,7 @@ namespace YouYou
             UI.Init();
             Audio.Init();
             Input.Init();
+            Task.Init();
 
             Procedure.ChangeState(ProcedureState.Launch);
         }
@@ -341,6 +348,7 @@ namespace YouYou
             Audio.OnUpdate();
             Data.OnUpdate();
             Input.OnUpdate();
+            Task.OnUpdate();
         }
 
         /// <summary>
@@ -367,6 +375,7 @@ namespace YouYou
             Audio.Dispose();
             Data.Dispose();
             Input.Dispose();
+            Task.Dispose();
         }
 
         /// <summary>

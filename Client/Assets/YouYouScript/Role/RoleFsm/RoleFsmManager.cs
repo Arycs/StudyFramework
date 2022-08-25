@@ -55,8 +55,8 @@ public class RoleFsmManager : ManagerBase
 
     public override void Init()
     {
-        FsmState<RoleFsmManager>[] states = new FsmState<RoleFsmManager>[3];
-        states[(sbyte)RoleFsmState.Idle] = new RoleFsmIdle();
+        FsmState<RoleFsmManager>[] states = new FsmState<RoleFsmManager>[6];
+        states[(sbyte)RoleFsmState.Idle] = new RoleFsmIdle(); 
 
         m_RoleFsmRun = new RoleFsmRun();
         states[(sbyte)RoleFsmState.Run] = m_RoleFsmRun;

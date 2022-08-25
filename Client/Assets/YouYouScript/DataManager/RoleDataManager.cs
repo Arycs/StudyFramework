@@ -193,15 +193,7 @@ public class RoleDataManager : IDisposable
         for (int i = 0; i < len; i++)
         {
             WS2C_SceneLineRole_DATA data = proto.RoleList[i];
-
-            this.CreateSprite(data.BaseRoleId, (roleCtrl =>
-            {
-                roleCtrl.ServerRoleId = data.RoleId;
-                roleCtrl.transform.position = new UnityEngine.Vector3(data.CurrPos.X, data.CurrPos.Y, data.CurrPos.Z);
-                roleCtrl.transform.rotation = Quaternion.Euler(0, data.RotationY, 0);
-                roleCtrl.OpenAgent();
-                m_CurrPVPSceneRoleDic[roleCtrl.ServerRoleId] = roleCtrl;
-            }));
+            LoadSceneLineRole(data);
         }
     }
 
@@ -229,13 +221,55 @@ public class RoleDataManager : IDisposable
         for (int i = 0; i < len; i++)
         {
             WS2C_SceneLineRole_DATA data = proto.RoleList[i];
-            this.CreateSprite(data.BaseRoleId, (roleCtrl =>
+            LoadSceneLineRole(data);
+        }
+    }
+
+    private void LoadSceneLineRole(WS2C_SceneLineRole_DATA data)
+    {
+        if (data.RoleType == RoleType.Player)
+        {
+            CreatePlayerByJobId(data.BaseRoleId, (RoleCtrl roleCtrl) =>
             {
                 roleCtrl.ServerRoleId = data.RoleId;
                 roleCtrl.transform.position = new UnityEngine.Vector3(data.CurrPos.X, data.CurrPos.Y, data.CurrPos.Z);
                 roleCtrl.transform.rotation = Quaternion.Euler(0, data.RotationY, 0);
+                roleCtrl.OpenAgent();
+
+                //如果这个角色正在跑 继续让他跑
+                if (data.Status == (int)MyCommonEnum.RoleFsmState.Run)
+                {
+                    roleCtrl.ClickMove(new UnityEngine.Vector3() { x = data.TargetPos.X, y = data.TargetPos.Y, z = data.TargetPos.Z });
+                }
+                else
+                {
+                    roleCtrl.ChangeState((MyCommonEnum.RoleFsmState)data.Status);
+                }
+
                 m_CurrPVPSceneRoleDic[roleCtrl.ServerRoleId] = roleCtrl;
-            }));
+            });
+        }
+        else
+        {
+            CreateSprite(data.BaseRoleId, (RoleCtrl roleCtrl) =>
+            {
+                roleCtrl.ServerRoleId = data.RoleId;
+                roleCtrl.transform.position = new UnityEngine.Vector3(data.CurrPos.X, data.CurrPos.Y, data.CurrPos.Z);
+                roleCtrl.transform.rotation = Quaternion.Euler(0, data.RotationY, 0);
+                roleCtrl.OpenAgent();
+
+                //如果这个角色正在跑 继续让他跑
+                if (data.Status == (int)MyCommonEnum.RoleFsmState.Run)
+                {
+                    roleCtrl.ClickMove(new UnityEngine.Vector3() { x = data.TargetPos.X, y = data.TargetPos.Y, z = data.TargetPos.Z });
+                }
+                else
+                {
+                    roleCtrl.ChangeState((MyCommonEnum.RoleFsmState)data.Status);
+                }
+
+                m_CurrPVPSceneRoleDic[roleCtrl.ServerRoleId] = roleCtrl;
+            });
         }
     }
 
@@ -248,5 +282,26 @@ public class RoleDataManager : IDisposable
         C2GS_ClickMove proto = new C2GS_ClickMove();
         proto.TargetPos = new YouYou.Proto.Vector3() {X = targetPos.x, Y = targetPos.y, Z = targetPos.z};
         GameEntry.Socket.SendMainMsg(proto);
+    }
+
+    /// <summary>
+    /// 角色状态修改
+    /// </summary>
+    /// <param name="proto"></param>
+    public void RoleChangeState(GS2C_ReturnRoleChangeState proto)
+    {
+        //找到角色
+        if (m_CurrPVPSceneRoleDic.TryGetValue(proto.RoleId,out RoleCtrl roleCtrl))
+        {
+            if (proto.Status == (int)MyCommonEnum.RoleFsmState.Idle)
+            {
+                roleCtrl.ChangeState(MyCommonEnum.RoleFsmState.Idle);
+            }
+            else if (proto.Status == (int) MyCommonEnum.RoleFsmState.Run)
+            {
+                roleCtrl.ClickMove(new UnityEngine.Vector3()
+                    {x = proto.TargetPos.X, y = proto.TargetPos.Y, z = proto.TargetPos.Z});
+            }
+        }
     }
 }

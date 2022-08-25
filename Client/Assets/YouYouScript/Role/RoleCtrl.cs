@@ -343,7 +343,8 @@ public class RoleCtrl : BaseSprite, IUpdateComponent
             m_CurrSkinTransform = trans;
             m_CurrSkinTransform.SetParent(transform);
             m_CurrSkinTransform.localPosition = Vector3.zero;
-
+            m_CurrSkinTransform.localScale = Vector3.one;
+            
             m_CurrRoleSkinComponent = m_CurrSkinTransform.GetComponent<RoleSkinComponent>();
 
             m_Animator = m_CurrSkinTransform.GetComponent<Animator>();
@@ -366,9 +367,25 @@ public class RoleCtrl : BaseSprite, IUpdateComponent
 
             LoadInitRoleAnimations(m_AnimGroupId);
 
-            //默认进入待机状态
-            m_CurrRoleFsmManager.ChangeState(MyCommonEnum.RoleFsmState.Idle);
+            PlayAnimAfterLoadSkin();
         });
+    }
+
+    /// <summary>
+    /// 加载皮肤后, 根据状态加载动画
+    /// </summary>
+    private void PlayAnimAfterLoadSkin()
+    {
+        switch (m_CurrRoleFsmManager.CurrRoleFsmState)
+        {
+            default:
+                case MyCommonEnum.RoleFsmState.Idle:
+                PlayAnimByAnimCategory(MyCommonEnum.RoleAnimCategory.IdleNormal);
+                break;
+            case MyCommonEnum.RoleFsmState.Run:
+                PlayAnimByAnimCategory(MyCommonEnum.RoleAnimCategory.Run);
+                break;
+        }
     }
 
     /// <summary>
@@ -466,21 +483,6 @@ public class RoleCtrl : BaseSprite, IUpdateComponent
         m_CurrRoleFsmManager.OnUpdate();
         //摄像机跟随
         GameEntry.CameraCtrl.transform.position = transform.position;
-        
-        
-        //TODO 测试代码
-        if (Input.GetKeyUp(KeyCode.A))
-        {
-            m_CurrRoleFsmManager.ChangeState(MyCommonEnum.RoleFsmState.Idle);
-        }
-        else if (Input.GetKeyUp(KeyCode.B))
-        {
-            m_CurrRoleFsmManager.ChangeState(MyCommonEnum.RoleFsmState.Run);
-        }
-        else if (Input.GetKeyUp(KeyCode.C))
-        {
-            m_CurrRoleFsmManager.ChangeState(MyCommonEnum.RoleFsmState.Attack);
-        }
     }
 
     public void ClickMove(Vector3 targetPos)
@@ -496,5 +498,14 @@ public class RoleCtrl : BaseSprite, IUpdateComponent
     public void JoystickStop(Vector2 dir)
     {
         m_CurrRoleFsmManager.JoystickStop();
+    }
+
+    /// <summary>
+    /// 切换角色状态
+    /// </summary>
+    /// <param name="roleFsmState"></param>
+    public void ChangeState(MyCommonEnum.RoleFsmState roleFsmState)
+    {
+        m_CurrRoleFsmManager.ChangeState(roleFsmState);
     }
 }

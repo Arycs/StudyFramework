@@ -6,17 +6,29 @@ public class MyCommonEnum
     public enum RoleFsmState
     {
         /// <summary>
+        /// 未设置
+        /// </summary>
+        None = 0,
+        /// <summary>
         /// 待机
         /// </summary>
-        Idle = 0,
+        Idle = 1,
         /// <summary>
         /// 跑
         /// </summary>
-        Run = 1,
+        Run = 2,
         /// <summary>
         /// 攻击状态
         /// </summary>
-        Attack,
+        Attack = 3,
+        /// <summary>
+        /// 受伤
+        /// </summary>
+        Hurt = 4,
+        /// <summary>
+        /// 死亡
+        /// </summary>
+        Die = 5
     }
 
     /// <summary>

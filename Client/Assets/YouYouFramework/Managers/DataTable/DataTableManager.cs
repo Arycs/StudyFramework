@@ -140,6 +140,7 @@ namespace YouYou
             RoleAnimationList.LoadData();
             BaseRoleList.LoadData();
             RoleAnimCategoryList.LoadData();
+            SpriteList.LoadData();
         }
 
         /// <summary>
