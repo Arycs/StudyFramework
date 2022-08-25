@@ -68,8 +68,19 @@ namespace YouYouServer.Model.ServerManager.Client.MonsterClient
         /// </summary>
         public bool TurnComplete = false;
 
+        /// <summary>
+        /// 上一个巡逻点
+        /// </summary>
+        public int PrevPatrolPosIndex = 0;
+
+        /// <summary>
+        /// 是否巡逻中
+        /// </summary>
+        public bool IsPatrol = false;
+        
         public MonsterClient()
         {
+            PathPoints = new List<Vector3>();
             CurrFsmManager = new RoleFsm.RoleFsm(this);
 
             Console.WriteLine("Monster Client ");

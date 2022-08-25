@@ -23,5 +23,24 @@ namespace YouYouServer.Model.IHandler
         void RoleEnterSceneLine(RoleClientBase roleClient, PlayerForGameClient otherPlayer);
 
         void RemoveRole(RoleClientBase roleClientBase, LeaveSceneLineType leaveSceneLineType);
+
+        /// <summary>
+        /// 角色移动
+        /// </summary>
+        /// <param name="roleClientBase"></param>
+        /// <param name="targetPos"></param>
+        void RoleMove(RoleClientBase roleClientBase, Vector3 targetPos);
+
+        /// <summary>
+        /// 角色待机
+        /// </summary>
+        /// <param name="roleClientBase"></param>
+        void RoleIdle(RoleClientBase roleClientBase);
+
+        /// <summary>
+        /// 检查角色跨区域
+        /// </summary>
+        /// <param name="roleClientBase"></param>
+        void CheckAreaChange(RoleClientBase roleClientBase);
     }
 }

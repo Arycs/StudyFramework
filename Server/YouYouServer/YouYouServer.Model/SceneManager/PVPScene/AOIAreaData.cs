@@ -29,6 +29,11 @@ namespace YouYouServer.Model.ServerManager
         public List<int> ConnectAreaList;
 
         /// <summary>
+        /// 包含自己和关联区域的列表
+        /// </summary>
+        public List<int> AllAreaList;
+        
+        /// <summary>
         /// 左上角坐标
         /// </summary>
         public double TopLeftPos_X;
@@ -50,6 +55,9 @@ namespace YouYouServer.Model.ServerManager
         {
             TopLeftPos = new Vector3((float)TopLeftPos_X, (float)TopLeftPos_Y, (float)TopLeftPos_Z);
             BottomRightPos = new Vector3((float)BottomRightPos_X, (float)BottomRightPos_Y, (float)BottomRightPos_Z);
+
+            AllAreaList = new List<int> {AreaId};
+            AllAreaList.AddRange(ConnectAreaList);
         }
     }
 }

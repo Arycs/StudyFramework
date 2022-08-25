@@ -41,11 +41,11 @@ namespace YouYou.Proto {
             "CghSb2xlTGlzdBgBIAMoCzIlLllvdVlvdS5Qcm90by5XUzJDX1NjZW5lTGlu",
             "ZVJvbGVfREFUQSJtCh1HUzJDX1JldHVyblJvbGVMZWF2ZVNjZW5lTGluZRIO",
             "CgZSb2xlSWQYASABKAMSPAoSbGVhdmVTY2VuZUxpbmVUeXBlGAIgASgOMiAu",
-            "WW91WW91LlByb3RvLkxlYXZlU2NlbmVMaW5lVHlwZSK2AQoaR1MyQ19SZXR1",
-            "cm5Sb2xlQ2hhbmdlU3RhdGUSEgoKUm9sZUlkTGlzdBgBIAEoAxIOCgZTdGF0",
-            "dXMYAiABKAUSDwoHU2tpbGxJZBgDIAEoBRImCgdDdXJyUG9zGAQgASgLMhUu",
-            "WW91WW91LlByb3RvLlZlY3RvcjMSEQoJUm90YXRpb25ZGAUgASgCEigKCVRh",
-            "cmdldFBvcxgGIAEoCzIVLllvdVlvdS5Qcm90by5WZWN0b3IzYgZwcm90bzM="));
+            "WW91WW91LlByb3RvLkxlYXZlU2NlbmVMaW5lVHlwZSKyAQoaR1MyQ19SZXR1",
+            "cm5Sb2xlQ2hhbmdlU3RhdGUSDgoGUm9sZUlkGAEgASgDEg4KBlN0YXR1cxgC",
+            "IAEoBRIPCgdTa2lsbElkGAMgASgFEiYKB0N1cnJQb3MYBCABKAsyFS5Zb3VZ",
+            "b3UuUHJvdG8uVmVjdG9yMxIRCglSb3RhdGlvblkYBSABKAISKAoJVGFyZ2V0",
+            "UG9zGAYgASgLMhUuWW91WW91LlByb3RvLlZlY3RvcjNiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::YouYou.Proto.ProtoCommonReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
@@ -54,7 +54,7 @@ namespace YouYou.Proto {
             new pbr::GeneratedClrTypeInfo(typeof(global::YouYou.Proto.GS2C_ReturnSceneLineRoleList), global::YouYou.Proto.GS2C_ReturnSceneLineRoleList.Parser, new[]{ "RoleList" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::YouYou.Proto.GS2C_ReturnRoleEnterSceneLine), global::YouYou.Proto.GS2C_ReturnRoleEnterSceneLine.Parser, new[]{ "RoleList" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::YouYou.Proto.GS2C_ReturnRoleLeaveSceneLine), global::YouYou.Proto.GS2C_ReturnRoleLeaveSceneLine.Parser, new[]{ "RoleId", "LeaveSceneLineType" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::YouYou.Proto.GS2C_ReturnRoleChangeState), global::YouYou.Proto.GS2C_ReturnRoleChangeState.Parser, new[]{ "RoleIdList", "Status", "SkillId", "CurrPos", "RotationY", "TargetPos" }, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::YouYou.Proto.GS2C_ReturnRoleChangeState), global::YouYou.Proto.GS2C_ReturnRoleChangeState.Parser, new[]{ "RoleId", "Status", "SkillId", "CurrPos", "RotationY", "TargetPos" }, null, null, null)
           }));
     }
     #endregion
@@ -1311,7 +1311,7 @@ namespace YouYou.Proto {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public GS2C_ReturnRoleChangeState(GS2C_ReturnRoleChangeState other) : this() {
-      roleIdList_ = other.roleIdList_;
+      roleId_ = other.roleId_;
       status_ = other.status_;
       skillId_ = other.skillId_;
       currPos_ = other.currPos_ != null ? other.currPos_.Clone() : null;
@@ -1325,17 +1325,17 @@ namespace YouYou.Proto {
       return new GS2C_ReturnRoleChangeState(this);
     }
 
-    /// <summary>Field number for the "RoleIdList" field.</summary>
-    public const int RoleIdListFieldNumber = 1;
-    private long roleIdList_;
+    /// <summary>Field number for the "RoleId" field.</summary>
+    public const int RoleIdFieldNumber = 1;
+    private long roleId_;
     /// <summary>
     ///角色编号
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public long RoleIdList {
-      get { return roleIdList_; }
+    public long RoleId {
+      get { return roleId_; }
       set {
-        roleIdList_ = value;
+        roleId_ = value;
       }
     }
 
@@ -1422,7 +1422,7 @@ namespace YouYou.Proto {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (RoleIdList != other.RoleIdList) return false;
+      if (RoleId != other.RoleId) return false;
       if (Status != other.Status) return false;
       if (SkillId != other.SkillId) return false;
       if (!object.Equals(CurrPos, other.CurrPos)) return false;
@@ -1434,7 +1434,7 @@ namespace YouYou.Proto {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
-      if (RoleIdList != 0L) hash ^= RoleIdList.GetHashCode();
+      if (RoleId != 0L) hash ^= RoleId.GetHashCode();
       if (Status != 0) hash ^= Status.GetHashCode();
       if (SkillId != 0) hash ^= SkillId.GetHashCode();
       if (currPos_ != null) hash ^= CurrPos.GetHashCode();
@@ -1453,9 +1453,9 @@ namespace YouYou.Proto {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
-      if (RoleIdList != 0L) {
+      if (RoleId != 0L) {
         output.WriteRawTag(8);
-        output.WriteInt64(RoleIdList);
+        output.WriteInt64(RoleId);
       }
       if (Status != 0) {
         output.WriteRawTag(16);
@@ -1485,8 +1485,8 @@ namespace YouYou.Proto {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
-      if (RoleIdList != 0L) {
-        size += 1 + pb::CodedOutputStream.ComputeInt64Size(RoleIdList);
+      if (RoleId != 0L) {
+        size += 1 + pb::CodedOutputStream.ComputeInt64Size(RoleId);
       }
       if (Status != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(Status);
@@ -1514,8 +1514,8 @@ namespace YouYou.Proto {
       if (other == null) {
         return;
       }
-      if (other.RoleIdList != 0L) {
-        RoleIdList = other.RoleIdList;
+      if (other.RoleId != 0L) {
+        RoleId = other.RoleId;
       }
       if (other.Status != 0) {
         Status = other.Status;
@@ -1550,7 +1550,7 @@ namespace YouYou.Proto {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 8: {
-            RoleIdList = input.ReadInt64();
+            RoleId = input.ReadInt64();
             break;
           }
           case 16: {

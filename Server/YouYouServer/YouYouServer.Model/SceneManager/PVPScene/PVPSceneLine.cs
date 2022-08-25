@@ -115,12 +115,14 @@ namespace YouYouServer.Model.ServerManager
                 pvpSceneSpawnMonsterPoint.interval = item.Interval;
                 pvpSceneSpawnMonsterPoint.BornPos = new UnityEngine.Vector3(item.BornPos_1, item.BornPos_2, item.BornPos_3);
 
+                //出生点也是一个巡逻点
+                pvpSceneSpawnMonsterPoint.PatrolPosList.Add(pvpSceneSpawnMonsterPoint.BornPos);
+                
                 // 三个巡逻点 
                 pvpSceneSpawnMonsterPoint.PatrolPosList.Add(new UnityEngine.Vector3(item.PatrolX_1, item.PatrolY_1, item.PatrolZ_1));
                 pvpSceneSpawnMonsterPoint.PatrolPosList.Add(new UnityEngine.Vector3(item.PatrolX_2, item.PatrolY_2, item.PatrolZ_3));
                 pvpSceneSpawnMonsterPoint.PatrolPosList.Add(new UnityEngine.Vector3(item.PatrolX_3, item.PatrolY_3, item.PatrolZ_3));
-                //出生点也是一个巡逻点
-                pvpSceneSpawnMonsterPoint.PatrolPosList.Add(pvpSceneSpawnMonsterPoint.BornPos);
+                pvpSceneSpawnMonsterPoint.PatrolPosList.Add(new UnityEngine.Vector3(item.PatrolX_4, item.PatrolY_4, item.PatrolZ_4));
 
                 SpawnMonsterPointDic[pvpSceneSpawnMonsterPoint.Id] = pvpSceneSpawnMonsterPoint;
             }

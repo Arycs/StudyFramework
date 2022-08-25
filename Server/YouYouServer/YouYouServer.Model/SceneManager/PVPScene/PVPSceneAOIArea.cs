@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using YouYou;
 using YouYou.Proto;
 using YouYouServer.Common;
 using YouYouServer.Core;
 using YouYouServer.Model.IHandler;
 using YouYouServer.Model.ServerManager;
+using Vector3 = UnityEngine.Vector3;
 
 namespace YouYouServer.Model.ServerManager
 {
@@ -102,6 +104,33 @@ namespace YouYouServer.Model.ServerManager
         {
             m_CurrHandler.RemoveRole(roleClientBase,leaveSceneLineType);
         }
+
+        /// <summary>
+        /// 角色移动
+        /// </summary>
+        /// <param name="roleClientBase"></param>
+        /// <param name="targetPos"></param>
+        public void RoleMove(RoleClientBase roleClientBase,  YouYou.Proto.Vector3 targetPos)
+        {
+            m_CurrHandler.RoleMove(roleClientBase,targetPos);
+        }
+
+        /// <summary>
+        /// 角色待机
+        /// </summary>
+        /// <param name="roleClientBase"></param>
+        public void RoleIdle(RoleClientBase roleClientBase)
+        {
+            m_CurrHandler.RoleIdle(roleClientBase);
+        }
         
+        /// <summary>
+        /// 检查角色是否跨区域
+        /// </summary>
+        /// <param name="roleClientBase"></param>
+        public void CheckAreaChange(RoleClientBase roleClientBase)
+        {
+            m_CurrHandler.CheckAreaChange(roleClientBase);
+        }
     }
 }

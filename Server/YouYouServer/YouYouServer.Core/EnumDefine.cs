@@ -164,27 +164,27 @@ namespace YouYouServer.Core
         /// <summary>
         /// 未设置
         /// </summary>
-        None,
+        None = 0,
         /// <summary>
         /// 待机
         /// </summary>
-        Idle,
+        Idle = 1,
         /// <summary>
         /// 跑
         /// </summary>
-        Run,
+        Run = 2,
         /// <summary>
         /// 攻击
         /// </summary>
-        Attack,
+        Attack = 3,
         /// <summary>
         /// 受伤
         /// </summary>
-        Hurt,
+        Hurt = 4,
         /// <summary>
         /// 死亡
         /// </summary>
-        Die,
+        Die = 5,
     }
 
     public enum SearchRoleType : byte

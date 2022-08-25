@@ -28,6 +28,7 @@ namespace YouYouServer.HotFix.PVPHandler
                 && TimerManager.time >= m_PVPSceneSpawnMonsterPoint.NextSpwanTime)
             {
                 //刷怪
+                //设置怪的位置 ID 等信息
                 MonsterClient monsterClient = new MonsterClient
                 {
                     RoleId = UniqueIdUtil.GetUniqueId(),
@@ -36,7 +37,6 @@ namespace YouYouServer.HotFix.PVPHandler
                     CurrPos = m_PVPSceneSpawnMonsterPoint.BornPos
                 };
 
-                //设置怪的位置 ID 等信息
 
 
                 monsterClient.OnDie += () =>
