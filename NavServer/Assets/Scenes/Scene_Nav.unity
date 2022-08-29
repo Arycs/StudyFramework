@@ -19454,7 +19454,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Agent: {fileID: 123969202}
-  ServerIP: 192.168.1.7
+  ServerIP: 192.168.1.2
   ServerPort: 29001
   SceneSettings:
   - SceneId: 2
