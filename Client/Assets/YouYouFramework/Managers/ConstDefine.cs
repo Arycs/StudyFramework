@@ -16,7 +16,7 @@ namespace YouYou
         /// </summary>
         public const string ResourceVersion = "ResourceVersion";
 
-        /// <summary>
+        /// <summary>u
         /// 资源信息文件名称
         /// </summary>
         public const string AssetInfoName = "AssetInfo.bytes";

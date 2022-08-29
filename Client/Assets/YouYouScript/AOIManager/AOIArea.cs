@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using YouYou;
 
 public class AOIArea : MonoBehaviour
 {
@@ -106,5 +108,13 @@ public class AOIArea : MonoBehaviour
         }
 
         return aoiAreaData;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag(MyConstDefine.PlayerTag))
+        {
+            GameEntry.Data.RoleDataManager.PlayerEnterAOIArea(AreaId);
+        }
     }
 }

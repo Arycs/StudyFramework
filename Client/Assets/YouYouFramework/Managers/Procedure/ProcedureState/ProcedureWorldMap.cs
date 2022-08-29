@@ -53,6 +53,7 @@ namespace YouYou
                 GameEntry.Data.RoleDataManager.CurrPlayer = roleCtrl;
                 GameEntry.Data.RoleDataManager.CurrPlayer.IsPlayer = true;
                 GameEntry.Data.RoleDataManager.CurrPlayer.ServerRoleId = GameEntry.Data.UserDataManager.CurrRoleId;
+                GameEntry.Data.RoleDataManager.CurrPlayer.tag = MyConstDefine.PlayerTag;
                 
                 //设置角色位置
                 roleCtrl.transform.position = GameEntry.Data.UserDataManager.CurrPos;

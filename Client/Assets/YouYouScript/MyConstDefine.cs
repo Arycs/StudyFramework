@@ -4,4 +4,6 @@
 public static class MyConstDefine
 {
     public const string TargetPos = "targetPos";
+
+    public const string PlayerTag = "Player";
 }

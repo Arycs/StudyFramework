@@ -26,11 +26,13 @@ namespace YouYou.Proto {
           string.Concat(
             "ChBQcm90b19DMkdTLnByb3RvEgxZb3VZb3UuUHJvdG8aElByb3RvX0NvbW1v",
             "bi5wcm90byI6Cg5DMkdTX0NsaWNrTW92ZRIoCglUYXJnZXRQb3MYASABKAsy",
-            "FS5Zb3VZb3UuUHJvdG8uVmVjdG9yM2IGcHJvdG8z"));
+            "FS5Zb3VZb3UuUHJvdG8uVmVjdG9yMyIkChJDMkdTX0VudGVyX0FPSUFyZWES",
+            "DgoGQXJlYUlkGAEgASgFYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::YouYou.Proto.ProtoCommonReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::YouYou.Proto.C2GS_ClickMove), global::YouYou.Proto.C2GS_ClickMove.Parser, new[]{ "TargetPos" }, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::YouYou.Proto.C2GS_ClickMove), global::YouYou.Proto.C2GS_ClickMove.Parser, new[]{ "TargetPos" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::YouYou.Proto.C2GS_Enter_AOIArea), global::YouYou.Proto.C2GS_Enter_AOIArea.Parser, new[]{ "AreaId" }, null, null, null)
           }));
     }
     #endregion
@@ -173,6 +175,144 @@ namespace YouYou.Proto {
               TargetPos = new global::YouYou.Proto.Vector3();
             }
             input.ReadMessage(TargetPos);
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  /// <summary>
+  ///玩家向服务器发送进入AOI区域消息
+  /// </summary>
+  public sealed partial class C2GS_Enter_AOIArea : YouYou.IProto, pb::IMessage<C2GS_Enter_AOIArea> {
+    private static readonly pb::MessageParser<C2GS_Enter_AOIArea> _parser = new pb::MessageParser<C2GS_Enter_AOIArea>(() => new C2GS_Enter_AOIArea());
+    public ushort ProtoId => ProtoIdDefine.Proto_C2GS_Enter_AOIArea;
+    public string ProtoEnName => "C2GS_Enter_AOIArea";
+    public ProtoCategory Category => ProtoCategory.Client2GameServer;
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<C2GS_Enter_AOIArea> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::YouYou.Proto.ProtoC2GSReflection.Descriptor.MessageTypes[1]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public C2GS_Enter_AOIArea() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public C2GS_Enter_AOIArea(C2GS_Enter_AOIArea other) : this() {
+      areaId_ = other.areaId_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public C2GS_Enter_AOIArea Clone() {
+      return new C2GS_Enter_AOIArea(this);
+    }
+
+    /// <summary>Field number for the "AreaId" field.</summary>
+    public const int AreaIdFieldNumber = 1;
+    private int areaId_;
+    /// <summary>
+    ///场景编号
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int AreaId {
+      get { return areaId_; }
+      set {
+        areaId_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as C2GS_Enter_AOIArea);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(C2GS_Enter_AOIArea other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (AreaId != other.AreaId) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (AreaId != 0) hash ^= AreaId.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (AreaId != 0) {
+        output.WriteRawTag(8);
+        output.WriteInt32(AreaId);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (AreaId != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(AreaId);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(C2GS_Enter_AOIArea other) {
+      if (other == null) {
+        return;
+      }
+      if (other.AreaId != 0) {
+        AreaId = other.AreaId;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
+            AreaId = input.ReadInt32();
             break;
           }
         }

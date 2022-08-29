@@ -150,6 +150,7 @@ public class CameraCtrl : MonoBehaviour, IUpdateComponent
     public void AutoLookAt(Vector3 pos)
     {
         m_CameraZoomContainer.LookAt(pos);
+        Debug.LogError("=============================================>>>>>>>>>>>>>>>>>>>>");
     }
 
     /// <summary>

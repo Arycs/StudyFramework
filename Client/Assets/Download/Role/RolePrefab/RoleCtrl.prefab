@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6104501853990814668}
   - component: {fileID: -599107581099699410}
   - component: {fileID: 5986219043368045386}
+  - component: {fileID: 1719151305796890910}
   m_Layer: 11
   m_Name: RoleCtrl
   m_TagString: Untagged
@@ -59,7 +60,7 @@ NavMeshAgent:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 105809854884947679}
-  m_Enabled: 1
+  m_Enabled: 0
   m_AgentTypeID: 0
   m_Radius: 0.5
   m_Speed: 3.5
@@ -86,5 +87,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 300990ab3d3da2348b7e1d33f57a387e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SkinId: 0
+  ServerRoleId: 0
+  IsPlayer: 0
   MoveSpeed: 10
+--- !u!143 &1719151305796890910
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 105809854884947679}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 1, z: 0}

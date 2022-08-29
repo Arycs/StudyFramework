@@ -21,7 +21,7 @@ namespace YouYou
             GameEntry.Event.CommonEvent.AddEventListener(CommonEventId.OnSelectJobComplete,OnSelectJobComplete);
 
             //TODO 打开区服列表,选区之类的,这里直连一个区服
-            ConnectServer("192.168.1.7", 1304);
+            ConnectServer("192.168.1.2", 1304);
         }
 
         public override void OnUpdate()

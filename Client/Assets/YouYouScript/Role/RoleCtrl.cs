@@ -481,8 +481,11 @@ public class RoleCtrl : BaseSprite, IUpdateComponent
         }
 
         m_CurrRoleFsmManager.OnUpdate();
-        //摄像机跟随
-        GameEntry.CameraCtrl.transform.position = transform.position;
+        if (IsPlayer)
+        {
+            //摄像机跟随
+            GameEntry.CameraCtrl.transform.position = transform.position;
+        }
     }
 
     public void ClickMove(Vector3 targetPos)

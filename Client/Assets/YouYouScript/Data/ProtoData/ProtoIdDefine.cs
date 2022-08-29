@@ -10,6 +10,11 @@ public class ProtoIdDefine
     public const ushort Proto_C2GS_ClickMove = 14001;
 
     /// <summary>
+    /// 玩家向服务器发送进入AOI区域消息
+    /// </summary>
+    public const ushort Proto_C2GS_Enter_AOIArea = 14002;
+
+    /// <summary>
     /// 玩家向网关服务器注册客户端
     /// </summary>
     public const ushort Proto_C2GWS_RegClient = 10001;

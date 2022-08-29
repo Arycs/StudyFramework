@@ -133,7 +133,7 @@ public class RoleFsmRun : RoleFsmBase
     public void ClickMove(Vector3 targetPos)
     {
         m_CurrPointIndex = 1;
-
+        m_TurnComplete = false;
         //计算路径
         CurrFsm.Owner.CurrRoleCtrl.Agent.CalculatePath(targetPos, path);
 

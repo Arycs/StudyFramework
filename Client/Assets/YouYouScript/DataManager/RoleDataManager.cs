@@ -261,7 +261,15 @@ public class RoleDataManager : IDisposable
                 //如果这个角色正在跑 继续让他跑
                 if (data.Status == (int)MyCommonEnum.RoleFsmState.Run)
                 {
-                    roleCtrl.ClickMove(new UnityEngine.Vector3() { x = data.TargetPos.X, y = data.TargetPos.Y, z = data.TargetPos.Z });
+                    try
+                    {
+                        roleCtrl.ClickMove(new UnityEngine.Vector3() { x = data.TargetPos.X, y = data.TargetPos.Y, z = data.TargetPos.Z });
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e);
+                        throw;
+                    }
                 }
                 else
                 {
@@ -303,5 +311,16 @@ public class RoleDataManager : IDisposable
                     {x = proto.TargetPos.X, y = proto.TargetPos.Y, z = proto.TargetPos.Z});
             }
         }
+    }
+
+    /// <summary>
+    /// 玩家进入AOI区域
+    /// </summary>
+    /// <param name="areaId"></param>
+    public void PlayerEnterAOIArea(int areaId)
+    {
+        C2GS_Enter_AOIArea proto = new C2GS_Enter_AOIArea();
+        proto.AreaId = areaId;
+        GameEntry.Socket.SendMainMsg(proto);
     }
 }
