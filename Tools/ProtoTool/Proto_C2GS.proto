@@ -8,3 +8,9 @@ message C2GS_ClickMove
 {
 	Vector3 TargetPos = 1;//目标点
 }
+
+//玩家向服务器发送进入AOI区域消息
+message C2GS_Enter_AOIArea
+{
+	int32 AreaId = 1; //场景编号
+}
