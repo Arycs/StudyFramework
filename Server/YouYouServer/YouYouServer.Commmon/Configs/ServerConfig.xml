@@ -10,13 +10,13 @@
   <DataTablePath>E:\StudyFramework\Server\Release\DataTable</DataTablePath>
 
   <Servers>
-    <Item ServerType="0" ServerId="1" Ip="192.168.1.7" Port="1301" />    <!--ServerType = 0 中心服务器-->
+    <Item ServerType="0" ServerId="1" Ip="192.168.1.2" Port="1301" />    <!--ServerType = 0 中心服务器-->
 
-    <Item ServerType="1" ServerId="1" Ip="192.168.1.7" Port="1302" />    <!--ServerType = 1 游戏服务器1-->
+    <Item ServerType="1" ServerId="1" Ip="192.168.1.2" Port="1302" />    <!--ServerType = 1 游戏服务器1-->
 
-    <Item ServerType="2" ServerId="1" Ip="192.168.1.7" Port="1304" />    <!--ServerType = 2 网关服务器1-->
+    <Item ServerType="2" ServerId="1" Ip="192.168.1.2" Port="1304" />    <!--ServerType = 2 网关服务器1-->
 
-    <Item ServerType="3" ServerId="1" Ip="192.168.1.7" Port="29001" />    <!--ServerType = 3 寻路服务器-->
+    <Item ServerType="3" ServerId="1" Ip="192.168.1.2" Port="29001" />    <!--ServerType = 3 寻路服务器-->
   </Servers>
   <Scenes>
     <Item SceneId="2" ServerId="1" AOIJsonDataPath="E:\StudyFramework\Server\Release\SceneAOIJsonData\GameScene_DaLi.json"/>    <!--SceneId 场景ID,与客户端表格相关联 ServerId 游戏服-->
