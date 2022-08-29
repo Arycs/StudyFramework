@@ -259,5 +259,19 @@ namespace YouYouServer.HotFix
             m_PlayerForGameClient.CurrPos =
                 new UnityEngine.Vector3(proto.TargetPos.X, proto.TargetPos.Y, proto.TargetPos.Z);
         }
+
+        /// <summary>
+        /// 进入AOI区域
+        /// </summary>
+        /// <param name="buffer"></param>
+        [HandlerMessage(ProtoIdDefine.Proto_C2GS_Enter_AOIArea)]
+        private void EnterAOI(byte[] buffer)
+        {
+            var proto = (C2GS_Enter_AOIArea) C2GS_Enter_AOIArea.Descriptor.Parser.ParseFrom(buffer);
+            if (GameServerManager.CurrSceneManager.PVPSceneDic.TryGetValue(m_PlayerForGameClient.CurrSceneId, out var pvpScene))
+            {
+                pvpScene.DefaultSceneLine.RoleEnterNewArea(m_PlayerForGameClient,proto.AreaId);
+            }
+        }
     }
 }

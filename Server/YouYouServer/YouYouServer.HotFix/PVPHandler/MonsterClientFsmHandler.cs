@@ -44,7 +44,7 @@ namespace YouYouServer.HotFix.PVPHandler
         public void Idle_OnUpdate()
         {
             //待机 10 秒巡逻
-            if (TimerManager.time > m_MonsterClient.EnterIdleTime + 60)
+            if (TimerManager.time > m_MonsterClient.EnterIdleTime + 20)
             {
                 if (m_MonsterClient.IsPatrol)
                 {
@@ -153,7 +153,7 @@ namespace YouYouServer.HotFix.PVPHandler
             if (GameServerManager.CurrSceneManager.PVPSceneDic.TryGetValue(m_MonsterClient.CurrSceneId,
                 out var pvpScene))
             {
-                pvpScene.DefaultSceneLine.AOIAreaDic[m_MonsterClient.CurrAreaId].CheckAreaChange(m_MonsterClient);
+                pvpScene.DefaultSceneLine.AOIAreaDic[m_MonsterClient.CurrAreaId].CurrSceneLine.CheckAreaChange(m_MonsterClient);
             }
 
             if (dis >= UnityEngine.Vector3.Distance(m_MonsterClient.RunEndPos, m_MonsterClient.RunBeginPos))

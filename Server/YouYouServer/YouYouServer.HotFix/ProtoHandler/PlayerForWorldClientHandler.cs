@@ -178,7 +178,6 @@ namespace YouYouServer.HotFix
             m_PlayerForWorldClient.SendCarryToClient(retEnterGameComplete);
         }
 
-
         public void Dispose()
         {
             RemoveEventListener();

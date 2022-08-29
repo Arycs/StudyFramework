@@ -20,7 +20,6 @@ namespace YouYouServer.Model.IHandler
 
         void AddRole(RoleClientBase roleClientBase);
 
-        void RoleEnterSceneLine(RoleClientBase roleClient, PlayerForGameClient otherPlayer);
 
         void RemoveRole(RoleClientBase roleClientBase, LeaveSceneLineType leaveSceneLineType);
 
@@ -37,10 +36,5 @@ namespace YouYouServer.Model.IHandler
         /// <param name="roleClientBase"></param>
         void RoleIdle(RoleClientBase roleClientBase);
 
-        /// <summary>
-        /// 检查角色跨区域
-        /// </summary>
-        /// <param name="roleClientBase"></param>
-        void CheckAreaChange(RoleClientBase roleClientBase);
     }
 }

@@ -141,5 +141,34 @@ namespace YouYouServer.Model.ServerManager
             }
         }
 
+        
+        /// <summary>
+        /// 告诉其他玩家 我来了
+        /// </summary>
+        /// <param name="roleClient"></param>
+        /// <param name="otherPlayer"></param>
+        public void RoleEnterSceneLine(RoleClientBase roleClient, PlayerForGameClient otherPlayer)
+        {
+            m_CurrSyncHandler.RoleEnterSceneLine(roleClient,otherPlayer);
+        }
+        
+        /// <summary>
+        /// 检查角色是否跨区域
+        /// </summary>
+        /// <param name="roleClientBase"></param>
+        public void CheckAreaChange(RoleClientBase roleClientBase)
+        {
+            m_CurrSyncHandler.CheckAreaChange(roleClientBase);
+        }
+
+        /// <summary>
+        /// 角色进入新区域
+        /// </summary>
+        /// <param name="roleClientBase"></param>
+        /// <param name="areaId"></param>
+        public void RoleEnterNewArea(RoleClientBase roleClientBase, int areaId)
+        {
+            m_CurrSyncHandler.RoleEnterNewArea(roleClientBase,areaId);
+        }
     }
 }

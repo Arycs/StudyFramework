@@ -85,15 +85,7 @@ namespace YouYouServer.Model.ServerManager
             m_CurrHandler.AddRole(roleClientBase);
         }
 
-        /// <summary>
-        /// 告诉其他玩家 我来了
-        /// </summary>
-        /// <param name="roleClient"></param>
-        /// <param name="otherPlayer"></param>
-        private void RoleEnterSceneLine(RoleClientBase roleClient, PlayerForGameClient otherPlayer)
-        {
-            m_CurrHandler.RoleEnterSceneLine(roleClient,otherPlayer);
-        }
+        
 
         /// <summary>
         /// 移除角色
@@ -124,13 +116,5 @@ namespace YouYouServer.Model.ServerManager
             m_CurrHandler.RoleIdle(roleClientBase);
         }
         
-        /// <summary>
-        /// 检查角色是否跨区域
-        /// </summary>
-        /// <param name="roleClientBase"></param>
-        public void CheckAreaChange(RoleClientBase roleClientBase)
-        {
-            m_CurrHandler.CheckAreaChange(roleClientBase);
-        }
     }
 }
