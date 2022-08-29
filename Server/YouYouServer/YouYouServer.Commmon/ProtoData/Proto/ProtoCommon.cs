@@ -26,11 +26,14 @@ namespace YouYou.Proto {
           string.Concat(
             "ChJQcm90b19Db21tb24ucHJvdG8SDFlvdVlvdS5Qcm90byIqCgdWZWN0b3Iz",
             "EgkKAXgYASABKAISCQoBeRgCIAEoAhIJCgF6GAMgASgCKiMKCFJvbGVUeXBl",
-            "EgoKBlBsYXllchAAEgsKB01vbnN0ZXIQASopChJMZWF2ZVNjZW5lTGluZVR5",
-            "cGUSCgoGTm9ybWFsEAASBwoDRGllEAFiBnByb3RvMw=="));
+            "EgoKBlBsYXllchAAEgsKB01vbnN0ZXIQASouCgtPZmZsaW5lVHlwZRISCg5T",
+            "ZXJ2ZXJNYWludGFpbhAAEgsKB1JlcGxhY2UQASopChJMZWF2ZVNjZW5lTGlu",
+            "ZVR5cGUSCgoGTm9ybWFsEAASBwoDRGllEAEqRQoQUGxheWVyQWN0aW9uVHlw",
+            "ZRINCglDbGlja01vdmUQABIQCgxKb3lzdGlja01vdmUQARIQCgxKb3lzdGlj",
+            "a1N0b3AQAmIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
-          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::YouYou.Proto.RoleType), typeof(global::YouYou.Proto.LeaveSceneLineType), }, new pbr::GeneratedClrTypeInfo[] {
+          new pbr::GeneratedClrTypeInfo(new[] {typeof(global::YouYou.Proto.RoleType), typeof(global::YouYou.Proto.OfflineType), typeof(global::YouYou.Proto.LeaveSceneLineType), typeof(global::YouYou.Proto.PlayerActionType), }, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::YouYou.Proto.Vector3), global::YouYou.Proto.Vector3.Parser, new[]{ "X", "Y", "Z" }, null, null, null)
           }));
     }
@@ -52,6 +55,23 @@ namespace YouYou.Proto {
     [pbr::OriginalName("Monster")] Monster = 1,
   }
 
+  /// <summary>
+  ///玩家下线类型
+  /// </summary>
+  public enum OfflineType {
+    /// <summary>
+    ///服务器维护
+    /// </summary>
+    [pbr::OriginalName("ServerMaintain")] ServerMaintain = 0,
+    /// <summary>
+    ///顶下线
+    /// </summary>
+    [pbr::OriginalName("Replace")] Replace = 1,
+  }
+
+  /// <summary>
+  ///离开场景线类型
+  /// </summary>
   public enum LeaveSceneLineType {
     /// <summary>
     ///普通
@@ -61,6 +81,24 @@ namespace YouYou.Proto {
     ///死亡
     /// </summary>
     [pbr::OriginalName("Die")] Die = 1,
+  }
+
+  /// <summary>
+  ///玩家操作类型
+  /// </summary>
+  public enum PlayerActionType {
+    /// <summary>
+    ///点击移动
+    /// </summary>
+    [pbr::OriginalName("ClickMove")] ClickMove = 0,
+    /// <summary>
+    ///摇杆移动
+    /// </summary>
+    [pbr::OriginalName("JoystickMove")] JoystickMove = 1,
+    /// <summary>
+    ///摇杆抬起
+    /// </summary>
+    [pbr::OriginalName("JoystickStop")] JoystickStop = 2,
   }
 
   #endregion

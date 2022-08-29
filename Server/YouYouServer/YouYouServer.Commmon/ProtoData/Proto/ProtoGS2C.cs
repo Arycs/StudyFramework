@@ -41,11 +41,13 @@ namespace YouYou.Proto {
             "CghSb2xlTGlzdBgBIAMoCzIlLllvdVlvdS5Qcm90by5XUzJDX1NjZW5lTGlu",
             "ZVJvbGVfREFUQSJtCh1HUzJDX1JldHVyblJvbGVMZWF2ZVNjZW5lTGluZRIO",
             "CgZSb2xlSWQYASABKAMSPAoSbGVhdmVTY2VuZUxpbmVUeXBlGAIgASgOMiAu",
-            "WW91WW91LlByb3RvLkxlYXZlU2NlbmVMaW5lVHlwZSKyAQoaR1MyQ19SZXR1",
+            "WW91WW91LlByb3RvLkxlYXZlU2NlbmVMaW5lVHlwZSL4AQoaR1MyQ19SZXR1",
             "cm5Sb2xlQ2hhbmdlU3RhdGUSDgoGUm9sZUlkGAEgASgDEg4KBlN0YXR1cxgC",
             "IAEoBRIPCgdTa2lsbElkGAMgASgFEiYKB0N1cnJQb3MYBCABKAsyFS5Zb3VZ",
             "b3UuUHJvdG8uVmVjdG9yMxIRCglSb3RhdGlvblkYBSABKAISKAoJVGFyZ2V0",
-            "UG9zGAYgASgLMhUuWW91WW91LlByb3RvLlZlY3RvcjNiBnByb3RvMw=="));
+            "UG9zGAYgASgLMhUuWW91WW91LlByb3RvLlZlY3RvcjMSEAoIUnVuU3BlZWQY",
+            "ByABKAISMgoKQWN0aW9uVHlwZRgIIAEoDjIeLllvdVlvdS5Qcm90by5QbGF5",
+            "ZXJBY3Rpb25UeXBlYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::YouYou.Proto.ProtoCommonReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
@@ -54,7 +56,7 @@ namespace YouYou.Proto {
             new pbr::GeneratedClrTypeInfo(typeof(global::YouYou.Proto.GS2C_ReturnSceneLineRoleList), global::YouYou.Proto.GS2C_ReturnSceneLineRoleList.Parser, new[]{ "RoleList" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::YouYou.Proto.GS2C_ReturnRoleEnterSceneLine), global::YouYou.Proto.GS2C_ReturnRoleEnterSceneLine.Parser, new[]{ "RoleList" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::YouYou.Proto.GS2C_ReturnRoleLeaveSceneLine), global::YouYou.Proto.GS2C_ReturnRoleLeaveSceneLine.Parser, new[]{ "RoleId", "LeaveSceneLineType" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::YouYou.Proto.GS2C_ReturnRoleChangeState), global::YouYou.Proto.GS2C_ReturnRoleChangeState.Parser, new[]{ "RoleId", "Status", "SkillId", "CurrPos", "RotationY", "TargetPos" }, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::YouYou.Proto.GS2C_ReturnRoleChangeState), global::YouYou.Proto.GS2C_ReturnRoleChangeState.Parser, new[]{ "RoleId", "Status", "SkillId", "CurrPos", "RotationY", "TargetPos", "RunSpeed", "ActionType" }, null, null, null)
           }));
     }
     #endregion
@@ -299,7 +301,7 @@ namespace YouYou.Proto {
   }
 
   /// <summary>
-  ///服务器返回场景线中角色列表消息[c#]
+  ///服务器返回场景线中角色列表消息[c#][lua]
   /// </summary>
   public sealed partial class WS2C_SceneLineRole_DATA : YouYou.IProto, pb::IMessage<WS2C_SceneLineRole_DATA> {
     private static readonly pb::MessageParser<WS2C_SceneLineRole_DATA> _parser = new pb::MessageParser<WS2C_SceneLineRole_DATA>(() => new WS2C_SceneLineRole_DATA());
@@ -852,7 +854,7 @@ namespace YouYou.Proto {
   }
 
   /// <summary>
-  ///服务器返回场景线中角色列表消息[c#]
+  ///服务器返回场景线中角色列表消息[c#][lua]
   /// </summary>
   public sealed partial class GS2C_ReturnSceneLineRoleList : YouYou.IProto, pb::IMessage<GS2C_ReturnSceneLineRoleList> {
     private static readonly pb::MessageParser<GS2C_ReturnSceneLineRoleList> _parser = new pb::MessageParser<GS2C_ReturnSceneLineRoleList>(() => new GS2C_ReturnSceneLineRoleList());
@@ -1317,6 +1319,8 @@ namespace YouYou.Proto {
       currPos_ = other.currPos_ != null ? other.currPos_.Clone() : null;
       rotationY_ = other.rotationY_;
       targetPos_ = other.targetPos_ != null ? other.targetPos_.Clone() : null;
+      runSpeed_ = other.runSpeed_;
+      actionType_ = other.actionType_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -1409,6 +1413,34 @@ namespace YouYou.Proto {
       }
     }
 
+    /// <summary>Field number for the "RunSpeed" field.</summary>
+    public const int RunSpeedFieldNumber = 7;
+    private float runSpeed_;
+    /// <summary>
+    ///移动速度
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public float RunSpeed {
+      get { return runSpeed_; }
+      set {
+        runSpeed_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "ActionType" field.</summary>
+    public const int ActionTypeFieldNumber = 8;
+    private global::YouYou.Proto.PlayerActionType actionType_ = 0;
+    /// <summary>
+    ///玩家操作方式
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::YouYou.Proto.PlayerActionType ActionType {
+      get { return actionType_; }
+      set {
+        actionType_ = value;
+      }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as GS2C_ReturnRoleChangeState);
@@ -1428,6 +1460,8 @@ namespace YouYou.Proto {
       if (!object.Equals(CurrPos, other.CurrPos)) return false;
       if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(RotationY, other.RotationY)) return false;
       if (!object.Equals(TargetPos, other.TargetPos)) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(RunSpeed, other.RunSpeed)) return false;
+      if (ActionType != other.ActionType) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -1440,6 +1474,8 @@ namespace YouYou.Proto {
       if (currPos_ != null) hash ^= CurrPos.GetHashCode();
       if (RotationY != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(RotationY);
       if (targetPos_ != null) hash ^= TargetPos.GetHashCode();
+      if (RunSpeed != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(RunSpeed);
+      if (ActionType != 0) hash ^= ActionType.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -1477,6 +1513,14 @@ namespace YouYou.Proto {
         output.WriteRawTag(50);
         output.WriteMessage(TargetPos);
       }
+      if (RunSpeed != 0F) {
+        output.WriteRawTag(61);
+        output.WriteFloat(RunSpeed);
+      }
+      if (ActionType != 0) {
+        output.WriteRawTag(64);
+        output.WriteEnum((int) ActionType);
+      }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -1502,6 +1546,12 @@ namespace YouYou.Proto {
       }
       if (targetPos_ != null) {
         size += 1 + pb::CodedOutputStream.ComputeMessageSize(TargetPos);
+      }
+      if (RunSpeed != 0F) {
+        size += 1 + 4;
+      }
+      if (ActionType != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeEnumSize((int) ActionType);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -1537,6 +1587,12 @@ namespace YouYou.Proto {
           TargetPos = new global::YouYou.Proto.Vector3();
         }
         TargetPos.MergeFrom(other.TargetPos);
+      }
+      if (other.RunSpeed != 0F) {
+        RunSpeed = other.RunSpeed;
+      }
+      if (other.ActionType != 0) {
+        ActionType = other.ActionType;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -1577,6 +1633,14 @@ namespace YouYou.Proto {
               TargetPos = new global::YouYou.Proto.Vector3();
             }
             input.ReadMessage(TargetPos);
+            break;
+          }
+          case 61: {
+            RunSpeed = input.ReadFloat();
+            break;
+          }
+          case 64: {
+            ActionType = (global::YouYou.Proto.PlayerActionType) input.ReadEnum();
             break;
           }
         }

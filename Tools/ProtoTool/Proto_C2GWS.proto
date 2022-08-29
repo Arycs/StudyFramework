@@ -20,3 +20,10 @@ message C2GWS_EnterScene
 {
     int32 SceneId = 1;//场景编号
 }
+
+//玩家向网关服务器发送心跳消息
+message C2GWS_Heartbeat
+{
+	int64 Time = 1;//时间
+	int32 Ping = 2;//
+}

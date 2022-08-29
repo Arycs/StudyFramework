@@ -18,8 +18,9 @@ public sealed class SocketProtoListener
         GameEntry.Event.SocketEvent.AddEventListener(ProtoIdDefine.Proto_GS2C_ReturnRoleLeaveSceneLine, GS2C_ReturnRoleLeaveSceneLineHandler.OnHandler);
         GameEntry.Event.SocketEvent.AddEventListener(ProtoIdDefine.Proto_GS2C_ReturnRoleChangeState, GS2C_ReturnRoleChangeStateHandler.OnHandler);
         GameEntry.Event.SocketEvent.AddEventListener(ProtoIdDefine.Proto_GWS2C_ReturnRegClient, GWS2C_ReturnRegClientHandler.OnHandler);
+        GameEntry.Event.SocketEvent.AddEventListener(ProtoIdDefine.Proto_GWS2C_Heartbeat, GWS2C_HeartbeatHandler.OnHandler);
+        GameEntry.Event.SocketEvent.AddEventListener(ProtoIdDefine.Proto_GWS2C_ReturnOffline, GWS2C_ReturnOfflineHandler.OnHandler);
         GameEntry.Event.SocketEvent.AddEventListener(ProtoIdDefine.Proto_WS2C_ReturnCreateRole, WS2C_ReturnCreateRoleHandler.OnHandler);
-        GameEntry.Event.SocketEvent.AddEventListener(ProtoIdDefine.Proto_WS2C_ReturnRoleList, WS2C_ReturnRoleListHandler.OnHandler);
         GameEntry.Event.SocketEvent.AddEventListener(ProtoIdDefine.Proto_WS2C_ReturnRoleInfo, WS2C_ReturnRoleInfoHandler.OnHandler);
         GameEntry.Event.SocketEvent.AddEventListener(ProtoIdDefine.Proto_WS2C_ReturnEnterGameComplete, WS2C_ReturnEnterGameCompleteHandler.OnHandler);
     }
@@ -36,8 +37,9 @@ public sealed class SocketProtoListener
         GameEntry.Event.SocketEvent.RemoveEventListener(ProtoIdDefine.Proto_GS2C_ReturnRoleLeaveSceneLine, GS2C_ReturnRoleLeaveSceneLineHandler.OnHandler);
         GameEntry.Event.SocketEvent.RemoveEventListener(ProtoIdDefine.Proto_GS2C_ReturnRoleChangeState, GS2C_ReturnRoleChangeStateHandler.OnHandler);
         GameEntry.Event.SocketEvent.RemoveEventListener(ProtoIdDefine.Proto_GWS2C_ReturnRegClient, GWS2C_ReturnRegClientHandler.OnHandler);
+        GameEntry.Event.SocketEvent.RemoveEventListener(ProtoIdDefine.Proto_GWS2C_Heartbeat, GWS2C_HeartbeatHandler.OnHandler);
+        GameEntry.Event.SocketEvent.RemoveEventListener(ProtoIdDefine.Proto_GWS2C_ReturnOffline, GWS2C_ReturnOfflineHandler.OnHandler);
         GameEntry.Event.SocketEvent.RemoveEventListener(ProtoIdDefine.Proto_WS2C_ReturnCreateRole, WS2C_ReturnCreateRoleHandler.OnHandler);
-        GameEntry.Event.SocketEvent.RemoveEventListener(ProtoIdDefine.Proto_WS2C_ReturnRoleList, WS2C_ReturnRoleListHandler.OnHandler);
         GameEntry.Event.SocketEvent.RemoveEventListener(ProtoIdDefine.Proto_WS2C_ReturnRoleInfo, WS2C_ReturnRoleInfoHandler.OnHandler);
         GameEntry.Event.SocketEvent.RemoveEventListener(ProtoIdDefine.Proto_WS2C_ReturnEnterGameComplete, WS2C_ReturnEnterGameCompleteHandler.OnHandler);
     }

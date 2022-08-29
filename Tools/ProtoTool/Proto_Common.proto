@@ -16,8 +16,24 @@ enum RoleType
 	Monster = 1; //怪
 }
 
+//玩家下线类型
+enum OfflineType
+{
+	ServerMaintain = 0;//服务器维护
+	Replace = 1;//顶下线
+}
+
+//离开场景线类型
 enum LeaveSceneLineType
 {
-	Normal = 0; //普通
-	Die = 1; //死亡
+	Normal = 0;//普通
+	Die = 1;//死亡
+}
+
+//玩家操作类型
+enum PlayerActionType
+{
+	ClickMove = 0;//点击移动
+	JoystickMove = 1;//摇杆移动
+	JoystickStop = 2;//摇杆抬起
 }

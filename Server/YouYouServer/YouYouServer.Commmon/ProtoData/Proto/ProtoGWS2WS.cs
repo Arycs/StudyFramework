@@ -329,7 +329,7 @@ namespace YouYou.Proto {
     public const int AccountIdFieldNumber = 1;
     private long accountId_;
     /// <summary>
-    ///角色账号
+    ///玩家账号
     /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public long AccountId {
