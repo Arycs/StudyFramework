@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 using YouYou.Proto;
+using YouYouServer.Commmon;
 using YouYouServer.Common;
 using YouYouServer.Core;
 
@@ -15,6 +16,13 @@ namespace YouYouServer.Model
         /// </summary>
         private Dictionary<long, Action<NS2GS_ReturnNavPath>> m_ReturnNavPathDic;
 
+        private ServerTimer tickTime;
+
+        /// <summary>
+        /// PingValue
+        /// </summary>
+        public int PingValue;
+        
         public GameConnectNavAgent()
         {
             m_ReturnNavPathDic = new Dictionary<long, Action<NS2GS_ReturnNavPath>>();
@@ -41,8 +49,27 @@ namespace YouYouServer.Model
         {
             TargetServerConnect.Connect(onConnectSuccess: () =>
             {
+                tickTime = new ServerTimer(ServerTimerRunType.FixedInterval, OnTick, interval: 2);
+                TimerManager.RegisterServerTimer(tickTime);
+                
                 onComplete?.Invoke();
             });
+
+            TargetServerConnect.ClientSocket.OnDisConnect = () =>
+            {
+                TimerManager.RemoveServerTimer(tickTime);
+            };
+        }
+
+        /// <summary>
+        /// 发送心跳到寻路服务器
+        /// </summary>
+        private void OnTick()
+        {
+            GS2NS_Heartbeat proto = new GS2NS_Heartbeat();
+            proto.ServerTime = DateTime.UtcNow.Ticks;
+            proto.Ping = PingValue;
+            TargetServerConnect.ClientSocket.SendMsg(proto);
         }
 
         #endregion
@@ -51,6 +78,15 @@ namespace YouYouServer.Model
         {
             base.AddEventListener();
             TargetServerConnect.EventDispatcher.AddEventListener(ProtoIdDefine.Proto_NS2GS_ReturnNavPath, OnNS2GS_ReturnNavPath);
+            TargetServerConnect.EventDispatcher.AddEventListener(ProtoIdDefine.Proto_NS2GS_Heartbeat, OnNS2GS_Heartbeat);
+
+        }
+
+        private void OnNS2GS_Heartbeat(byte[] buffer)
+        {
+            NS2GS_Heartbeat proto = NS2GS_Heartbeat.Parser.ParseFrom(buffer);
+            PingValue = (int) ((DateTime.UtcNow.Ticks - proto.ServerTime) * 0.5f / 10000);
+            Console.WriteLine($"GS PING {PingValue} ");
         }
 
         public void GetNavPath(int sceneId, UnityEngine.Vector3 beginPos, UnityEngine.Vector3 endPos, Action<NS2GS_ReturnNavPath> onComplete)
@@ -90,6 +126,8 @@ namespace YouYouServer.Model
         {
             base.RemoveEventListener();
             TargetServerConnect.EventDispatcher.RemoveEventListener(ProtoIdDefine.Proto_NS2GS_ReturnNavPath, OnNS2GS_ReturnNavPath);
+            TargetServerConnect.EventDispatcher.RemoveEventListener(ProtoIdDefine.Proto_NS2GS_Heartbeat, OnNS2GS_Heartbeat);
+
         }
     }
 }

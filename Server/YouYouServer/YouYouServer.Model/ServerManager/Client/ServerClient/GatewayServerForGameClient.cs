@@ -1,4 +1,5 @@
 ﻿using System;
+using YouYou.Proto;
 using YouYouServer.Common;
 using YouYouServer.Core;
 
@@ -9,6 +10,12 @@ namespace YouYouServer.Model
     /// </summary>
     public class GatewayServerForGameClient : ServerClientBase
     {
+        
+        /// <summary>
+        /// PingValue
+        /// </summary>
+        public int PingValue;
+        
         /// <summary>
         /// 当前网关服务器客户端状态
         /// </summary>
@@ -31,6 +38,34 @@ namespace YouYouServer.Model
             
             Console.WriteLine("作为游戏服务器的网关服务器客户端 初始化完毕");
             AddEventListener();
+        }
+
+        /// <summary>
+        /// 监听游戏服务器发来的消息
+        /// </summary>
+        public override void AddEventListener()
+        {
+            base.AddEventListener();
+            CurrServerClient.EventDispatcher.AddEventListener(ProtoIdDefine.Proto_GWS2GS_Heartbeat,OnGWS2GS_Heartbeat);
+        }
+
+        /// <summary>
+        /// 移除监听
+        /// </summary>
+        public override void RemoveEventListener()
+        {
+            base.RemoveEventListener();
+            CurrServerClient.EventDispatcher.RemoveEventListener(ProtoIdDefine.Proto_GWS2GS_Heartbeat,OnGWS2GS_Heartbeat);
+        }
+
+        private void OnGWS2GS_Heartbeat(byte[] buffer)
+        {
+            GWS2GS_Heartbeat proto = GWS2GS_Heartbeat.Parser.ParseFrom(buffer);
+            PingValue = proto.Ping;
+
+            GS2GWS_Heartbeat retProto = new GS2GWS_Heartbeat();
+            retProto.ServerTime = proto.ServerTime;
+            CurrServerClient.ClientSocket.SendMsg(retProto);
         }
 
         /// <summary>
@@ -65,20 +100,5 @@ namespace YouYouServer.Model
             }
         }
 
-        /// <summary>
-        /// 监听游戏服务器发来的消息
-        /// </summary>
-        public override void AddEventListener()
-        {
-            base.AddEventListener();
-        }
-
-        /// <summary>
-        /// 移除监听
-        /// </summary>
-        public override void RemoveEventListener()
-        {
-            base.RemoveEventListener();
-        }
     }
 }

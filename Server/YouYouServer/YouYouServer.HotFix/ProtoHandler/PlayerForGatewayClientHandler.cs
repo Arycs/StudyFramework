@@ -80,7 +80,26 @@ namespace YouYouServer.HotFix
             m_HandlerMessageDic = null;
         }
         #endregion
-        
+
+
+        /// <summary>
+        /// 玩家向网关服务器发送心跳消息
+        /// </summary>
+        /// <param name="buffer"></param>
+        [HandlerMessage(ProtoIdDefine.Proto_C2GWS_Heartbeat)]
+        private void OnC2GWS_Heartbeat(byte[] buffer)
+        {
+            C2GWS_Heartbeat proto = C2GWS_Heartbeat.Parser.ParseFrom(buffer);
+
+            long serverTime = YFDateTimeUtil.GetServerTime();
+            m_PlayerForGatewayClient.PingValue = proto.Ping;
+
+            GWS2C_Heartbeat retProto = new GWS2C_Heartbeat();
+            retProto.Time = proto.Time;
+            retProto.ServerTime = serverTime;
+            m_PlayerForGatewayClient.ClientSocket.SendMsg(retProto);
+        }
+
         #region OnC2GWS_RegClient
 
         [HandlerMessage(ProtoIdDefine.Proto_C2GWS_RegClient)]

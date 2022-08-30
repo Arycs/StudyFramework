@@ -11,6 +11,13 @@ namespace YouYouServer.Model
     /// </summary>
     public class GatewayConnectGameAgent : ConnectAgentBase
     {
+        private ServerTimer tickTime;
+
+        /// <summary>
+        /// PingValue
+        /// </summary>
+        public int PingValue;
+        
         public GatewayConnectGameAgent(ServerConfig.Server server)
         {
             TargetServerConfig = server;
@@ -60,6 +67,7 @@ namespace YouYouServer.Model
         public override void AddEventListener()
         {
             base.AddEventListener();
+            TargetServerConnect.EventDispatcher.AddEventListener(ProtoIdDefine.Proto_GS2GWS_Heartbeat,OnGS2GWS_Heartbeat);
         }
 
         /// <summary>
@@ -68,6 +76,14 @@ namespace YouYouServer.Model
         public override void RemoveEventListener()
         {
             base.RemoveEventListener();
+            TargetServerConnect.EventDispatcher.RemoveEventListener(ProtoIdDefine.Proto_GS2GWS_Heartbeat,OnGS2GWS_Heartbeat);
+        }
+
+        private void OnGS2GWS_Heartbeat(byte[] buffer)
+        {
+            GS2GWS_Heartbeat proto = GS2GWS_Heartbeat.Parser.ParseFrom(buffer);
+            PingValue = (int) ((DateTime.UtcNow.Ticks - proto.ServerTime) * 0.5f / 10000);
+            Console.WriteLine($"GWS PING {PingValue}");
         }
 
         #region RegisterToGameServer 注册到游戏服务器
@@ -78,6 +94,9 @@ namespace YouYouServer.Model
         {
             TargetServerConnect.Connect(onConnectSuccess: () =>
             {
+                tickTime = new ServerTimer(ServerTimerRunType.FixedInterval, OnTick, interval: 2);
+                TimerManager.RegisterServerTimer(tickTime);
+                
                 //告诉游戏服务器 我是谁
                 GWS2GS_RegGatewayServer proto = new GWS2GS_RegGatewayServer();
                 proto.ServerId = GatewayServerManager.CurrServer.ServerId;
@@ -85,9 +104,21 @@ namespace YouYouServer.Model
             });
             TargetServerConnect.ClientSocket.OnDisConnect = () =>
             {
-                
+                TimerManager.RemoveServerTimer(tickTime);
             };
         }
+
+        /// <summary>
+        /// 发送心跳到游戏服务器
+        /// </summary>
+        private void OnTick()
+        {
+            GWS2GS_Heartbeat proto = new GWS2GS_Heartbeat();
+            proto.ServerTime = DateTime.UtcNow.Ticks;
+            proto.Ping = PingValue;
+            TargetServerConnect.ClientSocket.SendMsg(proto);
+        }
+
         #endregion
     }
 }
