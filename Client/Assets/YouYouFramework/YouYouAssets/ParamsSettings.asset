@@ -59,3 +59,7 @@ MonoBehaviour:
     LowValue: 30
     MidleValue: 60
     HighValue: 120
+  - Key: HeartbeatInterval
+    LowValue: 300
+    MidleValue: 120
+    HighValue: 60

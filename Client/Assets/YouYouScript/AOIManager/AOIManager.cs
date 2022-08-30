@@ -76,7 +76,7 @@ public class AOIManager : MonoBehaviour
             item.Value.SetConnectArea();
         }
     }
-
+    
     [Button("Create AOI Json Data")]
     private void CreateAOIAreaData()
     {

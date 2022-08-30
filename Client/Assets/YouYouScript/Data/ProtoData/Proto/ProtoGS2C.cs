@@ -301,7 +301,7 @@ namespace YouYou.Proto {
   }
 
   /// <summary>
-  ///服务器返回场景线中角色列表消息[c#][lua]
+  ///服务器返回场景线中角色列表消息[c#]
   /// </summary>
   public sealed partial class WS2C_SceneLineRole_DATA : YouYou.IProto, pb::IMessage<WS2C_SceneLineRole_DATA> {
     private static readonly pb::MessageParser<WS2C_SceneLineRole_DATA> _parser = new pb::MessageParser<WS2C_SceneLineRole_DATA>(() => new WS2C_SceneLineRole_DATA());
@@ -854,7 +854,7 @@ namespace YouYou.Proto {
   }
 
   /// <summary>
-  ///服务器返回场景线中角色列表消息[c#][lua]
+  ///服务器返回场景线中角色列表消息[c#]
   /// </summary>
   public sealed partial class GS2C_ReturnSceneLineRoleList : YouYou.IProto, pb::IMessage<GS2C_ReturnSceneLineRoleList> {
     private static readonly pb::MessageParser<GS2C_ReturnSceneLineRoleList> _parser = new pb::MessageParser<GS2C_ReturnSceneLineRoleList>(() => new GS2C_ReturnSceneLineRoleList());

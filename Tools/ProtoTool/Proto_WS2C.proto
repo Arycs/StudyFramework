@@ -10,7 +10,7 @@ message WS2C_ReturnCreateRole
     int64 RoleId = 2;//角色编号
 }
 
-//服务器返回已有角色消息[lua]
+//服务器返回已有角色消息[c#]
 message WS2C_ReturnRoleList
 {
 	message WS2C_ReturnRoleList_Item

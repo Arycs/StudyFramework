@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using YouYou.Proto;
 
 namespace YouYou
 {
@@ -57,6 +58,11 @@ namespace YouYou
             get;
             private set;
         }
+        
+        /// <summary>
+        /// 游戏服务器的时间
+        /// </summary>
+        public long LastServerTime;
 
         /// <summary>
         /// SocketTcp访问器的链表
@@ -71,6 +77,9 @@ namespace YouYou
 
         public override void Init()
         {
+            HeartbeatInterval =
+                GameEntry.ParamsSettings.GetGradeParamData(ConstDefine.HeartbeatInterval, GameEntry.CurrDeviceGrade);
+            
             m_MainSocket = CreateSocketTcpRoutine();
             SocketProtoListener.AddProtoListener();
         }
@@ -115,18 +124,11 @@ namespace YouYou
                 {
                     //发送心跳包
                     m_PrevHeartbeatTime = Time.realtimeSinceStartup;
-                    //以下是链接服务器使用,目前没链接服务器先注释掉
-                    //System_HeartbeatProto proto = new System_HeartbeatProto();
-                    //proto.LocalTime = Time.realtimeSinceStartup * 1000;
-                    //CheckServerTime = Time.realtimeSinceStartup; // 和服务器对表的时刻
-                    //SendMsg(proto);
 
-                    //接收心跳包, 这里改放到消息的Handler中
-                    //float localTime = proto.LocalTime;
-                    //long serverTime = proto.ServerTime;
-
-                    //GameEntry.Socket.PingValue = (int) ((Time.realtimeSinceStartup * 1000 - localTime) * 0.5f); //Ping值
-                    //GameEntry.Socket.GameServerTime = serverTime - GameEntry.Socket.PingValue; // 客户端计算出来的服务器时间
+                    C2GWS_Heartbeat proto = new C2GWS_Heartbeat();
+                    proto.Time = DateTime.UtcNow.Ticks;
+                    proto.Ping = PingValue;
+                    SendMainMsg(proto);
                 }
             }
         }
@@ -141,6 +143,7 @@ namespace YouYou
         /// </summary>
         /// <param name="ip"></param>
         /// <param name="port"></param>
+        /// <param name="onConnectComplete"></param>
         public void ConnectToMainSocket(string ip, int port, BaseAction<bool> onConnectComplete)
         {
             m_MainSocket.Connect(ip, port, (bool result) =>

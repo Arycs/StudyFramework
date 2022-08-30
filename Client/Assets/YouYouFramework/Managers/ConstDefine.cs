@@ -100,5 +100,10 @@ namespace YouYou
         /// UI清理间隔
         /// </summary>
         public const string UI_ClearInterval = "UI_ClearInterval";
+
+        /// <summary>
+        /// 心跳间隔
+        /// </summary>
+        public const string HeartbeatInterval = "HeartbeatInterval";
     }                       
 }                           

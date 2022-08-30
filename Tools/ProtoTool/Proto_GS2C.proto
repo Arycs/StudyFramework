@@ -12,7 +12,7 @@ message GS2C_ReturnEnterScene_Apply
 	float RotationY = 4;//旋转
 }
 
-//服务器返回场景线中角色列表消息[c#][lua]
+//服务器返回场景线中角色列表消息[c#]
 message WS2C_SceneLineRole_DATA
 {
 	RoleType RoleType = 1;//角色类型
@@ -31,7 +31,7 @@ message WS2C_SceneLineRole_DATA
 	int32 MaxMP = 14;//最大MP
 }
 	
-//服务器返回场景线中角色列表消息[c#][lua]
+//服务器返回场景线中角色列表消息[c#]
 message GS2C_ReturnSceneLineRoleList
 {
 	repeated WS2C_SceneLineRole_DATA RoleList = 1;//角色列表
