@@ -44,6 +44,16 @@ public class ServerClient
     private void AddEventListener()
     {
         EventDispatcher.AddEventListener(ProtoIdDefine.Proto_GS2NS_GetNavPath, OnGS2NS_GetNavPath);
+        EventDispatcher.AddEventListener(ProtoIdDefine.Proto_GS2NS_Heartbeat, OnGS2NS_Heartbeat);
+    }
+
+    private void OnGS2NS_Heartbeat(byte[] buffer)
+    {
+        GS2NS_Heartbeat proto = GS2NS_Heartbeat.Parser.ParseFrom(buffer);
+
+        NS2GS_Heartbeat retProto = new NS2GS_Heartbeat();
+        retProto.ServerTime = DateTime.UtcNow.Ticks;
+        ClientSocket.SendMsg(retProto);
     }
 
     private void OnGS2NS_GetNavPath(byte[] buffer)

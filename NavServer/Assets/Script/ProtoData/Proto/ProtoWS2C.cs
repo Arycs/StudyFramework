@@ -219,7 +219,7 @@ namespace YouYou.Proto {
   }
 
   /// <summary>
-  ///服务器返回已有角色消息[c#]
+  ///服务器返回已有角色消息[lua]
   /// </summary>
   public sealed partial class WS2C_ReturnRoleList : YouYou.IProto, pb::IMessage<WS2C_ReturnRoleList> {
     private static readonly pb::MessageParser<WS2C_ReturnRoleList> _parser = new pb::MessageParser<WS2C_ReturnRoleList>(() => new WS2C_ReturnRoleList());

@@ -24,12 +24,12 @@ namespace YouYou.Proto {
     static ProtoC2WSReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChBQcm90b19DMldTLnByb3RvEgxZb3VZb3UuUHJvdG8iPwoPQzJXU19DcmVh",
-            "dGVSb2xlEg0KBUpvYklkGAEgASgFEgsKA1NleBgCIAEoBRIQCghOaWNrTmFt",
-            "ZRgDIAEoCSISChBDMldTX0dldFJvbGVMaXN0IiAKDkMyV1NfRW50ZXJHYW1l",
-            "Eg4KBlJvbGVJZBgBIAEoA2IGcHJvdG8z"));
+            "ChBQcm90b19DMldTLnByb3RvEgxZb3VZb3UuUHJvdG8aElByb3RvX0NvbW1v",
+            "bi5wcm90byI/Cg9DMldTX0NyZWF0ZVJvbGUSDQoFSm9iSWQYASABKAUSCwoD",
+            "U2V4GAIgASgFEhAKCE5pY2tOYW1lGAMgASgJIhIKEEMyV1NfR2V0Um9sZUxp",
+            "c3QiIAoOQzJXU19FbnRlckdhbWUSDgoGUm9sZUlkGAEgASgDYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { },
+          new pbr::FileDescriptor[] { global::YouYou.Proto.ProtoCommonReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::YouYou.Proto.C2WS_CreateRole), global::YouYou.Proto.C2WS_CreateRole.Parser, new[]{ "JobId", "Sex", "NickName" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::YouYou.Proto.C2WS_GetRoleList), global::YouYou.Proto.C2WS_GetRoleList.Parser, null, null, null, null),

@@ -27,13 +27,16 @@ namespace YouYou.Proto {
             "ChFQcm90b19DMkdXUy5wcm90bxIMWW91WW91LlByb3RvGhJQcm90b19Db21t",
             "b24ucHJvdG8iJAoPQzJHV1NfUmVnQ2xpZW50EhEKCUFjY291bnRJZBgBIAEo",
             "AyIpChZDMkdXU19FbnRlclNjZW5lX0FwcGx5Eg8KB1NjZW5lSWQYASABKAUi",
-            "IwoQQzJHV1NfRW50ZXJTY2VuZRIPCgdTY2VuZUlkGAEgASgFYgZwcm90bzM="));
+            "IwoQQzJHV1NfRW50ZXJTY2VuZRIPCgdTY2VuZUlkGAEgASgFIi0KD0MyR1dT",
+            "X0hlYXJ0YmVhdBIMCgRUaW1lGAEgASgDEgwKBFBpbmcYAiABKAViBnByb3Rv",
+            "Mw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::YouYou.Proto.ProtoCommonReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::YouYou.Proto.C2GWS_RegClient), global::YouYou.Proto.C2GWS_RegClient.Parser, new[]{ "AccountId" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::YouYou.Proto.C2GWS_EnterScene_Apply), global::YouYou.Proto.C2GWS_EnterScene_Apply.Parser, new[]{ "SceneId" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::YouYou.Proto.C2GWS_EnterScene), global::YouYou.Proto.C2GWS_EnterScene.Parser, new[]{ "SceneId" }, null, null, null)
+            new pbr::GeneratedClrTypeInfo(typeof(global::YouYou.Proto.C2GWS_EnterScene), global::YouYou.Proto.C2GWS_EnterScene.Parser, new[]{ "SceneId" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::YouYou.Proto.C2GWS_Heartbeat), global::YouYou.Proto.C2GWS_Heartbeat.Parser, new[]{ "Time", "Ping" }, null, null, null)
           }));
     }
     #endregion
@@ -446,6 +449,174 @@ namespace YouYou.Proto {
             break;
           case 8: {
             SceneId = input.ReadInt32();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  /// <summary>
+  ///玩家向网关服务器发送心跳消息
+  /// </summary>
+  public sealed partial class C2GWS_Heartbeat : YouYou.IProto, pb::IMessage<C2GWS_Heartbeat> {
+    private static readonly pb::MessageParser<C2GWS_Heartbeat> _parser = new pb::MessageParser<C2GWS_Heartbeat>(() => new C2GWS_Heartbeat());
+    public ushort ProtoId => ProtoIdDefine.Proto_C2GWS_Heartbeat;
+    public string ProtoEnName => "C2GWS_Heartbeat";
+    public ProtoCategory Category => ProtoCategory.Client2GatewayServer;
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<C2GWS_Heartbeat> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::YouYou.Proto.ProtoC2GWSReflection.Descriptor.MessageTypes[3]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public C2GWS_Heartbeat() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public C2GWS_Heartbeat(C2GWS_Heartbeat other) : this() {
+      time_ = other.time_;
+      ping_ = other.ping_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public C2GWS_Heartbeat Clone() {
+      return new C2GWS_Heartbeat(this);
+    }
+
+    /// <summary>Field number for the "Time" field.</summary>
+    public const int TimeFieldNumber = 1;
+    private long time_;
+    /// <summary>
+    ///时间
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public long Time {
+      get { return time_; }
+      set {
+        time_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "Ping" field.</summary>
+    public const int PingFieldNumber = 2;
+    private int ping_;
+    /// <summary>
+    /// </summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int Ping {
+      get { return ping_; }
+      set {
+        ping_ = value;
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as C2GWS_Heartbeat);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(C2GWS_Heartbeat other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (Time != other.Time) return false;
+      if (Ping != other.Ping) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (Time != 0L) hash ^= Time.GetHashCode();
+      if (Ping != 0) hash ^= Ping.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      if (Time != 0L) {
+        output.WriteRawTag(8);
+        output.WriteInt64(Time);
+      }
+      if (Ping != 0) {
+        output.WriteRawTag(16);
+        output.WriteInt32(Ping);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (Time != 0L) {
+        size += 1 + pb::CodedOutputStream.ComputeInt64Size(Time);
+      }
+      if (Ping != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Ping);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(C2GWS_Heartbeat other) {
+      if (other == null) {
+        return;
+      }
+      if (other.Time != 0L) {
+        Time = other.Time;
+      }
+      if (other.Ping != 0) {
+        Ping = other.Ping;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
+            Time = input.ReadInt64();
+            break;
+          }
+          case 16: {
+            Ping = input.ReadInt32();
             break;
           }
         }
