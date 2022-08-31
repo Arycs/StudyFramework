@@ -29,13 +29,16 @@ namespace YouYouServer.Model.RoleFsm
         /// </summary>
         private Dictionary<RoleState, RoleFsmStateBase> m_StateDic;
 
+        public RoleFsmRun RoleFsmRun { get; private set; }
+        
         public RoleFsm(RoleClientBase roleClientBase)
         {
             CurrRoleClient = roleClientBase;
             m_StateDic = new Dictionary<RoleState, RoleFsmStateBase>();
 
+            RoleFsmRun = new RoleFsmRun(this);
             m_StateDic[RoleState.Idle] = new RoleFsmIdle(this);
-            m_StateDic[RoleState.Run] = new RoleFsmRun(this);
+            m_StateDic[RoleState.Run] = RoleFsmRun;
             m_StateDic[RoleState.Attack] = new RoleFsmAttack(this);
             m_StateDic[RoleState.Hurt] = new RoleFsmHurt(this);
             m_StateDic[RoleState.Die] = new RoleFsmDie(this);

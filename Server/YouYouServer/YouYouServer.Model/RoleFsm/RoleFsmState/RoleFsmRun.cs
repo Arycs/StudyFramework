@@ -8,6 +8,14 @@ namespace YouYouServer.Model.RoleFsm.RoleFsmState
     {
         public RoleFsmRun(RoleFsm roleFsm) : base(roleFsm) { }
 
+        /// <summary>
+        /// 重置数据
+        /// </summary>
+        public void OnReSet()
+        {
+            CurrFsm.CurrRoleClient.CurrRoleClientFsmHandler.Run_OnReSet();
+        }
+
         public override void OnEnter()
         {
             base.OnEnter();

@@ -94,6 +94,8 @@ namespace YouYouServer.Model
                         GameServerManager.RegisterPlayerForGameClient(playerForGameClient);
                     }
 
+                    playerForGameClient.PingValue = proto.PingValue;
+                    
                     // 2. 给这个玩家客户端派发消息
                     playerForGameClient.EventDispatcher.Dispatch(proto.CarryProtoId, proto.Buffer);
                 }

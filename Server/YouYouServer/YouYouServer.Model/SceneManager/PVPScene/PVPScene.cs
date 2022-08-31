@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using UnityEngine;
 using YouYouServer.Common;
 using YouYouServer.Model.DataTable;
 using static YouYouServer.Common.ServerConfig;
@@ -33,11 +34,17 @@ namespace YouYouServer.Model.ServerManager
         /// </summary>
         public List<AOIAreaData> CurrSceneAreaDataList { get; private set; }
 
+        /// <summary>
+        /// AOI区域字典
+        /// </summary>
+        private Dictionary<int, AOIAreaData> m_AOIAreaDataDic;
+
         public PVPScene(SceneConfig sceneConfig)
         {
             CurrSceneConfig = sceneConfig;
             CurrSysScene = DataTableManager.Sys_SceneList.GetDic(CurrSceneConfig.SceneId);
             CurrSceneAreaDataList = new List<AOIAreaData>();
+            m_AOIAreaDataDic = new Dictionary<int, AOIAreaData>();
 
             LoadAOIAreaData();
 
@@ -70,6 +77,7 @@ namespace YouYouServer.Model.ServerManager
             foreach (var item in CurrSceneAreaDataList)
             {
                 item.Init();
+                m_AOIAreaDataDic[item.AreaId] = item;
             }
         }
 
@@ -92,6 +100,24 @@ namespace YouYouServer.Model.ServerManager
             }
 
             return -1;
+        }
+
+        /// <summary>
+        /// 获取是否可以到达
+        /// </summary>
+        /// <param name="currPos"></param>
+        /// <returns></returns>
+        public bool GetCanArrive(Vector3 currPos)
+        {
+            int areaId = GetAOIAreaIdByPos(currPos);
+            if (areaId == -1)
+            {
+                return false;
+            }
+            
+            //找到对应的区域
+            AOIAreaData areaData = m_AOIAreaDataDic[areaId];
+            return areaData.GetCanArrive(currPos);
         }
     }
 }

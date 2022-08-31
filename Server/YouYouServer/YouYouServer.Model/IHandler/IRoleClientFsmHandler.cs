@@ -18,6 +18,8 @@ namespace YouYouServer.Model.IHandler
         void Idle_OnUpdate();
         void Idle_OnLeave();
 
+        void Run_OnReSet();
+        
         void Run_OnEnter();
         void Run_OnUpdate();
         void Run_OnLeave();

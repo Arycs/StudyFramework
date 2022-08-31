@@ -5,6 +5,7 @@ using YouYou.Proto;
 using YouYouServer.Common;
 using YouYouServer.Core;
 using YouYouServer.Model.ServerManager;
+using Vector3 = UnityEngine.Vector3;
 
 namespace YouYouServer.Model
 {
@@ -29,6 +30,7 @@ namespace YouYouServer.Model
         public PlayerClientBase()
         {
             EventDispatcher = new EventDispatcher();
+            PathPoints = new List<Vector3>();
             CurrFsmManager = new RoleFsm.RoleFsm(this);
         }
 

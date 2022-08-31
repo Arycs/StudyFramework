@@ -15,19 +15,9 @@ namespace YouYouServer.Model
     public class PlayerForGatewayClient : PlayerClientBase
     {
         /// <summary>
-        /// 当前角色编号
-        /// </summary>
-        public long RoleId = 0;
-
-        /// <summary>
         /// 当前角色在哪个游戏服
         /// </summary>
         public int CurrInGameServerId = 0;
-
-        /// <summary>
-        /// 当前角色在哪个场景
-        /// </summary>
-        public int CurrSceneId;
 
         /// <summary>
         /// PingValue

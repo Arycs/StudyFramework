@@ -43,7 +43,11 @@ namespace YouYouServer.Model
         /// </summary>
         private static Socket m_ListenSocket;
 
-        
+        /// <summary>
+        /// ToGameServerPing
+        /// </summary>
+        public static int ToGameServerPing;
+
 
         public static void Init()
         {

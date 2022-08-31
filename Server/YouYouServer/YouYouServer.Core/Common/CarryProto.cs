@@ -35,6 +35,11 @@ namespace YouYouServer.Core
         /// </summary>
         public byte[] Buffer;
 
+        /// <summary>
+        /// 客户端到服务器(网关+游戏服)的ping值
+        /// </summary>
+        public float PingValue;
+        
         public CarryProto()
         {
 
@@ -55,6 +60,7 @@ namespace YouYouServer.Core
             ms.WriteLong(AccountId);
             ms.WriteUShort(CarryProtoId);
             ms.WriteByte((byte)CarryProtoCategory);
+            ms.WriteFloat(PingValue);
             ms.WriteInt(Buffer.Length);
             ms.Write(Buffer);
             return ms.ToArray();
@@ -71,7 +77,8 @@ namespace YouYouServer.Core
             proto.AccountId = ms.ReadLong();
             proto.CarryProtoId = ms.ReadUShort();
             proto.CarryProtoCategory = (ProtoCategory)ms.ReadByte();
-
+            proto.PingValue = ms.ReadFloat();
+            
             int len = ms.ReadInt();
             proto.Buffer = new byte[len];
             ms.Read(proto.Buffer);

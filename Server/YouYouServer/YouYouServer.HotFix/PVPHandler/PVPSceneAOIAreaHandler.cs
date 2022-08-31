@@ -153,6 +153,7 @@ namespace YouYouServer.HotFix
                         {X = roleClientBase.CurrPos.x, Y = roleClientBase.CurrPos.y, Z = roleClientBase.CurrPos.z},
                     RotationY = roleClientBase.CurrRotationY,
                     TargetPos = targetPos,
+                    RunSpeed = roleClientBase.RunSpeed
                 };
                 ((PlayerForGameClient) role).SendCarryToClient(proto);
             }

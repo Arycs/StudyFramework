@@ -82,8 +82,7 @@ namespace YouYouServer.Model
         private void OnGS2GWS_Heartbeat(byte[] buffer)
         {
             GS2GWS_Heartbeat proto = GS2GWS_Heartbeat.Parser.ParseFrom(buffer);
-            PingValue = (int) ((DateTime.UtcNow.Ticks - proto.ServerTime) * 0.5f / 10000);
-            Console.WriteLine($"GWS PING {PingValue}");
+            GatewayServerManager.ToGameServerPing = (int) ((DateTime.UtcNow.Ticks - proto.ServerTime) * 0.5f / 10000);
         }
 
         #region RegisterToGameServer 注册到游戏服务器
@@ -115,7 +114,7 @@ namespace YouYouServer.Model
         {
             GWS2GS_Heartbeat proto = new GWS2GS_Heartbeat();
             proto.ServerTime = DateTime.UtcNow.Ticks;
-            proto.Ping = PingValue;
+            proto.Ping = GatewayServerManager.ToGameServerPing;
             TargetServerConnect.ClientSocket.SendMsg(proto);
         }
 

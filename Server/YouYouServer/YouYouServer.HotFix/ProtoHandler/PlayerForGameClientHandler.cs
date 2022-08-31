@@ -103,17 +103,18 @@ namespace YouYouServer.HotFix
         {
             GWS2GS_Offline proto = (GWS2GS_Offline) GWS2GS_Offline.Descriptor.Parser.ParseFrom(buffer);
 
-            if (GameServerManager.CurrSceneManager.PVPSceneDic.TryGetValue(m_PlayerForGameClient.CurrSceneId,out var pvpScene))
+            if (GameServerManager.CurrSceneManager.PVPSceneDic.TryGetValue(m_PlayerForGameClient.CurrSceneId,
+                out var pvpScene))
             {
                 pvpScene.DefaultSceneLine.AOIAreaDic[m_PlayerForGameClient.CurrAreaId]
                     .RemoveRole(m_PlayerForGameClient, LeaveSceneLineType.Normal);
-                
+
                 //把自己从场景线中移除
                 pvpScene.DefaultSceneLine.RoleList.Remove(m_PlayerForGameClient);
-                
+
                 //从游戏服上移除
                 GameServerManager.RemovePlayerForGameClient(m_PlayerForGameClient);
-                
+
                 //保存角色信息
                 await RoleManager.SaveRoleEntity(m_PlayerForGameClient.CurrRole);
             }
@@ -228,14 +229,14 @@ namespace YouYouServer.HotFix
 
                         sceneLineRoleListProto.RoleList.Add(item);
                     }
+
                     m_PlayerForGameClient.SendCarryToClient(sceneLineRoleListProto);
 
                     //5.把自己加入区域列表
                     pvpSceneAoiArea.AddRole(m_PlayerForGameClient);
-                    
+
                     m_PlayerForGameClient.CurrAreaId = areaId; //设置当前区域编号
                     m_PlayerForGameClient.CurrFsmManager.ChangeState(RoleState.Idle);
-
                 }
             }
             else
@@ -252,12 +253,61 @@ namespace YouYouServer.HotFix
         private void ClickMove(byte[] buffer)
         {
             C2GS_ClickMove proto = (C2GS_ClickMove) C2GS_ClickMove.Descriptor.Parser.ParseFrom(buffer);
-            
-            //TODO 临时写法, 此处要进行寻路验证 让服务器上的玩家通过服务器来移动
-            m_PlayerForGameClient.CurrRole.PosData = proto.TargetPos;
 
-            m_PlayerForGameClient.CurrPos =
+            UnityEngine.Vector3 targetPos =
                 new UnityEngine.Vector3(proto.TargetPos.X, proto.TargetPos.Y, proto.TargetPos.Z);
+
+            if (GameServerManager.CurrSceneManager.PVPSceneDic.TryGetValue(m_PlayerForGameClient.CurrSceneId,
+                out var pvpScene))
+            {
+                if (!pvpScene.GetCanArrive(targetPos))
+                {
+                    //修正前端位置 强拉回去
+                    return;
+                }
+            }
+
+            m_PlayerForGameClient.TargetPos = targetPos;
+
+
+            Console.WriteLine("ClickMove roleId = {0} pingValue = {1}", m_PlayerForGameClient.RoleId,
+                m_PlayerForGameClient.PingValue);
+
+            //进行寻路
+            GameServerManager.ConnectNavAgent.GetNavPath(m_PlayerForGameClient.CurrSceneId,
+                m_PlayerForGameClient.CurrPos,
+                m_PlayerForGameClient.TargetPos, (NS2GS_ReturnNavPath proto) =>
+                {
+                    if (proto.Path.Count > 1)
+                    {
+                        //服务器计算路径花费的时间
+                        float getNavPathTime = YFDateTimeUtil.GetServerTime() - proto.ServerTime;
+
+                        Console.WriteLine("step 2 RoleId = {0} GetNavPathTime = {1} ChangeState  Run",
+                            m_PlayerForGameClient.RoleId, getNavPathTime);
+
+                        m_PlayerForGameClient.PathPoints.Clear();
+                        foreach (var item in proto.Path)
+                        {
+                            m_PlayerForGameClient.PathPoints.Add(new UnityEngine.Vector3(item.X, item.Y, item.Z));
+                        }
+
+                        Console.WriteLine("step 3 RoleId = " + m_PlayerForGameClient.RoleId + " ChangeState  Run");
+                        if (GameServerManager.CurrSceneManager.PVPSceneDic.TryGetValue(
+                            m_PlayerForGameClient.CurrSceneId,
+                            out var pvpScene))
+                        {
+                            pvpScene.DefaultSceneLine.AOIAreaDic[m_PlayerForGameClient.CurrAreaId]
+                                .RoleMove(m_PlayerForGameClient,
+                                    new Vector3() {X = targetPos.x, Y = targetPos.y, Z = targetPos.z});
+                        }
+
+                        Console.WriteLine("step 4 RoleId = " + m_PlayerForGameClient.RoleId + " ChangeState  Run");
+                        m_PlayerForGameClient.TotalPingValue = m_PlayerForGameClient.PingValue + getNavPathTime;
+                        m_PlayerForGameClient.CurrFsmManager.RoleFsmRun.OnReSet();
+                        m_PlayerForGameClient.CurrFsmManager.ChangeState(Core.RoleState.Run);
+                    }
+                });
         }
 
         /// <summary>
@@ -268,9 +318,10 @@ namespace YouYouServer.HotFix
         private void EnterAOI(byte[] buffer)
         {
             var proto = (C2GS_Enter_AOIArea) C2GS_Enter_AOIArea.Descriptor.Parser.ParseFrom(buffer);
-            if (GameServerManager.CurrSceneManager.PVPSceneDic.TryGetValue(m_PlayerForGameClient.CurrSceneId, out var pvpScene))
+            if (GameServerManager.CurrSceneManager.PVPSceneDic.TryGetValue(m_PlayerForGameClient.CurrSceneId,
+                out var pvpScene))
             {
-                pvpScene.DefaultSceneLine.RoleEnterNewArea(m_PlayerForGameClient,proto.AreaId);
+                pvpScene.DefaultSceneLine.RoleEnterNewArea(m_PlayerForGameClient, proto.AreaId);
             }
         }
     }

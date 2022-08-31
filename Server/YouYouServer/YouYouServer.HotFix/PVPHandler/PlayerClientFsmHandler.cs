@@ -6,6 +6,7 @@ using YouYou.Proto;
 using YouYouServer.Commmon;
 using YouYouServer.Common;
 using YouYouServer.Core;
+using YouYouServer.Core.Utils;
 using YouYouServer.Model;
 using YouYouServer.Model.IHandler;
 using YouYouServer.Model.ServerManager;
@@ -16,17 +17,20 @@ namespace YouYouServer.HotFix.PVPHandler
     [Handler(ConstDefine.PlayerClientFsmHandler)]
     public class PlayerClientFsmHandler : IRoleClientFsmHandler
     {
-        public PlayerForGameClient m_MonsterClient;
+        public PlayerForGameClient m_PlayerForGameClient;
 
+        private float m_Deltatime;
+        
         public void Init(RoleClientBase roleClientBase)
         {
-                m_MonsterClient = roleClientBase as PlayerForGameClient;
+            m_PlayerForGameClient = roleClientBase as PlayerForGameClient;
         }
 
         public void OnUpdate()
         {
+            
         }
-
+        
         public void Idle_OnEnter()
         {
             Console.WriteLine("Idle_OnEnter");
@@ -36,6 +40,14 @@ namespace YouYouServer.HotFix.PVPHandler
         {
         }
 
+        public void Run_OnReSet()
+        {
+            Console.WriteLine("Run_OnReset");
+            m_PlayerForGameClient.RunTime = 0;
+            m_PlayerForGameClient.CurrWayPointIndex = 1;
+            m_PlayerForGameClient.TurnComplete = false;
+        }
+
         public void Idle_OnUpdate()
         {
         }
@@ -43,7 +55,30 @@ namespace YouYouServer.HotFix.PVPHandler
         public void Run_OnEnter()
         {
             Console.WriteLine("Run_OnEnter");
+            m_PlayerForGameClient.RunTime = 0;
+            m_PlayerForGameClient.CurrWayPointIndex = 1;
+            m_PlayerForGameClient.CurrPos = m_PlayerForGameClient.PathPoints[0];
+            m_PlayerForGameClient.TurnComplete = false;
+            if (GameServerManager.CurrSceneManager.PVPSceneDic.TryGetValue(m_PlayerForGameClient.CurrSceneId,out var pvpScene))
+            {
+                m_Deltatime = pvpScene.DefaultSceneLine.Deltatime;
+            }
+            
+            //计算移动的距离
+            m_PlayerForGameClient.MoveDis = GameUtil.GetPathLen(m_PlayerForGameClient.PathPoints);
+            //距离/速度=到达所需时间（秒）
+            m_PlayerForGameClient.RunNeedTime = m_PlayerForGameClient.MoveDis / m_PlayerForGameClient.RunSpeed;
+            m_PlayerForGameClient.RunNeedTime -= m_PlayerForGameClient.TotalPingValue * 0.001f;
+
+            //修正速度
+            m_PlayerForGameClient.ModifyRunSpeed = m_PlayerForGameClient.MoveDis / m_PlayerForGameClient.RunNeedTime;
+
+            Console.WriteLine("RoleId = {0} ModifyRunSpeed = {1}", m_PlayerForGameClient.RoleId,
+                m_PlayerForGameClient.ModifyRunSpeed);
+            //限制修正速度, 防止延迟过大出现问题
+            m_PlayerForGameClient.ModifyRunSpeed = Mathf.Clamp(m_PlayerForGameClient.ModifyRunSpeed, 10, 15);
         }
+
 
         public void Run_OnLeave()
         {
@@ -51,7 +86,52 @@ namespace YouYouServer.HotFix.PVPHandler
 
         public void Run_OnUpdate()
         {
+            m_PlayerForGameClient.RunTime += m_Deltatime;
+            if (m_PlayerForGameClient.CurrWayPointIndex == m_PlayerForGameClient.PathPoints.Count)
+            {
+                Console.WriteLine($"Run_OnUpdate ChangeState To Idle Role {m_PlayerForGameClient.RoleId}");
+                m_PlayerForGameClient.CurrFsmManager.ChangeState(RoleState.Idle);
+                return;
+            }
+
+            if (!m_PlayerForGameClient.TurnComplete)
+            {
+                m_PlayerForGameClient.RunEndPos =
+                    m_PlayerForGameClient.PathPoints[m_PlayerForGameClient.CurrWayPointIndex];
+                m_PlayerForGameClient.RunBeginPos =
+                    m_PlayerForGameClient.PathPoints[m_PlayerForGameClient.CurrWayPointIndex - 1];
+                m_PlayerForGameClient.RunDir =
+                    (m_PlayerForGameClient.RunEndPos - m_PlayerForGameClient.RunBeginPos).normalized;
+                float y = (float)Math.Atan2((m_PlayerForGameClient.RunEndPos.x - m_PlayerForGameClient.RunBeginPos.x),(
+                    m_PlayerForGameClient.RunEndPos.z - m_PlayerForGameClient.RunBeginPos.z) )* 180 / (float) Math.PI;
+                m_PlayerForGameClient.CurrRotationY = y;
+                m_PlayerForGameClient.TurnComplete = true;
+            }
             
+            //时间*速度=距离
+            float dis = m_PlayerForGameClient.RunTime * m_PlayerForGameClient.ModifyRunSpeed;
+            m_PlayerForGameClient.CurrPos = m_PlayerForGameClient.RunBeginPos + m_PlayerForGameClient.RunDir * dis;
+
+            //写入DB数据
+            m_PlayerForGameClient.CurrRole.PosData = new YouYou.Proto.Vector3
+            {
+                X = m_PlayerForGameClient.CurrPos.x, Y = m_PlayerForGameClient.CurrPos.y,
+                Z = m_PlayerForGameClient.CurrPos.z
+            };
+            m_PlayerForGameClient.CurrRole.RotationY = m_PlayerForGameClient.CurrRotationY;
+
+            if (GameServerManager.CurrSceneManager.PVPSceneDic.TryGetValue(m_PlayerForGameClient.CurrSceneId,out var pvpScene))
+            {
+                pvpScene.DefaultSceneLine.CheckAreaChange(m_PlayerForGameClient);
+            }
+
+            if (dis >= UnityEngine.Vector3.Distance(m_PlayerForGameClient.RunEndPos,m_PlayerForGameClient.RunBeginPos))
+            {
+                m_PlayerForGameClient.CurrPos = m_PlayerForGameClient.RunEndPos;
+                m_PlayerForGameClient.RunTime = 0;
+                m_PlayerForGameClient.TurnComplete = false;
+                m_PlayerForGameClient.CurrWayPointIndex++;
+            }
         }
 
         public void Attack_OnEnter()

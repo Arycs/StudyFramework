@@ -41,6 +41,14 @@ namespace YouYouServer.HotFix.PVPHandler
         {
         }
 
+        public void Run_OnReSet()
+        {
+            Console.WriteLine("Run_OnReset");
+            m_MonsterClient.RunTime = 0;
+            m_MonsterClient.CurrWayPointIndex = 1;
+            m_MonsterClient.TurnComplete = false;
+        }
+
         public void Idle_OnUpdate()
         {
             //待机 10 秒巡逻
@@ -74,9 +82,24 @@ namespace YouYouServer.HotFix.PVPHandler
                 UnityEngine.Vector3 targetPos =
                     m_MonsterClient.CurrSpawnMonsterPoint.PatrolPosList[m_MonsterClient.PrevPatrolPosIndex];
 
+
+                //判断目标点是否可以到达
+                if (GameServerManager.CurrSceneManager.PVPSceneDic.TryGetValue(m_MonsterClient.CurrSceneId,
+                    out var pvpScene))
+                {
+                    if (!pvpScene.GetCanArrive(targetPos))
+                    {
+                        m_MonsterClient.IsPatrol = false;
+                        return;
+                    }
+
+                    Console.WriteLine($"step 1 targetPos = {targetPos} ,可以到达 ");
+                }
+
                 m_MonsterClient.TargetPos = targetPos;
+
                 Console.WriteLine(
-                    $"GetNavPath CurrPos = {m_MonsterClient.CurrPos},TargetPos = {m_MonsterClient.TargetPos}");
+                    $"step 1 RoleId = {m_MonsterClient.RoleId} , GetNavPath CurrPos = {m_MonsterClient.CurrPos} , TargetPos = {m_MonsterClient.TargetPos}");
 
                 //进行寻路
                 GameServerManager.ConnectNavAgent.GetNavPath(m_MonsterClient.CurrSceneId, m_MonsterClient.CurrPos,
@@ -153,7 +176,8 @@ namespace YouYouServer.HotFix.PVPHandler
             if (GameServerManager.CurrSceneManager.PVPSceneDic.TryGetValue(m_MonsterClient.CurrSceneId,
                 out var pvpScene))
             {
-                pvpScene.DefaultSceneLine.AOIAreaDic[m_MonsterClient.CurrAreaId].CurrSceneLine.CheckAreaChange(m_MonsterClient);
+                pvpScene.DefaultSceneLine.AOIAreaDic[m_MonsterClient.CurrAreaId].CurrSceneLine
+                    .CheckAreaChange(m_MonsterClient);
             }
 
             if (dis >= UnityEngine.Vector3.Distance(m_MonsterClient.RunEndPos, m_MonsterClient.RunBeginPos))

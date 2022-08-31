@@ -95,8 +95,7 @@ namespace YouYouServer.Model
 
             proto.TaskId = GenerateTaskId();
             proto.SceneId = sceneId;
-
-
+            proto.ServerTime = YFDateTimeUtil.GetServerTime();
             proto.BeginPos = new GS2NS_Vector3() { X = beginPos.x, Y = beginPos.y, Z = beginPos.z };
             proto.EndPos = new GS2NS_Vector3() { X = endPos.x, Y = endPos.y, Z = endPos.z };
 

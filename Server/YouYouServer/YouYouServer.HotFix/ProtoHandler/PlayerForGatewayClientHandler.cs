@@ -97,6 +97,7 @@ namespace YouYouServer.HotFix
             GWS2C_Heartbeat retProto = new GWS2C_Heartbeat();
             retProto.Time = proto.Time;
             retProto.ServerTime = serverTime;
+            retProto.ToGameServerPing = GatewayServerManager.ToGameServerPing;
             m_PlayerForGatewayClient.ClientSocket.SendMsg(retProto);
         }
 
@@ -252,6 +253,7 @@ namespace YouYouServer.HotFix
         public void CarrySendToGameServer(int serverId, ushort protoCode, ProtoCategory protoCategory, byte[] buffer)
         {
             CarryProto carryProto = new CarryProto(m_PlayerForGatewayClient.AccountId, protoCode, protoCategory, buffer);
+            carryProto.PingValue = m_PlayerForGatewayClient.PingValue + GatewayServerManager.ToGameServerPing;
             //根据服务器编号 通过代理发送中转消息
             GatewayServerManager.GetGameServerAgent(serverId).TargetServerConnect.ClientSocket.SendMsg(carryProto);
         }

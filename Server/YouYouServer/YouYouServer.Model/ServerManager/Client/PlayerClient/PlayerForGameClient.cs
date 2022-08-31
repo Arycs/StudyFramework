@@ -21,10 +21,15 @@ namespace YouYouServer.Model
         private GatewayServerForGameClient m_GatewayServerForGameClient;
 
         /// <summary>
-        /// 当前位置
+        /// 客户端到网关+网关+游戏服+寻路耗时
         /// </summary>
-        public Vector3 CurrPos;
-
+        public float TotalPingValue;
+        
+        /// <summary>
+        /// 这个玩家(网关+游戏服)的ping值
+        /// </summary>
+        public float PingValue;
+        
         public PlayerForGameClient(long accountId, GatewayServerForGameClient gatewayServerForWorldClient) : base()
         {
             AccountId = accountId;
@@ -84,9 +89,6 @@ namespace YouYouServer.Model
         public void SendCarryToClient(IProto proto)
         {
             CarryProto carryProto = new CarryProto(AccountId, proto.ProtoId, proto.Category, proto.ToByteArray());
-            var a = m_GatewayServerForGameClient.CurrServerClient.ClientSocket.m_Socket.RemoteEndPoint.AddressFamily
-                .ToString();
-            Console.WriteLine($"发送给 IP {a}");
             m_GatewayServerForGameClient.CurrServerClient.ClientSocket.SendMsg(carryProto);
         }
     }
