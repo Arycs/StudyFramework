@@ -105,6 +105,12 @@ public class RoleFsmManager : ManagerBase
         ChangeState(RoleFsmState.Run);
         m_RoleFsmRun.ClickMove(targetPos);
     }
+    
+    public void ServerRun(float runSpeed,Vector3 targetPos)
+    {
+        ChangeState(RoleFsmState.Run);
+        m_RoleFsmRun.ServerRun(runSpeed,targetPos);
+    }
 
     public void JoystickMove(Vector2 dir)
     {

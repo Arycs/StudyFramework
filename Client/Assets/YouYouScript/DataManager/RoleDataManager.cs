@@ -301,13 +301,18 @@ public class RoleDataManager : IDisposable
         //找到角色
         if (m_CurrPVPSceneRoleDic.TryGetValue(proto.RoleId,out RoleCtrl roleCtrl))
         {
+            if (this.CurrPlayer.ServerRoleId == proto.RoleId)
+            {
+                return;
+            }
+            
             if (proto.Status == (int)MyCommonEnum.RoleFsmState.Idle)
             {
                 roleCtrl.ChangeState(MyCommonEnum.RoleFsmState.Idle);
             }
             else if (proto.Status == (int) MyCommonEnum.RoleFsmState.Run)
             {
-                roleCtrl.ClickMove(new UnityEngine.Vector3()
+                roleCtrl.ServerRun(proto.RunSpeed,new UnityEngine.Vector3()
                     {x = proto.TargetPos.X, y = proto.TargetPos.Y, z = proto.TargetPos.Z});
             }
         }

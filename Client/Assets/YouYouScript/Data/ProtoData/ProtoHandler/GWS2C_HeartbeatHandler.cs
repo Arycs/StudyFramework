@@ -13,7 +13,7 @@ public class GWS2C_HeartbeatHandler
     {
         GWS2C_Heartbeat proto = GWS2C_Heartbeat.Parser.ParseFrom(buffer);
 
-        GameEntry.Socket.PingValue = (int)( (DateTime.UtcNow.Ticks - proto.Time) * 0.5f / 10000);
+        GameEntry.Socket.PingValue = (int)((DateTime.UtcNow.Ticks - proto.Time) * 0.5f / 10000) + proto.ToGameServerPing;
         GameEntry.Log(LogCategory.Proto,$"PingValue = {GameEntry.Socket.PingValue}");
         GameEntry.Socket.LastServerTime = proto.ServerTime;
         

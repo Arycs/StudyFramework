@@ -36,6 +36,10 @@ public class RoleFsmRun : RoleFsmBase
     private Vector3 dir;
     private Vector3 rotation;
     private float dis;
+    private float runSpeed = 10; //速度
+    private float modifyRunSpeed = 10;//修正速度
+    private float runNeedTime = 0; //跑需要的时间
+
 
     public override void OnEnter()
     {
@@ -107,7 +111,7 @@ public class RoleFsmRun : RoleFsmBase
             m_TurnComplete = true;
         }
 
-        CurrFsm.Owner.CurrRoleCtrl.Agent.Move(dir * Time.deltaTime * 10);
+        CurrFsm.Owner.CurrRoleCtrl.Agent.Move(dir * Time.deltaTime * modifyRunSpeed);
         //判断是否应该向下一个点移动
         dis = Vector3.Distance(CurrFsm.Owner.CurrRoleCtrl.transform.position, beginPos);
 
@@ -134,12 +138,43 @@ public class RoleFsmRun : RoleFsmBase
     {
         m_CurrPointIndex = 1;
         m_TurnComplete = false;
+        runSpeed = 10;
+        modifyRunSpeed = runSpeed;
+        //计算路径
+        CurrFsm.Owner.CurrRoleCtrl.Agent.CalculatePath(targetPos, path);
+        if (path.status == NavMeshPathStatus.PathComplete)
+        {
+            m_VectorPath = path.corners;
+
+            if (!m_IsPlayRunWithClick)
+            {
+                m_IsPlayRunWithClick = true;
+                CurrFsm.Owner.CurrRoleCtrl.PlayAnimByAnimCategory(MyCommonEnum.RoleAnimCategory.Run);
+            }
+        }
+    }
+
+    public void ServerRun(float runSpeed, Vector3 targetPos)
+    {
+        m_CurrPointIndex = 1;
+        m_TurnComplete = false;
         //计算路径
         CurrFsm.Owner.CurrRoleCtrl.Agent.CalculatePath(targetPos, path);
 
         if (path.status == NavMeshPathStatus.PathComplete)
         {
             m_VectorPath = path.corners;
+
+            //算出距离
+            dis = GameUtil.GetPathLen(m_VectorPath);
+
+            //距离/速度=到达所需时间（秒）
+            runNeedTime = dis / runSpeed;
+            runNeedTime -= GameEntry.Socket.PingValue * 0.001f;
+
+            //修正速度
+            modifyRunSpeed = dis / runNeedTime;
+            Debug.LogError($"modifyRunSpeed => {modifyRunSpeed}");
 
             if (!m_IsPlayRunWithClick)
             {

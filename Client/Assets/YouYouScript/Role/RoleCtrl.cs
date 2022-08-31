@@ -492,6 +492,11 @@ public class RoleCtrl : BaseSprite, IUpdateComponent
     {
         m_CurrRoleFsmManager.ClickMove(targetPos);
     }
+    
+    public void ServerRun(float runSpeed, Vector3 targetPos)
+    {
+        m_CurrRoleFsmManager.ServerRun(runSpeed,targetPos);
+    }
 
     public void JoystickMove(Vector2 dir)
     {
