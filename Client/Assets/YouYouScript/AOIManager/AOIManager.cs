@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.SceneManagement;
 
 public class AOIManager : MonoBehaviour
@@ -41,13 +42,14 @@ public class AOIManager : MonoBehaviour
         foreach (var item in trans)
         {
             if (item.gameObject.GetInstanceID() != transform.gameObject.GetInstanceID()
-            && item.gameObject.GetInstanceID() != AreaPrefab.GetInstanceID())
+                && item.gameObject.GetInstanceID() != AreaPrefab.GetInstanceID())
             {
                 DestroyImmediate(item.gameObject);
             }
         }
+
         AOIAreaDic.Clear();
-        
+
         //重新生成
         int num = 1;
         for (int i = 0; i < Rows; i++)
@@ -69,14 +71,64 @@ public class AOIManager : MonoBehaviour
                 num++;
             }
         }
-        
+
         //计算关联
         foreach (var item in AOIAreaDic)
         {
             item.Value.SetConnectArea();
         }
     }
-    
+
+
+    [Button("Show Can Walk Area")]
+    public void ShowCanRunArea()
+    {
+        //单元格 单行数量
+        int cellCount = 0;
+
+        //单元格宽度
+        float cellWidth = 0.5f;
+        cellCount = (int) (AreaWidth / cellWidth);
+
+
+        for (int i = 0; i < Rows * cellCount; i++)
+        {
+            for (int j = 0; j < Columns * cellCount; j++)
+            {
+                NavMeshHit hit;
+
+                //是否可行走
+                bool canRun = false;
+
+                //碰到了墙
+                bool touchWall = false;
+
+                Vector3 starPos = transform.position + new Vector3(j * cellWidth, -10, i * -1 * cellWidth);
+                //发射射线检测 是否碰到了墙
+                //Debug.DrawRay(starPos - new Vector3(0, 100, 0), Vector3.up * 100, Color.red, 5);
+                if (Physics.Raycast(starPos - new Vector3(0, 100, 0), Vector3.up, 100,
+                    1 << LayerMask.NameToLayer("Wall")))
+                {
+                    touchWall = true;
+                }
+
+                if (!touchWall)
+                {
+                    for (int k = -10; k < AreaWidth; ++k)
+                    {
+                        if (NavMesh.SamplePosition(starPos + new Vector3(0, k, 0), out hit, 0.5f, 1))
+                        {
+                            canRun = true;
+                            break;
+                        }
+                    }
+                }
+
+                Debug.DrawRay(starPos, Vector3.up * 5, canRun ? Color.yellow : Color.red, 10);
+            }
+        }
+    }
+
     [Button("Create AOI Json Data")]
     private void CreateAOIAreaData()
     {
@@ -90,11 +142,11 @@ public class AOIManager : MonoBehaviour
         }
 
         string json = LitJson.JsonMapper.ToJson(lst);
-        IOUtil.CreateTextFile(path,json);
-        AssetDatabase.Refresh();
-        
+        IOUtil.CreateTextFile(path, json);
+#if UNITY_EDITOR
+        UnityEditor.AssetDatabase.Refresh();
+#endif
+
         Debug.Log("Create Scene AOI Area Data Successful");
     }
-    
-
 }

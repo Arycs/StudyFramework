@@ -42,4 +42,15 @@ public class AOIAreaData
     public double BottomRightPos_X;
     public double BottomRightPos_Y;
     public double BottomRightPos_Z;
+    
+    
+    /// <summary>
+    /// 可行走区域单元格宽度
+    /// </summary>
+    public double CellWith = 0.5f;
+
+    /// <summary>
+    /// 可行走区域单元格数据
+    /// </summary>
+    public List<int> CellData;
 }
