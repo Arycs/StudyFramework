@@ -16,6 +16,9 @@
     <Reference Include="Google.Protobuf">
       <HintPath>..\..\..\Tools\ServerNeedDll\Google.Protobuf.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\..\..\..\Unity\2019.4.40f1c1\Editor\Data\Managed\UnityEngine.dll</HintPath>
+    </Reference>
     <Reference Include="zlib.net">
       <HintPath>..\..\..\Tools\ServerNeedDll\zlib.net.dll</HintPath>
     </Reference>
