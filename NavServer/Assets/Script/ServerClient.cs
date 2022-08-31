@@ -52,7 +52,7 @@ public class ServerClient
         GS2NS_Heartbeat proto = GS2NS_Heartbeat.Parser.ParseFrom(buffer);
 
         NS2GS_Heartbeat retProto = new NS2GS_Heartbeat();
-        retProto.ServerTime = DateTime.UtcNow.Ticks;
+        retProto.ServerTime = proto.ServerTime;
         ClientSocket.SendMsg(retProto);
     }
 
