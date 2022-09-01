@@ -120,10 +120,11 @@ namespace YouYouServer.HotFix.PVPHandler
             };
             m_PlayerForGameClient.CurrRole.RotationY = m_PlayerForGameClient.CurrRotationY;
 
-            if (GameServerManager.CurrSceneManager.PVPSceneDic.TryGetValue(m_PlayerForGameClient.CurrSceneId,out var pvpScene))
-            {
-                pvpScene.DefaultSceneLine.CheckAreaChange(m_PlayerForGameClient);
-            }
+            // 角色的跨区域由客户端发起, 服务器不用检测
+            // if (GameServerManager.CurrSceneManager.PVPSceneDic.TryGetValue(m_PlayerForGameClient.CurrSceneId,out var pvpScene))
+            // {
+            //     pvpScene.DefaultSceneLine.CheckAreaChange(m_PlayerForGameClient);
+            // }
 
             if (dis >= UnityEngine.Vector3.Distance(m_PlayerForGameClient.RunEndPos,m_PlayerForGameClient.RunBeginPos))
             {
