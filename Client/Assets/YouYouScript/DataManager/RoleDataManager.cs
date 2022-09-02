@@ -293,6 +293,57 @@ public class RoleDataManager : IDisposable
     }
 
     /// <summary>
+    /// 上一次摇杆移动的方向
+    /// </summary>
+    private UnityEngine.Vector3 m_PrevJoystickMoveDir;
+
+    /// <summary>
+    /// 上一次摇杆移动的发消息的时间
+    /// </summary>
+    private float m_PrevJoystickMoveTime = 0;
+
+    /// <summary>
+    /// 摇杆移动
+    /// </summary>
+    /// <param name="currPos">当前位置</param>
+    /// <param name="moveDir">移动方向</param>
+    public void JoystickMove(UnityEngine.Vector3 currPos, UnityEngine.Vector3 moveDir)
+    {
+        if (m_PrevJoystickMoveDir == moveDir)
+        {
+            if (Time.time > m_PrevJoystickMoveTime + 0.062f)
+            {
+                m_PrevJoystickMoveTime = Time.time;
+            }
+            else
+            {
+                return;
+            }
+        }
+        m_PrevJoystickMoveDir = moveDir;
+
+        C2GS_JoystickMove proto = new C2GS_JoystickMove();
+        proto.CurrPos = new YouYou.Proto.Vector3() { X = currPos.x, Y = currPos.y, Z = currPos.z };
+        proto.MoveDir = new YouYou.Proto.Vector3() { X = moveDir.x, Y = moveDir.y, Z = moveDir.z };
+        GameEntry.Socket.SendMainMsg(proto);
+    }
+
+    /// <summary>
+    /// 摇杆抬起
+    /// </summary>
+    /// <param name="currPos">当前位置</param>
+    /// <param name="rotationY">角色旋转</param>
+    public void JoystickStop(UnityEngine.Vector3 currPos, float rotationY)
+    {
+        C2GS_JoystickStop proto = new C2GS_JoystickStop();
+        proto.CurrPos = new YouYou.Proto.Vector3() { X = currPos.x, Y = currPos.y, Z = currPos.z };
+        proto.RotationY = rotationY;
+        GameEntry.Socket.SendMainMsg(proto);
+    }
+
+    
+    
+    /// <summary>
     /// 角色状态修改
     /// </summary>
     /// <param name="proto"></param>
@@ -301,6 +352,7 @@ public class RoleDataManager : IDisposable
         //找到角色
         if (m_CurrPVPSceneRoleDic.TryGetValue(proto.RoleId,out RoleCtrl roleCtrl))
         {
+            //过滤掉自己,因为分发下来的消息也包括自己
             if (this.CurrPlayer.ServerRoleId == proto.RoleId)
             {
                 return;
@@ -308,12 +360,25 @@ public class RoleDataManager : IDisposable
             
             if (proto.Status == (int)MyCommonEnum.RoleFsmState.Idle)
             {
-                roleCtrl.ChangeState(MyCommonEnum.RoleFsmState.Idle);
+                if (proto.ActionType == PlayerActionType.JoystickStop)
+                {
+                    roleCtrl.ServerJoystickStop(new Vector3(){x = proto.CurrPos.X, y = proto.CurrPos.Y,z = proto.CurrPos.Z},proto.RotationY);
+                }
+                // roleCtrl.ChangeState(MyCommonEnum.RoleFsmState.Idle);
             }
             else if (proto.Status == (int) MyCommonEnum.RoleFsmState.Run)
             {
-                roleCtrl.ServerRun(proto.RunSpeed,new UnityEngine.Vector3()
-                    {x = proto.TargetPos.X, y = proto.TargetPos.Y, z = proto.TargetPos.Z});
+                if (proto.ActionType == PlayerActionType.ClickMove)
+                {
+                    roleCtrl.ServerRun(proto.RunSpeed,new UnityEngine.Vector3()
+                        {x = proto.TargetPos.X, y = proto.TargetPos.Y, z = proto.TargetPos.Z});
+                }
+                else
+                {
+                    roleCtrl.ServerJoystickMove(new Vector3()
+                        {x = proto.TargetPos.X, y = proto.TargetPos.Y, z = proto.TargetPos.Z});
+                }
+
             }
         }
     }

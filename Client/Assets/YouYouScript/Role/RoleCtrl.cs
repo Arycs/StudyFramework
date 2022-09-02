@@ -498,14 +498,19 @@ public class RoleCtrl : BaseSprite, IUpdateComponent
         m_CurrRoleFsmManager.ServerRun(runSpeed,targetPos);
     }
 
+    
+    /// <summary>
+    /// 角色摇杆移动
+    /// </summary>
+    /// <param name="dir"></param>
     public void JoystickMove(Vector2 dir)
     {
-        m_CurrRoleFsmManager.JoystickMove(dir);
+        m_CurrRoleFsmManager.JoystickMove(dir, true);
     }
 
     public void JoystickStop(Vector2 dir)
     {
-        m_CurrRoleFsmManager.JoystickStop();
+        m_CurrRoleFsmManager.JoystickStop(true, Vector3.zero, 0);
     }
 
     /// <summary>
@@ -515,5 +520,20 @@ public class RoleCtrl : BaseSprite, IUpdateComponent
     public void ChangeState(MyCommonEnum.RoleFsmState roleFsmState)
     {
         m_CurrRoleFsmManager.ChangeState(roleFsmState);
+    }
+
+    /// <summary>
+    /// 服务器摇杆抬起
+    /// </summary>
+    /// <param name="currPos"></param>
+    /// <param name="rotationY"></param>
+    public void ServerJoystickStop(Vector3 currPos, float rotationY)
+    {
+        m_CurrRoleFsmManager.JoystickStop(false,currPos,rotationY);
+    }
+
+    public void ServerJoystickMove(Vector3 dir)
+    {
+        m_CurrRoleFsmManager.JoystickMove(dir,false);
     }
 }

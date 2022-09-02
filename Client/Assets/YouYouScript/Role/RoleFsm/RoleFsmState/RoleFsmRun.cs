@@ -40,6 +40,31 @@ public class RoleFsmRun : RoleFsmBase
     private float modifyRunSpeed = 10;//修正速度
     private float runNeedTime = 0; //跑需要的时间
 
+    /// <summary>
+    /// 服务器摇杆移动中
+    /// </summary>
+    private bool m_ServerJoystickMoveing = false;
+
+    /// <summary>
+    /// 服务器摇杆移动目标点
+    /// </summary>
+    private Vector3 m_ServerJoystickMoveTargetPos;
+
+    /// <summary>
+    /// 收到服务器待机后 自动移动
+    /// </summary>
+    private bool m_AutoRunAfterServerIdle;
+
+    /// <summary>
+    /// 收到服务器待机后 自动移动到的目标位置
+    /// </summary>
+    private Vector3 m_AutoRunTargerPosAfterServerIdle;
+
+    /// <summary>
+    /// 收到服务器待机后 自动移动到目标位置后自身的旋转
+    /// </summary>
+    private float m_AutoRunTargerRotationYAfterServerIdle;
+    
 
     public override void OnEnter()
     {
@@ -53,12 +78,27 @@ public class RoleFsmRun : RoleFsmBase
     {
         base.OnUpdate();
 
-        //摇杆拖拽中 禁止滑动摄像机
-        if (GameEntry.Input.Joystick != null && GameEntry.Input.Joystick.IsDraging)
+        if (GameEntry.Data.RoleDataManager.CurrPlayer.ServerRoleId == CurrFsm.Owner.CurrRoleCtrl.ServerRoleId)
         {
-            return;
+            //摇杆拖拽中 禁止滑动摄像机
+            if (GameEntry.Input.Joystick != null && GameEntry.Input.Joystick.IsDraging)
+            {
+                return;
+            }
         }
 
+        if (m_ServerJoystickMoveing)
+        {
+            Vector3 direction = m_ServerJoystickMoveTargetPos - CurrFsm.Owner.CurrRoleCtrl.transform.position;
+            //如果摇杆移动中
+            direction.Normalize(); // 归一化处理,确保力度一致
+
+            direction = direction * Time.deltaTime * modifyRunSpeed;
+            CurrFsm.Owner.CurrRoleCtrl.transform.rotation = Quaternion.LookRotation(direction);
+            CurrFsm.Owner.CurrRoleCtrl.Agent.Move(direction);
+            return;
+        }
+        
         #region 编辑器模式, 绘路线图
 
 #if UNITY_EDITOR
@@ -94,6 +134,13 @@ public class RoleFsmRun : RoleFsmBase
         {
             m_VectorPath = null;
             m_IsPlayRunWithClick = false;
+            //整个路径走完了, 切换待机
+            if (m_AutoRunAfterServerIdle)
+            {
+                m_AutoRunAfterServerIdle = false;
+                CurrFsm.Owner.CurrRoleCtrl.transform.localEulerAngles =
+                    new Vector3(0, m_AutoRunTargerRotationYAfterServerIdle, 0);
+            }
             CurrFsm.Owner.ChangeState(MyCommonEnum.RoleFsmState.Idle);
             return;
         }
@@ -184,12 +231,12 @@ public class RoleFsmRun : RoleFsmBase
         }
     }
 
-
     /// <summary>
     /// 摇杆移动
     /// </summary>
     /// <param name="dir"></param>
-    public void JoystickMove(Vector2 dir)
+    /// <param name="clientAction">客户端行为</param>
+    public void JoystickMove(Vector3 dir, bool clientAction)
     {
         if (!m_IsPlayRunWithJoystick)
         {
@@ -198,34 +245,102 @@ public class RoleFsmRun : RoleFsmBase
             m_IsPlayRunWithJoystick = true;
         }
 
+        Vector3 direction;
+        if (clientAction)
+        {
+            //1.设置辅助器位置
+            var position = CurrFsm.Owner.CurrRoleCtrl.transform.position;
+            GameEntry.Data.RoleDataManager.CurrPlayerMoveHelper.transform.position =
+                new Vector3(
+        position.x + dir.x,
+        position.y,
+        position.z + dir.y);
 
-        Vector3 direction = Vector3.zero;
+            //2.让辅助器进行旋转
+            GameEntry.Data.RoleDataManager.CurrPlayerMoveHelper.transform.RotateAround(position, Vector3.up, GameEntry.CameraCtrl.transform.localEulerAngles.y - 90);
 
-        //1. 设置辅助器位置
-        var position = CurrFsm.Owner.CurrRoleCtrl.transform.position;
-        GameEntry.Data.RoleDataManager.CurrPlayerMoveHelper.transform.position = new Vector3(
-            position.x + dir.x,
-            position.y,
-            position.z + dir.y
-        );
+            //3.得到真正要移动的方向
+            direction = GameEntry.Data.RoleDataManager.CurrPlayerMoveHelper.transform.position - position;
+            GameEntry.Data.RoleDataManager.JoystickMove(position, direction);
 
-        //2. 让辅助器进行旋转
-        GameEntry.Data.RoleDataManager.CurrPlayerMoveHelper.transform.RotateAround(position, Vector3.up,
-            GameEntry.CameraCtrl.transform.localEulerAngles.y - 90);
+            modifyRunSpeed = CurrFsm.Owner.CurrRoleCtrl.MoveSpeed;
+        }
+        else
+        {
+            //如果是服务器摇杆移动，这里的dir是移动的目标点
+            SetServerJoystickMoveTarget(dir);
+            return;
+        }
 
-        //3. 得到真正要移动的方向
-        direction = GameEntry.Data.RoleDataManager.CurrPlayerMoveHelper.transform.position - position;
-
-        direction.Normalize(); //归一化, 确保力度一致
-        direction = direction * Time.deltaTime * CurrFsm.Owner.CurrRoleCtrl.MoveSpeed;
-
+        direction.Normalize();//归一化，确保力度一致
+       
+        direction = direction * Time.deltaTime * modifyRunSpeed;
         CurrFsm.Owner.CurrRoleCtrl.transform.rotation = Quaternion.LookRotation(direction);
         CurrFsm.Owner.CurrRoleCtrl.Agent.Move(direction);
+
     }
 
-    public void JoystickStop()
+    /// <summary>
+    /// 设置服务器摇杆移动的目标点
+    /// </summary>
+    /// <param name="targetPos"></param>
+    private void SetServerJoystickMoveTarget(Vector3 targetPos)
     {
+        m_ServerJoystickMoveing = true;
+        m_ServerJoystickMoveTargetPos = targetPos;
+
+        //算出距离
+        dis = (m_ServerJoystickMoveTargetPos - CurrFsm.Owner.CurrRoleCtrl.transform.position).magnitude;
+
+        //距离/速度=到达所需时间（秒）
+        runNeedTime = dis / runSpeed;
+        runNeedTime -= GameEntry.Socket.PingValue * 0.001f;
+
+        //修正速度
+        modifyRunSpeed = dis / runNeedTime;
+        modifyRunSpeed = Mathf.Clamp(modifyRunSpeed, CurrFsm.Owner.CurrRoleCtrl.MoveSpeed, 15);
+
+        //Debug.LogError("modifyRunSpeed=" + modifyRunSpeed);
+
+        m_AutoRunAfterServerIdle = false;
+        m_VectorPath = null;
+
+    }
+
+    /// <summary>
+    /// 摇杆抬起
+    /// </summary>
+    public void JoystickStop(bool clientAction, Vector3 currPos, float rotationY)
+    {
+        if (clientAction)
+        {
+            var transform = CurrFsm.Owner.CurrRoleCtrl.transform;
+            GameEntry.Data.RoleDataManager.JoystickStop(transform.position, transform.rotation.eulerAngles.y);
+            CurrFsm.Owner.ChangeState(MyCommonEnum.RoleFsmState.Idle);
+        }
+        else
+        {
+            m_ServerJoystickMoveing = false;
+            m_AutoRunAfterServerIdle = true;
+            m_AutoRunTargerPosAfterServerIdle = currPos;
+            m_AutoRunTargerRotationYAfterServerIdle = rotationY;
+
+            m_CurrPointIndex = 1;
+            m_VectorPath = new Vector3[2];
+            m_VectorPath[0] = CurrFsm.Owner.CurrRoleCtrl.transform.position;
+            m_VectorPath[1] = m_AutoRunTargerPosAfterServerIdle;
+            m_TurnComplete = false;
+
+            //算出距离
+            dis = GameUtil.GetPathLen(m_VectorPath);
+
+            //距离/速度=到达所需时间（秒）
+            runNeedTime = dis / runSpeed;
+            runNeedTime -= GameEntry.Socket.PingValue * 0.001f;
+
+            //修正速度
+            modifyRunSpeed = dis / runNeedTime;
+        }
         m_IsPlayRunWithJoystick = false;
-        CurrFsm.Owner.ChangeState(MyCommonEnum.RoleFsmState.Idle);
     }
 }

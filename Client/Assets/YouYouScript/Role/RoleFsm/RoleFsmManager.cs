@@ -112,14 +112,14 @@ public class RoleFsmManager : ManagerBase
         m_RoleFsmRun.ServerRun(runSpeed,targetPos);
     }
 
-    public void JoystickMove(Vector2 dir)
+    public void JoystickMove(Vector3 dir, bool clientAction)
     {
         ChangeState(RoleFsmState.Run);
-        m_RoleFsmRun.JoystickMove(dir);
+        m_RoleFsmRun.JoystickMove(dir, clientAction);
     }
 
-    public void JoystickStop()
+    public void JoystickStop(bool clientAction, Vector3 currPos, float rotationY)
     {
-        m_RoleFsmRun.JoystickStop();
+        m_RoleFsmRun.JoystickStop(clientAction, currPos, rotationY);
     }
 }
