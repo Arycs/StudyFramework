@@ -20,3 +20,5 @@ E:\StudyFramework\Server\YouYouServer\YouYouServer.Core\obj\Debug\netcoreapp3.1\
 E:\StudyFramework\Server\YouYouServer\YouYouServer.Core\obj\Debug\netcoreapp3.1\YouYouServer.Core.dll
 E:\StudyFramework\Server\YouYouServer\YouYouServer.Core\obj\Debug\netcoreapp3.1\YouYouServer.Core.pdb
 E:\StudyFramework\Server\YouYouServer\YouYouServer.Core\obj\Debug\netcoreapp3.1\YouYouServer.Core.csproj.AssemblyReference.cache
+E:\StudyFramework\Server\YouYouServer\YouYouServer.Core\bin\Debug\netcoreapp3.1\UnityEngine.dll
+E:\StudyFramework\Server\YouYouServer\YouYouServer.Core\bin\Debug\netcoreapp3.1\UnityEngine.xml

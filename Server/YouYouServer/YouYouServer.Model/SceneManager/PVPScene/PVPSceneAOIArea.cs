@@ -102,18 +102,20 @@ namespace YouYouServer.Model.ServerManager
         /// </summary>
         /// <param name="roleClientBase"></param>
         /// <param name="targetPos"></param>
-        public void RoleMove(RoleClientBase roleClientBase,  YouYou.Proto.Vector3 targetPos)
+        /// <param name="moveType"></param>
+        public void RoleMove(RoleClientBase roleClientBase,  YouYou.Proto.Vector3 targetPos, PlayerActionType moveType)
         {
-            m_CurrHandler.RoleMove(roleClientBase,targetPos);
+            m_CurrHandler.RoleMove(roleClientBase,targetPos,moveType);
         }
 
         /// <summary>
         /// 角色待机
         /// </summary>
         /// <param name="roleClientBase"></param>
-        public void RoleIdle(RoleClientBase roleClientBase)
+        /// <param name="isJoystickStop"></param>
+        public void RoleIdle(RoleClientBase roleClientBase,bool isJoystickStop)
         {
-            m_CurrHandler.RoleIdle(roleClientBase);
+            m_CurrHandler.RoleIdle(roleClientBase,isJoystickStop);
         }
         
     }

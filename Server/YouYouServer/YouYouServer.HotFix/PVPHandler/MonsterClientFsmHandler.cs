@@ -33,7 +33,7 @@ namespace YouYouServer.HotFix.PVPHandler
             if (GameServerManager.CurrSceneManager.PVPSceneDic.TryGetValue(m_MonsterClient.CurrSceneId,
                 out var pvpScene))
             {
-                pvpScene.DefaultSceneLine.AOIAreaDic[m_MonsterClient.CurrAreaId].RoleIdle(m_MonsterClient);
+                pvpScene.DefaultSceneLine.AOIAreaDic[m_MonsterClient.CurrAreaId].RoleIdle(m_MonsterClient, false);
             }
         }
 
@@ -118,7 +118,8 @@ namespace YouYouServer.HotFix.PVPHandler
                             {
                                 pvpScene.DefaultSceneLine.AOIAreaDic[m_MonsterClient.CurrAreaId].RoleMove(
                                     m_MonsterClient,
-                                    new Vector3() {X = targetPos.x, Y = targetPos.y, Z = targetPos.z});
+                                    new Vector3() {X = targetPos.x, Y = targetPos.y, Z = targetPos.z},
+                                    PlayerActionType.ClickMove);
                             }
 
                             m_MonsterClient.CurrFsmManager.ChangeState(RoleState.Run);

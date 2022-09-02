@@ -299,7 +299,7 @@ namespace YouYouServer.HotFix
                         {
                             pvpScene.DefaultSceneLine.AOIAreaDic[m_PlayerForGameClient.CurrAreaId]
                                 .RoleMove(m_PlayerForGameClient,
-                                    new Vector3() {X = targetPos.x, Y = targetPos.y, Z = targetPos.z});
+                                    new Vector3() {X = targetPos.x, Y = targetPos.y, Z = targetPos.z},PlayerActionType.ClickMove);
                         }
 
                         Console.WriteLine("step 4 RoleId = " + m_PlayerForGameClient.RoleId + " ChangeState  Run");
@@ -310,6 +310,90 @@ namespace YouYouServer.HotFix
                 });
         }
 
+        /// <summary>
+        /// 摇杆移动
+        /// </summary>
+        [HandlerMessage(ProtoIdDefine.Proto_C2GS_JoystickMove)]
+        private void JoystickMove(byte[] buffer)
+        {
+            C2GS_JoystickMove proto =
+                (C2GS_JoystickMove) C2GS_JoystickMove.Descriptor.Parser.ParseFrom(buffer);
+
+            UnityEngine.Vector3 currPos =
+                new UnityEngine.Vector3(proto.CurrPos.X, proto.CurrPos.Y, proto.CurrPos.Z);
+
+            UnityEngine.Vector3 moveDir =
+                new UnityEngine.Vector3(proto.MoveDir.X, proto.MoveDir.Y, proto.MoveDir.Z);
+
+            //模拟出来的目标点
+            UnityEngine.Vector3 targetPos = currPos + moveDir.normalized * 0.5f;
+            UnityEngine.Vector3 protoTargetPos = currPos + moveDir.normalized * 10;
+
+            if (GameServerManager.CurrSceneManager.PVPSceneDic.TryGetValue(m_PlayerForGameClient.CurrSceneId,
+                out var pvpScene))
+            {
+                //是否可以到达
+                if (!pvpScene.GetCanArrive(targetPos))
+                {
+                    //停止移动
+                    m_PlayerForGameClient.CurrFsmManager.ChangeState(Core.RoleState.Idle);
+                    return;
+                }
+
+                pvpScene.DefaultSceneLine.AOIAreaDic[m_PlayerForGameClient.CurrAreaId]
+                    .RoleMove(m_PlayerForGameClient,
+                        new Vector3() {X = protoTargetPos.x, Y = protoTargetPos.y, Z = protoTargetPos.z}, PlayerActionType.JoystickMove);
+            }
+
+            m_PlayerForGameClient.MoveType = PlayerActionType.JoystickMove;
+
+            m_PlayerForGameClient.TargetPos = protoTargetPos;
+
+            Console.WriteLine("JoystickMove roleId = {0} pingValue = {1}", m_PlayerForGameClient.RoleId,
+                m_PlayerForGameClient.PingValue);
+
+            //设置这个玩家的总延迟时间
+            m_PlayerForGameClient.TotalPingValue = m_PlayerForGameClient.PingValue;
+            m_PlayerForGameClient.CurrFsmManager.ChangeState(Core.RoleState.Run);
+        }
+
+        /// <summary>
+        /// 摇杆停止
+        /// </summary>
+        /// <param name="buffer"></param>
+        [HandlerMessage(ProtoIdDefine.Proto_C2GS_JoystickStop)]
+        private void JoystickStop(byte[] buffer)
+        {
+            C2GS_JoystickStop proto =
+                (C2GS_JoystickStop) C2GS_JoystickStop.Descriptor.Parser.ParseFrom(buffer);
+            
+            //TODO 数据校验
+            
+            m_PlayerForGameClient.CurrFsmManager.ChangeState(Core.RoleState.Idle);
+            
+            //修改当前位置
+            UnityEngine.Vector3 currPos =
+                new UnityEngine.Vector3(proto.CurrPos.X, proto.CurrPos.Y, proto.CurrPos.Z);
+            
+            m_PlayerForGameClient.CurrPos = currPos;
+            m_PlayerForGameClient.CurrRotationY = proto.RotationY;
+            
+            //写入DB数据
+            m_PlayerForGameClient.CurrRole.PosData = new YouYou.Proto.Vector3
+            {
+                X = m_PlayerForGameClient.CurrPos.x, Y = m_PlayerForGameClient.CurrPos.y,
+                Z = m_PlayerForGameClient.CurrPos.z
+            };
+            m_PlayerForGameClient.CurrRole.RotationY = m_PlayerForGameClient.CurrRotationY;
+            
+            if (GameServerManager.CurrSceneManager.PVPSceneDic.TryGetValue(m_PlayerForGameClient.CurrSceneId,
+                out var pvpScene))
+            {
+                pvpScene.DefaultSceneLine.AOIAreaDic[m_PlayerForGameClient.CurrAreaId]
+                    .RoleIdle(m_PlayerForGameClient, true);
+            }
+        }
+        
         /// <summary>
         /// 进入AOI区域
         /// </summary>

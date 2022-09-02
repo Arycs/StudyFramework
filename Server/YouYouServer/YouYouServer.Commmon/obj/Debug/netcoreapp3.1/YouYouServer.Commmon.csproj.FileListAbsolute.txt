@@ -15,3 +15,5 @@ E:\StudyFramework\Server\YouYouServer\YouYouServer.Commmon\obj\Debug\netcoreapp3
 E:\StudyFramework\Server\YouYouServer\YouYouServer.Commmon\obj\Debug\netcoreapp3.1\YouYouServer.Commmon.csproj.CopyComplete
 E:\StudyFramework\Server\YouYouServer\YouYouServer.Commmon\obj\Debug\netcoreapp3.1\YouYouServer.Commmon.dll
 E:\StudyFramework\Server\YouYouServer\YouYouServer.Commmon\obj\Debug\netcoreapp3.1\YouYouServer.Commmon.pdb
+E:\StudyFramework\Server\YouYouServer\YouYouServer.Commmon\bin\Debug\netcoreapp3.1\UnityEngine.dll
+E:\StudyFramework\Server\YouYouServer\YouYouServer.Commmon\bin\Debug\netcoreapp3.1\UnityEngine.xml

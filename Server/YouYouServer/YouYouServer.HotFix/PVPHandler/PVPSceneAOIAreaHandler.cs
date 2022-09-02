@@ -140,7 +140,8 @@ namespace YouYouServer.HotFix
         /// </summary>
         /// <param name="roleClientBase"></param>
         /// <param name="targetPos"></param>
-        public void RoleMove(RoleClientBase roleClientBase, Vector3 targetPos)
+        /// <param name="moveType"></param>
+        public void RoleMove(RoleClientBase roleClientBase, Vector3 targetPos,PlayerActionType moveType)
         {
             List<RoleClientBase> players = GetAllRole(SearchRoleType.Player);
             foreach (var role in players)
@@ -153,7 +154,8 @@ namespace YouYouServer.HotFix
                         {X = roleClientBase.CurrPos.x, Y = roleClientBase.CurrPos.y, Z = roleClientBase.CurrPos.z},
                     RotationY = roleClientBase.CurrRotationY,
                     TargetPos = targetPos,
-                    RunSpeed = roleClientBase.RunSpeed
+                    RunSpeed = roleClientBase.RunSpeed,
+                    ActionType = moveType
                 };
                 ((PlayerForGameClient) role).SendCarryToClient(proto);
             }
@@ -163,7 +165,8 @@ namespace YouYouServer.HotFix
         /// 角色待机
         /// </summary>
         /// <param name="roleClientBase"></param>
-        public void RoleIdle(RoleClientBase roleClientBase)
+        /// <param name="isJoystickStop"></param>
+        public void RoleIdle(RoleClientBase roleClientBase, bool isJoystickStop)
         {
             List<RoleClientBase> players = GetAllRole(SearchRoleType.Player);
             foreach (var role in players)
@@ -176,6 +179,10 @@ namespace YouYouServer.HotFix
                         {X = roleClientBase.CurrPos.x, Y = roleClientBase.CurrPos.y, Z = roleClientBase.CurrPos.z},
                     RotationY = roleClientBase.CurrRotationY,
                 };
+                if (isJoystickStop)
+                {
+                    proto.ActionType = PlayerActionType.JoystickStop;
+                }
                 ((PlayerForGameClient) role).SendCarryToClient(proto);
             }
         }

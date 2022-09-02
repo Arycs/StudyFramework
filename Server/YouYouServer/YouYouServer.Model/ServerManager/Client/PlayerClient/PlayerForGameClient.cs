@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 using YouYou;
+using YouYou.Proto;
 using YouYouServer.Common;
 using YouYouServer.Core;
 using YouYouServer.Model.IHandler;
@@ -44,6 +45,11 @@ namespace YouYouServer.Model
         /// 这个句柄主要是处理玩家收发消息 业务逻辑等
         /// </summary>
         private IPlayerForGameClientHandler m_CurrHandler;
+
+        /// <summary>
+        /// 玩家移动方式
+        /// </summary>
+        public PlayerActionType MoveType;
 
         private void InitPlayerForGameClientHandler()
         {

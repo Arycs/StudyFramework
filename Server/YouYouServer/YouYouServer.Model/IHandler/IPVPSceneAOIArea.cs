@@ -28,13 +28,15 @@ namespace YouYouServer.Model.IHandler
         /// </summary>
         /// <param name="roleClientBase"></param>
         /// <param name="targetPos"></param>
-        void RoleMove(RoleClientBase roleClientBase, Vector3 targetPos);
+        /// <param name="moveType"></param>
+        void RoleMove(RoleClientBase roleClientBase, Vector3 targetPos,PlayerActionType moveType);
 
         /// <summary>
         /// 角色待机
         /// </summary>
         /// <param name="roleClientBase"></param>
-        void RoleIdle(RoleClientBase roleClientBase);
+        /// <param name="isJoystickStop"></param>
+        void RoleIdle(RoleClientBase roleClientBase,bool isJoystickStop);
 
     }
 }
