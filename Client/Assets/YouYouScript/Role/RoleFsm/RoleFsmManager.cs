@@ -42,6 +42,8 @@ public class RoleFsmManager : ManagerBase
     /// 跑步状态
     /// </summary>
     private RoleFsmRun m_RoleFsmRun;
+
+    public RoleFsmAttack RoleFsmAttack;
     
     /// <summary>
     /// 当前角色控制器
@@ -59,8 +61,9 @@ public class RoleFsmManager : ManagerBase
         states[(sbyte)RoleFsmState.Idle] = new RoleFsmIdle(); 
 
         m_RoleFsmRun = new RoleFsmRun();
+        RoleFsmAttack = new RoleFsmAttack();
         states[(sbyte)RoleFsmState.Run] = m_RoleFsmRun;
-        states[(sbyte)RoleFsmState.Attack] = new RoleFsmAttack();
+        states[(sbyte)RoleFsmState.Attack] = RoleFsmAttack;
         m_CurrFsm = GameEntry.Fsm.Create(this, states);
     }
 

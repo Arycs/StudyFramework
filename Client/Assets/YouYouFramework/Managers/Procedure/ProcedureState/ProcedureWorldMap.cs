@@ -14,6 +14,9 @@ namespace YouYou
         {
             base.OnEnter();
             GameEntry.Log(LogCategory.Procedure, "OnEnter ProcedureWorldMap");
+            
+            GameEntry.Event.CommonEvent.AddEventListener(CommonEventId.OnPlaySkill, OnPlaySkill);
+            
             //加载场景
             GameEntry.Scene.LoadScene(GameEntry.Data.UserDataManager.CurrSceneId, false, (() =>
             {
@@ -40,6 +43,22 @@ namespace YouYou
                     GameEntry.Data.RoleDataManager.CurrPlayer.JoystickStop(v);
                 };
             }));
+        }
+
+        private void OnPlaySkill(object userData)
+        {
+            VarInt varInt = userData as VarInt;
+
+            // DTSkillLevel dtSkillLevel = GameEntry.DataTable.SkillLevelList.Get(varInt.Value);
+            // GameEntry.Pool.GameObjectSpawn(1, onComplete: (Transform trans, bool isNewInstance) =>
+            // {
+            //     TimeLineCtrl timeLineCtrl = trans.gameObject.GetComponent<TimeLineCtrl>();
+            //     timeLineCtrl.CurrRole = GameEntry.Data.RoleDataManager.CurrPlayer;
+            //     timeLineCtrl.OnStopped = () =>
+            //     {
+            //         GameEntry.Pool.GameObjectDeSpawn(trans);
+            //     };
+            // });
         }
 
 
@@ -85,7 +104,7 @@ namespace YouYou
             
             //TODO 这里调用会导致 游戏关闭时 UI层级调用出问题 
             //关闭摇杆
-            //GameEntry.UI.CloseUIForm(UIFormId.UI_Joystick);
+            GameEntry.UI.CloseUIForm(UIFormId.UI_Joystick);
         }
 
         public override void OnDestroy()

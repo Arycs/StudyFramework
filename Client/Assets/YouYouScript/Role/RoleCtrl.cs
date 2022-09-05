@@ -92,6 +92,9 @@ public class RoleCtrl : BaseSprite, IUpdateComponent
     /// </summary>
     public float MoveSpeed = 10f;
 
+    /// <summary>
+    /// 寻路代理
+    /// </summary>
     public NavMeshAgent Agent { get; private set; }
 
     protected override void OnAwake()
@@ -111,6 +114,20 @@ public class RoleCtrl : BaseSprite, IUpdateComponent
         {
             m_PlayableGraph.Destroy();
         }
+    }
+
+    /// <summary>
+    /// 设置角色攻击动画时间
+    /// </summary>
+    /// <param name="animLen"></param>
+    public void SetAttackAnimLen(float animLen)
+    {
+        if (m_CurrRoleFsmManager == null )
+        {
+            return;
+        }
+
+        m_CurrRoleFsmManager.RoleFsmAttack.SetAnimLen(animLen);
     }
 
     /// <summary>
@@ -229,7 +246,7 @@ public class RoleCtrl : BaseSprite, IUpdateComponent
     /// </summary>
     /// <param name="roleAnimCategory"></param>
     /// <returns></returns>
-    public RoleAnimInfo PlayAnimByAnimCategory(MyCommonEnum.RoleAnimCategory roleAnimCategory)
+    public RoleAnimInfo PlayAnimByAnimCategory(MyCommonEnum.RoleAnimCategory roleAnimCategory, int param = 0)
     {
         int animId = -1;
         switch (roleAnimCategory)
@@ -242,7 +259,8 @@ public class RoleCtrl : BaseSprite, IUpdateComponent
                 animId = m_CurrDTRoleAnimCategory.RunAnimId;
                 break;
             case MyCommonEnum.RoleAnimCategory.Attack:
-                animId = m_CurrDTRoleAnimCategory.Attack_1;
+                //Todo 这里需要更改表格工具, 临时写的扩展方法 后续需更改
+                animId = m_CurrDTRoleAnimCategory.Attack(param);
                 break;
         }
 

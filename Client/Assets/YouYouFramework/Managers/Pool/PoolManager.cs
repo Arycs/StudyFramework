@@ -337,6 +337,15 @@ namespace YouYou
             GameObjectPool.Spawn(prefabId, onComplete);
         }
 
+        /// <summary>
+        /// 从对象池中获取对象
+        /// </summary>
+        /// <param name="prefabPath"></param>
+        /// <param name="onComplete"></param>
+        public void GameObjectSpawn(string prefabPath, BaseAction<Transform,bool> onComplete)
+        {
+            GameObjectPool.Spawn(prefabPath, onComplete);
+        }
         #endregion
 
 
