@@ -256,4 +256,40 @@ public class MMO_MemoryStream : MemoryStream
         base.Write(arr, 0, arr.Length);
     }
     #endregion
+    
+    #region 数组
+    /// <summary>
+    /// 从流中读取一个int数组
+    /// </summary>
+    /// <returns></returns>
+    public int[] ReadIntArr()
+    {
+        ushort len = this.ReadUShort();
+        int[] intArr = new int[len];
+        for (int i = 0; i < len; i++)
+        {
+            var arr = new byte[4];
+            base.Read(arr, 0, 4);
+            intArr[i] = BitConverter.ToInt32(arr, 0);
+        }
+        return intArr;
+    }
+
+    /// <summary>
+    /// 把一个int数据写入流
+    /// </summary>
+    /// <param name="str"></param>
+    public void WriteIntArr(string str)
+    {
+        if (str == null) str = "";
+        string[] intArr = str.Split(':');
+        WriteUShort((ushort)intArr.Length);
+        int len = intArr.Length;
+        for (int i = 0; i < len; i++)
+        {
+            var arr = BitConverter.GetBytes(int.Parse(intArr[i]));
+            base.Write(arr, 0, arr.Length);
+        }
+    }
+    #endregion
 }

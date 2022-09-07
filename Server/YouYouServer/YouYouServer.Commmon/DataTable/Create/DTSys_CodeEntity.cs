@@ -15,9 +15,9 @@ namespace YouYouServer.Model.DataTable
         public string Desc;
 
         /// <summary>
-        /// Key
+        /// Name
         /// </summary>
-        public string Key;
+        public string Name;
 
     }
 }

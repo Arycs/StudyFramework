@@ -5,29 +5,34 @@
 namespace YouYouServer.Model.DataTable
 {
     /// <summary>
-    /// DTSys_Localization实体
+    /// DTNPC实体
     /// </summary>
-    public partial class DTSys_LocalizationEntity : DataTableEntityBase
+    public partial class DTNPCEntity : DataTableEntityBase
     {
         /// <summary>
-        /// 描述
+        /// 名称
         /// </summary>
-        public string Desc;
+        public string Name;
 
         /// <summary>
-        /// Key
+        /// 预设名称
         /// </summary>
-        public string Key;
+        public string PrefabName;
 
         /// <summary>
-        /// 中文
+        /// 头像
         /// </summary>
-        public string Chinese;
+        public string HeadPic;
 
         /// <summary>
-        /// 英文
+        /// 半身像
         /// </summary>
-        public string English;
+        public string HalfBodyPic;
+
+        /// <summary>
+        /// 自言自语
+        /// </summary>
+        public string Talk;
 
     }
 }

@@ -5,29 +5,39 @@
 namespace YouYouServer.Model.DataTable
 {
     /// <summary>
-    /// DTSys_Sound实体
+    /// DTBattleAttr实体
     /// </summary>
-    public partial class DTSys_SoundEntity : DataTableEntityBase
+    public partial class DTBattleAttrEntity : DataTableEntityBase
     {
         /// <summary>
-        /// 描述
+        /// 属性值
+        /// </summary>
+        public string Name;
+
+        /// <summary>
+        /// 属性名称
+        /// </summary>
+        public string AttrName;
+
+        /// <summary>
+        /// 属性描述
         /// </summary>
         public string Desc;
 
         /// <summary>
-        /// 路径
+        /// 枚举
         /// </summary>
-        public string AssetPath;
+        public string Enum;
 
         /// <summary>
-        /// 是否3d声音
+        /// 下限值
         /// </summary>
-        public int Is3D;
+        public int Min;
 
         /// <summary>
-        /// 音量(0-1)
+        /// 上限值
         /// </summary>
-        public float Volume;
+        public int Max;
 
     }
 }

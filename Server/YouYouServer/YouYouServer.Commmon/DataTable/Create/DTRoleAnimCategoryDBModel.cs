@@ -30,6 +30,7 @@ namespace YouYouServer.Model.DataTable
                 entity.Desc = ms.ReadUTF8String();
                 entity.IdleNormalAnimId = ms.ReadInt();
                 entity.RunAnimId = ms.ReadInt();
+                entity.HurtAnimId = ms.ReadInt();
                 entity.Attack_1 = ms.ReadInt();
                 entity.Attack_2 = ms.ReadInt();
                 entity.Attack_3 = ms.ReadInt();

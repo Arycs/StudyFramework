@@ -6,14 +6,14 @@ using YouYouServer.Common;
 namespace YouYouServer.Model.DataTable
 {
     /// <summary>
-    /// DTSys_Localization数据管理
+    /// DTNPC数据管理
     /// </summary>
-    public partial class DTSys_LocalizationDBModel : DataTableDBModelBase<DTSys_LocalizationDBModel, DTSys_LocalizationEntity>
+    public partial class DTNPCDBModel : DataTableDBModelBase<DTNPCDBModel, DTNPCEntity>
     {
         /// <summary>
         /// 数据表完整路径
         /// </summary>
-        public override string DataTableName => "DTSys_Localization";
+        public override string DataTableName => "DTNPC";
 
         /// <summary>
         /// 加载列表
@@ -25,12 +25,13 @@ namespace YouYouServer.Model.DataTable
 
             for (int i = 0; i < rows; i++)
             {
-                DTSys_LocalizationEntity entity = new DTSys_LocalizationEntity();
+                DTNPCEntity entity = new DTNPCEntity();
                 entity.Id = ms.ReadInt();
-                entity.Desc = ms.ReadUTF8String();
-                entity.Key = ms.ReadUTF8String();
-                entity.Chinese = ms.ReadUTF8String();
-                entity.English = ms.ReadUTF8String();
+                entity.Name = ms.ReadUTF8String();
+                entity.PrefabName = ms.ReadUTF8String();
+                entity.HeadPic = ms.ReadUTF8String();
+                entity.HalfBodyPic = ms.ReadUTF8String();
+                entity.Talk = ms.ReadUTF8String();
 
                 m_List.Add(entity);
                 m_Dic[entity.Id] = entity;

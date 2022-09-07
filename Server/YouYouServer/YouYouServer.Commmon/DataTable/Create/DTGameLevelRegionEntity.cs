@@ -5,24 +5,24 @@
 namespace YouYouServer.Model.DataTable
 {
     /// <summary>
-    /// DTRole实体
+    /// DTGameLevelRegion实体
     /// </summary>
-    public partial class DTRoleEntity : DataTableEntityBase
+    public partial class DTGameLevelRegionEntity : DataTableEntityBase
     {
         /// <summary>
-        /// 描述
+        /// 游戏关卡Id
         /// </summary>
-        public string Desc;
+        public int GameLevelId;
 
         /// <summary>
-        /// 关联预设编号
+        /// 区域Id
         /// </summary>
-        public int PrefabId;
+        public int RegionId;
 
         /// <summary>
-        /// 关联动画组Id
+        /// 初始化精灵
         /// </summary>
-        public int AnimGroupId;
+        public string InitSprite;
 
     }
 }

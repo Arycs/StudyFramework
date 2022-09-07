@@ -33,12 +33,6 @@ namespace YouYouServer.Model.DataTable
                 entity.HeadPic = ms.ReadUTF8String();
                 entity.JobPic = ms.ReadUTF8String();
                 entity.JobDesc = ms.ReadUTF8String();
-                entity.Attack = ms.ReadInt();
-                entity.Defense = ms.ReadInt();
-                entity.Hit = ms.ReadInt();
-                entity.Dodge = ms.ReadInt();
-                entity.Cri = ms.ReadInt();
-                entity.Res = ms.ReadInt();
 
                 m_List.Add(entity);
                 m_Dic[entity.Id] = entity;

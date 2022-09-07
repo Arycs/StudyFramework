@@ -130,7 +130,7 @@ namespace YouYouServer.Commmon
                     case ServerTimerRunType.FixedInterval:
                         servertime.ServerTimerTick();
                         break;
-                    case ServerTimerRunType.EvertyDay:
+                    case ServerTimerRunType.EveryDay:
                         //时分秒
                         if (servertime.Hour == m_CurrHour && servertime.Minute == m_CurrMinute && servertime.Second == m_CurrSecond)
                         {

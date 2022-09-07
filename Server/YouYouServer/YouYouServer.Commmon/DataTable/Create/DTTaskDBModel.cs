@@ -6,14 +6,14 @@ using YouYouServer.Common;
 namespace YouYouServer.Model.DataTable
 {
     /// <summary>
-    /// DTSys_Sound数据管理
+    /// DTTask数据管理
     /// </summary>
-    public partial class DTSys_SoundDBModel : DataTableDBModelBase<DTSys_SoundDBModel, DTSys_SoundEntity>
+    public partial class DTTaskDBModel : DataTableDBModelBase<DTTaskDBModel, DTTaskEntity>
     {
         /// <summary>
         /// 数据表完整路径
         /// </summary>
-        public override string DataTableName => "DTSys_Sound";
+        public override string DataTableName => "DTTask";
 
         /// <summary>
         /// 加载列表
@@ -25,12 +25,11 @@ namespace YouYouServer.Model.DataTable
 
             for (int i = 0; i < rows; i++)
             {
-                DTSys_SoundEntity entity = new DTSys_SoundEntity();
+                DTTaskEntity entity = new DTTaskEntity();
                 entity.Id = ms.ReadInt();
-                entity.Desc = ms.ReadUTF8String();
-                entity.AssetPath = ms.ReadUTF8String();
-                entity.Is3D = ms.ReadInt();
-                entity.Volume = ms.ReadFloat();
+                entity.Name = ms.ReadUTF8String();
+                entity.Status = ms.ReadInt();
+                entity.Content = ms.ReadUTF8String();
 
                 m_List.Add(entity);
                 m_Dic[entity.Id] = entity;
