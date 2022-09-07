@@ -17,8 +17,8 @@ public partial class DTSys_CodeEntity : DataTableEntityBase
     public string Desc;
 
     /// <summary>
-    /// Key
+    /// Name
     /// </summary>
-    public string Key;
+    public string Name;
 
 }

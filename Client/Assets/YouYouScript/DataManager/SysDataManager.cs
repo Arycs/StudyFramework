@@ -61,7 +61,7 @@ namespace YouYou
             DTSys_CodeEntity sys_CodeEntity = GameEntry.DataTable.Sys_CodeDBModel.Get(sysCode);
             if (sys_CodeEntity != null)
             {
-                return GameEntry.Localization.GetString(sys_CodeEntity.Key);
+                return GameEntry.Localization.GetString(sys_CodeEntity.Name);
             }
             return string.Empty;
            

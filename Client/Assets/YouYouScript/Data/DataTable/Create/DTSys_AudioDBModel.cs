@@ -33,7 +33,7 @@ public partial class DTSys_AudioDBModel : DataTableDBModelBase<DTSys_AudioDBMode
             entity.Desc = ms.ReadUTF8String();
             entity.AssetPath = ms.ReadUTF8String();
             entity.Is3D = ms.ReadInt();
-            entity.volume = ms.ReadFloat();
+            entity.Volume = ms.ReadFloat();
 
             m_List.Add(entity);
             m_Dic[entity.Id] = entity;

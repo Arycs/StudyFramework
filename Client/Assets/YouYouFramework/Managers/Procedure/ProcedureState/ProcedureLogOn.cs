@@ -13,12 +13,17 @@ namespace YouYou
         {
             base.OnEnter();
             GameEntry.Log(LogCategory.Procedure, "OnEnter ProcedureLogOn");
-            GameEntry.UI.OpenUIForm(UIFormId.UI_LogonBG, onOpen: OnLogonBGOpen);
+            GameEntry.UI.OpenUIForm(SysUIFormId.UI_LogonBG, onOpen: OnLogonBGOpen);
+            var arr = GameEntry.DataTable.SkillLevelList.Get(4).Args;
+            for (int i = 0; i < arr.Length; i++)
+            {
+                Debug.Log($"===>>>>>>>>>>{arr[i]}");
+            }
         }
 
         private void OnLogonBGOpen(UIFormBase uiFormBase)
         {
-            GameEntry.UI.OpenUIForm(UIFormId.UI_Login);
+            GameEntry.UI.OpenUIForm(SysUIFormId.UI_Login);
 
             GameEntry.Event.CommonEvent.Dispatch(SysEventId.CloseCheckVersionUI);
         }
@@ -31,8 +36,8 @@ namespace YouYou
         public override void OnLeave()
         {
             base.OnLeave();
-            GameEntry.UI.CloseUIForm(UIFormId.UI_Login);
-            GameEntry.UI.CloseUIForm(UIFormId.UI_LogonBG);
+            GameEntry.UI.CloseUIForm(SysUIFormId.UI_Login);
+            GameEntry.UI.CloseUIForm(SysUIFormId.UI_LogonBG);
 
             GameEntry.Log(LogCategory.Procedure, "OnLeave ProcedureLogOn");
         }

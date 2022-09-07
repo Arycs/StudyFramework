@@ -1,22 +1,32 @@
-public class JobId
+
+//===================================================
+//作    者：ZnArycs 
+//备    注：此代码基于DTJob生成对应ID
+//===================================================
+
+/// <summary>
+/// UI界面ID 
+/// </summary>
+public static class JobId
 {
     /// <summary>
-    /// 刺客
+    ///天山 
     /// </summary>
-    public const int CiKe = 1;
+    public const int JobName_TianShan = 1;
 
     /// <summary>
-    /// 战士
+    ///峨眉 
     /// </summary>
-    public const int ZhanShi = 2;
+    public const int JobName_ErMei = 2;
 
     /// <summary>
-    /// 法师
+    ///少林 
     /// </summary>
-    public const int FaShi = 3;
+    public const int JobName_ShaoLin = 3;
 
     /// <summary>
-    /// 巨锤
+    ///丐帮 
     /// </summary>
-    public const int JuChui = 4;
+    public const int JobName_GaiBang = 4;
+
 }

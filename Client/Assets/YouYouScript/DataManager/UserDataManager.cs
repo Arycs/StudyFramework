@@ -75,11 +75,11 @@ public class UserDataManager : IDisposable
         var roleCount = ReturnRoleListData.RoleList.Count;
         if (roleCount == 0)
         {
-            GameEntry.UI.OpenUIForm(UIFormId.UI_CreateRole, roleCount);
+            GameEntry.UI.OpenUIForm(SysUIFormId.UI_CreateRole, roleCount);
         }
         else
         {
-            GameEntry.UI.OpenUIForm(UIFormId.UI_SelectRole);
+            GameEntry.UI.OpenUIForm(SysUIFormId.UI_SelectRole);
         }
     }
 

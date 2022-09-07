@@ -12,7 +12,7 @@ namespace YouYou
         public override void OnEnter()
         {
             base.OnEnter();
-            GameEntry.UI.OpenUIForm(UIFormId.UI_Loading);
+            GameEntry.UI.OpenUIForm(SysUIFormId.UI_Loading);
             GameEntry.Data.UserDataManager.EnterGame();
         }
 

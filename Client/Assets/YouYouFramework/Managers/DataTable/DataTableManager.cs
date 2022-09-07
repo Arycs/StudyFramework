@@ -39,11 +39,6 @@ namespace YouYou
         public DTSys_PrefabDBModel Sys_PrefabDBModel { get; private set; }
 
         /// <summary>
-        /// 系统声音表
-        /// </summary>
-        public DTSys_SoundDBModel Sys_SoundDBModel { get; private set; }
-
-        /// <summary>
         /// 系统剧情声音表
         /// </summary>
         public DTSys_StorySoundDBModel Sys_StorySoundDBModel { get; private set; }
@@ -94,6 +89,10 @@ namespace YouYou
         /// </summary>
         public DTRoleAnimCategoryDBModel RoleAnimCategoryList { get; private set; }
 
+        public DTSkillLevelDBModel SkillLevelList{ get; private set; }
+        public DTBuffDBModel BuffList{ get; private set; }
+
+        
         /// <summary>
         /// 初始化DBModel
         /// </summary>
@@ -104,7 +103,6 @@ namespace YouYou
             Sys_EffectDBModel = new DTSys_EffectDBModel();
             LocalizationDBModel = new LocalizationDBModel();
             Sys_PrefabDBModel = new DTSys_PrefabDBModel();
-            Sys_SoundDBModel = new DTSys_SoundDBModel();
             Sys_StorySoundDBModel = new DTSys_StorySoundDBModel();
             Sys_UIFormDBModel = new DTSys_UIFormDBModel();
             Sys_SceneDBModel = new DTSys_SceneDBModel();
@@ -116,6 +114,9 @@ namespace YouYou
             BaseRoleList = new DTBaseRoleDBModel();
             SpriteList = new DTSpriteDBModel();
             RoleAnimCategoryList = new DTRoleAnimCategoryDBModel();
+
+            SkillLevelList = new DTSkillLevelDBModel();
+            BuffList = new DTBuffDBModel();
         }
 
 
@@ -129,7 +130,6 @@ namespace YouYou
             Sys_EffectDBModel.LoadData();
             LocalizationDBModel.LoadData();
             Sys_PrefabDBModel.LoadData();
-            Sys_SoundDBModel.LoadData();
             Sys_StorySoundDBModel.LoadData();
             Sys_UIFormDBModel.LoadData();
             Sys_SceneDBModel.LoadData();
@@ -141,6 +141,9 @@ namespace YouYou
             BaseRoleList.LoadData();
             RoleAnimCategoryList.LoadData();
             SpriteList.LoadData();
+            
+            SkillLevelList.LoadData();
+            BuffList.LoadData();
         }
 
         /// <summary>
@@ -202,7 +205,6 @@ namespace YouYou
             Sys_EffectDBModel.Clear();
             LocalizationDBModel.Clear();
             Sys_PrefabDBModel.Clear();
-            Sys_SoundDBModel.Clear();
             Sys_StorySoundDBModel.Clear();
             Sys_UIFormDBModel.Clear();
             Sys_SceneDBModel.Clear();
@@ -213,6 +215,9 @@ namespace YouYou
             RoleAnimationList.Clear();
             BaseRoleList.Clear();
             RoleAnimCategoryList.Clear();
+            
+            SkillLevelList.Clear();
+            BuffList.Clear();
         }
 
         public void Dispose()

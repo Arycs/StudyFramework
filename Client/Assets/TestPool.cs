@@ -6,10 +6,15 @@ using YouYou;
 public class TestPool : MonoBehaviour
 {
     private Queue<Transform> m_RoleObjList;
+
+    private Dictionary<string, string> a = new Dictionary<string,string>();
     // Start is called before the first frame update
     void Start()
     {
         m_RoleObjList = new Queue<Transform>();
+        a.Add("DTSys_Code","DTSys_Code");
+        a.Add("DTSys_CommonEventId","DTSys_CommonEventId");
+        Debug.Log(a.ContainsKey("DTSys_CommonEventId"));
     }
 
     // Update is called once per frame

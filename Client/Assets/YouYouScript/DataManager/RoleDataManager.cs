@@ -263,7 +263,15 @@ public class RoleDataManager : IDisposable
                 {
                     try
                     {
-                        roleCtrl.ClickMove(new UnityEngine.Vector3() { x = data.TargetPos.X, y = data.TargetPos.Y, z = data.TargetPos.Z });
+                        // //TODO 当角色刚上线的时候 ,NPC如果在服务器跑动,则会导致此处Target 目标为空, 需要进行特殊处理
+                        // if (data.TargetPos == null)
+                        // {
+                        //     roleCtrl.ClickMove(new UnityEngine.Vector3() { x = data.CurrPos.X, y = data.CurrPos.Y, z = data.CurrPos.Z });
+                        // }
+                        // else
+                        // {
+                            roleCtrl.ClickMove(new UnityEngine.Vector3() { x = data.TargetPos.X, y = data.TargetPos.Y, z = data.TargetPos.Z });
+                        // }
                     }
                     catch (Exception e)
                     {

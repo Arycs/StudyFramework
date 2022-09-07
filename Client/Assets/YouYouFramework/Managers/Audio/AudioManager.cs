@@ -100,7 +100,7 @@ namespace YouYou
             DTSys_AudioEntity entity = GameEntry.DataTable.Sys_AudioDBModel.Get(audioId);
             if (entity != null)
             {
-                PlayBGM(entity.AssetPath, entity.volume);
+                PlayBGM(entity.AssetPath, entity.Volume);
             }
             else
             {
@@ -277,7 +277,7 @@ namespace YouYou
             DTSys_AudioEntity entity = GameEntry.DataTable.Sys_AudioDBModel.Get(audioId);
             if (entity != null)
             {
-                return PlayAudio(entity.AssetPath, entity.volume, parameterName, value, entity.Is3D == 1, pos3D);
+                return PlayAudio(entity.AssetPath, entity.Volume, parameterName, value, entity.Is3D == 1, pos3D);
             }
             else
             {

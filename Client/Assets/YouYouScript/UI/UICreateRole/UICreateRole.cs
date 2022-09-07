@@ -63,7 +63,7 @@ public class UICreateRole : UIFormBase
 
     private void GoToSelectRole()
     {
-        GameEntry.UI.OpenUIForm(global::UIFormId.UI_SelectRole);
+        GameEntry.UI.OpenUIForm(SysUIFormId.UI_SelectRole);
         this.Close();
     }
 

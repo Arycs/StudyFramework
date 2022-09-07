@@ -39,7 +39,7 @@ namespace YouYou
             {
                 GameEntry.Pool.GameObjectDeSpawn(m_CurrSelectRole);
             }
-            GameEntry.UI.CloseUIForm(UIFormId.UI_CreateRole);
+            GameEntry.UI.CloseUIForm(SysUIFormId.UI_CreateRole);
         }
 
         public override void OnDestroy()
@@ -88,7 +88,7 @@ namespace YouYou
         private IEnumerator LoadSceneComplete()
         {
             yield return new WaitUntil(() => SelectRoleSceneCtrl.Instance != null);
-            GameEntry.UI.CloseUIForm(UIFormId.UI_LogonBG);
+            GameEntry.UI.CloseUIForm(SysUIFormId.UI_LogonBG);
             GameEntry.Data.UserDataManager.GetRoleList();
         }
 

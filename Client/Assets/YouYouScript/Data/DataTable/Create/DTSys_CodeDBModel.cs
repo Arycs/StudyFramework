@@ -31,7 +31,7 @@ public partial class DTSys_CodeDBModel : DataTableDBModelBase<DTSys_CodeDBModel,
             DTSys_CodeEntity entity = new DTSys_CodeEntity();
             entity.Id = ms.ReadInt();
             entity.Desc = ms.ReadUTF8String();
-            entity.Key = ms.ReadUTF8String();
+            entity.Name = ms.ReadUTF8String();
 
             m_List.Add(entity);
             m_Dic[entity.Id] = entity;

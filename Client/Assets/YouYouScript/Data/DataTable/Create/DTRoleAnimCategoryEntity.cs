@@ -27,6 +27,11 @@ public partial class DTRoleAnimCategoryEntity : DataTableEntityBase
     public int RunAnimId;
 
     /// <summary>
+    /// 受伤
+    /// </summary>
+    public int HurtAnimId;
+
+    /// <summary>
     /// 攻击1
     /// </summary>
     public int Attack_1;

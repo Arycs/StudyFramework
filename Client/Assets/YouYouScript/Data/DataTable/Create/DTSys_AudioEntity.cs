@@ -22,13 +22,13 @@ public partial class DTSys_AudioEntity : DataTableEntityBase
     public string AssetPath;
 
     /// <summary>
-    /// 是否3D声音
+    /// 是否3d声音
     /// </summary>
     public int Is3D;
 
     /// <summary>
-    /// 音量(0-1)
+    /// 音量（0-1）
     /// </summary>
-    public float volume;
+    public float Volume;
 
 }

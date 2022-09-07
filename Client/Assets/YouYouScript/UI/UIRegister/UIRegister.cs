@@ -95,6 +95,6 @@ public class UIRegister : UIFormBase
     private void OnLoginClick()
     {
         this.Close();
-        GameEntry.UI.OpenUIForm(global::UIFormId.UI_Login);
+        GameEntry.UI.OpenUIForm(SysUIFormId.UI_Login);
     }
 }

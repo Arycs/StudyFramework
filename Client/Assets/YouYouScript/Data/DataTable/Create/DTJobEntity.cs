@@ -41,34 +41,4 @@ public partial class DTJobEntity : DataTableEntityBase
     /// </summary>
     public string JobDesc;
 
-    /// <summary>
-    /// 系数---攻击
-    /// </summary>
-    public int Attack;
-
-    /// <summary>
-    /// 系数--防御
-    /// </summary>
-    public int Defense;
-
-    /// <summary>
-    /// 系数--命中率
-    /// </summary>
-    public int Hit;
-
-    /// <summary>
-    /// 系数--闪避率
-    /// </summary>
-    public int Dodge;
-
-    /// <summary>
-    /// 系数--暴击率
-    /// </summary>
-    public int Cri;
-
-    /// <summary>
-    /// 系数--抗性
-    /// </summary>
-    public int Res;
-
 }
