@@ -28,10 +28,6 @@ namespace ExcelTool
         /// </summary>
         private static string OutCSharpFilePath;
         /// <summary>
-        /// 导出Lua脚本路径
-        /// </summary>
-        private static string OutLuaFilePath;
-        /// <summary>
         /// 服务器端表格文件路径
         /// </summary>
         private static string OutBytesFilePath_Server;
@@ -39,7 +35,19 @@ namespace ExcelTool
         /// 服务器端c#脚本路径
         /// </summary>
         private static string OutCSharpFilePath_Server;
+        /// <summary>
+        /// 客户端生成Sys表格ID路径
+        /// </summary>
+        private static string OutConfigIdPath_Client;
+        /// <summary>
+        /// 客户端生成Sys表格ID路径
+        /// </summary>
+        private static string OutConfigIdPath_Server;
 
+        /// <summary>
+        /// 生成对应ID的文件名称列表
+        /// </summary>
+        private static Dictionary<string, string> OutConfigFileList;
 
         static void Main(string[] args)
         {
@@ -56,7 +64,6 @@ namespace ExcelTool
         {
             //获取当前路径的config.txt文件
             string configPath = Environment.CurrentDirectory + "/config.txt";
-
             if (File.Exists(configPath))
             {
                 string str = "";
@@ -71,42 +78,71 @@ namespace ExcelTool
                 if (!string.IsNullOrEmpty(str))
                 {
                     string[] arr = str.Split('\n');
-                    //2020-12-2目前只用到4个路径,
                     if (arr.Length >= 4)
                     {
                         SourceExcelPath = arr[0].Trim();
                         OutBytesFilePath = arr[1].Trim();
                         OutCSharpFilePath = arr[2].Trim();
-                        OutLuaFilePath = arr[3].Trim();
-                        OutBytesFilePath_Server = arr[4].Trim();
-                        OutCSharpFilePath_Server = arr[5].Trim();
+                        OutBytesFilePath_Server = arr[3].Trim();
+                        OutCSharpFilePath_Server = arr[4].Trim();
+                        OutConfigIdPath_Client = arr[5].Trim();
+                        OutConfigIdPath_Server = arr[6].Trim();
+                    }
+                }
+            }
+
+            OutConfigFileList = new Dictionary<string, string>();
+            //获取当前路径的GenerateIDConfig.txt文件
+            string generateIDConfigPath = Environment.CurrentDirectory + "/GenerateIDConfig.txt";
+            if (File.Exists(generateIDConfigPath))
+            {
+                string str = "";
+                using (FileStream fs = new FileStream(generateIDConfigPath, FileMode.Open))
+                {
+                    using (StreamReader sr = new StreamReader(fs))
+                    {
+                        str = sr.ReadToEnd();
+                    }
+                }
+
+                if (!string.IsNullOrEmpty(str))
+                {
+                    string[] arr = str.Split('\n');
+                    int len = arr.Length;
+                    for (int i = 0; i < len; i++)
+                    {
+                        OutConfigFileList.Add(arr[i].Replace("\r",""), arr[i]);
                     }
                 }
             }
         }
 
-        public static List<string> ReadFiles(string path)
+        public static void ReadFiles(string path)
         {
-            string[] arr = Directory.GetFiles(path);
-
-            List<string> lst = new List<string>();
+            // 获取原始路径下文件夹
+            string[] arr = Directory.GetDirectories(path);
 
             int len = arr.Length;
             for (int i = 0; i < len; i++)
             {
-                string filePath = arr[i];
-                FileInfo file = new FileInfo(filePath);
-                if (file.Name.IndexOf("~$") > -1)
+                //获取不同文件夹下的文件路径
+                string[] dtArr = Directory.GetFiles(arr[i]);
+                int fileLen = dtArr.Length;
+                for (int j = 0; j < fileLen; j++)
                 {
-                    continue;
-                }
-                if (file.Extension.Equals(".xls") || file.Extension.Equals(".xlsx"))
-                {
-                    ReadData(file.Extension.Equals(".xls"), file.FullName, file.Name.Substring(0, file.Name.LastIndexOf('.')));
+                    string filePath = dtArr[j];
+                    FileInfo file = new FileInfo(filePath);
+                    if (file.Name.IndexOf("~$") > -1)
+                    {
+                        continue;
+                    }
+                    if (file.Extension.Equals(".xls") || file.Extension.Equals(".xlsx"))
+                    {
+                        ReadData(file.Extension.Equals(".xls"), file.FullName, file.Name.Substring(0, file.Name.LastIndexOf('.')));
+                    }
                 }
             }
 
-            return lst;
         }
 
 
@@ -167,14 +203,25 @@ namespace ExcelTool
                 //数据格式 行数 列数 二维数组每项的值 这里不做判断 都用string存储
                 tableHeadArr = null;
 
+                //注释行 行数
+                int notesRowsNum = -1;
+
                 byte[] buffer = null;
 
                 using (MMO_MemoryStream ms = new MMO_MemoryStream())
                 {
+                    //表格行数
                     int rows = dt.Rows.Count;
+                    //表格列数
                     int columns = dt.Columns.Count;
-
-                    tableHeadArr = new string[columns, 3];
+                    if (OutConfigFileList.ContainsKey(fileName))
+                    {
+                        tableHeadArr = new string[columns, rows];
+                    }
+                    else
+                    {
+                        tableHeadArr = new string[columns, 3];
+                    }
 
                     ms.WriteInt(rows - 3); //减去表头的三行
                     ms.WriteInt(columns);
@@ -188,8 +235,22 @@ namespace ExcelTool
                             }
                             else
                             {
+                                if (OutConfigFileList.ContainsKey(fileName))
+                                {
+                                    tableHeadArr[j, i] = dt.Rows[i][j].ToString().Trim();
+                                }
                                 string type = tableHeadArr[j, 1];
                                 string value = dt.Rows[i][j].ToString().Trim();
+                                //判断 以#开头的行为注释行, 不用进行数据管理
+                                if (value.StartsWith("#"))
+                                {
+                                    notesRowsNum = i;
+                                    continue;
+                                }
+                                if (notesRowsNum == i)
+                                {
+                                    continue;
+                                }
 
                                 //Console.WriteLine("type=" + type + "||" + "value=" + value);
 
@@ -216,9 +277,15 @@ namespace ExcelTool
                                     case "double":
                                         ms.WriteDouble(string.IsNullOrEmpty(value) ? 0 : double.Parse(value));
                                         break;
+                                    case "int[]":
+                                        ms.WriteIntArr(value);
+                                        break;
+                                    case "0":
+                                        break;
                                     default:
                                         ms.WriteUTF8String(value);
                                         break;
+
                                 }
                             }
                         }
@@ -261,6 +328,14 @@ namespace ExcelTool
                 CreateServerDBModel(fileName, tableHeadArr);
                 Console.WriteLine("服务器表格=>" + fileName + " 生成数据访问脚本完毕");
 
+
+                if (OutConfigFileList.ContainsKey(fileName))
+                {
+                    CreateCSFileId(fileName,tableHeadArr);
+                    Console.WriteLine("表格=>" + fileName + " 生成UIID类完成");
+                }
+
+
             }
             catch (Exception ex)
             {
@@ -293,7 +368,7 @@ namespace ExcelTool
 
             for (int i = 0; i < dataArr.GetLength(0); i++)
             {
-                if (i == 0)
+                if (i == 0 || dataArr[i, 1] == "0")
                     continue;
                 sbr.Append("    /// <summary>\r\n");
                 sbr.AppendFormat("    /// {0}\r\n", dataArr[i, 2]);
@@ -306,75 +381,6 @@ namespace ExcelTool
 
 
             using (FileStream fs = new FileStream(string.Format("{0}/{1}Entity.cs", OutCSharpFilePath, fileName), FileMode.Create))
-            {
-                using (StreamWriter sw = new StreamWriter(fs))
-                {
-                    sw.Write(sbr.ToString());
-                }
-            }
-
-            //=======================创建Lua的实体
-            sbr.Clear();
-
-            sbr.AppendFormat("{0}Entity = {{ ", fileName);
-
-            for (int i = 0; i < dataArr.GetLength(0); i++)
-            {
-
-                if (i == dataArr.GetLength(0) - 1)
-                {
-                    if (dataArr[i, 1].Equals("string", StringComparison.CurrentCultureIgnoreCase))
-                    {
-                        sbr.AppendFormat("{0} = \"\"", dataArr[i, 0]);
-                    }
-                    else
-                    {
-                        sbr.AppendFormat("{0} = 0", dataArr[i, 0]);
-                    }
-                }
-                else
-                {
-                    if (dataArr[i, 1].Equals("string", StringComparison.CurrentCultureIgnoreCase))
-                    {
-                        sbr.AppendFormat("{0} = \"\", ", dataArr[i, 0]);
-                    }
-                    else
-                    {
-                        sbr.AppendFormat("{0} = 0, ", dataArr[i, 0]);
-                    }
-                }
-            }
-            sbr.Append(" }\r\n");
-
-            sbr.Append("\r\n");
-            sbr.AppendFormat("{0}Entity.__index = {0}Entity;\r\n", fileName);
-            sbr.Append("\r\n");
-            sbr.AppendFormat("function {0}Entity.New(", fileName);
-            for (int i = 0; i < dataArr.GetLength(0); i++)
-            {
-                if (i == dataArr.GetLength(0) - 1)
-                {
-                    sbr.AppendFormat("{0}", dataArr[i, 0]);
-                }
-                else
-                {
-                    sbr.AppendFormat("{0}, ", dataArr[i, 0]);
-                }
-            }
-            sbr.Append(")\r\n");
-            sbr.Append("    local self = { };\r\n");
-            sbr.Append("");
-            sbr.AppendFormat("    setmetatable(self, {0}Entity);\r\n", fileName);
-            sbr.Append("\r\n");
-            for (int i = 0; i < dataArr.GetLength(0); i++)
-            {
-                sbr.AppendFormat("    self.{0} = {0};\r\n", dataArr[i, 0]);
-            }
-            sbr.Append("\r\n");
-            sbr.Append("    return self;\r\n");
-            sbr.Append("end");
-
-            using (FileStream fs = new FileStream(string.Format("{0}/{1}Entity.bytes", OutLuaFilePath, fileName), FileMode.Create))
             {
                 using (StreamWriter sw = new StreamWriter(fs))
                 {
@@ -406,7 +412,7 @@ namespace ExcelTool
 
             for (int i = 0; i < dataArr.GetLength(0); i++)
             {
-                if (i == 0)
+                if (i == 0 || dataArr[i, 1] == "0")
                     continue;
                 sbr.Append("        /// <summary>\r\n");
                 sbr.AppendFormat("        /// {0}\r\n", dataArr[i, 2]);
@@ -473,6 +479,10 @@ namespace ExcelTool
 
             for (int i = 0; i < dataArr.GetLength(0); i++)
             {
+                if ("0" == dataArr[i, 1])
+                {
+                    continue;
+                }
                 if (dataArr[i, 1].Equals("byte", StringComparison.CurrentCultureIgnoreCase))
                 {
                     sbr.AppendFormat("            entity.{0} = (byte)ms.Read{1}();\r\n", dataArr[i, 0], ChangeTypeName(dataArr[i, 1]));
@@ -491,70 +501,6 @@ namespace ExcelTool
 
             sbr.Append("}");
             using (FileStream fs = new FileStream(string.Format("{0}/{1}DBModel.cs", OutCSharpFilePath, fileName), FileMode.Create))
-            {
-                using (StreamWriter sw = new StreamWriter(fs))
-                {
-                    sw.Write(sbr.ToString());
-                }
-            }
-
-            //===============生成lua的DBModel
-            sbr.Clear();
-            sbr.Append("--数据访问\r\n");
-            sbr.AppendFormat("{0}DBModel = {{ }}\r\n", fileName);
-            sbr.Append("\r\n");
-            sbr.AppendFormat("local this = {0}DBModel;\r\n", fileName);
-            sbr.Append("\r\n");
-            sbr.AppendFormat("local {0}Table = {{ }}; --定义表格\r\n", fileName.ToLower());
-            sbr.Append("\r\n");
-            sbr.AppendFormat("function {0}DBModel.LoadList()\r\n", fileName);
-            sbr.Append("    GameInit.AddTotalLoadTableCount();\r\n");
-            sbr.AppendFormat("    CS.YouYou.GameEntry.Lua:LoadDataTable(\"{0}\", this.LoadFormMS);\r\n", fileName);
-            sbr.Append("end\r\n");
-            sbr.Append("\r\n");
-            sbr.AppendFormat("function {0}DBModel.LoadFormMS(ms)\r\n", fileName);
-            sbr.Append("    local rows = ms:ReadInt();\r\n");
-            sbr.Append("    ms:ReadInt();\r\n");
-            sbr.Append("\r\n");
-            sbr.Append("    for i = 1, rows, 1 do\r\n");
-            sbr.AppendFormat("        {0}Table[#{0}Table + 1] = {1}Entity.New(\r\n", fileName.ToLower(), fileName);
-
-            string str = "";
-            for (int i = 0; i < dataArr.GetLength(0); i++)
-            {
-                if (dataArr[i, 1].Equals("byte", StringComparison.CurrentCultureIgnoreCase))
-                {
-                    str += string.Format("                ms:Read{1}(),\r\n", dataArr[i, 0], ChangeTypeName(dataArr[i, 1]));
-                }
-                else
-                {
-                    str += string.Format("                ms:Read{1}(),\r\n", dataArr[i, 0], ChangeTypeName(dataArr[i, 1]));
-                }
-            }
-            str = str.TrimEnd(',', '\r', '\n');
-            sbr.AppendFormat("{0}\r\n", str);
-            sbr.Append("        );\r\n");
-            sbr.Append("    end\r\n");
-            sbr.Append("    GameInit.LoadOneTableComplete();\r\n");
-            sbr.Append("end\r\n");
-            sbr.Append("\r\n");
-            sbr.AppendFormat("function {0}DBModel.GetList()\r\n", fileName);
-            sbr.AppendFormat("    return {0}Table;\r\n", fileName.ToLower());
-            sbr.Append("end");
-            sbr.Append("\r\n");
-            sbr.Append("\r\n");
-            sbr.AppendFormat("function {0}DBModel.GetEntity(id)\r\n", fileName);
-            sbr.AppendFormat("    local ret = nil;\r\n");
-            sbr.AppendFormat("    for i = 1, #{0}Table, 1 do\r\n", fileName.ToLower());
-            sbr.AppendFormat("        if ({0}Table[i].Id == id) then\r\n", fileName.ToLower());
-            sbr.AppendFormat("            ret = {0}Table[i];\r\n", fileName.ToLower());
-            sbr.AppendFormat("            break;\r\n");
-            sbr.AppendFormat("        end\r\n");
-            sbr.AppendFormat("    end\r\n");
-            sbr.AppendFormat("    return ret;\r\n");
-            sbr.AppendFormat("end");
-
-            using (FileStream fs = new FileStream(string.Format("{0}/{1}DBModel.bytes", OutLuaFilePath, fileName), FileMode.Create))
             {
                 using (StreamWriter sw = new StreamWriter(fs))
                 {
@@ -606,6 +552,10 @@ namespace ExcelTool
 
             for (int i = 0; i < dataArr.GetLength(0); i++)
             {
+                if ("0" == dataArr[i, 1])
+                {
+                    continue;
+                }
                 if (dataArr[i, 1].Equals("byte", StringComparison.CurrentCultureIgnoreCase))
                 {
                     sbr.AppendFormat("                entity.{0} = (byte)ms.Read{1}();\r\n", dataArr[i, 0], ChangeTypeName(dataArr[i, 1]));
@@ -659,6 +609,9 @@ namespace ExcelTool
                     break;
                 case "bool":
                     str = "Bool";
+                    break;
+                case "int[]":
+                    str = "IntArr";
                     break;
             }
 
@@ -739,12 +692,60 @@ namespace ExcelTool
         }
         #endregion
 
-        /// <summary>
-        /// 创建UIFormId
-        /// </summary>
-        private static void CreateUIFormId()
+        private static void CreateCSFileId(string fileName, string[,] dataArr)
         {
+            if (dataArr == null)
+                return;
+            var csFileName =  CheckCSFileName(fileName);
+            StringBuilder sbr = new StringBuilder();
+            sbr.Append("\r\n");
+            sbr.Append("//===================================================\r\n");
+            sbr.Append("//作    者：ZnArycs \r\n");
+            sbr.Append($"//备    注：此代码基于{fileName}生成对应ID\r\n");
+            sbr.Append("//===================================================\r\n");
+            sbr.Append("\r\n");
+            sbr.Append("/// <summary>\r\n");
+            sbr.AppendFormat("/// UI界面ID \r\n");
+            sbr.Append("/// </summary>\r\n");
+            sbr.AppendFormat($"public static class {csFileName}\r\n");
+            sbr.Append("{\r\n");
 
+            for (int i = 3; i < dataArr.GetLength(1); i++)
+            {
+                sbr.Append("    /// <summary>\r\n");
+                sbr.AppendFormat("    ///{0} \r\n", dataArr[1, i]);
+                sbr.Append("    /// </summary>\r\n");
+                sbr.AppendFormat("    public const int {0} = {1};\r\n", dataArr[2, i], dataArr[0, i]);
+                sbr.Append("\r\n");
+            }
+            sbr.Append("}");
+            using (FileStream fs = new FileStream(string.Format("{0}/{1}.cs", OutConfigIdPath_Server, csFileName), FileMode.Create))
+            {
+                using (StreamWriter sw = new StreamWriter(fs))
+                {
+                    sw.Write(sbr.ToString());
+                }
+            }
+            using (FileStream fs = new FileStream(string.Format("{0}/{1}.cs", OutConfigIdPath_Client, csFileName), FileMode.Create))
+            {
+                using (StreamWriter sw = new StreamWriter(fs))
+                {
+                    sw.Write(sbr.ToString());
+                }
+            }
+        }
+
+
+        public static string CheckCSFileName(string name)
+        {
+            string res = "";
+            res = name.Replace("DT", "");
+            res = res.Replace('_', ' ').Replace(" ","");
+            if (name.EndsWith("Job") || name.EndsWith("UIForm") || name.EndsWith("Prefab"))
+            {
+                res += "Id";
+            }
+            return res;
         }
     }
 }
